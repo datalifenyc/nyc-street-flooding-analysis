@@ -4,6 +4,12 @@ The objective of this presentation is to examine various approaches for gaining 
 
 [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://nyc-street-flood-analysis.datalife.nyc)
 
+## Event Details
+
+__NYC Open Data Website:__ [NYC Open Data Week 2023](https://www.open-data.nyc/)
+
+__Analysis Book:__ [nyc-street-flood-analysis.datalife.nyc](https://nyc-street-flood-analysis.datalife.nyc)
+
 ## Presenters | Say Hello 👋
 
 | Presenter | LinkedIn | GitHub | Twitter |
@@ -12,12 +18,6 @@ The objective of this presentation is to examine various approaches for gaining 
 | Chidi Ezeolu | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/chidi-ezeolu-411b0856) | [![GitHub followers](https://img.shields.io/github/followers/datalifenyc?style=social)](https://github.com/datalifenyc)| |
 | Ho Hsieh | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/hohsieh/) | [![GitHub followers](https://img.shields.io/github/followers/hohsieh?style=social)](https://github.com/hohsieh) | |
 | Nathan Williamson | | [![GitHub followers](https://img.shields.io/github/followers/nateswill?style=social)](https://github.com/nateswill) | |
-
-## Event Details
-
-__NYC Open Data Website:__ [NYC Open Data Week 2023](https://www.open-data.nyc/)
-
-__Analysis Book:__ [nyc-street-flood-analysis.datalife.nyc](https://nyc-street-flood-analysis.datalife.nyc)
 
 ## Installation
 
