@@ -1,0 +1,18 @@
+format: jb-book
+root: about
+parts:
+  - caption: Obtain
+    chapters: 
+    - file: get-data
+  - caption: Scrub
+    chapters:
+    - file: clean-data
+  - caption: Explore
+    chapters:
+    - file: auto-eda
+  - caption: Models
+    chapters:
+    - file: build-model
+  - caption: Interpret
+    chapters:
+    - file: communicate-results

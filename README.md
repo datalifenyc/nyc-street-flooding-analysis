@@ -2,13 +2,13 @@
 
 The objective of this presentation is to examine various approaches for gaining deeper insights and a better understanding of the [NYC 311 Street Flood Complaints](https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9) open data.
 
-[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://nyc-street-flood-analysis.datalife.nyc)
+[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://nyc-street-flooding-analysis.datalife.nyc)
 
 ## Event Details
 
 __NYC Open Data Website:__ [NYC Open Data Week 2023](https://www.open-data.nyc/)
 
-__Analysis Book:__ [nyc-street-flood-analysis.datalife.nyc](https://nyc-street-flood-analysis.datalife.nyc)
+__Analysis Book:__ [nyc-street-flooding-analysis.datalife.nyc](https://nyc-street-flooding-analysis.datalife.nyc)
 
 ## Presenters | Say Hello 👋
 
