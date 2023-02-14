@@ -1,0 +1,45 @@
+# ----------
+# References
+# ----------
+
+# Replace folder using upload-cloud-storage action
+# https://stackoverflow.com/questions/68373383/replace-folder-using-upload-cloud-storage-action
+
+# rsync - Synchronize content of two buckets/directories
+# https://cloud.google.com/storage/docs/gsutil/commands/rsync
+
+# setup-gcloud GitHub Action
+# https://github.com/google-github-actions/setup-gcloud
+
+# Google GitHub Actions: auth
+# https://github.com/google-github-actions/auth
+
+# Deploy To Google Cloud Run Using Github Actions
+# https://towardsdatascience.com/deploy-to-google-cloud-run-using-github-actions-590ecf957af0
+
+name: Upload Files to GCP Storage
+on: [push]
+jobs:
+  Upload-NYC-Street-Flooding-Analysis-Book-Files:
+    name: Copy latest files to GCP Storage
+    runs-on: ubuntu-latest
+
+    # Add "id-token" with the intended permissions.
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - id: 'auth'
+      uses: google-github-actions/auth@v0
+      with:
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+        
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v0'
+
+    - name: 'Use glcloud CLI'
+      run: 'gsutil -m rsync -R -d analysis-book/_build/html gs://nyc_street_flooding_analysis_nb_bucket_00'
