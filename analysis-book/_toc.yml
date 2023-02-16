@@ -10,9 +10,9 @@ parts:
   - caption: Explore 📊
     chapters:
     - file: auto-eda
-  - caption: Models
+  - caption: Models 🏗
     chapters:
     - file: build-model
-  - caption: Interpret
+  - caption: Interpret 💡
     chapters:
     - file: communicate-results

@@ -10,6 +10,14 @@ html:
   favicon: favicon.ico
   use_repository_button: true
   use_issues_button: true
+  extra_navbar: |
+        <div>
+            Powered by <a href="https://jupyterbook.org/">Jupyter Book</a>
+            <br/>
+            Informed by <a href="https://opendata.cityofnewyork.us">NYC Open Data</a>
+            <br/>
+            <span style="font-family:Baskerville;font-style:italic;color:Chocolate;">Driven by Curiosity!</span>
+        </div>
 sphinx:
   config:
     html_js_files:

@@ -1,31 +1,40 @@
-# Introduction
+# [NYC Open Data Week 2023](https://www.open-data.nyc/) 🗓
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/datalifenyc/nyc-street-flooding-analysis?style=social)](https://github.com/datalifenyc/nyc-street-flooding-analysis)
 
-## Event 🗓
+## Description 📰
 
-[NYC Open Data Week 2023](https://www.open-data.nyc/)  
+- What secrets can we learn about NYC from 311 Street Flooding Complaints❓
+- Have you ever considered examining the relationship of NYC 311 Street Complaints dataset to other geospatial datasets❓
 
-## Description
+__In the talk, we attempt to answer three questions:__
 
-What secrets can we learn about NYC from 311 Street Flooding Complaints❓ Have you ever considered examining the relationship of NYC 311 Street Complaints dataset to other geospatial datasets❓
+::::{grid}
+:gutter: 3
 
-In the talk, we attempt to answer three questions:
+:::{grid-item-card} 1️⃣
+_How can we measure inequality in street flooding complaints?_
+:::
 
-1. How can we measure inequality in street flooding complaints?
-2. Is there a relationship between street flooding complaints and property values?
-3. How does street flooding complaints compare to actual modeled flooding data?
+:::{grid-item-card} 2️⃣
+_Is there a relationship between street flooding complaints and property values?_
+:::
+
+:::{grid-item-card} 3️⃣
+_How does street flooding complaints compare to actual modeled flooding data?_
+:::
+::::
 
 This project stems from a prior NYC Open Data 2021 talk: [Analyzing NYC's 311 Street Flooding Complaints from 2010 to 2020](https://github.com/mebauer/nyc-311-street-flooding), given by [Mark Bauer](https://github.com/mebauer). This talk is an attempt to address some of the questions that were asked during the Q&A session.
 
-## Who should attend?
+## Who should attend? 👩🏽‍💻
 
-Anyone with beginner-level proficiency is welcome! It is helpful, but not required to have some background knowledge in:
+Anyone with __beginner-level__ proficiency is welcome! It is helpful, but not required to have some background knowledge in:
 
-- Basics of Python or other programming languages (R, SQL, etc.)
-- Implementing Data Analysis techniques
-- Working with Jupyter Notebooks
-- Interest in NYC 311 Open Data or Street Flooding datasets
+✔ Basics of Python or other programming languages (R, SQL, etc.)  
+✔ Implementing Data Analysis techniques  
+✔ Working with Jupyter Notebooks  
+✔ Interest in NYC 311 Open Data or Street Flooding datasets  
 
 ## Speakers 🗣
 
