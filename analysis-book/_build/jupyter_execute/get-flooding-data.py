@@ -82,7 +82,7 @@ street_flooding_gdf['resolution_action_updated_date'] = street_flooding_gdf['res
 street_flooding_gdf['closed_date'] = street_flooding_gdf['closed_date'].dt.strftime('%Y-%m-%d %H:%M:%S')
 
 
-# ### Set Index as `unique_key`
+# ### Set `unique_key` as Index
 
 # In[6]:
 
@@ -124,6 +124,7 @@ popup_columns = [
     'city',
     'incident_zip',
     'borough',
+    'bbl',
     'status',
 ]
 
