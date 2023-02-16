@@ -3,16 +3,16 @@ root: about
 parts:
   - caption: Obtain 💾
     chapters: 
-    - file: get-flooding-data
+    - file: obtain-flood-data
   - caption: Scrub 🧹
     chapters:
-    - file: clean-data
+    - file: scrub-data
   - caption: Explore 📊
     chapters:
-    - file: auto-eda
+    - file: explore-auto-eda
   - caption: Model 🏗
     chapters:
-    - file: build-model
+    - file: model-build
   - caption: Interpret 💡
     chapters:
-    - file: communicate-results
+    - file: interpret-results
