@@ -117,123 +117,21 @@ street_flooding_gdf['geometry'] = street_flooding_gdf.geometry
 # In[10]:
 
 
-street_flooding_gdf.explore('borough')
+popup_columns = [
+    'geometry',
+    'created_date',
+    'incident_address',
+    'city',
+    'incident_zip',
+    'borough',
+    'status',
+]
 
 
 # In[11]:
 
 
-nybb_df = gpd.read_file(gpd.datasets.get_path('nybb'))
-# nybb_df.set_crs(epsg=3857, inplace=True)
-
-
-# In[12]:
-
-
-nybb_df.info()
-
-
-# In[13]:
-
-
-nybb_df = nybb_df.set_index("BoroName")
-
-
-# In[14]:
-
-
-nybb_df['area'] = nybb_df.area
-
-
-# In[15]:
-
-
-nybb_df['boundary'] = nybb_df.boundary
-
-
-# In[16]:
-
-
-nybb_df['centroid'] = nybb_df.centroid
-
-
-# In[17]:
-
-
-nybb_df.plot('area', legend=True)
-
-
-# In[18]:
-
-
-nybb_df.explore("area", legend=False)
-
-
-# In[19]:
-
-
-nybb_df.index
-
-
-# In[20]:
-
-
-nybb_df.columns
-
-
-# In[21]:
-
-
-nybb_df.index
-
-
-# In[22]:
-
-
-nybb_df.head()
-
-
-# In[23]:
-
-
-nybb_df.dtypes
-
-
-# In[24]:
-
-
-nybb_df.info()
-
-
-# In[25]:
-
-
-print(type(list(nybb_df.index)))
-
-
-# In[26]:
-
-
-nybb = gpd.read_file(gpd.datasets.get_path('nybb'))
-
-
-# In[27]:
-
-
-nybb.explore()
-
-
-# In[28]:
-
-
-nybb.explore(
-     column="BoroName", # make choropleth based on "BoroName" column
-     tooltip="BoroName", # show "BoroName" value in tooltip (on hover)
-     popup=True, # show all values in popup (on click)
-     tiles="CartoDB positron", # use "CartoDB positron" tiles
-     cmap="Set1", # use "Set1" matplotlib colormap
-     style_kwds=dict(color="black") # use black outline
-    )
+street_flooding_gdf[popup_columns].explore('borough')
 
 
 # ## References
