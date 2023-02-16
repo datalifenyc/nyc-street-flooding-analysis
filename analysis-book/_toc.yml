@@ -1,13 +1,13 @@
 format: jb-book
 root: about
 parts:
-  - caption: Obtain
+  - caption: Obtain 💾
     chapters: 
     - file: get-data
-  - caption: Scrub
+  - caption: Scrub 🧹
     chapters:
     - file: clean-data
-  - caption: Explore
+  - caption: Explore 📊
     chapters:
     - file: auto-eda
   - caption: Models

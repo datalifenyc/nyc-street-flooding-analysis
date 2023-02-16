@@ -1,6 +1,7 @@
 title: "<b>Going Beyond EDA</b><br>A Deeper Analysis of NYC 311 Street Flooding Complaints"
 author: Ho Hsieh, Nathan Williamson, Mark Bauer, Chidi Ezeolu
 copyright: "2023"
+logo: "nyc-street-flooding-complaints-logo.png"
 repository:
   url: https://github.com/datalifenyc/nyc-street-flooding-analysis
   path_to_book: analysis-book

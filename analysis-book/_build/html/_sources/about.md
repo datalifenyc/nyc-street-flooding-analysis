@@ -1,14 +1,14 @@
-# __Going Beyond EDA:__ A Deeper Analysis of NYC 311 Street Flooding Complaints
+# Introduction
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/datalifenyc/nyc-street-flooding-analysis?style=social)](https://github.com/datalifenyc/nyc-street-flooding-analysis)
 
-## Event
+## Event 🗓
 
 [NYC Open Data Week 2023](https://www.open-data.nyc/)  
 
-## Introduction
+## Description
 
-What secrets can we learn about NYC from 311 Street Flooding Complaints? Have you ever considered examining the relationship of NYC  311 Street Complaints dataset to other geospatial datasets?
+What secrets can we learn about NYC from 311 Street Flooding Complaints❓ Have you ever considered examining the relationship of NYC 311 Street Complaints dataset to other geospatial datasets❓
 
 In the talk, we attempt to answer three questions:
 
@@ -27,13 +27,13 @@ Anyone with beginner-level proficiency is welcome! It is helpful, but not requir
 - Working with Jupyter Notebooks
 - Interest in NYC 311 Open Data or Street Flooding datasets
 
-## Speakers
+## Speakers 🗣
 
 A group of civic minded data enthusiasts, who enjoy solving City related data problems together.
 
 | Presenter | LinkedIn | GitHub | Twitter |
 | --------- | -------- | ------ | ------- |
-| Ho Hsieh | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/hohsieh/) | [![GitHub followers](https://img.shields.io/github/followers/hohsieh?style=social)](https://github.com/hohsieh) | |
-| Nathan Williamson | | [![GitHub followers](https://img.shields.io/github/followers/nateswill?style=social)](https://github.com/nateswill) | |
+| Ho Hsieh | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/hohsieh) | [![GitHub followers](https://img.shields.io/github/followers/hohsieh?style=social)](https://github.com/hohsieh) | |
+| Nathan Williamson | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/nathan-williamson-b0a15a122) | [![GitHub followers](https://img.shields.io/github/followers/nateswill?style=social)](https://github.com/nateswill) | |
 | Mark Bauer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/markebauer) | [![GitHub followers](https://img.shields.io/github/followers/mebauer?style=social)](https://github.com/mebauer) | [![Twitter Follow](https://img.shields.io/twitter/follow/markbauerwater?style=social)](https://twitter.com/markbauerwater) |
 | Chidi Ezeolu | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/chidi-ezeolu-411b0856) | [![GitHub followers](https://img.shields.io/github/followers/datalifenyc?style=social)](https://github.com/datalifenyc)| |
