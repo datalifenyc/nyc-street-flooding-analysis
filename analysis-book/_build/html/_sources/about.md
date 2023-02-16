@@ -41,7 +41,7 @@ Anyone with __beginner-level__ proficiency is welcome! It is helpful, but not re
 
 ## Speakers 🗣
 
-A group of civic minded data enthusiasts, who enjoy solving City related data problems together.
+A group of civic minded __data enthusiasts__, who enjoy solving City related data problems together.
 
 | Presenter | LinkedIn | GitHub | Twitter |
 | --------- | -------- | ------ | ------- |
