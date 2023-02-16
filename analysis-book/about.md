@@ -25,7 +25,10 @@ _How does street flooding complaints compare to actual modeled flooding data?_
 :::
 ::::
 
+```{admonition} Inspiration!
+:class: tip
 This project stems from a prior NYC Open Data 2021 talk: [Analyzing NYC's 311 Street Flooding Complaints from 2010 to 2020](https://github.com/mebauer/nyc-311-street-flooding), given by [Mark Bauer](https://github.com/mebauer). This talk is an attempt to address some of the questions that were asked during the Q&A session.
+```
 
 ## Who should attend? 👩🏽‍💻
 
