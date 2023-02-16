@@ -7,20 +7,23 @@
 
 # ### Built-in Libraries
 
-# In[ ]:
+# In[1]:
 
 
-
+import json
+# import requests
+# import csv
 
 
 # ### External Libraries
 
-# In[1]:
+# In[2]:
 
 
 import pyproj
 import geopandas as gpd
 import pandas as pd
+# import geojson as gj
 
 
 # ## 311 Service Requests from 2010 to Present
@@ -46,7 +49,7 @@ import pandas as pd
 # 
 # [Ref: Paging through Data](https://dev.socrata.com/docs/paging.html)
 
-# In[2]:
+# In[3]:
 
 
 NYC_OPEN_DATA_311_API_JSON = 'https://data.cityofnewyork.us/resource/erm2-nwe9.json?descriptor=Street%20Flooding%20(SJ)'
@@ -56,15 +59,44 @@ NYC_OPEN_DATA_311_API_CSV = 'https://data.cityofnewyork.us/resource/erm2-nwe9.cs
 
 # ### Download 311 Service Complaints for `Street Flooding (SJ)`
 
-# In[3]:
+# #### Define prefix for output variable
+
+# In[4]:
+
+
+output_prefix = 'data/street_flood-complaints.'
+
+
+# #### Save `.json` data locally
+
+# In[5]:
+
+
+street_flooding_jdf = pd.read_json(NYC_OPEN_DATA_311_API_JSON)
+street_flooding_jdf.to_json(output_prefix + 'json')
+
+
+# #### Save `.geojson` data locally
+
+# In[6]:
 
 
 street_flooding_gdf = gpd.read_file(NYC_OPEN_DATA_311_API_GEOJSON, driver='GeoJSON')
+street_flooding_gdf.to_file(output_prefix + 'geojson')
+
+
+# #### Save `.csv` data locally
+
+# In[7]:
+
+
+street_flooding_cdf = pd.read_csv(NYC_OPEN_DATA_311_API_CSV)
+street_flooding_cdf.to_csv(output_prefix + 'csv')
 
 
 # ### View Street Flooding Metadata
 
-# In[4]:
+# In[8]:
 
 
 street_flooding_gdf.info()
@@ -72,7 +104,7 @@ street_flooding_gdf.info()
 
 # ### Convert `datetime64` data type to string
 
-# In[5]:
+# In[9]:
 
 
 # created_date, resolution_action_updated_date, closed_date
@@ -84,7 +116,7 @@ street_flooding_gdf['closed_date'] = street_flooding_gdf['closed_date'].dt.strft
 
 # ### Set `unique_key` as Index
 
-# In[6]:
+# In[10]:
 
 
 street_flooding_gdf.set_index('unique_key', inplace=True)
@@ -92,7 +124,7 @@ street_flooding_gdf.set_index('unique_key', inplace=True)
 
 # ### Remove Rows With Missing `geometry`
 
-# In[7]:
+# In[11]:
 
 
 street_flooding_gdf.dropna(subset = ['geometry'], inplace = True)
@@ -100,7 +132,7 @@ street_flooding_gdf.dropna(subset = ['geometry'], inplace = True)
 
 # ### Preview Street Flooding Data
 
-# In[8]:
+# In[12]:
 
 
 street_flooding_gdf[['created_date', 'borough', 'bbl', 'geometry']].head(10)
@@ -108,13 +140,13 @@ street_flooding_gdf[['created_date', 'borough', 'bbl', 'geometry']].head(10)
 
 # ### View on Map
 
-# In[9]:
+# In[13]:
 
 
 street_flooding_gdf['geometry'] = street_flooding_gdf.geometry
 
 
-# In[10]:
+# In[14]:
 
 
 popup_columns = [
@@ -129,7 +161,7 @@ popup_columns = [
 ]
 
 
-# In[11]:
+# In[15]:
 
 
 street_flooding_gdf[popup_columns].explore('borough')
