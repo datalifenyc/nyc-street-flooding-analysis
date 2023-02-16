@@ -18,6 +18,7 @@ html:
             <br/>
             <span style="font-family:Baskerville;font-style:italic;color:Chocolate;">Driven by Curiosity!</span>
         </div>
+  announcement: "GitHub Repo Publically Available - March 6!"
 sphinx:
   config:
     html_js_files:
