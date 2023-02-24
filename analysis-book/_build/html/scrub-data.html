@@ -439,17 +439,6 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#convert-datetime64-data-type-to-string">
-   Convert
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     datetime64
-    </span>
-   </code>
-   data type to string
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#set-unique-key-as-index">
    Set
    <code class="docutils literal notranslate">
@@ -527,17 +516,6 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#convert-datetime64-data-type-to-string">
-   Convert
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     datetime64
-    </span>
-   </code>
-   data type to string
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#set-unique-key-as-index">
    Set
    <code class="docutils literal notranslate">
@@ -612,20 +590,6 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">nyc_street_flooding_input</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="convert-datetime64-data-type-to-string">
-<h2>Convert <code class="docutils literal notranslate"><span class="pre">datetime64</span></code> data type to string<a class="headerlink" href="#convert-datetime64-data-type-to-string" title="Permalink to this headline">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># created_date, resolution_action_updated_date, closed_date</span>
-
-<span class="n">street_flooding_gdf</span><span class="p">[</span><span class="s1">&#39;created_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">street_flooding_gdf</span><span class="p">[</span><span class="s1">&#39;created_date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
-<span class="n">street_flooding_gdf</span><span class="p">[</span><span class="s1">&#39;resolution_action_updated_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">street_flooding_gdf</span><span class="p">[</span><span class="s1">&#39;resolution_action_updated_date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
-<span class="n">street_flooding_gdf</span><span class="p">[</span><span class="s1">&#39;closed_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">street_flooding_gdf</span><span class="p">[</span><span class="s1">&#39;closed_date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

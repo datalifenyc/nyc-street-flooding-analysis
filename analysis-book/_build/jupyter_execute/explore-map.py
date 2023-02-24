@@ -54,8 +54,30 @@ popup_columns = [
 ]
 
 
+# ## Convert `datetime64` data type to string
+# 
+# `datetime64` needs to be converted to string before viewing using 
+# `GeoPandas.explore()`, otherwise the following error will appear: 
+# `Object of type Timestamp is not JSON serializable`
+
 # In[6]:
+
+
+# created_date, resolution_action_updated_date, closed_date
+
+street_flooding_gdf['created_date'] = street_flooding_gdf['created_date'].dt.strftime('%Y-%m-%d %H:%M:%S')
+street_flooding_gdf['resolution_action_updated_date'] = street_flooding_gdf['resolution_action_updated_date'].dt.strftime('%Y-%m-%d %H:%M:%S')
+street_flooding_gdf['closed_date'] = street_flooding_gdf['closed_date'].dt.strftime('%Y-%m-%d %H:%M:%S')
+
+
+# In[7]:
 
 
 street_flooding_gdf[popup_columns].explore('borough')
 
+
+# ## References
+# 
+# [ENH: explore(): skip if fields/index are Timestamp #2378 | geopandas > Issues](https://github.com/geopandas/geopandas/issues/2378)
+
+# 
