@@ -9,6 +9,7 @@ parts:
     - file: scrub-data
   - caption: Explore 📊
     chapters:
+    - file: explore-map
     - file: explore-auto-eda
   - caption: Model 🏗
     chapters:

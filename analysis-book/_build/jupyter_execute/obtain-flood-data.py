@@ -18,6 +18,7 @@
 # | Category | [Social Services](https://data.cityofnewyork.us/browse?category=Social+Services) |
 # | API Docs | https://dev.socrata.com/foundry/data.cityofnewyork.us/erm2-nwe9 |
 # | API Endpoints<br />(sample size: `10`) | [JSON](https://data.cityofnewyork.us/resource/erm2-nwe9.json?$limit=10&descriptor=Street%20Flooding%20(SJ))<br>[GeoJSON](https://data.cityofnewyork.us/resource/erm2-nwe9.geojson?$limit=10&descriptor=Street%20Flooding%20(SJ))<br>[CSV](https://data.cityofnewyork.us/resource/erm2-nwe9.csv?$limit=10&descriptor=Street%20Flooding%20(SJ)) |
+# | Data Dictionary | [311_SR_Data_Dictionary_2018.xlsx](https://data.cityofnewyork.us/api/views/erm2-nwe9/files/68b25fbb-9d30-486a-a571-7115f54911cd?download=true&filename=311_SR_Data_Dictionary_2018.xlsx)
 # | `complaint_type` | Sewer |
 # | `descriptor` | Street Flooding (SJ) |
 
@@ -58,9 +59,17 @@ get_ipython().run_cell_magic('script', 'echo skip', "NYC_OPEN_DATA_311_API_JSON 
 
 # ### Download 311 Service Complaints for `Street Flooding (SJ)`
 
-# #### Define prefix for output variable
+# #### Save `.geojson` data locally
 
 # In[4]:
+
+
+get_ipython().system('python nycstreetflood.py')
+
+
+# #### Define prefix for output variable
+
+# In[5]:
 
 
 get_ipython().run_cell_magic('script', 'echo skip', "output_prefix = 'data/street_flood-complaints.'\n")
@@ -68,18 +77,10 @@ get_ipython().run_cell_magic('script', 'echo skip', "output_prefix = 'data/stree
 
 # #### Save `.json` data locally
 
-# In[5]:
-
-
-get_ipython().run_cell_magic('script', 'echo skip', "street_flooding_jdf = pd.read_json(NYC_OPEN_DATA_311_API_JSON)\nstreet_flooding_jdf.to_json(output_prefix + 'json')\n")
-
-
-# #### Save `.geojson` data locally
-
 # In[6]:
 
 
-get_ipython().system('python nycstreetflood.py')
+get_ipython().run_cell_magic('script', 'echo skip', "street_flooding_jdf = pd.read_json(NYC_OPEN_DATA_311_API_JSON)\nstreet_flooding_jdf.to_json(output_prefix + 'json')\n")
 
 
 # ### Save `.csv` data locally
@@ -105,69 +106,16 @@ street_flooding_gdf = gpd.read_file(nyc_street_flooding_geojson)
 street_flooding_gdf.info()
 
 
-# ### Convert `datetime64` data type to string
-
 # In[10]:
-
-
-# created_date, resolution_action_updated_date, closed_date
-
-street_flooding_gdf['created_date'] = street_flooding_gdf['created_date'].dt.strftime('%Y-%m-%d %H:%M:%S')
-street_flooding_gdf['resolution_action_updated_date'] = street_flooding_gdf['resolution_action_updated_date'].dt.strftime('%Y-%m-%d %H:%M:%S')
-street_flooding_gdf['closed_date'] = street_flooding_gdf['closed_date'].dt.strftime('%Y-%m-%d %H:%M:%S')
-
-
-# ### Set `unique_key` as Index
-
-# In[11]:
-
-
-street_flooding_gdf.set_index('unique_key', inplace=True)
-
-
-# ### Remove Rows With Missing `geometry`
-
-# In[12]:
-
-
-street_flooding_gdf.dropna(subset = ['geometry'], inplace = True)
-
-
-# ### Preview Street Flooding Data
-
-# In[13]:
 
 
 street_flooding_gdf[['created_date', 'borough', 'bbl', 'geometry']].head(10)
 
 
-# ### View on Map
-
-# In[14]:
+# In[11]:
 
 
-street_flooding_gdf['geometry'] = street_flooding_gdf.geometry
-
-
-# In[15]:
-
-
-popup_columns = [
-    'geometry',
-    'created_date',
-    'incident_address',
-    'city',
-    'incident_zip',
-    'borough',
-    'bbl',
-    'status',
-]
-
-
-# In[16]:
-
-
-street_flooding_gdf[popup_columns].explore('borough')
+street_flooding_gdf[['created_date', 'borough', 'bbl', 'geometry']].tail(10)
 
 
 # ## References
