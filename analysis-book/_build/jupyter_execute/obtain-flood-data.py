@@ -106,13 +106,23 @@ street_flooding_gdf = gpd.read_file(nyc_street_flooding_geojson)
 street_flooding_gdf.info()
 
 
+# #### Coordinate Reference System (CRS)
+
 # In[10]:
+
+
+street_flooding_gdf.crs
+
+
+# ### Preview Data
+
+# In[11]:
 
 
 street_flooding_gdf[['created_date', 'borough', 'bbl', 'geometry']].head(10)
 
 
-# In[11]:
+# In[12]:
 
 
 street_flooding_gdf[['created_date', 'borough', 'bbl', 'geometry']].tail(10)

@@ -4,6 +4,7 @@ parts:
   - caption: Obtain 💾
     chapters: 
     - file: obtain-flood-data
+    - file: obtain-pluto-data
   - caption: Scrub 🧹
     chapters:
     - file: scrub-data
