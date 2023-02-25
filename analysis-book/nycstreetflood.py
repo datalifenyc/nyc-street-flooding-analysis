@@ -1,5 +1,17 @@
 """
-Module: NYC Open Data 311 Service Request for Street Flooding (SJ)
+Module
+------
+Download NYC Open Data 311 Service Request data for Street Flooding (SJ) from 
+NYC Open Data website.
+
+Data Sources(s)
+---------------
+
+Notes
+-----
+
+References
+----------
 """
 
 # Import Libraries
