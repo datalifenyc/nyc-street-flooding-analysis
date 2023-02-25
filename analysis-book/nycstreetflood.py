@@ -18,6 +18,7 @@ References
 
 ## Standard Libraries
 import os
+from typing import List
 
 ## Custom Libraries
 from utilities import (
@@ -62,7 +63,8 @@ class StreetFlood:
         current_script_path = os.path.realpath(__file__)
         current_script_dir = os.path.dirname(current_script_path)
         output_prefix = f'{current_script_dir}/data/street-flood-complaints'
-        file_name_output = self.get_output_file_name(output_prefix, limit, current_file, file_type)
+        file_name_output = self.get_output_file_name(output_prefix, limit, df_size, current_file, file_type)
+        new_files_list = []
         if cfe(file_name_output) == True:
             print(f'Street flooding dataset has already been download for {gcd()}.')
         else:
@@ -72,10 +74,14 @@ class StreetFlood:
                 if df_size == 0:
                     break
                 else:
+                    file_name_output = self.get_output_file_name(output_prefix, limit, df_size, current_file, file_type)
+                    new_files_list.append(file_name_output)
                     street_flooding_df.to_file(file_name_output)
                     print(f'Save file {current_file + 1}: {file_name_output}')
                     current_file += 1
-            self.merge_geojson_files(output_prefix, file_type)
+                    
+            # Merge downloaded geojson files into 1 file
+            self.merge_geojson_files(output_prefix, new_files_list, file_type)
 
     ## Method: `get_api_endpoint`       
     def get_api_endpoint(self, limit: int, current_file: int) -> str:
@@ -98,7 +104,7 @@ class StreetFlood:
         return f'https://data.cityofnewyork.us/resource/erm2-nwe9.geojson?descriptor=Street%20Flooding%20(SJ)&$limit={limit}&$offset={offset}&$order=unique_key'
 
     # Method: `get_output_file_name`
-    def get_output_file_name(self, output_prefix: str, limit: int, current_file: int, file_type: str) -> str:
+    def get_output_file_name(self, output_prefix: str, limit: int, df_size: int, current_file: int, file_type: str) -> str:
         """
         Functionality
         -------------
@@ -118,11 +124,11 @@ class StreetFlood:
             (str): name of street flooding dataset save file
         """
         start_num = 1 + (limit * current_file)
-        end_num = (1 + current_file) * limit
+        end_num = -1 + start_num + df_size
         return f'{output_prefix}_rows-{start_num :06d}-{end_num :06d}_dt-{gcd()}.{file_type}'
 
     # Method: `merge_geojson_files`
-    def merge_geojson_files(self, output_prefix: str = 'data/street-flood-complaints', file_type: str = 'geojson') -> None:
+    def merge_geojson_files(self, output_prefix: str, new_files_list: List = [], file_type: str = 'geojson') -> None:
         """
         Functionality
         -------------
@@ -136,7 +142,7 @@ class StreetFlood:
             (None)
         """
         # List of currently downloaded nyc street flooding geojson files
-        geojson_file_list = ['data/' + geojson_file for geojson_file in os.listdir('data/') if geojson_file.endswith('.geojson')]
+        geojson_file_list = new_files_list
         # print(geojson_file_list)
 
         geojson_df_list = list()

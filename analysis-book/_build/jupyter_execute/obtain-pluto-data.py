@@ -3,7 +3,9 @@
 
 # # Primary Land Use Tax Lot Output (PLUTO)
 
-# ## About
+# ## Source 1: NYC Open Data
+# 
+# ### PLUTO
 # 
 # | Key | Value |
 # | --- | ----- |
@@ -19,8 +21,22 @@
 # | Data Dictionary | [PLUTODD.pdf](https://data.cityofnewyork.us/api/views/64uk-42ks/files/0bef0427-36f5-4d8d-867a-84dfa2477b9c?download=true&filename=PLUTODD.pdf)
 # | README | [PlutoReadme.pdf](https://data.cityofnewyork.us/api/views/64uk-42ks/files/ded66205-b6ef-4253-8b38-cc24b5fca8b6?download=true&filename=PlutoReadme.pdf) |
 # 
+# 
+# ### MapPLUTO
+# 
+# | Key | Value |
+# | --- | ----- |
+# | URL | https://data.cityofnewyork.us/City-Government/Primary-Land-Use-Tax-Lot-Output-Map-MapPLUTO-/f888-ni5f |
+# | Description | Extensive land use and geographic data at the tax lot level in GIS format (ESRI Shapefile). Contains more than seventy fields derived from data maintained by city agencies, merged with tax lot features from the Department of Finance’s Digital Tax Map, clipped to the shoreline. |
+# | Updated | 2022-12-21 |
+# | Update Frequency | Quarterly |
+# | Views | 6K+ |
+# | Data Provided by | [Department of City Planning (DCP)](https://data.cityofnewyork.us/browse?Dataset-Information_Agency=Department+of+City+Planning+%28DCP%29) |
+# | Category | [City Government](https://data.cityofnewyork.us/browse?category=Social+Services) |
+# | Data Dictionary | [PLUTODD22v3.pdf](https://data.cityofnewyork.us/api/views/f888-ni5f/files/a5f455ae-002e-4e78-ae17-f3dcc59c236d?download=true&filename=PLUTODD22v3.pdf)
+# | README | [PlutoReadme22v3.pdf](https://data.cityofnewyork.us/api/views/f888-ni5f/files/97ca6e86-32cc-46f1-b85c-8d01e17e1602?download=true&filename=PlutoReadme22v3.pdf) |
 
-# ## Alternative Source: NYC Planning PLUTO and MapPLUTO
+# ## Source 2: NYC Dept. of City Planning
 # 
 # ### PLUTO
 # 
