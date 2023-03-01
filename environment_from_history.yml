@@ -1,0 +1,10 @@
+name: nyc-street-flooding-analysis
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - geopandas
+  - ipykernel
+  - pywin32
+  - jupyter-book
+  - folium
