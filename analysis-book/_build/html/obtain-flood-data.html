@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Street Flooding Complaints (SFC) &#8212; &lt;b&gt;Going Beyond EDA&lt;/b&gt;&lt;br&gt;A Deeper Analysis of NYC 311 Street Flooding Complaints</title>
+    <title>Street Flooding &#8212; &lt;b&gt;Going Beyond EDA&lt;/b&gt;&lt;br&gt;A Deeper Analysis of NYC 311 Street Flooding Complaints</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -55,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Primary Land Use Tax Lot Output (PLUTO)" href="obtain-pluto-data.html" />
+    <link rel="next" title="PLUTO &amp; MapPLUTO" href="obtain-pluto-data.html" />
     <link rel="prev" title="NYC Open Data Week 2023 🗓" href="about.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -124,12 +124,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Street Flooding Complaints (SFC)
+   Street Flooding
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="obtain-pluto-data.html">
-   Primary Land Use Tax Lot Output (PLUTO)
+   PLUTO &amp; MapPLUTO
   </a>
  </li>
 </ul>
@@ -183,6 +183,18 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="interpret-results.html">
    Key Findings
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Resources
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="references.html">
+   References
   </a>
  </li>
 </ul>
@@ -607,7 +619,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Street Flooding Complaints (SFC)</h1>
+                <h1>Street Flooding</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -809,8 +821,8 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="street-flooding-complaints-sfc">
-<h1>Street Flooding Complaints (SFC)<a class="headerlink" href="#street-flooding-complaints-sfc" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="street-flooding">
+<h1>Street Flooding<a class="headerlink" href="#street-flooding" title="Permalink to this headline">#</a></h1>
 <section id="source-311-service-requests-from-2010-to-present">
 <h2>Source: 311 Service Requests from 2010 to Present<a class="headerlink" href="#source-311-service-requests-from-2010-to-present" title="Permalink to this headline">#</a></h2>
 <section id="about">
@@ -923,7 +935,7 @@ NYC_OPEN_DATA_311_API_CSV = &#39;https://data.cityofnewyork.us/resource/erm2-nwe
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading Latest Street Flooding Dataset...
 
-Street flooding dataset has already been download for 2023-02-28.
+Street flooding dataset has already been download for 2023-03-01.
 
 Download Complete
 </pre></div>
@@ -1000,55 +1012,55 @@ street_flooding_cdf.to_csv(output_prefix + &#39;csv&#39;)
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
-RangeIndex: 35051 entries, 0 to 35050
+RangeIndex: 35056 entries, 0 to 35055
 Data columns (total 45 columns):
  #   Column                          Non-Null Count  Dtype         
 ---  ------                          --------------  -----         
- 0   location_state                  34044 non-null  object        
+ 0   location_state                  34049 non-null  object        
  1   facility_type                   23296 non-null  object        
  2   intersection_street_2           11300 non-null  object        
- 3   city                            34186 non-null  object        
- 4   location_zip                    34044 non-null  object        
- 5   park_borough                    35047 non-null  object        
- 6   latitude                        34044 non-null  object        
+ 3   city                            34191 non-null  object        
+ 4   location_zip                    34049 non-null  object        
+ 5   park_borough                    35052 non-null  object        
+ 6   latitude                        34049 non-null  object        
  7   road_ramp                       0 non-null      float64       
- 8   created_date                    35051 non-null  datetime64[ns]
- 9   agency                          35051 non-null  object        
- 10  park_facility_name              35051 non-null  object        
- 11  location_address                34044 non-null  object        
- 12  agency_name                     35051 non-null  object        
- 13  descriptor                      35051 non-null  object        
- 14  bbl                             21701 non-null  object        
- 15  location_city                   34044 non-null  object        
- 16  open_data_channel_type          35051 non-null  object        
- 17  cross_street_2                  30069 non-null  object        
+ 8   created_date                    35056 non-null  datetime64[ns]
+ 9   agency                          35056 non-null  object        
+ 10  park_facility_name              35056 non-null  object        
+ 11  location_address                34049 non-null  object        
+ 12  agency_name                     35056 non-null  object        
+ 13  descriptor                      35056 non-null  object        
+ 14  bbl                             21706 non-null  object        
+ 15  location_city                   34049 non-null  object        
+ 16  open_data_channel_type          35056 non-null  object        
+ 17  cross_street_2                  30074 non-null  object        
  18  bridge_highway_direction        0 non-null      float64       
- 19  longitude                       34044 non-null  object        
+ 19  longitude                       34049 non-null  object        
  20  bridge_highway_segment          0 non-null      float64       
- 21  street_name                     23803 non-null  object        
- 22  incident_address                23803 non-null  object        
- 23  address_type                    35045 non-null  object        
- 24  incident_zip                    34182 non-null  object        
- 25  unique_key                      35051 non-null  object        
- 26  complaint_type                  35051 non-null  object        
- 27  y_coordinate_state_plane        34044 non-null  object        
- 28  status                          35051 non-null  object        
+ 21  street_name                     23808 non-null  object        
+ 22  incident_address                23808 non-null  object        
+ 23  address_type                    35050 non-null  object        
+ 24  incident_zip                    34187 non-null  object        
+ 25  unique_key                      35056 non-null  object        
+ 26  complaint_type                  35056 non-null  object        
+ 27  y_coordinate_state_plane        34049 non-null  object        
+ 28  status                          35056 non-null  object        
  29  bridge_highway_name             0 non-null      float64       
  30  location_type                   0 non-null      float64       
  31  due_date                        1 non-null      datetime64[ns]
  32  taxi_company_borough            0 non-null      float64       
  33  taxi_pick_up_location           0 non-null      float64       
- 34  x_coordinate_state_plane        34044 non-null  object        
- 35  resolution_description          35023 non-null  object        
- 36  community_board                 35047 non-null  object        
- 37  resolution_action_updated_date  35031 non-null  datetime64[ns]
+ 34  x_coordinate_state_plane        34049 non-null  object        
+ 35  resolution_description          35032 non-null  object        
+ 36  community_board                 35052 non-null  object        
+ 37  resolution_action_updated_date  35040 non-null  datetime64[ns]
  38  intersection_street_1           11300 non-null  object        
- 39  closed_date                     35022 non-null  datetime64[ns]
+ 39  closed_date                     35032 non-null  datetime64[ns]
  40  vehicle_type                    0 non-null      float64       
- 41  cross_street_1                  30079 non-null  object        
- 42  borough                         35047 non-null  object        
+ 41  cross_street_1                  30084 non-null  object        
+ 42  borough                         35052 non-null  object        
  43  landmark                        0 non-null      float64       
- 44  geometry                        34044 non-null  geometry      
+ 44  geometry                        34049 non-null  geometry      
 dtypes: datetime64[ns](4), float64(9), geometry(1), object(31)
 memory usage: 12.0+ MB
 </pre></div>
@@ -1221,41 +1233,6 @@ Datum: World Geodetic System 1984
   </thead>
   <tbody>
     <tr>
-      <th>35041</th>
-      <td>2023-02-23 15:23:00</td>
-      <td>QUEENS</td>
-      <td>4137320024</td>
-      <td>POINT (-73.74717 40.65495)</td>
-    </tr>
-    <tr>
-      <th>35042</th>
-      <td>2023-02-23 10:56:00</td>
-      <td>QUEENS</td>
-      <td>4142340587</td>
-      <td>POINT (-73.83003 40.65729)</td>
-    </tr>
-    <tr>
-      <th>35043</th>
-      <td>2023-02-23 13:23:00</td>
-      <td>BROOKLYN</td>
-      <td>3080520059</td>
-      <td>POINT (-73.90364 40.63474)</td>
-    </tr>
-    <tr>
-      <th>35044</th>
-      <td>2023-02-24 12:08:00</td>
-      <td>QUEENS</td>
-      <td>4137350024</td>
-      <td>POINT (-73.74752 40.65428)</td>
-    </tr>
-    <tr>
-      <th>35045</th>
-      <td>2023-02-24 10:56:00</td>
-      <td>STATEN ISLAND</td>
-      <td>NaN</td>
-      <td>POINT (-74.13515 40.61709)</td>
-    </tr>
-    <tr>
       <th>35046</th>
       <td>2023-02-25 21:17:00</td>
       <td>QUEENS</td>
@@ -1289,6 +1266,41 @@ Datum: World Geodetic System 1984
       <td>STATEN ISLAND</td>
       <td>5061080026</td>
       <td>POINT (-74.20391 40.54321)</td>
+    </tr>
+    <tr>
+      <th>35051</th>
+      <td>2023-02-27 12:26:00</td>
+      <td>QUEENS</td>
+      <td>4046820038</td>
+      <td>POINT (-73.81259 40.78476)</td>
+    </tr>
+    <tr>
+      <th>35052</th>
+      <td>2023-02-27 15:38:00</td>
+      <td>BROOKLYN</td>
+      <td>3078620043</td>
+      <td>POINT (-73.93696 40.61734)</td>
+    </tr>
+    <tr>
+      <th>35053</th>
+      <td>2023-02-27 17:47:00</td>
+      <td>BROOKLYN</td>
+      <td>3056220059</td>
+      <td>POINT (-73.99228 40.63696)</td>
+    </tr>
+    <tr>
+      <th>35054</th>
+      <td>2023-02-27 08:17:00</td>
+      <td>QUEENS</td>
+      <td>4051937501</td>
+      <td>POINT (-73.82129 40.75430)</td>
+    </tr>
+    <tr>
+      <th>35055</th>
+      <td>2023-02-27 10:23:00</td>
+      <td>QUEENS</td>
+      <td>4137350027</td>
+      <td>POINT (-73.74750 40.65427)</td>
     </tr>
   </tbody>
 </table>
@@ -1388,7 +1400,7 @@ Contributor: <a class="reference external" href="https://stackoverflow.com/users
     <a class='right-next' id="next-link" href="obtain-pluto-data.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Primary Land Use Tax Lot Output (PLUTO)</p>
+        <p class="prev-next-title">PLUTO &amp; MapPLUTO</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
