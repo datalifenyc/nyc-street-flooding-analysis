@@ -8,6 +8,7 @@ repository:
   url: https://github.com/datalifenyc/nyc-street-flooding-analysis
   path_to_book: analysis-book
   branch: main
+exclude_patterns: [scrub-process-diagram.ipynb, explore-flood-pluto.ipynb]
 html:
   favicon: favicon.ico
   use_repository_button: true

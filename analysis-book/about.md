@@ -49,3 +49,19 @@ A group of civic minded __data enthusiasts__, who enjoy solving City related dat
 | Nathan Williamson | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/nathan-williamson-b0a15a122) | [![GitHub followers](https://img.shields.io/github/followers/nateswill?style=social)](https://github.com/nateswill) | |
 | Mark Bauer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/markebauer) | [![GitHub followers](https://img.shields.io/github/followers/mebauer?style=social)](https://github.com/mebauer) | [![Twitter Follow](https://img.shields.io/twitter/follow/markbauerwater?style=social)](https://twitter.com/markbauerwater) |
 | Chidi Ezeolu | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/chidi-ezeolu-411b0856) | [![GitHub followers](https://img.shields.io/github/followers/datalifenyc?style=social)](https://github.com/datalifenyc)| |
+
+## Agenda
+
+1. Introduction
+    - Walkthrough of Website and GitHub Repo
+2. Statement of Goals
+    - Brief Overview of Data Science Lifecyle
+    - Why Beyond EDA?
+3. Hypothesis & Methodology
+    - Method 1
+    - Method 2
+    - Method 3
+4. Summary & Conclusions
+    - References
+    - Additional Resources
+    - Q & A

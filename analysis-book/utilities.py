@@ -20,6 +20,9 @@ https://docs.python.org/3/library/io.html
 urllib.request — Extensible library for opening URLs
 https://docs.python.org/3/library/urllib.request.html#module-urllib.request
 
+os.path — Common pathname manipulations
+https://docs.python.org/3/library/os.path.html
+
 # GitHub
 
 Download and extract a ZIP file in Python | hantoine/download_and_unzip.py
@@ -35,6 +38,7 @@ from pathlib import Path
 from urllib.request import urlopen as uo
 from io import BytesIO as bio
 from zipfile import ZipFile as zf
+import os
 
 
 # Define Functions
@@ -70,7 +74,7 @@ def check_file_exists(file_name: str) -> bool:
     -------
         (bool): `True` if file exits
     """
-    return Path(file_name).exists()
+    return os.path.exists(file_name)
 
 ## Function: `download_unzip`
 def download_unzip(zip_url: str, output_folder: str) -> None:
