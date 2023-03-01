@@ -182,7 +182,9 @@ def download_pluto(map_type: str = 'water', file_type: str = 'fgdb') -> None:
     
 ## Function: `main`
 def main():
-    download_pluto('water', 'fgdb')
+    # download_pluto('water', 'fgdb')
+    download_pluto('shoreline', 'shp')
+
 
 # Run
 if __name__ =='__main__':

@@ -66,6 +66,11 @@ class StreetFlood:
         output_prefix = f'{current_script_dir}/data/street-flooding/street-flood-complaints'
         file_name_output = self.get_output_file_name(output_prefix, limit, df_size, current_file, file_type)
         new_files_list = []
+        # Create /data/street-flooding directory if it does not exist
+        # print(f'check:\n{current_script_dir}/data/street-flooding')
+        if not os.path.exists(f'{current_script_dir}/data/street-flooding'):
+            os.makedirs(f'{current_script_dir}/data/street-flooding')
+        # Check if dataset has been downloaded before
         if cfe(file_name_output) == True:
             print(f'Street flooding dataset has already been download for {gcd()}.')
         else:
