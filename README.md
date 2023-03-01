@@ -52,3 +52,12 @@ __Analysis Book:__ [nyc-street-flooding-analysis.datalife.nyc](https://nyc-stree
     ```bash
     conda activate nyc-street-flood-analysis
     ```
+
+5. Configure Git to track large notebook files
+
+    ```bash
+    git lfs track "*.ipynb"
+    ```
+
+    Jupyter Notebooks with maps tend to larger in size. For best practices and to avoid commit warning/errors, as well as, issues pushing repo to GitHub, 
+    use [Git Large File Storage](https://docs.github.com/en/repositories/working-with-files/managing-large-files).
