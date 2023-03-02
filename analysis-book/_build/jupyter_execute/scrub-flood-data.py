@@ -7,9 +7,17 @@
 
 # ## Import Libraries
 
-# ### External Libraries
+# ### Standard Libraries
 
 # In[1]:
+
+
+import json
+
+
+# ### External Libraries
+
+# In[2]:
 
 
 import geopandas as gpd
@@ -19,16 +27,17 @@ import geopandas as gpd
 
 # ## Define Variables
 
-# In[2]:
+# In[3]:
 
 
 nyc_street_flooding_input = 'data/street-flooding/street-flood-complaints_rows-all.geojson'
 nyc_street_flooding_output = 'data/street-flooding/clean_street-flood-complaints_rows-all.geojson'
+data_stats_json_output = 'data/data-stats.json'
 
 
 # ## Get Original Data
 
-# In[3]:
+# In[4]:
 
 
 street_flooding_gdf = gpd.read_file(nyc_street_flooding_input)
@@ -36,7 +45,7 @@ street_flooding_gdf = gpd.read_file(nyc_street_flooding_input)
 
 # ## Before Count
 
-# In[4]:
+# In[5]:
 
 
 street_flooding_complaints_before_count = len(street_flooding_gdf)
@@ -45,7 +54,7 @@ print(f'There were {street_flooding_complaints_before_count:,} street flooding c
 
 # ## Set `unique_key` as Index
 
-# In[5]:
+# In[6]:
 
 
 street_flooding_gdf.set_index('unique_key', inplace=True)
@@ -53,7 +62,7 @@ street_flooding_gdf.set_index('unique_key', inplace=True)
 
 # ## Remove Rows With Missing `geometry`
 
-# In[6]:
+# In[7]:
 
 
 street_flooding_gdf.dropna(subset = ['geometry'], inplace = True)
@@ -61,7 +70,7 @@ street_flooding_gdf.dropna(subset = ['geometry'], inplace = True)
 
 # ## After Count
 
-# In[7]:
+# In[8]:
 
 
 street_flooding_complaints_after_count = len(street_flooding_gdf)
@@ -70,22 +79,50 @@ print(f'There were {street_flooding_complaints_after_count:,} street flooding co
 
 # ## Preview Street Flooding Data
 
-# In[8]:
+# In[9]:
 
 
 street_flooding_gdf[['created_date', 'borough', 'bbl', 'geometry']].head(10)
 
 
-# In[9]:
+# In[10]:
 
 
 street_flooding_gdf[['created_date', 'borough', 'bbl', 'geometry']].tail(10)
 
 
-# ## Save Clean Dataset
+# ## Save Datasets
 
-# In[10]:
+# ### Save Street Flooding GeoDataFrame
+
+# In[11]:
 
 
 street_flooding_gdf.to_file(nyc_street_flooding_output, driver='GeoJSON')
 
+
+# ### Save Counts to JSON file
+
+# In[12]:
+
+
+gdf_counts = {
+    "street_flood_orig": street_flooding_complaints_before_count,
+    "street_flood_clean": street_flooding_complaints_after_count
+}
+
+
+# In[13]:
+
+
+with open(data_stats_json_output, 'w') as write_json:
+    json.dump(gdf_counts, write_json, indent = 4)
+
+
+# ## References
+# 
+# ### JSON
+# 
+# [Working With JSON Data in Python| Real Python](https://realpython.com/python-json/)
+
+# 

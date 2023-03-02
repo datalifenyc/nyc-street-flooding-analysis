@@ -439,6 +439,11 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#standard-libraries">
+     Standard Libraries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#external-libraries">
      External Libraries
     </a>
@@ -497,9 +502,33 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#save-clean-dataset">
-   Save Clean Dataset
+  <a class="reference internal nav-link" href="#save-datasets">
+   Save Datasets
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#save-street-flooding-geodataframe">
+     Save Street Flooding GeoDataFrame
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#save-counts-to-json-file">
+     Save Counts to JSON file
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#json">
+     JSON
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -526,6 +555,11 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#standard-libraries">
+     Standard Libraries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#external-libraries">
      External Libraries
     </a>
@@ -584,9 +618,33 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#save-clean-dataset">
-   Save Clean Dataset
+  <a class="reference internal nav-link" href="#save-datasets">
+   Save Datasets
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#save-street-flooding-geodataframe">
+     Save Street Flooding GeoDataFrame
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#save-counts-to-json-file">
+     Save Counts to JSON file
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#json">
+     JSON
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -603,6 +661,16 @@ title="Print to PDF"
 <p><img alt="clean-merge-data" src="_images/scrub-process-diagram.png" /></p>
 <section id="import-libraries">
 <h2>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this headline">#</a></h2>
+<section id="standard-libraries">
+<h3>Standard Libraries<a class="headerlink" href="#standard-libraries" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="external-libraries">
 <h3>External Libraries<a class="headerlink" href="#external-libraries" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
@@ -623,6 +691,7 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nyc_street_flooding_input</span> <span class="o">=</span> <span class="s1">&#39;data/street-flooding/street-flood-complaints_rows-all.geojson&#39;</span>
 <span class="n">nyc_street_flooding_output</span> <span class="o">=</span> <span class="s1">&#39;data/street-flooding/clean_street-flood-complaints_rows-all.geojson&#39;</span>
+<span class="n">data_stats_json_output</span> <span class="o">=</span> <span class="s1">&#39;data/data-stats.json&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -648,7 +717,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There were 35,056 street flooding complaints from 2010 to the present.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There were 35,061 street flooding complaints from 2010 to the present.
 </pre></div>
 </div>
 </div>
@@ -684,7 +753,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There were 34,049 street flooding complaints after rows with missing geometry have been removed.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There were 34,054 street flooding complaints after rows with missing geometry have been removed.
 </pre></div>
 </div>
 </div>
@@ -845,48 +914,6 @@ title="Print to PDF"
   </thead>
   <tbody>
     <tr>
-      <th>56894127</th>
-      <td>2023-02-25 21:17:00</td>
-      <td>QUEENS</td>
-      <td>4066360043</td>
-      <td>POINT (-73.82293 40.71523)</td>
-    </tr>
-    <tr>
-      <th>56895026</th>
-      <td>2023-02-25 12:47:00</td>
-      <td>QUEENS</td>
-      <td>4067470075</td>
-      <td>POINT (-73.81219 40.73705)</td>
-    </tr>
-    <tr>
-      <th>56899909</th>
-      <td>2023-02-25 20:08:00</td>
-      <td>BROOKLYN</td>
-      <td>3056230001</td>
-      <td>POINT (-73.99062 40.63595)</td>
-    </tr>
-    <tr>
-      <th>56900879</th>
-      <td>2023-02-26 09:08:00</td>
-      <td>QUEENS</td>
-      <td>4015360120</td>
-      <td>POINT (-73.88446 40.73925)</td>
-    </tr>
-    <tr>
-      <th>56904542</th>
-      <td>2023-02-26 18:05:00</td>
-      <td>STATEN ISLAND</td>
-      <td>5061080026</td>
-      <td>POINT (-74.20391 40.54321)</td>
-    </tr>
-    <tr>
-      <th>56909777</th>
-      <td>2023-02-27 12:26:00</td>
-      <td>QUEENS</td>
-      <td>4046820038</td>
-      <td>POINT (-73.81259 40.78476)</td>
-    </tr>
-    <tr>
       <th>56911030</th>
       <td>2023-02-27 15:38:00</td>
       <td>BROOKLYN</td>
@@ -914,13 +941,57 @@ title="Print to PDF"
       <td>4137350027</td>
       <td>POINT (-73.74750 40.65427)</td>
     </tr>
+    <tr>
+      <th>56920513</th>
+      <td>2023-02-28 16:11:00</td>
+      <td>QUEENS</td>
+      <td>NaN</td>
+      <td>POINT (-73.84823 40.77452)</td>
+    </tr>
+    <tr>
+      <th>56920559</th>
+      <td>2023-02-28 09:05:00</td>
+      <td>QUEENS</td>
+      <td>4153230012</td>
+      <td>POINT (-73.82283 40.60045)</td>
+    </tr>
+    <tr>
+      <th>56920581</th>
+      <td>2023-02-28 06:50:00</td>
+      <td>QUEENS</td>
+      <td>4137360017</td>
+      <td>POINT (-73.74705 40.65379)</td>
+    </tr>
+    <tr>
+      <th>56922873</th>
+      <td>2023-02-28 16:20:00</td>
+      <td>BROOKLYN</td>
+      <td>3010570002</td>
+      <td>POINT (-73.97358 40.67722)</td>
+    </tr>
+    <tr>
+      <th>56925036</th>
+      <td>2023-02-28 17:32:00</td>
+      <td>QUEENS</td>
+      <td>4137330041</td>
+      <td>POINT (-73.74717 40.65494)</td>
+    </tr>
+    <tr>
+      <th>56925104</th>
+      <td>2023-02-28 16:11:00</td>
+      <td>BROOKLYN</td>
+      <td>NaN</td>
+      <td>POINT (-73.97369 40.67708)</td>
+    </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
 </section>
-<section id="save-clean-dataset">
-<h2>Save Clean Dataset<a class="headerlink" href="#save-clean-dataset" title="Permalink to this headline">#</a></h2>
+<section id="save-datasets">
+<h2>Save Datasets<a class="headerlink" href="#save-datasets" title="Permalink to this headline">#</a></h2>
+<section id="save-street-flooding-geodataframe">
+<h3>Save Street Flooding GeoDataFrame<a class="headerlink" href="#save-street-flooding-geodataframe" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">nyc_street_flooding_output</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GeoJSON&#39;</span><span class="p">)</span>
@@ -928,6 +999,35 @@ title="Print to PDF"
 </div>
 </div>
 </div>
+</section>
+<section id="save-counts-to-json-file">
+<h3>Save Counts to JSON file<a class="headerlink" href="#save-counts-to-json-file" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf_counts</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;street_flood_orig&quot;</span><span class="p">:</span> <span class="n">street_flooding_complaints_before_count</span><span class="p">,</span>
+    <span class="s2">&quot;street_flood_clean&quot;</span><span class="p">:</span> <span class="n">street_flooding_complaints_after_count</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_stats_json_output</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">write_json</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">gdf_counts</span><span class="p">,</span> <span class="n">write_json</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<section id="json">
+<h3>JSON<a class="headerlink" href="#json" title="Permalink to this headline">#</a></h3>
+<p><a class="reference external" href="https://realpython.com/python-json/">Working With JSON Data in Python| Real Python</a></p>
+</section>
 </section>
 </section>
 
