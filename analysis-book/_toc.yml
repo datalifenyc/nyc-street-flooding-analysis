@@ -19,6 +19,7 @@ parts:
   - caption: Interpret 💡
     chapters:
     - file: interpret-results
-  - caption: Resources
+  - caption: Resources 📑
     chapters:
     - file: references
+    - file: python-libraries
