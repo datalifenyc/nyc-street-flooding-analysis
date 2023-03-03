@@ -62,14 +62,14 @@ __Analysis Book:__ [nyc-street-flooding-analysis.datalife.nyc](https://nyc-stree
     conda activate nyc-street-flood-analysis
     ```
 
-5. Configure Git to track large notebook files
+5. Install and Configure Git to track large notebook files
 
-    ```bash
-    git lfs track "*.ipynb"
-    ```
+    | Step 1: [Install](https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage)   | Step 2: [Configure](https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage)         |
+    | ----------------- | ------------------------- |
+    | `git lfs install` | `git lfs track "*.ipynb"` |
 
     Jupyter Notebooks with maps tend to larger in size. For best practices and to avoid commit warning/errors, as well as, issues pushing repo to GitHub,
-    use [Git Large File Storage](https://docs.github.com/en/repositories/working-with-files/managing-large-files).
+    use Git Large File Storage (Git LFS): [website](https://git-lfs.com/) | [docs](https://docs.github.com/en/repositories/working-with-files/managing-large-files) | [repo](https://github.com/git-lfs/git-lfs).
 
     To `push` lfs updates to repo, enter:
 

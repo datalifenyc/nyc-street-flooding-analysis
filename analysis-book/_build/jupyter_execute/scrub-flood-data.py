@@ -8,12 +8,15 @@
 # ## Import Libraries
 
 # ### Standard Libraries
+# 
 
 # In[1]:
 
 
 import json
 
+
+# For more on working with `json` in Python, see {cite}`lofaro2018json`.
 
 # ### External Libraries
 
@@ -22,8 +25,6 @@ import json
 
 import geopandas as gpd
 
-
-# ### External Libraries
 
 # ## Define Variables
 

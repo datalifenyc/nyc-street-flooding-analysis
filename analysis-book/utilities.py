@@ -40,7 +40,6 @@ from io import BytesIO as bio
 from zipfile import ZipFile as zf
 import os
 
-
 # Define Functions
 
 ## Function: `get_current_date`

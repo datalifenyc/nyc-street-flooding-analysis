@@ -2,6 +2,8 @@
 # coding: utf-8
 
 # # PLUTO & MapPLUTO
+# 
+# In addition to the PLUTO and MapPLUTO datasets, NYC has a rich set of GIS metadata resources. {cite}`cityofnewyork`
 
 # ## Source 1: NYC Open Data
 # 
