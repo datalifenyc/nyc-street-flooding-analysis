@@ -97,7 +97,7 @@ print(f'# of Street Flooding Complaints: {sfc_size}')
 street_flooding_columns = street_flooding_gdf.columns.tolist()
 
 
-# In[20]:
+# In[11]:
 
 
 with open(f'{current_script_path}/{nyc_street_flooding_gdf_columns_output}', 'w') as write_f:
@@ -107,7 +107,7 @@ with open(f'{current_script_path}/{nyc_street_flooding_gdf_columns_output}', 'w'
 
 # #### Check Index
 
-# In[21]:
+# In[12]:
 
 
 street_flooding_gdf.index
@@ -115,7 +115,7 @@ street_flooding_gdf.index
 
 # #### Set `unique_key` as Index
 
-# In[22]:
+# In[13]:
 
 
 street_flooding_gdf.set_index('unique_key', inplace = True)
@@ -123,7 +123,7 @@ street_flooding_gdf.set_index('unique_key', inplace = True)
 
 # #### Verify Index Change
 
-# In[ ]:
+# In[14]:
 
 
 street_flooding_gdf.index
@@ -133,12 +133,13 @@ street_flooding_gdf.index
 # 
 # Time to read gdb folder: ~`42m`
 
-# In[ ]:
+# In[15]:
 
 
 if cfe(pluto_geojson_full_path) == False:
+    print('PLUTO geojson file has not been created. Getting data from gdb folder....')
     pluto_gdf = gpd.read_file(map_pluto_gdb_folder)
-    pluto_gdf.to_file(pluto_geojson_full_path)
+    pluto_gdf.to_file(pluto_geojson_full_path, driver='GeoJSON')
 else:
     pluto_gdf = gpd.read_file(pluto_geojson_full_path, driver='GeoJSON')
 
@@ -153,13 +154,13 @@ get_ipython().run_cell_magic('script', 'echo "[skip] Reason: using gdb file type
 # 
 # {cite}`hule2021listtofile`
 
-# In[23]:
+# In[ ]:
 
 
 pluto_columns = pluto_gdf.columns.tolist()
 
 
-# In[24]:
+# In[ ]:
 
 
 with open(f'{current_script_path}/{pluto_gdf_columns_output}', 'w') as write_f:
@@ -175,13 +176,13 @@ with open(f'{current_script_path}/{pluto_gdf_columns_output}', 'w') as write_f:
 
 # EPSG: 4326
 
-# In[25]:
+# In[ ]:
 
 
 street_flooding_gdf.crs
 
 
-# In[26]:
+# In[ ]:
 
 
 pluto_gdf.crs
@@ -189,13 +190,13 @@ pluto_gdf.crs
 
 # ### Convert Pluto to EPSG code: 4326
 
-# In[27]:
+# In[ ]:
 
 
 pluto_4326_gdf = pluto_gdf.to_crs(4326)
 
 
-# In[28]:
+# In[ ]:
 
 
 pluto_4326_gdf.crs
@@ -205,13 +206,13 @@ pluto_4326_gdf.crs
 
 # #### Check data type of join column
 
-# In[29]:
+# In[ ]:
 
 
 street_flooding_gdf['bbl'].dtype
 
 
-# In[30]:
+# In[ ]:
 
 
 pluto_4326_gdf['BBL'].dtype
@@ -219,7 +220,7 @@ pluto_4326_gdf['BBL'].dtype
 
 # #### Convert `Street Flooding` GeoDataFrame's `bbl` column from `object` to `float`.
 
-# In[31]:
+# In[ ]:
 
 
 street_flooding_gdf['BBL'] = street_flooding_gdf['bbl'].astype(float)
@@ -231,13 +232,13 @@ street_flooding_gdf['BBL'] = street_flooding_gdf['bbl'].astype(float)
 # 
 # {cite}`son2019keepindex`
 
-# In[32]:
+# In[ ]:
 
 
 street_flooding_gdf['unique_key'] = street_flooding_gdf.index
 
 
-# In[33]:
+# In[ ]:
 
 
 street_flooding_pluto_gdf = pd.merge(
@@ -252,7 +253,7 @@ street_flooding_pluto_gdf = pd.merge(
 
 # ##### Check index
 
-# In[34]:
+# In[ ]:
 
 
 street_flooding_pluto_gdf.index
@@ -260,7 +261,7 @@ street_flooding_pluto_gdf.index
 
 # ##### Set `unique_key` as index
 
-# In[35]:
+# In[ ]:
 
 
 street_flooding_pluto_gdf.set_index('unique_key', inplace = True)
@@ -268,7 +269,7 @@ street_flooding_pluto_gdf.set_index('unique_key', inplace = True)
 
 # ##### Verify index change
 
-# In[36]:
+# In[ ]:
 
 
 street_flooding_gdf.index
@@ -276,31 +277,31 @@ street_flooding_gdf.index
 
 # ##### List attributes in a 5 column grid
 
-# In[37]:
+# In[ ]:
 
 
 all_columns = street_flooding_pluto_gdf.columns.tolist()
 
 
-# In[38]:
+# In[ ]:
 
 
 chunks = [all_columns[x:x + 5] for x in range(0, len(all_columns), 5)]
 
 
-# In[39]:
+# In[ ]:
 
 
 attribute_grid = pd.DataFrame(chunks)
 
 
-# In[40]:
+# In[ ]:
 
 
 attribute_grid
 
 
-# In[41]:
+# In[ ]:
 
 
 preview_columns = [
@@ -315,7 +316,7 @@ preview_columns = [
 
 # ##### View oldest service requests
 
-# In[42]:
+# In[ ]:
 
 
 street_flooding_pluto_gdf[preview_columns].head(10)
@@ -323,19 +324,19 @@ street_flooding_pluto_gdf[preview_columns].head(10)
 
 # ##### View most recent service requests
 
-# In[43]:
+# In[ ]:
 
 
 street_flooding_pluto_gdf[preview_columns].tail(10)
 
 
-# In[44]:
+# In[ ]:
 
 
 type(street_flooding_pluto_gdf)
 
 
-# In[45]:
+# In[ ]:
 
 
 len(street_flooding_pluto_gdf[street_flooding_pluto_gdf['geometry_y'] == None])
@@ -343,7 +344,7 @@ len(street_flooding_pluto_gdf[street_flooding_pluto_gdf['geometry_y'] == None])
 
 # #### Check % Join by BBL
 
-# In[46]:
+# In[ ]:
 
 
 def pct_join(gdf: gpd.GeoDataFrame) -> dict:
@@ -359,7 +360,7 @@ def pct_join(gdf: gpd.GeoDataFrame) -> dict:
     return gdf_join_info
 
 
-# In[47]:
+# In[ ]:
 
 
 pct_join(street_flooding_pluto_gdf)

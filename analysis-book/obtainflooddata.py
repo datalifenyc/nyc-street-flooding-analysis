@@ -19,6 +19,8 @@ References
 ## Standard Libraries
 import os
 from typing import List
+import re
+import shutil
 
 ## Custom Libraries
 from utilities import (
@@ -74,6 +76,23 @@ class StreetFlood:
         if cfe(file_name_output) == True:
             print(f'Street flooding dataset has already been download for {gcd()}.')
         else:
+            # Backup old street flooding complaints dataset
+            file_pattern = r'^street-flood-complaints_rows-\d{6}-\d{6}_dt-\d{4}-\d{2}-\d{2}.geojson$'
+            # check street flooding data folder for files with above pattern
+            street_flooding_folder = f'{current_script_dir}/data/street-flooding'
+            # get list of file names
+            street_flooding_file_names = os.listdir(street_flooding_folder)
+            # search for files that fit the above pattern
+            file_match_list = [file_name for file_name in street_flooding_file_names if re.match(file_pattern, file_name)]
+            # define subfolder for backup
+            subfolder = f'{current_script_dir}/data/street-flooding/backup_old_files'
+            if not os.path.exists(subfolder):
+                os.makedirs(subfolder)
+            for file in file_match_list:
+                shutil.copy(file, os.path.join(subfolder, file))
+            print(f'Old street flooding files geojson files have been backed-up.')
+
+            # Get updated street flooding complaints dataset
             while df_size != 0:
                 street_flooding_df = gpd.read_file(self.get_api_endpoint(limit, current_file), driver='GeoJSON')
                 df_size = len(street_flooding_df)
@@ -88,6 +107,11 @@ class StreetFlood:
                     
             # Merge downloaded geojson files into 1 file
             self.merge_geojson_files(output_prefix, new_files_list, file_type)
+
+            # Delete backup folder after new files have been downloaded
+            if not os.path.exists(subfolder):
+                shutil.rmtree(subfolder)
+                print('Backup folder has been deleted.')
 
     ## Method: `get_api_endpoint`       
     def get_api_endpoint(self, limit: int, current_file: int) -> str:

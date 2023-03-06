@@ -23,6 +23,9 @@ html:
             <span style="font-family:Baskerville;font-style:italic;color:Chocolate;">Driven by Curiosity!</span>
         </div>
   announcement: "School of Data Conference - March 18!"
+  comments:
+    utterances:
+      repo: "datalifenyc/nyc-street-flooding-analysis"
 sphinx:
   config:
     html_js_files:
