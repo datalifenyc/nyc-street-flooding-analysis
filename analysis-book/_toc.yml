@@ -5,10 +5,10 @@ parts:
     chapters: 
     - file: obtain-flood-data
     - file: obtain-pluto-data
-    - file: merge-flood-pluto
-  - caption: Scrub 🧹
+  - caption: Scrub & Merge 🧹
     chapters:
     - file: scrub-flood-data
+    - file: merge-flood-pluto
   - caption: Explore 📊
     chapters:
     - file: explore-map

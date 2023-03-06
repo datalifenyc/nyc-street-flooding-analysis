@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Merge Street Flooding & MapPLUTO
+# # Street Flooding & MapPLUTO
+# 
+# Merge the NYC Street Flooding service requests dataset with MapPluto
 
 # ## Import Libraries
 
@@ -144,7 +146,7 @@ else:
     pluto_gdf = gpd.read_file(pluto_geojson_full_path, driver='GeoJSON')
 
 
-# In[ ]:
+# In[16]:
 
 
 get_ipython().run_cell_magic('script', 'echo "[skip] Reason: using gdb file type"', 'pluto_shp_gdf = gpd.read_file(map_pluto_shp_folder)\n')
@@ -154,13 +156,13 @@ get_ipython().run_cell_magic('script', 'echo "[skip] Reason: using gdb file type
 # 
 # {cite}`hule2021listtofile`
 
-# In[ ]:
+# In[17]:
 
 
 pluto_columns = pluto_gdf.columns.tolist()
 
 
-# In[ ]:
+# In[18]:
 
 
 with open(f'{current_script_path}/{pluto_gdf_columns_output}', 'w') as write_f:
@@ -176,13 +178,13 @@ with open(f'{current_script_path}/{pluto_gdf_columns_output}', 'w') as write_f:
 
 # EPSG: 4326
 
-# In[ ]:
+# In[19]:
 
 
 street_flooding_gdf.crs
 
 
-# In[ ]:
+# In[20]:
 
 
 pluto_gdf.crs
@@ -190,13 +192,13 @@ pluto_gdf.crs
 
 # ### Convert Pluto to EPSG code: 4326
 
-# In[ ]:
+# In[21]:
 
 
 pluto_4326_gdf = pluto_gdf.to_crs(4326)
 
 
-# In[ ]:
+# In[22]:
 
 
 pluto_4326_gdf.crs
@@ -206,13 +208,13 @@ pluto_4326_gdf.crs
 
 # #### Check data type of join column
 
-# In[ ]:
+# In[23]:
 
 
 street_flooding_gdf['bbl'].dtype
 
 
-# In[ ]:
+# In[24]:
 
 
 pluto_4326_gdf['BBL'].dtype
@@ -220,7 +222,7 @@ pluto_4326_gdf['BBL'].dtype
 
 # #### Convert `Street Flooding` GeoDataFrame's `bbl` column from `object` to `float`.
 
-# In[ ]:
+# In[25]:
 
 
 street_flooding_gdf['BBL'] = street_flooding_gdf['bbl'].astype(float)
@@ -232,13 +234,13 @@ street_flooding_gdf['BBL'] = street_flooding_gdf['bbl'].astype(float)
 # 
 # {cite}`son2019keepindex`
 
-# In[ ]:
+# In[26]:
 
 
 street_flooding_gdf['unique_key'] = street_flooding_gdf.index
 
 
-# In[ ]:
+# In[27]:
 
 
 street_flooding_pluto_gdf = pd.merge(
@@ -253,7 +255,7 @@ street_flooding_pluto_gdf = pd.merge(
 
 # ##### Check index
 
-# In[ ]:
+# In[28]:
 
 
 street_flooding_pluto_gdf.index
@@ -261,7 +263,7 @@ street_flooding_pluto_gdf.index
 
 # ##### Set `unique_key` as index
 
-# In[ ]:
+# In[29]:
 
 
 street_flooding_pluto_gdf.set_index('unique_key', inplace = True)
@@ -269,7 +271,7 @@ street_flooding_pluto_gdf.set_index('unique_key', inplace = True)
 
 # ##### Verify index change
 
-# In[ ]:
+# In[30]:
 
 
 street_flooding_gdf.index
@@ -277,31 +279,31 @@ street_flooding_gdf.index
 
 # ##### List attributes in a 5 column grid
 
-# In[ ]:
+# In[31]:
 
 
 all_columns = street_flooding_pluto_gdf.columns.tolist()
 
 
-# In[ ]:
+# In[32]:
 
 
 chunks = [all_columns[x:x + 5] for x in range(0, len(all_columns), 5)]
 
 
-# In[ ]:
+# In[33]:
 
 
 attribute_grid = pd.DataFrame(chunks)
 
 
-# In[ ]:
+# In[34]:
 
 
 attribute_grid
 
 
-# In[ ]:
+# In[35]:
 
 
 preview_columns = [
@@ -316,7 +318,7 @@ preview_columns = [
 
 # ##### View oldest service requests
 
-# In[ ]:
+# In[36]:
 
 
 street_flooding_pluto_gdf[preview_columns].head(10)
@@ -324,19 +326,19 @@ street_flooding_pluto_gdf[preview_columns].head(10)
 
 # ##### View most recent service requests
 
-# In[ ]:
+# In[37]:
 
 
 street_flooding_pluto_gdf[preview_columns].tail(10)
 
 
-# In[ ]:
+# In[38]:
 
 
 type(street_flooding_pluto_gdf)
 
 
-# In[ ]:
+# In[39]:
 
 
 len(street_flooding_pluto_gdf[street_flooding_pluto_gdf['geometry_y'] == None])
@@ -344,7 +346,7 @@ len(street_flooding_pluto_gdf[street_flooding_pluto_gdf['geometry_y'] == None])
 
 # #### Check % Join by BBL
 
-# In[ ]:
+# In[40]:
 
 
 def pct_join(gdf: gpd.GeoDataFrame) -> dict:
@@ -360,7 +362,7 @@ def pct_join(gdf: gpd.GeoDataFrame) -> dict:
     return gdf_join_info
 
 
-# In[ ]:
+# In[41]:
 
 
 pct_join(street_flooding_pluto_gdf)
@@ -370,7 +372,7 @@ pct_join(street_flooding_pluto_gdf)
 # 
 # {cite}`ramsey2018postgisspatial`
 
-# In[ ]:
+# In[42]:
 
 
 """street_flooding_map_pluto_df = (
@@ -382,7 +384,7 @@ pct_join(street_flooding_pluto_gdf)
 )"""
 
 
-# In[ ]:
+# In[43]:
 
 
 """street_flooding_map_pluto_shp_df = (
@@ -396,7 +398,7 @@ pct_join(street_flooding_pluto_gdf)
 """
 
 
-# In[ ]:
+# In[44]:
 
 
 # nan_count = street_flood_pluto_gdf['geometry_y'].isna().sum()
