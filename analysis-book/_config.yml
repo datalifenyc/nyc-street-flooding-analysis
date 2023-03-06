@@ -4,14 +4,12 @@ copyright: "2023"
 logo: "nyc-street-flooding-complaints-logo.png"
 execute:
   timeout: 400
+  exclude_patterns:
+    - 'merge-flood-pluto.ipynb' # gdb folder read time: ~42 minutes
 repository:
   url: https://github.com/datalifenyc/nyc-street-flooding-analysis
   path_to_book: analysis-book
   branch: main
-exclude_patterns: [
-  # scrub-process-diagram.ipynb, # Uncomment if Graphviz is not installed.
-  explore-flood-pluto.ipynb
-]
 html:
   favicon: favicon.ico
   use_repository_button: true
