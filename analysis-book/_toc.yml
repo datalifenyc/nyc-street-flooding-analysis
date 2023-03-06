@@ -5,13 +5,13 @@ parts:
     chapters: 
     - file: obtain-flood-data
     - file: obtain-pluto-data
+    - file: merge-flood-pluto
   - caption: Scrub 🧹
     chapters:
     - file: scrub-flood-data
   - caption: Explore 📊
     chapters:
     - file: explore-map
-    - file: explore-flood-pluto
     - file: explore-auto-eda
   - caption: Model 🏗
     chapters:
