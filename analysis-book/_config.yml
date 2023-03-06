@@ -25,7 +25,7 @@ html:
   announcement: "School of Data Conference - March 18!"
   comments:
     utterances:
-      repo: "datalifenyc/nyc-street-flooding-analysis"
+      repo: "datalifenyc/nyc-street-flooding-analysis/analysis-book"
 sphinx:
   config:
     html_js_files:
