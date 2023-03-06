@@ -2,7 +2,7 @@
 
 The objective of this presentation is to examine multiple approaches for gaining deeper insights and a better understanding of the [NYC 311 Street Flood Complaints](https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9) open data.
 
-[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://nyc-street-flooding-analysis.datalife.nyc) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/datalifenyc/nyc-street-flooding-analysis/github-actions-upload-to-gcp-storage.yml)
+[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://nyc-street-flooding-analysis.datalife.nyc) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/datalifenyc/nyc-street-flooding-analysis/github-actions-upload-to-gcp-storage.yml) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/datalifenyc/nyc-street-flooding-analysis/blob/main/analysis-book/obtain-flood-data.ipynb)
 
 ## Event Details
 

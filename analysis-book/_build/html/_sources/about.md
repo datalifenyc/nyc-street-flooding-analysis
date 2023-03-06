@@ -1,6 +1,6 @@
 # [NYC Open Data Week 2023](https://www.open-data.nyc/) 🗓
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/datalifenyc/nyc-street-flooding-analysis?style=social)](https://github.com/datalifenyc/nyc-street-flooding-analysis)
+[![GitHub Repo stars](https://img.shields.io/github/stars/datalifenyc/nyc-street-flooding-analysis?style=social)](https://github.com/datalifenyc/nyc-street-flooding-analysis) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F)
 
 ## Description 📰
 

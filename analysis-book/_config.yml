@@ -3,7 +3,7 @@ author: Ho Hsieh, Nathan Williamson, Mark Bauer, Chidi Ezeolu
 copyright: "2023"
 logo: "nyc-street-flooding-complaints-logo.png"
 execute:
-  timeout: 400
+  timeout: 5400 # 90 min test for full read of gdb folder # 400
   exclude_patterns:
     - 'merge-flood-pluto.ipynb' # gdb folder read time: ~42 minutes
 repository:
@@ -22,7 +22,7 @@ html:
             <br/>
             <span style="font-family:Baskerville;font-style:italic;color:Chocolate;">Driven by Curiosity!</span>
         </div>
-  announcement: "GitHub Repo Publically Available - March 6!"
+  announcement: "School of Data Conference - March 18!"
 sphinx:
   config:
     html_js_files:
@@ -31,5 +31,6 @@ sphinx:
 bibtex_bibfiles:
   - references.bib
 launch_buttons:
-  binderhub_url: "https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/HEAD"
+  binderhub_url: "https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F"
   colab_url: "https://colab.research.google.com"
+  thebe: true
