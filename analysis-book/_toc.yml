@@ -9,10 +9,13 @@ parts:
     chapters:
     - file: scrub-flood-data
     - file: merge-flood-pluto
+    - file: scrub-process-diagram
+    - file: join
   - caption: Explore 📊
     chapters:
     - file: explore-map
     - file: explore-auto-eda
+    - file: nyc-precip-data
   - caption: Model 🏗
     chapters:
     - file: model-build

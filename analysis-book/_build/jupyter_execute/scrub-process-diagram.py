@@ -28,7 +28,7 @@ from diagrams.azure.database import DataLake, DataFactory
 
 # ## Define Variables
 
-# In[12]:
+# In[3]:
 
 
 data_stats_json_input = 'data/data-stats.json'
@@ -36,7 +36,7 @@ data_stats_json_input = 'data/data-stats.json'
 
 # ## Get Stats
 
-# In[13]:
+# In[4]:
 
 
 with open(data_stats_json_input, 'r') as read_json:
@@ -45,7 +45,7 @@ with open(data_stats_json_input, 'r') as read_json:
 
 # ## Build Diagram
 
-# In[16]:
+# In[5]:
 
 
 with Diagram("\nScrub and Merge: NYC Street Flooding Complaints with MapPLUTO", 
@@ -77,8 +77,4 @@ with Diagram("\nScrub and Merge: NYC Street Flooding Complaints with MapPLUTO",
         >> street_flood_clean
 
 
-# In[ ]:
-
-
-
-
+# ![scrub process diagram](img/scrub-process-diagram.png)

@@ -183,6 +183,16 @@ const thebe_selector_output = ".output, .cell_output"
    Street Flooding &amp; MapPLUTO
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="scrub-process-diagram.html">
+   ETL Diagram
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="join.html">
+   Join Tutorial
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -198,6 +208,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="explore-auto-eda.html">
    Auto EDA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nyc-precip-data.html">
+   NOAA ASOS/AWOS
   </a>
  </li>
 </ul>
@@ -996,10 +1011,21 @@ NYC_OPEN_DATA_311_API_CSV = &#39;https://data.cityofnewyork.us/resource/erm2-nwe
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading Latest Street Flooding Dataset...
-
-Street flooding dataset has already been download for 2023-03-06.
-
-Download Complete
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
+  File &quot;G:\OneDriveMigration\datalifenyc\conferences\my-talks\2023\open data week\nyc-street-flooding-analysis\analysis-book\obtainflooddata.py&quot;, line 201, in &lt;module&gt;
+    main()
+  File &quot;G:\OneDriveMigration\datalifenyc\conferences\my-talks\2023\open data week\nyc-street-flooding-analysis\analysis-book\obtainflooddata.py&quot;, line 196, in main
+    download.get_street_flooding_data()
+  File &quot;G:\OneDriveMigration\datalifenyc\conferences\my-talks\2023\open data week\nyc-street-flooding-analysis\analysis-book\obtainflooddata.py&quot;, line 92, in get_street_flooding_data
+    shutil.copy(file, os.path.join(subfolder, file))
+  File &quot;C:\Users\datal\anaconda3\envs\nyc-street-flooding-analysis\Lib\shutil.py&quot;, line 419, in copy
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File &quot;C:\Users\datal\anaconda3\envs\nyc-street-flooding-analysis\Lib\shutil.py&quot;, line 256, in copyfile
+    with open(src, &#39;rb&#39;) as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: &#39;street-flood-complaints_rows-000001-010000_dt-2023-03-06.geojson&#39;
 </pre></div>
 </div>
 </div>

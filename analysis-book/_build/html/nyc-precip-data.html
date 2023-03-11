@@ -1,0 +1,3498 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>NOAA ASOS/AWOS &#8212; &lt;b&gt;Going Beyond EDA&lt;/b&gt;&lt;br&gt;A Deeper Analysis of NYC 311 Street Flooding Complaints</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datalifenyc/nyc-street-flooding-analysis/analysis-book");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Build Models" href="model-build.html" />
+    <link rel="prev" title="Auto EDA" href="explore-auto-eda.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint">School of Data Conference - March 18!</div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/nyc-street-flooding-complaints-logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title"><b>Going Beyond EDA</b><br>A Deeper Analysis of NYC 311 Street Flooding Complaints</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="about.html">
+                    NYC Open Data Week 2023 🗓
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Obtain 💾
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="obtain-flood-data.html">
+   Street Flooding
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="obtain-pluto-data.html">
+   PLUTO &amp; MapPLUTO
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Scrub &amp; Merge 🧹
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="scrub-flood-data.html">
+   Clean Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="merge-flood-pluto.html">
+   Street Flooding &amp; MapPLUTO
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="scrub-process-diagram.html">
+   ETL Diagram
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="join.html">
+   Join Tutorial
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Explore 📊
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="explore-map.html">
+   Explore Map
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="explore-auto-eda.html">
+   Auto EDA
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   NOAA ASOS/AWOS
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Model 🏗
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="model-build.html">
+   Build Models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Interpret 💡
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="interpret-results.html">
+   Key Findings
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Resources 📑
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="references.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="python-libraries.html">
+   Python Libraries
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            <div>
+    Powered by <a href="https://jupyterbook.org/">Jupyter Book</a>
+    <br/>
+    Informed by <a href="https://opendata.cityofnewyork.us">NYC Open Data</a>
+    <br/>
+    <span style="font-family:Baskerville;font-style:italic;color:Chocolate;">Driven by Curiosity!</span>
+</div>
+
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?urlpath=tree/analysis-book/nyc-precip-data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/datalifenyc/nyc-street-flooding-analysis/blob/main/analysis-book/nyc-precip-data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/datalifenyc/nyc-street-flooding-analysis"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/datalifenyc/nyc-street-flooding-analysis/issues/new?title=Issue%20on%20page%20%2Fnyc-precip-data.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/nyc-precip-data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   NOAA ASOS/AWOS
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#noaa-automated-surface-weather-observing-systems-asos-awos">
+     NOAA Automated Surface/Weather Observing Systems (ASOS/AWOS)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#precipitation-data-hourly-from-2010-to-2020-nyc-new-york-central-park-40-779-73-96925">
+       Precipitation Data (Hourly) from 2010 to 2020, NYC, New York (Central Park, 40.779, -73.96925)
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#importing-libraries">
+   Importing Libraries
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#retrieve-data">
+   Retrieve Data
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#read-in-data">
+   Read in Data
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#read-in-nyc-311-street-flooding-complaints">
+   Read in NYC 311 Street Flooding Complaints
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hourly-max-depth-vs-hourly-complaint-counts">
+   Hourly Max Depth vs. Hourly Complaint Counts
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#total-daily-depth-vs-daily-complaint-counts">
+   Total Daily Depth vs. Daily Complaint Counts
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#weekly-total-depth-vs-weekly-complaint-counts">
+   Weekly Total Depth vs. Weekly Complaint Counts
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>NOAA ASOS/AWOS</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   NOAA ASOS/AWOS
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#noaa-automated-surface-weather-observing-systems-asos-awos">
+     NOAA Automated Surface/Weather Observing Systems (ASOS/AWOS)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#precipitation-data-hourly-from-2010-to-2020-nyc-new-york-central-park-40-779-73-96925">
+       Precipitation Data (Hourly) from 2010 to 2020, NYC, New York (Central Park, 40.779, -73.96925)
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#importing-libraries">
+   Importing Libraries
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#retrieve-data">
+   Retrieve Data
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#read-in-data">
+   Read in Data
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#read-in-nyc-311-street-flooding-complaints">
+   Read in NYC 311 Street Flooding Complaints
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hourly-max-depth-vs-hourly-complaint-counts">
+   Hourly Max Depth vs. Hourly Complaint Counts
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#total-daily-depth-vs-daily-complaint-counts">
+   Total Daily Depth vs. Daily Complaint Counts
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#weekly-total-depth-vs-weekly-complaint-counts">
+   Weekly Total Depth vs. Weekly Complaint Counts
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="noaa-asos-awos">
+<h1>NOAA ASOS/AWOS<a class="headerlink" href="#noaa-asos-awos" title="Permalink to this headline">#</a></h1>
+<section id="noaa-automated-surface-weather-observing-systems-asos-awos">
+<h2>NOAA Automated Surface/Weather Observing Systems (ASOS/AWOS)<a class="headerlink" href="#noaa-automated-surface-weather-observing-systems-asos-awos" title="Permalink to this headline">#</a></h2>
+<section id="precipitation-data-hourly-from-2010-to-2020-nyc-new-york-central-park-40-779-73-96925">
+<h3>Precipitation Data (Hourly) from 2010 to 2020, NYC, New York (Central Park, 40.779, -73.96925)<a class="headerlink" href="#precipitation-data-hourly-from-2010-to-2020-nyc-new-york-central-park-40-779-73-96925" title="Permalink to this headline">#</a></h3>
+<p>Author: Mark Bauer</p>
+<p>Dataset: Automated Surface/Weather Observing Systems (ASOS/AWOS)<br />
+ASOS Mainpage: <a class="reference external" href="https://www.ncei.noaa.gov/products/land-based-station/automated-surface-weather-observing-systems">https://www.ncei.noaa.gov/products/land-based-station/automated-surface-weather-observing-systems</a><br />
+User guide: <a class="reference external" href="https://www.weather.gov/media/asos/aum-toc.pdf">https://www.weather.gov/media/asos/aum-toc.pdf</a></p>
+<p>Data retrieved from:<br />
+Iowa State University Environmental Mesonet: <a class="reference external" href="https://mesonet.agron.iastate.edu/request/asos/hourlyprecip.phtml?network=NY_ASOS">https://mesonet.agron.iastate.edu/request/asos/hourlyprecip.phtml?network=NY_ASOS</a><br />
+Station data: <a class="reference external" href="https://mesonet.agron.iastate.edu/sites/site.php?station=NYC&amp;network=NY_ASOS">https://mesonet.agron.iastate.edu/sites/site.php?station=NYC&amp;network=NY_ASOS</a></p>
+<p>Iowa Environmental Mesonet (IEM) Computed Hourly Precipitation Totals</p>
+<blockquote>
+<div><p>The IEM attempts to take the METAR reports of precipitation and then provide just the hourly precipitation totals. These totals are not for the true hour (00 to 59 after), but for the hour between the standard METAR reporting time, typically :53 or :54 after. The timestamps displayed are in Central Daylight/Standard Time and for the hour the precipitation fell. So a value for 5 PM would roughly represent the period between 4:53 and 5:53 PM.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="importing-libraries">
+<h1>Importing Libraries<a class="headerlink" href="#importing-libraries" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">fiona</span>
+<span class="kn">from</span> <span class="nn">fiona.crs</span> <span class="kn">import</span> <span class="n">from_epsg</span>
+<span class="kn">import</span> <span class="nn">geoplot</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">FuncFormatter</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">make_axes_locatable</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.facecolor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<p>Printing versions of Python modules and packages with <strong>watermark</strong> - the IPython magic extension.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> watermark
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">watermark</span> -v -p numpy,pandas,geopandas,geoplot,fiona,matplotlib.pyplot,seaborn
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Python implementation: CPython
+Python version       : 3.8.13
+IPython version      : 8.4.0
+
+numpy            : 1.23.1
+pandas           : 1.4.3
+geopandas        : 0.11.1
+geoplot          : 0.5.1
+fiona            : 1.8.21
+matplotlib.pyplot: unknown
+seaborn          : 0.11.2
+</pre></div>
+</div>
+</div>
+</div>
+<p>Documention for installing watermark: <a class="reference external" href="https://github.com/rasbt/watermark">https://github.com/rasbt/watermark</a></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="retrieve-data">
+<h1>Retrieve Data<a class="headerlink" href="#retrieve-data" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># path = &#39;https://mesonet.agron.iastate.edu/cgi-bin/request/hourlyprecip.py?network=NY_ASOS&amp;station=NYC\</span>
+<span class="c1"># &amp;year1=2010&amp;month1=1&amp;day1=1&amp;year2=2020&amp;month2=12&amp;day2=31&amp;lalo=1&amp;st=1&amp;tz=America%2FNew_York&#39;</span>
+
+<span class="c1"># df = pd.read_csv(path)</span>
+<span class="c1"># df.to_csv(&#39;data/hourlyprecip-nyc.csv&#39;, index=False)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="n">data</span><span class="o">/</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>hourlyprecip-nyc.csv
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="read-in-data">
+<h1>Read in Data<a class="headerlink" href="#read-in-data" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/hourlyprecip-nyc.csv&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(71597, 7)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>station</th>
+      <th>network</th>
+      <th>valid</th>
+      <th>precip_in</th>
+      <th>lat</th>
+      <th>lon</th>
+      <th>st</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-01 01:00</td>
+      <td>0.0100</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-01 22:00</td>
+      <td>0.0001</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-01 23:00</td>
+      <td>0.0100</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-02 00:00</td>
+      <td>0.0001</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-02 04:00</td>
+      <td>0.0001</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 71597 entries, 0 to 71596
+Data columns (total 7 columns):
+ #   Column     Non-Null Count  Dtype  
+---  ------     --------------  -----  
+ 0   station    71597 non-null  object 
+ 1   network    71597 non-null  object 
+ 2   valid      71597 non-null  object 
+ 3   precip_in  71597 non-null  float64
+ 4   lat        71597 non-null  float64
+ 5   lon        71597 non-null  float64
+ 6   st         71597 non-null  object 
+dtypes: float64(3), object(4)
+memory usage: 3.8+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>lat</th>
+      <th>lon</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>71597.000000</td>
+      <td>71597.000</td>
+      <td>71597.00000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.007600</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.043277</td>
+      <td>0.000</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.000000</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1.660000</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># to date_time</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;date_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">],</span> <span class="n">infer_datetime_format</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;date_time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>station</th>
+      <th>network</th>
+      <th>valid</th>
+      <th>precip_in</th>
+      <th>lat</th>
+      <th>lon</th>
+      <th>st</th>
+      <th>date_time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-01 01:00</td>
+      <td>0.0100</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+      <td>2010-01-01 01:00:00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-01 22:00</td>
+      <td>0.0001</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+      <td>2010-01-01 22:00:00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-01 23:00</td>
+      <td>0.0100</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+      <td>2010-01-01 23:00:00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-02 00:00</td>
+      <td>0.0001</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+      <td>2010-01-02 00:00:00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-02 04:00</td>
+      <td>0.0001</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+      <td>2010-01-02 04:00:00</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-02 05:00</td>
+      <td>0.0001</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+      <td>2010-01-02 05:00:00</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-02 06:00</td>
+      <td>0.0001</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+      <td>2010-01-02 06:00:00</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-03 09:00</td>
+      <td>0.0001</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+      <td>2010-01-03 09:00:00</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-03 10:00</td>
+      <td>0.0001</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+      <td>2010-01-03 10:00:00</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>NYC</td>
+      <td>NY_ASOS</td>
+      <td>2010-01-03 14:00</td>
+      <td>0.0001</td>
+      <td>40.779</td>
+      <td>-73.96925</td>
+      <td>NY</td>
+      <td>2010-01-03 14:00:00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">],</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;distribution of depths&#39;</span><span class="p">)</span>
+
+<span class="c1"># removing zeros</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">],</span>
+             <span class="n">x</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;distribution of depths (exclude zeros)&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/nyc-precip-data_16_0.png" src="_images/nyc-precip-data_16_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;precip_in&quot;</span><span class="p">],</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;distribution of depths&#39;</span><span class="p">)</span>
+
+<span class="c1"># removing zeros</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;precip_in&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">],</span>
+             <span class="n">x</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;distribution of depths (exclude zeros)&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/nyc-precip-data_17_0.png" src="_images/nyc-precip-data_17_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># highest values</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="p">(</span><span class="n">df</span>
+ <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">,</span> <span class="s1">&#39;precip_in&#39;</span><span class="p">]]</span>
+ <span class="o">.</span><span class="n">head</span><span class="p">()</span>
+ <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">plot</span>
+ <span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;valid&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Highest Hourly Precipitation (Central Park, NYC)</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Date (Hourly)</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Inches&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/nyc-precip-data_18_0.png" src="_images/nyc-precip-data_18_0.png" />
+</div>
+</div>
+<p>Nice tutorial about resampling: <a class="reference external" href="https://www.earthdatascience.org/courses/use-data-open-source-python/use-time-series-data-in-python/date-time-types-in-pandas-python/resample-time-series-data-pandas-python/">https://www.earthdatascience.org/courses/use-data-open-source-python/use-time-series-data-in-python/date-time-types-in-pandas-python/resample-time-series-data-pandas-python/</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resample to hourly precip max and save as new dataframe</span>
+<span class="n">one_hour</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1H&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">one_hour</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>71589.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.007601</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.043279</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1.660000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resample to hourly precip max and save as new dataframe</span>
+<span class="n">six_hour</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;6H&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">six_hour</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>12423.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.022655</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.086522</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.000100</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1.660000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">one_hour</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">six_hour</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;1-Hour Max&#39;</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;6-Hour Max&#39;</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (Inches)&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/nyc-precip-data_22_0.png" src="_images/nyc-precip-data_22_0.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="read-in-nyc-311-street-flooding-complaints">
+<h1>Read in NYC 311 Street Flooding Complaints<a class="headerlink" href="#read-in-nyc-311-street-flooding-complaints" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/mebauer/nyc-311-street-flooding/</span><span class="se">\</span>
+<span class="s1">main/data/street-flooding-complaints.csv&#39;</span>
+
+<span class="n">complaints_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">complaints_df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">complaints_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(27902, 34)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>unique_key</th>
+      <th>created_date</th>
+      <th>agency</th>
+      <th>agency_name</th>
+      <th>complaint_type</th>
+      <th>descriptor</th>
+      <th>incident_zip</th>
+      <th>incident_address</th>
+      <th>street_name</th>
+      <th>cross_street_1</th>
+      <th>...</th>
+      <th>location</th>
+      <th>intersection_street_1</th>
+      <th>intersection_street_2</th>
+      <th>closed_date</th>
+      <th>resolution_description</th>
+      <th>resolution_action_updated_date</th>
+      <th>location_type</th>
+      <th>landmark</th>
+      <th>facility_type</th>
+      <th>due_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>48542220</td>
+      <td>2020-12-31T15:41:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11420.0</td>
+      <td>117-17 135 STREET</td>
+      <td>135 STREET</td>
+      <td>FOCH BLVD</td>
+      <td>...</td>
+      <td>{'latitude': '40.67703755925495', 'longitude':...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2021-01-01T00:20:00.000</td>
+      <td>Please call 311 for further information. If yo...</td>
+      <td>2021-01-01T00:20:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>48536430</td>
+      <td>2020-12-31T14:49:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11357.0</td>
+      <td>20-24 150 STREET</td>
+      <td>150 STREET</td>
+      <td>20 AVE</td>
+      <td>...</td>
+      <td>{'latitude': '40.78072630540092', 'longitude':...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2021-01-04T10:15:00.000</td>
+      <td>The Department of Environment Protection inspe...</td>
+      <td>2021-01-04T10:15:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>48539361</td>
+      <td>2020-12-31T14:03:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11228.0</td>
+      <td>7223 8 AVENUE</td>
+      <td>8 AVENUE</td>
+      <td>72 ST</td>
+      <td>...</td>
+      <td>{'latitude': '40.62849640806448', 'longitude':...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2021-01-02T11:25:00.000</td>
+      <td>The Department of Environmental Protection has...</td>
+      <td>2021-01-02T11:25:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>48543132</td>
+      <td>2020-12-31T13:48:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>10032.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>{'latitude': '40.841051689545516', 'longitude'...</td>
+      <td>RIVERSIDE DRIVE</td>
+      <td>WEST  165 STREET</td>
+      <td>2020-12-31T14:50:00.000</td>
+      <td>Please call 311 for further information. If yo...</td>
+      <td>2020-12-31T14:50:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>48536441</td>
+      <td>2020-12-31T13:10:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11234.0</td>
+      <td>3123 FILLMORE AVENUE</td>
+      <td>FILLMORE AVENUE</td>
+      <td>E 31 ST</td>
+      <td>...</td>
+      <td>{'latitude': '40.609203447399906', 'longitude'...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2021-01-03T10:45:00.000</td>
+      <td>The Department of Environmental Protection ins...</td>
+      <td>2021-01-03T10:45:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 34 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complaints_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 27902 entries, 0 to 27901
+Data columns (total 34 columns):
+ #   Column                          Non-Null Count  Dtype  
+---  ------                          --------------  -----  
+ 0   unique_key                      27902 non-null  int64  
+ 1   created_date                    27902 non-null  object 
+ 2   agency                          27902 non-null  object 
+ 3   agency_name                     27902 non-null  object 
+ 4   complaint_type                  27902 non-null  object 
+ 5   descriptor                      27902 non-null  object 
+ 6   incident_zip                    27045 non-null  float64
+ 7   incident_address                17865 non-null  object 
+ 8   street_name                     17865 non-null  object 
+ 9   cross_street_1                  24148 non-null  object 
+ 10  cross_street_2                  24137 non-null  object 
+ 11  address_type                    27896 non-null  object 
+ 12  city                            27048 non-null  object 
+ 13  status                          27902 non-null  object 
+ 14  community_board                 27900 non-null  object 
+ 15  bbl                             16159 non-null  float64
+ 16  borough                         27900 non-null  object 
+ 17  x_coordinate_state_plane        26959 non-null  float64
+ 18  y_coordinate_state_plane        26959 non-null  float64
+ 19  open_data_channel_type          27902 non-null  object 
+ 20  park_facility_name              27902 non-null  object 
+ 21  park_borough                    27900 non-null  object 
+ 22  latitude                        26959 non-null  float64
+ 23  longitude                       26959 non-null  float64
+ 24  location                        26959 non-null  object 
+ 25  intersection_street_1           10091 non-null  object 
+ 26  intersection_street_2           10091 non-null  object 
+ 27  closed_date                     27900 non-null  object 
+ 28  resolution_description          27896 non-null  object 
+ 29  resolution_action_updated_date  27902 non-null  object 
+ 30  location_type                   0 non-null      float64
+ 31  landmark                        0 non-null      float64
+ 32  facility_type                   0 non-null      float64
+ 33  due_date                        1 non-null      object 
+dtypes: float64(9), int64(1), object(24)
+memory usage: 7.2+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complaints_df</span><span class="p">[</span><span class="s1">&#39;descriptor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Street Flooding (SJ)    27902
+Name: descriptor, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># to date_time</span>
+<span class="n">complaints_df</span><span class="p">[</span><span class="s1">&#39;date_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">complaints_df</span><span class="p">[</span><span class="s1">&#39;created_date&#39;</span><span class="p">],</span> <span class="n">infer_datetime_format</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">complaints_df</span> <span class="o">=</span> <span class="n">complaints_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;date_time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">complaints_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>unique_key</th>
+      <th>created_date</th>
+      <th>agency</th>
+      <th>agency_name</th>
+      <th>complaint_type</th>
+      <th>descriptor</th>
+      <th>incident_zip</th>
+      <th>incident_address</th>
+      <th>street_name</th>
+      <th>cross_street_1</th>
+      <th>...</th>
+      <th>intersection_street_1</th>
+      <th>intersection_street_2</th>
+      <th>closed_date</th>
+      <th>resolution_description</th>
+      <th>resolution_action_updated_date</th>
+      <th>location_type</th>
+      <th>landmark</th>
+      <th>facility_type</th>
+      <th>due_date</th>
+      <th>date_time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>15639934</td>
+      <td>2010-01-02T08:26:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11229.0</td>
+      <td>39 DARE COURT</td>
+      <td>DARE COURT</td>
+      <td>LOIS AVE</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2010-01-03T08:45:00.000</td>
+      <td>The Department of Environmental Protection ins...</td>
+      <td>2010-01-03T08:45:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2010-01-02 08:26:00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>15640572</td>
+      <td>2010-01-02T12:00:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>10302.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NEWARK AVE</td>
+      <td>...</td>
+      <td>NEWARK AVENUE</td>
+      <td>RICHMOND TERRACE</td>
+      <td>2010-01-02T15:12:00.000</td>
+      <td>Please call 311 for further information. If yo...</td>
+      <td>2010-01-02T15:12:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1900-01-02T00:00:00.000</td>
+      <td>2010-01-02 12:00:00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>15640664</td>
+      <td>2010-01-02T17:45:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11436.0</td>
+      <td>116-14 146 STREET</td>
+      <td>146 STREET</td>
+      <td>116 AVE</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2010-01-12T11:00:00.000</td>
+      <td>The Department of Environment Protection inspe...</td>
+      <td>2010-01-12T11:00:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2010-01-02 17:45:00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>15655327</td>
+      <td>2010-01-04T16:47:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11428.0</td>
+      <td>94-18 218 STREET</td>
+      <td>218 STREET</td>
+      <td>94 AVE</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2010-01-12T10:35:00.000</td>
+      <td>The Department of Environment Protection inspe...</td>
+      <td>2010-01-12T10:35:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2010-01-04 16:47:00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>15668560</td>
+      <td>2010-01-05T10:37:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11234.0</td>
+      <td>2330 EAST   63 STREET</td>
+      <td>EAST   63 STREET</td>
+      <td>OHIO WALK</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2010-01-08T09:00:00.000</td>
+      <td>The Department of Environment Protection inspe...</td>
+      <td>2010-01-08T09:00:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2010-01-05 10:37:00</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 35 columns</p>
+</div></div></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="hourly-max-depth-vs-hourly-complaint-counts">
+<h1>Hourly Max Depth vs. Hourly Complaint Counts<a class="headerlink" href="#hourly-max-depth-vs-hourly-complaint-counts" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resample to daily precip max and save as new dataframe</span>
+<span class="n">hour_max</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1H&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">hour_max</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>71589.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.007601</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.043279</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1.660000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hour_max</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">hour_max</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">hour_max</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hour_max</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">hour_max</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hour_max</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">hour_max</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>71589.000000</td>
+      <td>96408.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.007601</td>
+      <td>0.103757</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.043279</td>
+      <td>0.304947</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1.660000</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resample to daily precip max and save as new dataframe</span>
+<span class="n">complaints_hourly</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">complaints_df</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;unique_key&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1H&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">count</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;unique_key&#39;</span><span class="p">:</span><span class="s1">&#39;count&#39;</span><span class="p">})</span>
+<span class="p">)</span>
+
+<span class="n">complaints_hourly</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-02 08:00:00</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-01-02 09:00:00</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-02 10:00:00</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-02 11:00:00</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-02 12:00:00</th>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">hour_max</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">complaints_hourly</span><span class="p">,</span>
+           <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+           <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+           <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">merged_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>96408.000000</td>
+      <td>96408.000000</td>
+      <td>96408.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.005644</td>
+      <td>0.103757</td>
+      <td>0.289239</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.037442</td>
+      <td>0.304947</td>
+      <td>1.320534</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1.660000</td>
+      <td>1.000000</td>
+      <td>74.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complaint_and_rain</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">merged_df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="n">complaint_and_norain</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">merged_df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="n">nocomplaint_and_rain</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">merged_df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="n">nocomplaint_and_norain</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">merged_df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total hours: </span><span class="si">{:,}</span><span class="se">\n</span><span class="s1">-----&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">merged_df</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There were complaints and it rained: </span><span class="si">{:,}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">complaint_and_rain</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There were complaints but it didnt rain: </span><span class="si">{:,}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">complaint_and_norain</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There were no complaints but it did rain: </span><span class="si">{:,}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nocomplaint_and_rain</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There were no complaints and it didnt rain: </span><span class="si">{:,}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nocomplaint_and_norain</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total hours: 96,408
+-----
+There were complaints and it rained: 3,341
+There were complaints but it didnt rain: 11,086
+There were no complaints but it did rain: 6,662
+There were no complaints and it didnt rain: 75,319
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;precip_in&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Hourly Total 311 Street Flooding Complaints vs. Precip 1-Hour Max (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;1-Hour Max (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Total Count&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/nyc-precip-data_34_0.png" src="_images/nyc-precip-data_34_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;precip_in&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Total Hourly 311 Street Flooding Complaints vs. Precip 1-Hour Max (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;1-Hourl Max (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Total Count&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/nyc-precip-data_35_0.png" src="_images/nyc-precip-data_35_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pearson&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>precip_in</th>
+      <td>1.000000</td>
+      <td>0.443050</td>
+      <td>0.328608</td>
+    </tr>
+    <tr>
+      <th>rain_flag</th>
+      <td>0.443050</td>
+      <td>1.000000</td>
+      <td>0.223679</td>
+    </tr>
+    <tr>
+      <th>count</th>
+      <td>0.328608</td>
+      <td>0.223679</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;spearman&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>precip_in</th>
+      <td>1.000000</td>
+      <td>0.998057</td>
+      <td>0.195264</td>
+    </tr>
+    <tr>
+      <th>rain_flag</th>
+      <td>0.998057</td>
+      <td>1.000000</td>
+      <td>0.188705</td>
+    </tr>
+    <tr>
+      <th>count</th>
+      <td>0.195264</td>
+      <td>0.188705</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span><span class="n">X</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  count   R-squared:                       0.108
+Model:                            OLS   Adj. R-squared:                  0.108
+Method:                 Least Squares   F-statistic:                 1.167e+04
+Date:                Tue, 07 Mar 2023   Prob (F-statistic):               0.00
+Time:                        21:45:01   Log-Likelihood:            -1.5809e+05
+No. Observations:               96408   AIC:                         3.162e+05
+Df Residuals:                   96406   BIC:                         3.162e+05
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.2238      0.004     55.099      0.000       0.216       0.232
+precip_in     11.5896      0.107    108.030      0.000      11.379      11.800
+==============================================================================
+Omnibus:                   188200.801   Durbin-Watson:                   0.883
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):        878786188.401
+Skew:                          15.311   Prob(JB):                         0.00
+Kurtosis:                     469.722   Cond. No.                         26.7
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="total-daily-depth-vs-daily-complaint-counts">
+<h1>Total Daily Depth vs. Daily Complaint Counts<a class="headerlink" href="#total-daily-depth-vs-daily-complaint-counts" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resample to daily precip max and save as new dataframe</span>
+<span class="n">daily_total</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">daily_total</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>4018.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.135428</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.373793</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.050300</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>5.810100</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">daily_total</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Daily Total&#39;</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (Inches)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/nyc-precip-data_41_0.png" src="_images/nyc-precip-data_41_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">daily_total</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">daily_total</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">daily_total</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">daily_total</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">daily_total</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">daily_total</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">daily_total</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">daily_total</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">daily_total</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+    </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-01</th>
+      <td>0.0201</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-01-02</th>
+      <td>0.0004</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-01-03</th>
+      <td>0.0004</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-01-04</th>
+      <td>0.0000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>0.0001</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complaints_daily</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">complaints_df</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;unique_key&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">count</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;unique_key&#39;</span><span class="p">:</span><span class="s1">&#39;count&#39;</span><span class="p">})</span>
+<span class="p">)</span>
+
+<span class="n">complaints_daily</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-02</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2010-01-03</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-04</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">daily_total</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">complaints_daily</span><span class="p">,</span>
+           <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+           <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+           <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">merged_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-01</th>
+      <td>0.0201</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-02</th>
+      <td>0.0004</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2010-01-03</th>
+      <td>0.0004</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-04</th>
+      <td>0.0000</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>0.0001</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complaint_and_rain</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">merged_df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="n">complaint_and_norain</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">merged_df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="n">nocomplaint_and_rain</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">merged_df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="n">nocomplaint_and_norain</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">merged_df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total days: </span><span class="si">{:,}</span><span class="se">\n</span><span class="s1">-----&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">merged_df</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There were complaints and it rained: </span><span class="si">{:,}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">complaint_and_rain</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There were complaints but it didnt rain: </span><span class="si">{:,}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">complaint_and_norain</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There were no complaints but it did rain: </span><span class="si">{:,}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nocomplaint_and_rain</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There were no complaints and it didnt rain: </span><span class="si">{:,}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nocomplaint_and_norain</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total days: 4,018
+-----
+There were complaints and it rained: 1,511
+There were complaints but it didnt rain: 1,964
+There were no complaints but it did rain: 114
+There were no complaints and it didnt rain: 429
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Daily Precip Total Depth&#39;</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Daily Complaints&#39;</span><span class="p">])</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="p">[</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">]</span>
+    
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/nyc-precip-data_46_0.png" src="_images/nyc-precip-data_46_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;precip_in&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Daily 311 Street Flooding Complaints vs. Daily Total Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Total Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/nyc-precip-data_47_0.png" src="_images/nyc-precip-data_47_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;precip_in&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Daily 311 Street Flooding Complaints vs. Daily Total Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Total Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/nyc-precip-data_48_0.png" src="_images/nyc-precip-data_48_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pearson&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>precip_in</th>
+      <td>1.000000</td>
+      <td>0.439721</td>
+      <td>0.667650</td>
+    </tr>
+    <tr>
+      <th>rain_flag</th>
+      <td>0.439721</td>
+      <td>1.000000</td>
+      <td>0.317658</td>
+    </tr>
+    <tr>
+      <th>count</th>
+      <td>0.667650</td>
+      <td>0.317658</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;spearman&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>precip_in</th>
+      <td>1.000000</td>
+      <td>0.957173</td>
+      <td>0.455491</td>
+    </tr>
+    <tr>
+      <th>rain_flag</th>
+      <td>0.957173</td>
+      <td>1.000000</td>
+      <td>0.382689</td>
+    </tr>
+    <tr>
+      <th>count</th>
+      <td>0.455491</td>
+      <td>0.382689</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span><span class="n">X</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  count   R-squared:                       0.446
+Model:                            OLS   Adj. R-squared:                  0.446
+Method:                 Least Squares   F-statistic:                     3230.
+Date:                Tue, 07 Mar 2023   Prob (F-statistic):               0.00
+Time:                        21:45:03   Log-Likelihood:                -15396.
+No. Observations:                4018   AIC:                         3.080e+04
+Df Residuals:                    4016   BIC:                         3.081e+04
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          3.3164      0.187     17.699      0.000       2.949       3.684
+precip_in     26.7883      0.471     56.832      0.000      25.864      27.712
+==============================================================================
+Omnibus:                     3997.659   Durbin-Watson:                   1.634
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           431827.698
+Skew:                           4.582   Prob(JB):                         0.00
+Kurtosis:                      52.954   Cond. No.                         2.73
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="weekly-total-depth-vs-weekly-complaint-counts">
+<h1>Weekly Total Depth vs. Weekly Complaint Counts<a class="headerlink" href="#weekly-total-depth-vs-weekly-complaint-counts" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resample to daily precip max and save as new dataframe</span>
+<span class="n">week_total</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">week_total</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>575.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.946349</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.025975</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.200100</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.641000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1.410400</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>7.900200</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">week_total</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">week_total</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">week_total</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">week_total</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">week_total</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">week_total</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">week_total</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">week_total</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">week_total</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>575.000000</td>
+      <td>575.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.946349</td>
+      <td>0.944348</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.025975</td>
+      <td>0.229448</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.200100</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.641000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1.410400</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>7.900200</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resample to daily precip max and save as new dataframe</span>
+<span class="n">complaints_weekly</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">complaints_df</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;unique_key&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">count</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;unique_key&#39;</span><span class="p">:</span><span class="s1">&#39;count&#39;</span><span class="p">})</span>
+<span class="p">)</span>
+
+<span class="n">complaints_weekly</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-03</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2010-01-10</th>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>2010-01-17</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>2010-01-24</th>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>2010-01-31</th>
+      <td>73</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">week_total</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">complaints_weekly</span><span class="p">,</span>
+           <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+           <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+           <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">merged_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>575.000000</td>
+      <td>575.000000</td>
+      <td>575.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.946349</td>
+      <td>0.944348</td>
+      <td>48.525217</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.025975</td>
+      <td>0.229448</td>
+      <td>49.102385</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.200100</td>
+      <td>1.000000</td>
+      <td>17.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.641000</td>
+      <td>1.000000</td>
+      <td>31.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1.410400</td>
+      <td>1.000000</td>
+      <td>60.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>7.900200</td>
+      <td>1.000000</td>
+      <td>336.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complaint_and_rain</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">merged_df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="n">complaint_and_norain</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">merged_df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="n">nocomplaint_and_rain</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">merged_df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="n">nocomplaint_and_norain</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+    <span class="n">merged_df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="p">(</span><span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total weeks: </span><span class="si">{:,}</span><span class="se">\n</span><span class="s1">-----&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">merged_df</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There were complaints and it rained: </span><span class="si">{:,}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">complaint_and_rain</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There were complaints but it didnt rain: </span><span class="si">{:,}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">complaint_and_norain</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There were no complaints but it did rain: </span><span class="si">{:,}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nocomplaint_and_rain</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There were no complaints and it didnt rain: </span><span class="si">{:,}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nocomplaint_and_norain</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total weeks: 575
+-----
+There were complaints and it rained: 543
+There were complaints but it didnt rain: 31
+There were no complaints but it did rain: 0
+There were no complaints and it didnt rain: 1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;precip_in&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Total Weekly 311 Street Flooding Complaints vs. Total Weekly Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Total Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/nyc-precip-data_58_0.png" src="_images/nyc-precip-data_58_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;precip_in&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Total Weekly 311 Street Flooding Complaints vs. Total Weekly Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Total Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/nyc-precip-data_59_0.png" src="_images/nyc-precip-data_59_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pearson&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>precip_in</th>
+      <td>1.000000</td>
+      <td>0.224113</td>
+      <td>0.691221</td>
+    </tr>
+    <tr>
+      <th>rain_flag</th>
+      <td>0.224113</td>
+      <td>1.000000</td>
+      <td>0.138830</td>
+    </tr>
+    <tr>
+      <th>count</th>
+      <td>0.691221</td>
+      <td>0.138830</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;spearman&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>precip_in</th>
+      <td>1.000000</td>
+      <td>0.397106</td>
+      <td>0.704604</td>
+    </tr>
+    <tr>
+      <th>rain_flag</th>
+      <td>0.397106</td>
+      <td>1.000000</td>
+      <td>0.204734</td>
+    </tr>
+    <tr>
+      <th>count</th>
+      <td>0.704604</td>
+      <td>0.204734</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span><span class="n">X</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  count   R-squared:                       0.478
+Model:                            OLS   Adj. R-squared:                  0.477
+Method:                 Least Squares   F-statistic:                     524.3
+Date:                Tue, 07 Mar 2023   Prob (F-statistic):           7.01e-83
+Time:                        21:45:04   Log-Likelihood:                -2867.6
+No. Observations:                 575   AIC:                             5739.
+Df Residuals:                     573   BIC:                             5748.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         17.2187      2.016      8.542      0.000      13.260      21.178
+precip_in     33.0813      1.445     22.897      0.000      30.244      35.919
+==============================================================================
+Omnibus:                      217.881   Durbin-Watson:                   1.733
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1234.246
+Skew:                           1.576   Prob(JB):                    9.70e-269
+Kurtosis:                       9.449   Cond. No.                         2.47
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "datalifenyc/nyc-street-flooding-analysis",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="explore-auto-eda.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Auto EDA</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="model-build.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Build Models</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ho Hsieh, Nathan Williamson, Mark Bauer, Chidi Ezeolu<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

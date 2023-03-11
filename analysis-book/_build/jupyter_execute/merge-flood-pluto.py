@@ -365,14 +365,380 @@ def pct_join(gdf: gpd.GeoDataFrame) -> dict:
 # In[41]:
 
 
-pct_join(street_flooding_pluto_gdf)
+bbl_join_stats_dict = pct_join(street_flooding_pluto_gdf)
+bbl_join_stats_dict
 
 
 # ### Join #2: Spatial Join
 # 
 # {cite}`ramsey2018postgisspatial`
 
+# #### Split DataFrame Into BBL Matches and Non-matches
+
+# ##### BBL matches
+
 # In[42]:
+
+
+street_flooding_pluto_bbl_match_gdf = \
+    street_flooding_pluto_gdf[street_flooding_pluto_gdf['geometry_y'] != None]
+
+
+# In[79]:
+
+
+output_match_folder = 'data/merge/'
+file_name_geojson = 'street_flooding_pluto_bbl_match.geojson'
+file_name_shp = 'street_flooding_pluto_bbl_match.shp'
+
+
+# Save Match to geojson
+
+# In[80]:
+
+
+street_flooding_pluto_bbl_match_gdf.to_file(f'{output_match_folder}{file_name_geojson}', driver='GeoJSON')
+
+
+# Save Match to Shapefile
+
+# In[81]:
+
+
+street_flooding_pluto_bbl_match_gdf.to_file(f'{output_match_folder}{file_name_shp}')
+
+
+# Verify match count
+
+# In[43]:
+
+
+match_count = bbl_join_stats_dict['df_size'] - \
+    bbl_join_stats_dict['missing_geometry_y_count']
+
+match_count == \
+    len(street_flooding_pluto_bbl_match_gdf)
+
+
+# ##### BBL mismatches
+
+# In[44]:
+
+
+street_flooding_pluto_bbl_mismatch_gdf = \
+    street_flooding_pluto_gdf[street_flooding_pluto_gdf['geometry_y'] == None]
+
+
+# Only extract the street flooding columns before rejoining with sjoin
+
+# In[45]:
+
+
+street_flooding_pluto_bbl_mismatch_copy_gdf = \
+    street_flooding_pluto_bbl_mismatch_gdf.copy()
+
+
+# Rename `geometry_x` column back to original name, `geometry`
+
+# In[46]:
+
+
+street_flooding_pluto_bbl_mismatch_copy_gdf.rename(columns = {"geometry_x": "geometry"}, inplace = True)
+
+
+# Copy index as column, `unique_key`
+
+# In[47]:
+
+
+street_flooding_pluto_bbl_mismatch_copy_gdf['unique_key'] = street_flooding_pluto_bbl_mismatch_copy_gdf.index
+
+
+# In[48]:
+
+
+street_flooding_pluto_bbl_mismatch_copy_gdf.info()
+
+
+# Verify mismatch count
+
+# In[49]:
+
+
+bbl_join_stats_dict['missing_geometry_y_count'] == \
+    len(street_flooding_pluto_bbl_mismatch_copy_gdf)
+
+
+# Copy only the street flooding columns
+
+# In[50]:
+
+
+street_flooding_bbl_no_match_gdf = \
+    street_flooding_pluto_bbl_mismatch_copy_gdf[street_flooding_columns].copy()
+
+
+# #### Perform `sjoin`
+# 
+# {cite}`ramsey2018postgisspatial,fleischmann2021spatialjoin`
+
+# Set active geometry
+
+# In[51]:
+
+
+street_flooding_bbl_no_match_gdf.set_geometry('geometry', inplace = True)
+
+
+# In[52]:
+
+
+street_flooding_map_pluto_sjoin_gdf = (
+    gpd.sjoin(
+        street_flooding_bbl_no_match_gdf,
+        pluto_4326_gdf,
+        how = 'left',
+        predicate = 'within'
+    )
+)
+
+
+# In[53]:
+
+
+list_of_columns = street_flooding_map_pluto_sjoin_gdf.columns.tolist()
+
+
+# In[54]:
+
+
+list_of_columns
+
+
+# In[55]:
+
+
+preview_columns
+
+
+# In[74]:
+
+
+preview_columns_sjoin = [
+    'borough',
+    'Borough',
+    'created_date', 
+    'street_name', 
+    'bbl', 
+    'ZipCode', 
+    'geometry',
+    'TaxMap']
+
+
+# In[57]:
+
+
+street_flooding_map_pluto_sjoin_gdf[preview_columns_sjoin].head(10)
+
+
+# In[58]:
+
+
+street_flooding_map_pluto_sjoin_gdf[preview_columns_sjoin].tail(10)
+
+
+# In[59]:
+
+
+nan_count = street_flooding_map_pluto_sjoin_gdf['Borough'].isna().sum()
+nan_count
+
+
+# #### Perform `sjoin_nearest`
+# 
+# {cite}`ramsey2018postgisspatial,fleischmann2021spatialjoin`
+
+# In[ ]:
+
+
+
+
+
+# In[60]:
+
+
+"""street_flooding_bbl_no_match_gdf.crs = 'epsg:3035'
+street_flooding_bbl_no_match_gdf.to_crs('4326', inplace = True)"""
+
+
+# In[61]:
+
+
+"""pluto_4326_gdf.crs = 'epsg:3035'
+pluto_4326_gdf.to_crs('4326', inplace = True)"""
+
+
+# In[62]:
+
+
+"""street_flooding_bbl_no_match_gdf.crs"""
+
+
+# In[63]:
+
+
+"""street_flooding_bbl_no_match_gdf.geometry"""
+
+
+# In[64]:
+
+
+"""pluto_4326_gdf.crs"""
+
+
+# In[65]:
+
+
+"""pluto_4326_gdf.geometry"""
+
+
+# In[66]:
+
+
+"""street_flooding_map_pluto_sjoin_nearest_gdf = (
+    gpd.sjoin_nearest(
+        street_flooding_bbl_no_match_gdf.to_crs('2957'),
+        pluto_4326_gdf.to_crs('2957'),
+        # how = 'inner',
+        distance_col = 'distances'
+    )
+)
+"""
+
+
+# Use Projected CRS for `gpd.sjoin_nearest`
+# 
+# Mercator (EPSG: 3857)
+# 
+# 1. Google Maps
+# 2. Open Street Maps
+# 3. Stamen Maps
+# 
+# {cite}`frazier2020crsinr`
+
+# In[67]:
+
+
+"""street_flooding_map_pluto_sjoin_nearest_gdf = (
+    gpd.sjoin_nearest(
+        street_flooding_bbl_no_match_gdf.to_crs('32610'),
+        pluto_4326_gdf.to_crs('32610'),
+        # how = 'inner',
+        distance_col = 'distances'
+    )
+)"""
+
+
+# In[85]:
+
+
+# temp
+sfbnmg10 = street_flooding_bbl_no_match_gdf.iloc[:10,:].copy()
+
+
+# In[86]:
+
+
+# temp
+len(sfbnmg10)
+
+
+# In[87]:
+
+
+# temp
+p4g10 = pluto_4326_gdf.iloc[:50,:].copy()
+
+
+# In[88]:
+
+
+# temp
+len(p4g10)
+
+
+# In[89]:
+
+
+# temp
+street_flooding_map_pluto_sjoin_nearest_gdf = (
+    gpd.sjoin_nearest(
+        street_flooding_bbl_no_match_gdf.to_crs('2263'),
+        pluto_4326_gdf.to_crs('2263'),
+        how = 'left',
+        distance_col = 'distance'
+    )
+)
+
+
+# In[68]:
+
+
+street_flooding_map_pluto_sjoin_nearest_gdf = (
+    gpd.sjoin_nearest(
+        street_flooding_bbl_no_match_gdf.to_crs('3857'),
+        pluto_4326_gdf.to_crs('3857'),
+        how = 'left',
+        distance_col = 'distance'
+    )
+)
+
+
+# In[69]:
+
+
+street_flooding_map_pluto_sjoin_nearest_gdf.columns
+
+
+# In[82]:
+
+
+len(pluto_4326_gdf)
+
+
+# In[75]:
+
+
+preview_columns_sjoin.append('distance')
+
+
+# In[90]:
+
+
+# temp
+street_flooding_map_pluto_sjoin_nearest_gdf[preview_columns_sjoin].head(10)
+
+
+# In[76]:
+
+
+street_flooding_map_pluto_sjoin_nearest_gdf[preview_columns_sjoin].head(10)
+
+
+# In[77]:
+
+
+street_flooding_map_pluto_sjoin_nearest_gdf[preview_columns_sjoin].tail(10)
+
+
+# In[78]:
+
+
+nan_count = street_flooding_map_pluto_sjoin_nearest_gdf['Borough'].isna().sum()
+nan_count
+
+
+# In[ ]:
 
 
 """street_flooding_map_pluto_df = (
@@ -384,24 +750,28 @@ pct_join(street_flooding_pluto_gdf)
 )"""
 
 
-# In[43]:
-
-
-"""street_flooding_map_pluto_shp_df = (
-    gpd.sjoin(
-        street_flooding_gdf,
-        pluto_shp_gdf.to_crs(4326),
-        how = 'inner',
-        predicate = 'within'
-    ).reset_index(drop = True)
-)
-"""
-
-
-# In[44]:
+# In[ ]:
 
 
 # nan_count = street_flood_pluto_gdf['geometry_y'].isna().sum()
+
+
+# In[ ]:
+
+
+"""pluto_gdf['geometry']"""
+
+
+# In[ ]:
+
+
+"""pluto_4326_gdf['geometry']"""
+
+
+# In[ ]:
+
+
+"""street_flooding_bbl_no_match_gdf['geometry']"""
 
 
 # In[ ]:
