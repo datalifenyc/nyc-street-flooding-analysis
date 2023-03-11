@@ -18,7 +18,7 @@ Organized by: [NYC Data Team @ OTI](https://www1.nyc.gov/content/oti/pages/) ✨
 - What secrets can we learn about NYC from 311 Street Flooding Complaints❓
 - Have you ever considered examining the relationship of NYC 311 Street Complaints dataset to other geospatial datasets❓
 
-__In the talk, we attempt to answer three questions:__
+__In this talk, we attempt to answer three questions:__
 
 ::::{grid}
 :gutter: 3
