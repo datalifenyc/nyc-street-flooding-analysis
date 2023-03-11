@@ -1,11 +1,12 @@
 name: nyc-street-flooding-analysis
 channels:
-  - conda-forge
   - defaults
 dependencies:
   - python=3.11
+  - pywin32
+  - folium
+  - jupyter-book
   - geopandas
   - ipykernel
-  - pywin32
-  - jupyter-book
-  - folium
+  - seaborn
+  - geoplot
