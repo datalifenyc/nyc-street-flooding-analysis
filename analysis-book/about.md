@@ -23,16 +23,16 @@ __In the talk, we attempt to answer three questions:__
 ::::{grid}
 :gutter: 3
 
-:::{grid-item-card} 1️⃣
-_How can we measure inequality in street flooding complaints?_
+:::{grid-item-card}
+_How can we __measure inequality__ in street flooding complaints?_
 :::
 
-:::{grid-item-card} 2️⃣
-_Is there a relationship between street flooding complaints and property values?_
+:::{grid-item-card}
+_Is there a relationship between street flooding complaints and __property values__?_
 :::
 
-:::{grid-item-card} 3️⃣
-_How does street flooding complaints compare to actual modeled flooding data?_
+:::{grid-item-card}
+_How does street flooding complaints compare to __actual modeled__ flooding data?_
 :::
 ::::
 
@@ -50,7 +50,7 @@ Anyone with __beginner-level__ proficiency is welcome! It is helpful, but not re
 ✔ Working with Jupyter Notebooks  
 ✔ Interest in NYC 311 Open Data or Street Flooding datasets  
 
-## Speakers 🗣
+## Speakers | Say Hello 👋
 
 A group of civic minded __data enthusiasts__, who enjoy solving City related data problems together.
 
@@ -61,18 +61,37 @@ A group of civic minded __data enthusiasts__, who enjoy solving City related dat
 | Mark Bauer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/markebauer) | [![GitHub followers](https://img.shields.io/github/followers/mebauer?style=social)](https://github.com/mebauer) | [![Twitter Follow](https://img.shields.io/twitter/follow/markbauerwater?style=social)](https://twitter.com/markbauerwater) |
 | Chidi Ezeolu | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/chidi-ezeolu-411b0856) | [![GitHub followers](https://img.shields.io/github/followers/datalifenyc?style=social)](https://github.com/datalifenyc)| |
 
-## Agenda
+## Agenda 📄
 
-1. Introduction
-    - Walkthrough of Website and GitHub Repo
-2. Statement of Goals
-    - Brief Overview of Data Science Lifecyle
-    - Why Beyond EDA?
-3. Hypothesis & Methodology
-    - Method 1
-    - Method 2
-    - Method 3
-4. Summary & Conclusions
-    - References
-    - Additional Resources
-    - Q & A
+::::{grid}
+:gutter: 2
+
+:::{grid-item-card} 1️⃣ Introduction
+
+- Who we are
+- Website and GitHub Repo
+:::
+
+:::{grid-item-card} 2️⃣ Statement of Objectives
+
+- Brief Overview of Data Science Lifecyle
+- Why Beyond EDA?
+:::
+::::
+
+::::{grid}
+:gutter: 2
+
+:::{grid-item-card} 3️⃣ Analysis Methods
+
+- Method 1
+- Method 2
+- Method 3
+:::
+
+:::{grid-item-card} 4️⃣ Summary & Conclusions
+
+- References & Resources
+- Q & A
+:::
+::::
