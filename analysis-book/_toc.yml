@@ -11,7 +11,7 @@ parts:
     - file: merge-flood-pluto
     - file: scrub-process-diagram
     - file: join
-  - caption: Explore 📊
+  - caption: Explore 🗺
     chapters:
     - file: explore-map
     - file: explore-auto-eda

@@ -20,7 +20,7 @@
 # | API Endpoints<br />(sample size: `10`) | [JSON](https://data.cityofnewyork.us/resource/erm2-nwe9.json?$limit=10&descriptor=Street%20Flooding%20(SJ))<br>[GeoJSON](https://data.cityofnewyork.us/resource/erm2-nwe9.geojson?$limit=10&descriptor=Street%20Flooding%20(SJ))<br>[CSV](https://data.cityofnewyork.us/resource/erm2-nwe9.csv?$limit=10&descriptor=Street%20Flooding%20(SJ)) |
 # | Data Dictionary | [311_SR_Data_Dictionary_2018.xlsx](https://data.cityofnewyork.us/api/views/erm2-nwe9/files/68b25fbb-9d30-486a-a571-7115f54911cd?download=true&filename=311_SR_Data_Dictionary_2018.xlsx)
 # | `complaint_type` | Sewer |
-# | `descriptor` | Street Flooding (SJ) |
+# | `descriptor` | Street Flooding (SJ) ☔ |
 
 # ## Import Libraries
 

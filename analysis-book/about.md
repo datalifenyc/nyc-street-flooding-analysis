@@ -1,8 +1,19 @@
-# [NYC Open Data Week 2023](https://www.open-data.nyc/) 🗓
+# [NYC Open Data Week 2023](https://www.open-data.nyc/) 📊
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/datalifenyc/nyc-street-flooding-analysis?style=social)](https://github.com/datalifenyc/nyc-street-flooding-analysis) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F)
 
-## Description 📰
+## When 🗓
+
+````{card} NYC School of Data
+
+Saturday, March 18, 2023
+^^^
+[Schedule 🕘](https://nycsodata23.sched.com/)
++++
+Organized by: [NYC Data Team @ OTI](https://www1.nyc.gov/content/oti/pages/) ✨ [BetaNYC](https://beta.nyc/) ✨ [Data Through Design](https://datathroughdesign.com/)
+````
+
+## Description 🌦
 
 - What secrets can we learn about NYC from 311 Street Flooding Complaints❓
 - Have you ever considered examining the relationship of NYC 311 Street Complaints dataset to other geospatial datasets❓
