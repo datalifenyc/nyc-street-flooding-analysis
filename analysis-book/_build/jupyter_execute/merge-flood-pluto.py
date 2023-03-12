@@ -94,7 +94,7 @@ get_ipython().run_cell_magic('script', 'echo "[skip] Reason: using gdb file type
 street_flooding_gdf = gpd.read_file(
     nyc_street_flooding_geojson, 
     driver = 'GeoJSON', 
-    rows = 500
+    # rows = 500
 )
 
 
@@ -449,14 +449,14 @@ street_flooding_pluto_bbl_mismatch_gdf = \
 
 # Rename `geometry_x` column back to original name, `geometry`
 
-# In[56]:
+# In[48]:
 
 
 street_flooding_pluto_bbl_mismatch_gdf_prejoin = \
     street_flooding_pluto_bbl_mismatch_gdf.copy()
 
 
-# In[57]:
+# In[49]:
 
 
 street_flooding_pluto_bbl_mismatch_gdf_prejoin.rename(columns = {'geometry_x': 'geometry'}, inplace = True)
@@ -464,7 +464,7 @@ street_flooding_pluto_bbl_mismatch_gdf_prejoin.rename(columns = {'geometry_x': '
 
 # Copy index as column, `unique_key`
 
-# In[58]:
+# In[50]:
 
 
 street_flooding_pluto_bbl_mismatch_gdf_prejoin['unique_key'] = street_flooding_pluto_bbl_mismatch_gdf_prejoin.index
@@ -472,7 +472,7 @@ street_flooding_pluto_bbl_mismatch_gdf_prejoin['unique_key'] = street_flooding_p
 
 # BBL mismatch GeoDataFrame info
 
-# In[59]:
+# In[51]:
 
 
 street_flooding_pluto_bbl_mismatch_gdf_prejoin.info()
@@ -480,7 +480,7 @@ street_flooding_pluto_bbl_mismatch_gdf_prejoin.info()
 
 # Verify mismatch count
 
-# In[60]:
+# In[52]:
 
 
 bbl_join_stats_dict['missing_geometry_y_count'] == \
@@ -489,7 +489,7 @@ bbl_join_stats_dict['missing_geometry_y_count'] == \
 
 # Copy only the street flooding columns
 
-# In[61]:
+# In[53]:
 
 
 street_flooding_bbl_no_match_gdf = \
@@ -504,37 +504,37 @@ street_flooding_bbl_no_match_gdf = \
 
 # Set active geometry
 
-# In[62]:
+# In[54]:
 
 
 get_ipython().run_cell_magic('script', 'echo "[skip] Reason: using `sjoin_nearest`"', "street_flooding_bbl_no_match_gdf.set_geometry('geometry', inplace = True)\n")
 
 
-# In[64]:
+# In[55]:
 
 
 get_ipython().run_cell_magic('script', 'echo "[skip] Reason: using `sjoin_nearest`"', "street_flooding_map_pluto_sjoin_gdf = (\n    gpd.sjoin(\n        street_flooding_bbl_no_match_gdf,\n        pluto_4326_gdf,\n        # pluto_4326_gdf_copy_si_only,\n        how = 'left',\n        # predicate = 'intersects'\n    )\n)\n")
 
 
-# In[65]:
+# In[56]:
 
 
 get_ipython().run_cell_magic('script', 'echo "[skip] Reason: using `sjoin_nearest`"', "preview_columns_sjoin = [\n    'borough',\n    'Borough',\n    'created_date', \n    'street_name', \n    'bbl', \n    'ZipCode', \n    'geometry',\n    'TaxMap'\n]\n")
 
 
-# In[66]:
+# In[57]:
 
 
 get_ipython().run_cell_magic('script', 'echo "[skip] Reason: using `sjoin_nearest`"', 'street_flooding_map_pluto_sjoin_gdf[preview_columns_sjoin].head(10)\n')
 
 
-# In[67]:
+# In[58]:
 
 
 get_ipython().run_cell_magic('script', 'echo "[skip] Reason: using `sjoin_nearest`"', 'street_flooding_map_pluto_sjoin_gdf[preview_columns_sjoin].tail(10)\n')
 
 
-# In[68]:
+# In[59]:
 
 
 get_ipython().run_cell_magic('script', 'echo "[skip] Reason: using `sjoin_nearest`"', "nan_count = street_flooding_map_pluto_sjoin_gdf['Borough'].isna().sum()\nnan_count\n")
@@ -558,7 +558,7 @@ get_ipython().run_cell_magic('script', 'echo "[skip] Reason: using `sjoin_neares
 
 # Set active geometry
 
-# In[69]:
+# In[60]:
 
 
 street_flooding_bbl_no_match_gdf.set_geometry('geometry', inplace = True)
@@ -566,7 +566,7 @@ street_flooding_bbl_no_match_gdf.set_geometry('geometry', inplace = True)
 
 # Implement [`geopandas.sjoin_nearest`](https://geopandas.org/en/stable/docs/reference/api/geopandas.sjoin_nearest.html)
 
-# In[70]:
+# In[61]:
 
 
 street_flooding_map_pluto_sjoin_nearest_gdf = (
@@ -585,7 +585,7 @@ street_flooding_map_pluto_sjoin_nearest_gdf = (
 
 # Check index
 
-# In[71]:
+# In[62]:
 
 
 street_flooding_map_pluto_sjoin_nearest_gdf.index
@@ -593,7 +593,7 @@ street_flooding_map_pluto_sjoin_nearest_gdf.index
 
 # Select columns to preview
 
-# In[72]:
+# In[63]:
 
 
 preview_columns_sjoin_nearest_list = [
@@ -608,13 +608,13 @@ preview_columns_sjoin_nearest_list = [
 ]
 
 
-# In[73]:
+# In[64]:
 
 
 street_flooding_map_pluto_sjoin_nearest_gdf[preview_columns_sjoin_nearest_list].head()
 
 
-# In[74]:
+# In[65]:
 
 
 street_flooding_map_pluto_sjoin_nearest_gdf[preview_columns_sjoin_nearest_list].tail()
@@ -623,14 +623,14 @@ street_flooding_map_pluto_sjoin_nearest_gdf[preview_columns_sjoin_nearest_list].
 # Check number of street flooding complaint locations that did not match after 
 # the `sjoin_nearest` implementation
 
-# In[75]:
+# In[66]:
 
 
 nan_count = street_flooding_map_pluto_sjoin_nearest_gdf['Borough'].isna().sum()
 nan_count
 
 
-# In[76]:
+# In[67]:
 
 
 sjoin_nearest_stats_dict = \
@@ -644,19 +644,19 @@ sjoin_nearest_stats_dict
 
 # ##### Street Flooding MapPluto `BBL` column count
 
-# In[77]:
+# In[68]:
 
 
 street_flooding_pluto_bbl_columns_list = street_flooding_pluto_bbl_match_gdf.columns.tolist()
 
 
-# In[78]:
+# In[69]:
 
 
 street_flooding_pluto_bbl_columns_count = len(street_flooding_pluto_bbl_columns_list)
 
 
-# In[79]:
+# In[70]:
 
 
 print(f'Street Flooding MapPluto BBL column count: {street_flooding_pluto_bbl_columns_count}')
@@ -664,19 +664,19 @@ print(f'Street Flooding MapPluto BBL column count: {street_flooding_pluto_bbl_co
 
 # ##### Street Flooding MapPluto `sjoin_nearest` column count
 
-# In[80]:
+# In[71]:
 
 
 street_flooding_map_pluto_sjoin_nearest_columns_list = street_flooding_map_pluto_sjoin_nearest_gdf.columns.tolist()
 
 
-# In[81]:
+# In[72]:
 
 
 street_flooding_map_pluto_sjoin_nearest_columns_count = len(street_flooding_map_pluto_sjoin_nearest_columns_list)
 
 
-# In[82]:
+# In[73]:
 
 
 print(f'Street Flooding MapPluto sjoin_nearest column count: {street_flooding_map_pluto_sjoin_nearest_columns_count}')
@@ -684,14 +684,14 @@ print(f'Street Flooding MapPluto sjoin_nearest column count: {street_flooding_ma
 
 # ##### Compare columns
 
-# In[83]:
+# In[74]:
 
 
 bbl_only = set(street_flooding_pluto_bbl_columns_list) - set(street_flooding_map_pluto_sjoin_nearest_columns_list)
 bbl_only
 
 
-# In[84]:
+# In[75]:
 
 
 sjoin_nearest_only = set(street_flooding_map_pluto_sjoin_nearest_columns_list) - set(street_flooding_pluto_bbl_columns_list)
@@ -700,13 +700,13 @@ sjoin_nearest_only
 
 # ##### Verify index is the unique_key
 
-# In[85]:
+# In[76]:
 
 
 street_flooding_pluto_bbl_match_gdf.index
 
 
-# In[86]:
+# In[77]:
 
 
 street_flooding_map_pluto_sjoin_nearest_gdf.index
@@ -716,26 +716,26 @@ street_flooding_map_pluto_sjoin_nearest_gdf.index
 
 # BBL match DataFrame
 
-# In[87]:
+# In[78]:
 
 
 street_flooding_pluto_bbl_match_gdf_pretransform = \
     street_flooding_pluto_bbl_match_gdf.copy()
 
 
-# In[88]:
+# In[79]:
 
 
 street_flooding_pluto_bbl_match_gdf_pretransform.rename(columns = {'geometry_x': 'geometry'}, inplace = True)
 
 
-# In[89]:
+# In[80]:
 
 
 street_flooding_pluto_bbl_match_gdf_pretransform.drop(columns = ['geometry_y'], inplace = True)
 
 
-# In[90]:
+# In[81]:
 
 
 street_flooding_pluto_bbl_match_gdf_pretransform['unique_key'] = street_flooding_pluto_bbl_match_gdf_pretransform.index
@@ -743,14 +743,14 @@ street_flooding_pluto_bbl_match_gdf_pretransform['unique_key'] = street_flooding
 
 # `sjoin_nearest` match DataFrame
 
-# In[91]:
+# In[82]:
 
 
 street_flooding_map_pluto_sjoin_nearest_gdf_pretransform = \
     street_flooding_map_pluto_sjoin_nearest_gdf.copy()
 
 
-# In[92]:
+# In[83]:
 
 
 street_flooding_map_pluto_sjoin_nearest_gdf_pretransform.drop(columns = ['distance', 'index_right'], inplace = True)
@@ -758,13 +758,13 @@ street_flooding_map_pluto_sjoin_nearest_gdf_pretransform.drop(columns = ['distan
 
 # ##### Re-compare columns
 
-# In[93]:
+# In[84]:
 
 
 street_flooding_pluto_bbl_match_gdf_pretransform_columns_list = street_flooding_pluto_bbl_match_gdf_pretransform.columns.tolist()
 
 
-# In[94]:
+# In[85]:
 
 
 street_flooding_map_pluto_sjoin_nearest_gdf_pretransform_columns_list = street_flooding_map_pluto_sjoin_nearest_gdf_pretransform.columns.tolist()
@@ -772,7 +772,7 @@ street_flooding_map_pluto_sjoin_nearest_gdf_pretransform_columns_list = street_f
 
 # BBL match only
 
-# In[95]:
+# In[86]:
 
 
 bbl_recheck_only = set(street_flooding_pluto_bbl_match_gdf_pretransform_columns_list) - set(street_flooding_map_pluto_sjoin_nearest_gdf_pretransform_columns_list)
@@ -781,7 +781,7 @@ bbl_recheck_only
 
 # `sjoin_nearest` match only
 
-# In[96]:
+# In[87]:
 
 
 sjoin_nearest_only = set(street_flooding_map_pluto_sjoin_nearest_gdf_pretransform_columns_list) - set(street_flooding_pluto_bbl_match_gdf_pretransform_columns_list)
@@ -792,14 +792,14 @@ sjoin_nearest_only
 
 # ##### Set active geometry
 
-# In[97]:
+# In[88]:
 
 
 street_flooding_pluto_bbl_match_gdf_pretransform.set_geometry(col = 'geometry', inplace = True)
 street_flooding_map_pluto_sjoin_nearest_gdf_pretransform.set_geometry(col = 'geometry', inplace = True)
 
 
-# In[98]:
+# In[89]:
 
 
 street_flooding_mappluto_gdf_merge_gdf = pd.concat([street_flooding_pluto_bbl_match_gdf_pretransform.to_crs('2263'), street_flooding_map_pluto_sjoin_nearest_gdf_pretransform.to_crs('2263')])
@@ -807,13 +807,13 @@ street_flooding_mappluto_gdf_merge_gdf = pd.concat([street_flooding_pluto_bbl_ma
 
 # ##### Preview Results
 
-# In[99]:
+# In[90]:
 
 
 street_flooding_mappluto_gdf_merge_gdf.info()
 
 
-# In[100]:
+# In[91]:
 
 
 preview_columns_merge_list = [
@@ -829,13 +829,13 @@ preview_columns_merge_list = [
 ]
 
 
-# In[101]:
+# In[92]:
 
 
 street_flooding_mappluto_gdf_merge_gdf[preview_columns_merge_list].head()
 
 
-# In[102]:
+# In[93]:
 
 
 street_flooding_mappluto_gdf_merge_gdf[preview_columns_merge_list].tail()
@@ -843,14 +843,14 @@ street_flooding_mappluto_gdf_merge_gdf[preview_columns_merge_list].tail()
 
 # ##### Check total missing joins
 
-# In[103]:
+# In[94]:
 
 
 nan_count = street_flooding_mappluto_gdf_merge_gdf['Borough'].isna().sum()
 nan_count
 
 
-# In[104]:
+# In[95]:
 
 
 street_flooding_mappluto_gdf_merge_stats_dict = \
@@ -864,13 +864,13 @@ street_flooding_mappluto_gdf_merge_stats_dict
 # 
 # [pandas GroupBy columns with NaN (missing) values](https://stackoverflow.com/questions/18429491/pandas-groupby-columns-with-nan-missing-values)
 
-# In[105]:
+# In[96]:
 
 
 street_flooding_mappluto_gdf_merge_gdf.groupby(['Borough'], dropna = False)['Borough'].count()
 
 
-# In[106]:
+# In[97]:
 
 
 len(street_flooding_mappluto_gdf_merge_gdf)
@@ -878,20 +878,20 @@ len(street_flooding_mappluto_gdf_merge_gdf)
 
 # #### Save Final Merge Match Count to JSON file
 
-# In[107]:
+# In[98]:
 
 
 data_stats['street_flood_mappluto_sjoin_nearest'] = \
     street_flooding_mappluto_gdf_merge_stats_dict['match_count']
 
 
-# In[108]:
+# In[99]:
 
 
 print(data_stats)
 
 
-# In[109]:
+# In[100]:
 
 
 data_stats_json = {}
@@ -899,7 +899,7 @@ for key, value in data_stats.items():
     data_stats_json[key] = int(value)
 
 
-# In[110]:
+# In[101]:
 
 
 with open(data_stats_json_input, 'w') as write_json:
@@ -914,7 +914,7 @@ with open(data_stats_json_input, 'w') as write_json:
 
 # #### Check supported driver options
 
-# In[111]:
+# In[102]:
 
 
 fiona.supported_drivers
@@ -922,7 +922,7 @@ fiona.supported_drivers
 
 # #### Confirm output folder exists
 
-# In[112]:
+# In[103]:
 
 
 if not os.path.exists('data/merge'):
@@ -934,13 +934,13 @@ else:
 
 # #### Reindex Merged GeoPandas DataFrame
 
-# In[113]:
+# In[104]:
 
 
 street_flooding_mappluto_gdf_to_save = street_flooding_mappluto_gdf_merge_gdf.copy()
 
 
-# In[114]:
+# In[105]:
 
 
 street_flooding_mappluto_gdf_to_save.index.rename('orig_unique_key', inplace = True)
@@ -948,7 +948,7 @@ street_flooding_mappluto_gdf_to_save.index.rename('orig_unique_key', inplace = T
 
 # #### Save as `.gdb` using `OpenFileGDB` driver
 
-# In[115]:
+# In[106]:
 
 
 street_flooding_mappluto_gdf_to_save.to_file(merge_flood_mappluto_output_ofgdb, driver = 'OpenFileGDB', crs = 'EPSG:2263')
@@ -956,7 +956,7 @@ street_flooding_mappluto_gdf_to_save.to_file(merge_flood_mappluto_output_ofgdb, 
 
 # #### Save as `.geojson` using `GeoJSON` driver
 
-# In[116]:
+# In[107]:
 
 
 street_flooding_mappluto_gdf_to_save.to_file(merge_flood_mappluto_output_geojson, driver = 'GeoJSON', crs = 'EPSG:2263')

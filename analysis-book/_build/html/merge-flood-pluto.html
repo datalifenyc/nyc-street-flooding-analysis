@@ -1668,7 +1668,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span>
     <span class="n">nyc_street_flooding_geojson</span><span class="p">,</span> 
     <span class="n">driver</span> <span class="o">=</span> <span class="s1">&#39;GeoJSON&#39;</span><span class="p">,</span> 
-    <span class="n">rows</span> <span class="o">=</span> <span class="mi">500</span>
+    <span class="c1"># rows = 500</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1682,7 +1682,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># of Street Flooding Complaints: 500
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># of Street Flooding Complaints: 35076
 </pre></div>
 </div>
 </div>
@@ -1716,7 +1716,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RangeIndex(start=0, stop=500, step=1)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RangeIndex(start=0, stop=35076, step=1)
 </pre></div>
 </div>
 </div>
@@ -1744,9 +1744,9 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;15639934&#39;, &#39;15640572&#39;, &#39;15640664&#39;, &#39;15655327&#39;, &#39;15668560&#39;, &#39;15674300&#39;,
        &#39;15674896&#39;, &#39;15674924&#39;, &#39;15675505&#39;, &#39;15683503&#39;,
        ...
-       &#39;16233511&#39;, &#39;16233799&#39;, &#39;16234414&#39;, &#39;16234453&#39;, &#39;16235248&#39;, &#39;16235261&#39;,
-       &#39;16235305&#39;, &#39;16235421&#39;, &#39;16235933&#39;, &#39;16235970&#39;],
-      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=500)
+       &#39;56938247&#39;, &#39;56939162&#39;, &#39;56939933&#39;, &#39;56940422&#39;, &#39;56941710&#39;, &#39;56943896&#39;,
+       &#39;56945114&#39;, &#39;56947312&#39;, &#39;56949537&#39;, &#39;56951729&#39;],
+      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=35076)
 </pre></div>
 </div>
 </div>
@@ -1950,10 +1950,12 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Int64Index([  0,   1,   2,   3,   4,   5,   6,   7,   8,   9,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Int64Index([    0,     1,     2,     3,     4,     5,     6,     7,     8,
+                9,
             ...
-            490, 491, 492, 493, 494, 495, 496, 497, 498, 499],
-           dtype=&#39;int64&#39;, length=500)
+            35066, 35067, 35068, 35069, 35070, 35071, 35072, 35073, 35074,
+            35075],
+           dtype=&#39;int64&#39;, length=35076)
 </pre></div>
 </div>
 </div>
@@ -1981,9 +1983,9 @@ Datum: World Geodetic System 1984 ensemble
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;15639934&#39;, &#39;15640572&#39;, &#39;15640664&#39;, &#39;15655327&#39;, &#39;15668560&#39;, &#39;15674300&#39;,
        &#39;15674896&#39;, &#39;15674924&#39;, &#39;15675505&#39;, &#39;15683503&#39;,
        ...
-       &#39;16233511&#39;, &#39;16233799&#39;, &#39;16234414&#39;, &#39;16234453&#39;, &#39;16235248&#39;, &#39;16235261&#39;,
-       &#39;16235305&#39;, &#39;16235421&#39;, &#39;16235933&#39;, &#39;16235970&#39;],
-      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=500)
+       &#39;56938247&#39;, &#39;56939162&#39;, &#39;56939933&#39;, &#39;56940422&#39;, &#39;56941710&#39;, &#39;56943896&#39;,
+       &#39;56945114&#39;, &#39;56947312&#39;, &#39;56949537&#39;, &#39;56951729&#39;],
+      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=35076)
 </pre></div>
 </div>
 </div>
@@ -2504,113 +2506,113 @@ Datum: World Geodetic System 1984 ensemble
   </thead>
   <tbody>
     <tr>
-      <th>16233511</th>
-      <td>2010-03-16 12:16:00</td>
-      <td>STATEN ISLAND</td>
-      <td>SI</td>
-      <td>JEFFERSON AVENUE</td>
-      <td>5035590010</td>
-      <td>10306.0</td>
-      <td>POINT (-74.09925 40.58180)</td>
-      <td>MULTIPOLYGON (((-74.09896 40.58173, -74.09910 ...</td>
+      <th>56938247</th>
+      <td>2023-03-02 09:29:00</td>
+      <td>MANHATTAN</td>
+      <td>MN</td>
+      <td>7 AVENUE</td>
+      <td>1010230029</td>
+      <td>10019.0</td>
+      <td>POINT (-73.98261 40.76200)</td>
+      <td>MULTIPOLYGON (((-73.98255 40.76234, -73.98292 ...</td>
     </tr>
     <tr>
-      <th>16233799</th>
-      <td>2010-03-16 17:10:00</td>
+      <th>56939162</th>
+      <td>2023-03-02 13:35:00</td>
+      <td>QUEENS</td>
+      <td>NaN</td>
+      <td>BEACH  142 STREET</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (-73.85860 40.57202)</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>56939933</th>
+      <td>2023-03-02 09:56:00</td>
+      <td>QUEENS</td>
+      <td>QN</td>
+      <td>BENTLEY ROAD</td>
+      <td>4137330024</td>
+      <td>11422.0</td>
+      <td>POINT (-73.74748 40.65428)</td>
+      <td>MULTIPOLYGON (((-73.74731 40.65459, -73.74725 ...</td>
+    </tr>
+    <tr>
+      <th>56940422</th>
+      <td>2023-03-02 16:23:00</td>
+      <td>QUEENS</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (-73.83286 40.66191)</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>56941710</th>
+      <td>2023-03-02 14:05:00</td>
+      <td>BROOKLYN</td>
+      <td>BK</td>
+      <td>AVENUE D</td>
+      <td>3079320010</td>
+      <td>11203.0</td>
+      <td>POINT (-73.92330 40.64253)</td>
+      <td>MULTIPOLYGON (((-73.92271 40.64247, -73.92267 ...</td>
+    </tr>
+    <tr>
+      <th>56943896</th>
+      <td>2023-03-03 08:44:00</td>
+      <td>BROOKLYN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (-73.93198 40.63027)</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>56945114</th>
+      <td>2023-03-03 13:02:00</td>
+      <td>QUEENS</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (-73.86326 40.72866)</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>56947312</th>
+      <td>2023-03-03 08:59:00</td>
       <td>BRONX</td>
       <td>BX</td>
-      <td>EAST  144 STREET</td>
-      <td>2022890160</td>
-      <td>10454.0</td>
-      <td>POINT (-73.91776 40.81197)</td>
-      <td>MULTIPOLYGON (((-73.91755 40.81228, -73.91755 ...</td>
+      <td>ST ANNS AVENUE</td>
+      <td>2026190001</td>
+      <td>10456.0</td>
+      <td>POINT (-73.90983 40.82142)</td>
+      <td>MULTIPOLYGON (((-73.90931 40.82118, -73.90975 ...</td>
     </tr>
     <tr>
-      <th>16234414</th>
-      <td>2010-03-16 09:01:00</td>
-      <td>STATEN ISLAND</td>
-      <td>SI</td>
-      <td>WOODROW ROAD</td>
-      <td>5056800353</td>
-      <td>10312.0</td>
-      <td>POINT (-74.18024 40.55823)</td>
-      <td>MULTIPOLYGON (((-74.17951 40.55817, -74.17961 ...</td>
+      <th>56949537</th>
+      <td>2023-03-03 12:29:00</td>
+      <td>BRONX</td>
+      <td>BX</td>
+      <td>WATERBURY AVENUE</td>
+      <td>2053330042</td>
+      <td>10461.0</td>
+      <td>POINT (-73.83166 40.83728)</td>
+      <td>MULTIPOLYGON (((-73.83123 40.83701, -73.83129 ...</td>
     </tr>
     <tr>
-      <th>16234453</th>
-      <td>2010-03-16 09:50:00</td>
-      <td>QUEENS</td>
-      <td>QN</td>
-      <td>NEWPORT AVENUE</td>
-      <td>4163020004</td>
-      <td>11694.0</td>
-      <td>POINT (-73.86254 40.57329)</td>
-      <td>MULTIPOLYGON (((-73.86272 40.57313, -73.86257 ...</td>
-    </tr>
-    <tr>
-      <th>16235248</th>
-      <td>2010-03-16 01:51:00</td>
-      <td>BROOKLYN</td>
-      <td>BK</td>
-      <td>OCEAN AVENUE</td>
-      <td>3068250027</td>
-      <td>11229.0</td>
-      <td>POINT (-73.95255 40.60536)</td>
-      <td>MULTIPOLYGON (((-73.95326 40.60532, -73.95272 ...</td>
-    </tr>
-    <tr>
-      <th>16235261</th>
-      <td>2010-03-16 07:21:00</td>
-      <td>BROOKLYN</td>
-      <td>BK</td>
-      <td>DUMONT AVENUE</td>
-      <td>3044720003</td>
-      <td>11208.0</td>
-      <td>POINT (-73.86013 40.67129)</td>
-      <td>MULTIPOLYGON (((-73.85991 40.67094, -73.86006 ...</td>
-    </tr>
-    <tr>
-      <th>16235305</th>
-      <td>2010-03-16 08:23:00</td>
-      <td>QUEENS</td>
-      <td>QN</td>
-      <td>GRAHAM PLACE</td>
-      <td>4163500400</td>
-      <td>11697.0</td>
-      <td>POINT (-73.91299 40.55751)</td>
-      <td>MULTIPOLYGON (((-73.91728 40.56098, -73.91556 ...</td>
-    </tr>
-    <tr>
-      <th>16235421</th>
-      <td>2010-03-16 07:07:00</td>
-      <td>MANHATTAN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>POINT (-73.94672 40.81989)</td>
-      <td>None</td>
-    </tr>
-    <tr>
-      <th>16235933</th>
-      <td>2010-03-16 12:35:00</td>
-      <td>QUEENS</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>POINT (-73.72639 40.65492)</td>
-      <td>None</td>
-    </tr>
-    <tr>
-      <th>16235970</th>
-      <td>2010-03-16 16:26:00</td>
+      <th>56951729</th>
+      <td>2023-03-03 09:26:00</td>
       <td>STATEN ISLAND</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>POINT (-74.14848 40.53530)</td>
+      <td>POINT (-74.09018 40.60813)</td>
       <td>None</td>
     </tr>
   </tbody>
@@ -2649,11 +2651,11 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 500,
- &#39;match_count&#39;: 285,
- &#39;missing_geometry_y_count&#39;: 215,
- &#39;pct_join&#39;: 57.0,
- &#39;pct_missing&#39;: 43.0}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 35076,
+ &#39;match_count&#39;: 21560,
+ &#39;missing_geometry_y_count&#39;: 13516,
+ &#39;pct_join&#39;: 61.47,
+ &#39;pct_missing&#39;: 38.53}
 </pre></div>
 </div>
 </div>
@@ -2684,10 +2686,10 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
-Index: 285 entries, 15639934 to 16235305
+Index: 21560 entries, 15639934 to 56949537
 Columns: 139 entries, location_state to geometry_y
 dtypes: datetime64[ns](4), float64(58), geometry(2), object(75)
-memory usage: 319.8+ KB
+memory usage: 23.5+ MB
 </pre></div>
 </div>
 </div>
@@ -2728,7 +2730,7 @@ memory usage: 319.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;street_flood_orig&#39;: 35076, &#39;street_flood_clean&#39;: 34069, &#39;street_flood_mappluto_bbl&#39;: 117, &#39;street_flood_mappluto_sjoin_nearest&#39;: 187}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;street_flood_orig&#39;: 35076, &#39;street_flood_clean&#39;: 34069}
 </pre></div>
 </div>
 </div>
@@ -2747,7 +2749,7 @@ memory usage: 319.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;street_flood_orig&#39;: 35076, &#39;street_flood_clean&#39;: 34069, &#39;street_flood_mappluto_bbl&#39;: 285, &#39;street_flood_mappluto_sjoin_nearest&#39;: 187}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;street_flood_orig&#39;: 35076, &#39;street_flood_clean&#39;: 34069, &#39;street_flood_mappluto_bbl&#39;: 21560}
 </pre></div>
 </div>
 </div>
@@ -2797,10 +2799,10 @@ match by BBL.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
-Index: 215 entries, 15640572 to 16235970
+Index: 13516 entries, 15640572 to 56951729
 Columns: 140 entries, location_state to unique_key
 dtypes: datetime64[ns](4), float64(58), geometry(2), object(76)
-memory usage: 244.9+ KB
+memory usage: 15.0+ MB
 </pre></div>
 </div>
 </div>
@@ -2982,9 +2984,9 @@ nan_count
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;15640572&#39;, &#39;15685423&#39;, &#39;15695294&#39;, &#39;15729654&#39;, &#39;15729867&#39;, &#39;15742536&#39;,
        &#39;15742620&#39;, &#39;15751802&#39;, &#39;15763709&#39;, &#39;15772441&#39;,
        ...
-       &#39;16224015&#39;, &#39;16224016&#39;, &#39;16224020&#39;, &#39;16225273&#39;, &#39;16226640&#39;, &#39;16226642&#39;,
-       &#39;16226646&#39;, &#39;16235421&#39;, &#39;16235933&#39;, &#39;16235970&#39;],
-      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=215)
+       &#39;56878750&#39;, &#39;56889664&#39;, &#39;56920513&#39;, &#39;56925104&#39;, &#39;56927257&#39;, &#39;56939162&#39;,
+       &#39;56940422&#39;, &#39;56943896&#39;, &#39;56945114&#39;, &#39;56951729&#39;],
+      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=13527)
 </pre></div>
 </div>
 </div>
@@ -3160,59 +3162,59 @@ nan_count
   </thead>
   <tbody>
     <tr>
-      <th>16226642</th>
+      <th>56939162</th>
       <td>QUEENS</td>
       <td>QN</td>
-      <td>2010-03-15 10:09:00</td>
-      <td>78 STREET</td>
+      <td>2023-03-02 13:35:00</td>
+      <td>BEACH  142 STREET</td>
+      <td>NaN</td>
+      <td>11694.0</td>
+      <td>POINT (1023534.000 147711.014)</td>
+      <td>46303</td>
+    </tr>
+    <tr>
+      <th>56940422</th>
+      <td>QUEENS</td>
+      <td>QN</td>
+      <td>2023-03-02 16:23:00</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>11414.0</td>
-      <td>POINT (1023909.000 183170.014)</td>
-      <td>45001</td>
+      <td>POINT (1030621.000 180474.014)</td>
+      <td>45804</td>
     </tr>
     <tr>
-      <th>16226646</th>
+      <th>56943896</th>
       <td>BROOKLYN</td>
       <td>BK</td>
-      <td>2010-03-15 19:54:00</td>
-      <td>LORING AVENUE</td>
+      <td>2023-03-03 08:44:00</td>
       <td>NaN</td>
-      <td>11208.0</td>
-      <td>POINT (1023831.000 182875.014)</td>
-      <td>31404</td>
+      <td>NaN</td>
+      <td>11234.0</td>
+      <td>POINT (1003129.000 168908.014)</td>
+      <td>32306</td>
     </tr>
     <tr>
-      <th>16235421</th>
-      <td>MANHATTAN</td>
-      <td>MN</td>
-      <td>2010-03-16 07:07:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>10030.0</td>
-      <td>POINT (998997.000 237991.014)</td>
-      <td>10706</td>
-    </tr>
-    <tr>
-      <th>16235933</th>
+      <th>56945114</th>
       <td>QUEENS</td>
       <td>QN</td>
-      <td>2010-03-16 12:35:00</td>
+      <td>2023-03-03 13:02:00</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>11422.0</td>
-      <td>POINT (1060169.000 178000.014)</td>
-      <td>45702</td>
+      <td>11374.0</td>
+      <td>POINT (1022149.000 204776.014)</td>
+      <td>41604</td>
     </tr>
     <tr>
-      <th>16235970</th>
+      <th>56951729</th>
       <td>STATEN ISLAND</td>
       <td>SI</td>
-      <td>2010-03-16 16:26:00</td>
+      <td>2023-03-03 09:26:00</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>10312.0</td>
-      <td>POINT (942979.000 134336.014)</td>
-      <td>52301</td>
+      <td>10304.0</td>
+      <td>POINT (959211.000 160846.014)</td>
+      <td>51401</td>
     </tr>
   </tbody>
 </table>
@@ -3228,7 +3230,7 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>30
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1007
 </pre></div>
 </div>
 </div>
@@ -3242,11 +3244,11 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 215,
- &#39;match_count&#39;: 185,
- &#39;missing_Borough_count&#39;: 30,
- &#39;pct_join&#39;: 86.05,
- &#39;pct_missing&#39;: 13.95}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 13527,
+ &#39;match_count&#39;: 12520,
+ &#39;missing_Borough_count&#39;: 1007,
+ &#39;pct_join&#39;: 92.56,
+ &#39;pct_missing&#39;: 7.44}
 </pre></div>
 </div>
 </div>
@@ -3357,9 +3359,9 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;15639934&#39;, &#39;15640664&#39;, &#39;15655327&#39;, &#39;15668560&#39;, &#39;15674300&#39;, &#39;15674896&#39;,
        &#39;15674924&#39;, &#39;15675505&#39;, &#39;15683503&#39;, &#39;15683559&#39;,
        ...
-       &#39;16225036&#39;, &#39;16226645&#39;, &#39;16233446&#39;, &#39;16233511&#39;, &#39;16233799&#39;, &#39;16234414&#39;,
-       &#39;16234453&#39;, &#39;16235248&#39;, &#39;16235261&#39;, &#39;16235305&#39;],
-      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=285)
+       &#39;56925036&#39;, &#39;56926124&#39;, &#39;56929306&#39;, &#39;56932641&#39;, &#39;56933309&#39;, &#39;56938247&#39;,
+       &#39;56939933&#39;, &#39;56941710&#39;, &#39;56947312&#39;, &#39;56949537&#39;],
+      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=21560)
 </pre></div>
 </div>
 </div>
@@ -3374,9 +3376,9 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;15640572&#39;, &#39;15685423&#39;, &#39;15695294&#39;, &#39;15729654&#39;, &#39;15729867&#39;, &#39;15742536&#39;,
        &#39;15742620&#39;, &#39;15751802&#39;, &#39;15763709&#39;, &#39;15772441&#39;,
        ...
-       &#39;16224015&#39;, &#39;16224016&#39;, &#39;16224020&#39;, &#39;16225273&#39;, &#39;16226640&#39;, &#39;16226642&#39;,
-       &#39;16226646&#39;, &#39;16235421&#39;, &#39;16235933&#39;, &#39;16235970&#39;],
-      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=215)
+       &#39;56878750&#39;, &#39;56889664&#39;, &#39;56920513&#39;, &#39;56925104&#39;, &#39;56927257&#39;, &#39;56939162&#39;,
+       &#39;56940422&#39;, &#39;56943896&#39;, &#39;56945114&#39;, &#39;56951729&#39;],
+      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=13527)
 </pre></div>
 </div>
 </div>
@@ -3507,10 +3509,10 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
-Index: 500 entries, 15639934 to 16235970
+Index: 35087 entries, 15639934 to 56951729
 Columns: 139 entries, location_state to unique_key
 dtypes: datetime64[ns](4), float64(58), geometry(1), object(76)
-memory usage: 563.0+ KB
+memory usage: 38.5+ MB
 </pre></div>
 </div>
 </div>
@@ -3695,64 +3697,64 @@ memory usage: 563.0+ KB
   </thead>
   <tbody>
     <tr>
-      <th>16226642</th>
+      <th>56939162</th>
       <td>QUEENS</td>
       <td>QN</td>
-      <td>2010-03-15 10:09:00</td>
-      <td>78 STREET</td>
+      <td>2023-03-02 13:35:00</td>
+      <td>BEACH  142 STREET</td>
+      <td>NaN</td>
+      <td>11694.0</td>
+      <td>POINT (1023534.000 147711.014)</td>
+      <td>0922</td>
+      <td>46303</td>
+    </tr>
+    <tr>
+      <th>56940422</th>
+      <td>QUEENS</td>
+      <td>QN</td>
+      <td>2023-03-02 16:23:00</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>11414.0</td>
-      <td>POINT (1023909.000 183170.014)</td>
-      <td>006202</td>
-      <td>45001</td>
+      <td>POINT (1030621.000 180474.014)</td>
+      <td>0884</td>
+      <td>45804</td>
     </tr>
     <tr>
-      <th>16226646</th>
+      <th>56943896</th>
       <td>BROOKLYN</td>
       <td>BK</td>
-      <td>2010-03-15 19:54:00</td>
-      <td>LORING AVENUE</td>
+      <td>2023-03-03 08:44:00</td>
       <td>NaN</td>
-      <td>11208.0</td>
-      <td>POINT (1023831.000 182875.014)</td>
-      <td>1220</td>
-      <td>31404</td>
+      <td>NaN</td>
+      <td>11234.0</td>
+      <td>POINT (1003129.000 168908.014)</td>
+      <td>0726</td>
+      <td>32306</td>
     </tr>
     <tr>
-      <th>16235421</th>
-      <td>MANHATTAN</td>
-      <td>MN</td>
-      <td>2010-03-16 07:07:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>10030.0</td>
-      <td>POINT (998997.000 237991.014)</td>
-      <td>022102</td>
-      <td>10706</td>
-    </tr>
-    <tr>
-      <th>16235933</th>
+      <th>56945114</th>
       <td>QUEENS</td>
       <td>QN</td>
-      <td>2010-03-16 12:35:00</td>
+      <td>2023-03-03 13:02:00</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>11422.0</td>
-      <td>POINT (1060169.000 178000.014)</td>
-      <td>0656</td>
-      <td>45702</td>
+      <td>11374.0</td>
+      <td>POINT (1022149.000 204776.014)</td>
+      <td>0693</td>
+      <td>41604</td>
     </tr>
     <tr>
-      <th>16235970</th>
+      <th>56951729</th>
       <td>STATEN ISLAND</td>
       <td>SI</td>
-      <td>2010-03-16 16:26:00</td>
+      <td>2023-03-03 09:26:00</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>10312.0</td>
-      <td>POINT (942979.000 134336.014)</td>
-      <td>015603</td>
-      <td>52301</td>
+      <td>10304.0</td>
+      <td>POINT (959211.000 160846.014)</td>
+      <td>0050</td>
+      <td>51401</td>
     </tr>
   </tbody>
 </table>
@@ -3769,7 +3771,7 @@ memory usage: 563.0+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>30
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1007
 </pre></div>
 </div>
 </div>
@@ -3783,11 +3785,11 @@ memory usage: 563.0+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 500,
- &#39;match_count&#39;: 470,
- &#39;missing_Borough_count&#39;: 30,
- &#39;pct_join&#39;: 94.0,
- &#39;pct_missing&#39;: 6.0}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 35087,
+ &#39;match_count&#39;: 34080,
+ &#39;missing_Borough_count&#39;: 1007,
+ &#39;pct_join&#39;: 97.13,
+ &#39;pct_missing&#39;: 2.87}
 </pre></div>
 </div>
 </div>
@@ -3803,12 +3805,12 @@ memory usage: 563.0+ KB
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Borough
-BK      88
-BX      29
-MN      55
-QN     166
-SI     132
-NaN      0
+BK      8941
+BX      2619
+MN      3060
+QN     13197
+SI      6263
+NaN        0
 Name: Borough, dtype: int64
 </pre></div>
 </div>
@@ -3821,7 +3823,7 @@ Name: Borough, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>500
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>35087
 </pre></div>
 </div>
 </div>
@@ -3845,7 +3847,7 @@ Name: Borough, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;street_flood_orig&#39;: 35076, &#39;street_flood_clean&#39;: 34069, &#39;street_flood_mappluto_bbl&#39;: 285, &#39;street_flood_mappluto_sjoin_nearest&#39;: 470}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;street_flood_orig&#39;: 35076, &#39;street_flood_clean&#39;: 34069, &#39;street_flood_mappluto_bbl&#39;: 21560, &#39;street_flood_mappluto_sjoin_nearest&#39;: 34080}
 </pre></div>
 </div>
 </div>
