@@ -95,3 +95,13 @@ A group of civic minded __data enthusiasts__, who enjoy solving City related dat
 - Q & A
 :::
 ::::
+
+## Visualizations
+
+![geospatial-analysis-wordcloud-roosevelt-station-background-dark](img/geospatial-analysis-wordcloud-roosevelt-station-background-dark.png)
+
+{cite}`ezeolu2023geospatialanalysis,wiki2019spatialanalysis`
+
+![nyc-subway-street-flood-rain-collage](img/nyc-subway-street-flooding-rain-collage.jpg)
+
+{cite}`ezeolu2023nycsubwayfloodcollage`
