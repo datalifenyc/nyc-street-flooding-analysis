@@ -10,7 +10,7 @@ Saturday, March 18, 2023
 ^^^
 [Schedule 🕘](https://nycsodata23.sched.com/)
 +++
-Organized by: [NYC Data Team @ OTI](https://www1.nyc.gov/content/oti/pages/) ✨ [BetaNYC](https://beta.nyc/) ✨ [Data Through Design](https://datathroughdesign.com/)
+__Organizers:__ [NYC Data Team @ OTI](https://www1.nyc.gov/content/oti/pages/) ✨ [BetaNYC](https://beta.nyc/) ✨ [Data Through Design](https://datathroughdesign.com/)
 ````
 
 ## Description 🌦
