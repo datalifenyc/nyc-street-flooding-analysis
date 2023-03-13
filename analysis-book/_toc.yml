@@ -15,7 +15,7 @@ parts:
     chapters:
     - file: explore-map
     - file: explore-auto-eda
-  - caption: Analysis
+  - caption: Analysis 📈
     chapters:
     - file: nyc-311-groundtruth
   - caption: Model 🏗
