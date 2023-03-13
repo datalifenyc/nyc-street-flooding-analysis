@@ -11,7 +11,7 @@ execute:
   exclude_patterns:
     - 'merge-flood-pluto.ipynb' # gdb folder read time: ~42 minutes
     - 'join.ipynb'
-    - 'nyc-precip-data.ipynb'
+    - 'nyc-311-groundtruth.ipynb'
 
 # HTML-specific settings
 html:

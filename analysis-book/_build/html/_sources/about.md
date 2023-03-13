@@ -96,7 +96,7 @@ A group of civic minded __data enthusiasts__, who enjoy solving City related dat
 :::
 ::::
 
-## Visualizations
+## Visualizations 🖼
 
 ![geospatial-analysis-wordcloud-roosevelt-station-background-dark](img/geospatial-analysis-wordcloud-roosevelt-station-background-dark.png)
 

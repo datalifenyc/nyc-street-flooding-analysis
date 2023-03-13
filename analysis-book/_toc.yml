@@ -15,7 +15,9 @@ parts:
     chapters:
     - file: explore-map
     - file: explore-auto-eda
-    - file: nyc-precip-data
+  - caption: Analysis
+    chapters:
+    - file: nyc-311-groundtruth
   - caption: Model 🏗
     chapters:
     - file: model-build
