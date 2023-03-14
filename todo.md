@@ -21,9 +21,9 @@
 
         conda env export | grep -v "^prefix: " > environment-with-builds.yml
 
-        conda env export --no-builds | grep -v "^prefix: " > environment-no-builds.yml
+        conda env export --no-builds | grep -v "^prefix: " > environment.yml
 
-        conda env export --from-history | grep -v "^prefix: " > environment.yml
+        conda env export --from-history | grep -v "^prefix: " > environment-minimal.yml
 
 ## Troubleshoot
 

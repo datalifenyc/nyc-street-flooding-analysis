@@ -88,8 +88,11 @@ class StreetFlood:
             subfolder = f'{current_script_dir}/data/street-flooding/backup_old_files'
             if not os.path.exists(subfolder):
                 os.makedirs(subfolder)
+            # define the source folder, which contains the file that will be backed up
+            source_folder = f'{current_script_dir}/data/street-flooding'
             for file in file_match_list:
-                shutil.copy(file, os.path.join(subfolder, file))
+                old_file = os.path.join(source_folder, file)
+                shutil.move(old_file, subfolder)
             print(f'Old street flooding files geojson files have been backed-up.')
 
             # Get updated street flooding complaints dataset
