@@ -1,43 +1,54 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Street Flooding &amp; MapPLUTO &#8212; &lt;b&gt;Going Beyond EDA&lt;/b&gt;&lt;br&gt;A Deeper Analysis of NYC 311 Street Flooding Complaints</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -62,7 +73,7 @@ var addUtterances = () => {
     script.src = "https://utteranc.es/client.js";
     script.async = "async";
 
-    script.setAttribute("repo", "datalifenyc/nyc-street-flooding-analysis/analysis-book");
+    script.setAttribute("repo", "datalifenyc/nyc-street-flooding-analysis");
     script.setAttribute("issue-term", "pathname");
     script.setAttribute("theme", "github-light");
     script.setAttribute("label", "💬 comment");
@@ -77,7 +88,7 @@ var addUtterances = () => {
 commentsRunWhenDOMLoaded(addUtterances);
 </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -85,63 +96,101 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'merge-flood-pluto';</script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ETL Diagram" href="scrub-process-diagram.html" />
     <link rel="prev" title="Clean Data" href="scrub-flood-data.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint">NYC School of Data Conference - March 18!</div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  <div class="bd-header-announcement container-fluid bd-header-announcement">
+    <div class="bd-header-announcement__content">NYC School of Data Conference - March 18!</div>
+  </div>
+
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="about.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/nyc-street-flooding-complaints-logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title"><b>Going Beyond EDA</b><br>A Deeper Analysis of NYC 311 Street Flooding Complaints</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/nyc-street-flooding-complaints-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/nyc-street-flooding-complaints-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -150,1424 +199,428 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Obtain 💾
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Obtain 💾</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="obtain-flood-data.html">
-   Street Flooding
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="obtain-pluto-data.html">
-   PLUTO &amp; MapPLUTO
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="obtain-flood-data.html">Street Flooding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="obtain-pluto-data.html">PLUTO &amp; MapPLUTO</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Scrub &amp; Merge 🧹
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scrub &amp; Merge 🧹</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="scrub-flood-data.html">
-   Clean Data
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Street Flooding &amp; MapPLUTO
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="scrub-process-diagram.html">
-   ETL Diagram
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="join.html">
-   Join Tutorial
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="scrub-flood-data.html">Clean Data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Street Flooding &amp; MapPLUTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrub-process-diagram.html">ETL Diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="join.html">Join Tutorial</a></li>
+
+
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Explore 🗺
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Explore 🗺</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="explore-map.html">
-   Explore Map
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="explore-auto-eda.html">
-   Auto EDA
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="explore-map.html">Explore Map</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://nyc-street-flooding-analysis.datalife.nyc/data-profile.html">Data Profile</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Analysis 📈
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Analysis 📈</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="nyc-311-groundtruth.html">
-   Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="nyc-311-groundtruth.html">Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Model 🏗
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model 🏗</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="model-build.html">
-   Build Models
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="model-build.html">Build Models</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Interpret 💡
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpret 💡</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="interpret-results.html">
-   Key Findings
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="interpret-results.html">Key Findings</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Resources 📑
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources 📑</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="references.html">
-   References
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="python-libraries.html">
-   Python Libraries
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-libraries.html">Python Libraries</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            <div>
-    Powered by <a href="https://jupyterbook.org/">Jupyter Book</a>
-    <br/>
-    Informed by <a href="https://opendata.cityofnewyork.us">NYC Open Data</a>
-    <br/>
-    <span style="font-family:Baskerville;font-style:italic;color:Chocolate;">Driven by Curiosity!</span>
-</div>
-
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?urlpath=tree/analysis-book/merge-flood-pluto.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?urlpath=tree/analysis-book/merge-flood-pluto.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://colab.research.google.com/github/datalifenyc/nyc-street-flooding-analysis/blob/main/analysis-book/merge-flood-pluto.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/datalifenyc/nyc-street-flooding-analysis/blob/main/analysis-book/merge-flood-pluto.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
 <button onclick="initThebeSBT()"
-  class="headerbtn headerbtn-launch-thebe"
-  data-toggle="tooltip"
-data-placement="left"
-title="Launch Thebe"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-play"></i>
   </span>
-<span class="headerbtn__text-container">Live Code</span>
+<span class="btn__text-container">Live Code</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/datalifenyc/nyc-street-flooding-analysis" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/datalifenyc/nyc-street-flooding-analysis/issues/new?title=Issue%20on%20page%20%2Fmerge-flood-pluto.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/merge-flood-pluto.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/datalifenyc/nyc-street-flooding-analysis"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/datalifenyc/nyc-street-flooding-analysis/issues/new?title=Issue%20on%20page%20%2Fmerge-flood-pluto.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/merge-flood-pluto.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-libraries">
-   Import Libraries
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#standard-libraries">
-     Standard Libraries
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#custom-libraries">
-     Custom Libraries
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#external-libraries">
-     External Libraries
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-variables">
-   Define Variables
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#input-files">
-     Input Files
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#output-files">
-     Output Files
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#nyc-street-flooding-complaints">
-     NYC Street Flooding Complaints
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mappluto">
-     MapPLUTO
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#combine-street-flooding-complaints-and-mappluto-datasets">
-   Combine
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     Street
-    </span>
-    <span class="pre">
-     Flooding
-    </span>
-    <span class="pre">
-     Complaints
-    </span>
-   </code>
-   and
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     MapPLUTO
-    </span>
-   </code>
-   Datasets
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#read-street-flooding-complaints">
-     Read
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Street
-      </span>
-      <span class="pre">
-       Flooding
-      </span>
-      <span class="pre">
-       Complaints
-      </span>
-     </code>
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#save-street-flooding-complaints-column-names-to-nyc-street-flooding-gdf-columns-txt">
-       Save
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         Street
-        </span>
-        <span class="pre">
-         Flooding
-        </span>
-        <span class="pre">
-         Complaints
-        </span>
-       </code>
-       Column Names to
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         nyc_street_flooding_gdf_columns.txt
-        </span>
-       </code>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#check-index">
-       Check Index
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#set-unique-key-as-index">
-       Set
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         unique_key
-        </span>
-       </code>
-       as Index
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#verify-index-change">
-       Verify Index Change
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#read-mappluto">
-     Read
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       MapPluto
-      </span>
-     </code>
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#save-pluto-column-names-to-pluto-gdf-columns-txt">
-       Save
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         Pluto
-        </span>
-       </code>
-       Column Names to
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         pluto_gdf_columns.txt
-        </span>
-       </code>
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#check-epsg-crs-codes-before-merging-to-ensure-proper-alignment">
-     Check EPSG CRS codes before merging, to ensure proper alignment
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#convert-pluto-to-epsg-code-4326">
-     Convert Pluto to EPSG code: 4326
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#verify-conversion">
-       Verify Conversion
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#join-1-bbl">
-     Join #1: BBL
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#check-data-type-of-join-column">
-       Check data type of join column
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#convert-street-flooding-geodataframe-s-bbl-column-from-object-to-float">
-       Convert
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         Street
-        </span>
-        <span class="pre">
-         Flooding
-        </span>
-       </code>
-       GeoDataFrame’s
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         bbl
-        </span>
-       </code>
-       column from
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         object
-        </span>
-       </code>
-       to
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         float
-        </span>
-       </code>
-       .
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#left-join-on-bbl">
-       Left Join on
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         BBL
-        </span>
-       </code>
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#create-column-to-store-index-before-merge">
-         Create column to store index before merge
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#preview-results-of-bbl-join">
-       Preview Results of
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         BBL
-        </span>
-       </code>
-       Join
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id6">
-         Check index
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id7">
-         Set
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           unique_key
-          </span>
-         </code>
-         as index
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id8">
-         Verify index change
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#list-attributes-in-a-5-column-grid">
-         List attributes in a 5 column grid
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#view-oldest-service-requests">
-         View oldest service requests
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#view-most-recent-service-requests">
-         View most recent service requests
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#check-join-by-bbl">
-       Check % Join by BBL
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#join-2-spatial-join">
-     Join #2: Spatial Join
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#split-dataframe-into-bbl-matches-and-non-matches">
-       Split DataFrame Into BBL Matches and Non-matches
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#bbl-matches">
-         BBL matches
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#add-bbl-match-count-to-json-file">
-       Add BBL match count to JSON file
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#bbl-mismatches">
-         BBL mismatches
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#perform-sjoin">
-       Perform
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         sjoin
-        </span>
-       </code>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#perform-sjoin-nearest">
-       Perform
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         sjoin_nearest
-        </span>
-       </code>
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#preview-sjoin-nearest-results">
-         Preview
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           sjoin_nearest
-          </span>
-         </code>
-         results
-        </a>
-       </li>
-      </ul>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#merge-bbl-and-sjoin-nearest-geopandas-dataframes">
-     Merge
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       BBL
-      </span>
-     </code>
-     and
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       sjoin_nearest
-      </span>
-     </code>
-     GeoPandas DataFrames
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#confirm-both-dataframe-columns-match">
-       Confirm Both DataFrame Columns Match
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#street-flooding-mappluto-bbl-column-count">
-         Street Flooding MapPluto
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           BBL
-          </span>
-         </code>
-         column count
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#street-flooding-mappluto-sjoin-nearest-column-count">
-         Street Flooding MapPluto
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           sjoin_nearest
-          </span>
-         </code>
-         column count
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#compare-columns">
-         Compare columns
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#verify-index-is-the-unique-key">
-         Verify index is the unique_key
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#dataframe-column-transform">
-         DataFrame column transform
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#re-compare-columns">
-         Re-compare columns
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#implement-merge">
-       Implement Merge
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#set-active-geometry">
-         Set active geometry
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#preview-results">
-         Preview Results
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#check-total-missing-joins">
-         Check total missing joins
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#save-final-merge-match-count-to-json-file">
-       Save Final Merge Match Count to JSON file
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#save-merged-dataset">
-     Save Merged Dataset
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#check-supported-driver-options">
-       Check supported driver options
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#confirm-output-folder-exists">
-       Confirm output folder exists
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#reindex-merged-geopandas-dataframe">
-       Reindex Merged GeoPandas DataFrame
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#save-as-gdb-using-openfilegdb-driver">
-       Save as
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         .gdb
-        </span>
-       </code>
-       using
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         OpenFileGDB
-        </span>
-       </code>
-       driver
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#save-as-geojson-using-geojson-driver">
-       Save as
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         .geojson
-        </span>
-       </code>
-       using
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         GeoJSON
-        </span>
-       </code>
-       driver
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Street Flooding & MapPLUTO</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-libraries">
-   Import Libraries
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#standard-libraries">
-     Standard Libraries
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#custom-libraries">
-     Custom Libraries
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#external-libraries">
-     External Libraries
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-variables">
-   Define Variables
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#input-files">
-     Input Files
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#output-files">
-     Output Files
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#nyc-street-flooding-complaints">
-     NYC Street Flooding Complaints
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mappluto">
-     MapPLUTO
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#combine-street-flooding-complaints-and-mappluto-datasets">
-   Combine
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     Street
-    </span>
-    <span class="pre">
-     Flooding
-    </span>
-    <span class="pre">
-     Complaints
-    </span>
-   </code>
-   and
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     MapPLUTO
-    </span>
-   </code>
-   Datasets
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#read-street-flooding-complaints">
-     Read
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       Street
-      </span>
-      <span class="pre">
-       Flooding
-      </span>
-      <span class="pre">
-       Complaints
-      </span>
-     </code>
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#save-street-flooding-complaints-column-names-to-nyc-street-flooding-gdf-columns-txt">
-       Save
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         Street
-        </span>
-        <span class="pre">
-         Flooding
-        </span>
-        <span class="pre">
-         Complaints
-        </span>
-       </code>
-       Column Names to
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         nyc_street_flooding_gdf_columns.txt
-        </span>
-       </code>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#check-index">
-       Check Index
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#set-unique-key-as-index">
-       Set
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         unique_key
-        </span>
-       </code>
-       as Index
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#verify-index-change">
-       Verify Index Change
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#read-mappluto">
-     Read
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       MapPluto
-      </span>
-     </code>
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#save-pluto-column-names-to-pluto-gdf-columns-txt">
-       Save
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         Pluto
-        </span>
-       </code>
-       Column Names to
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         pluto_gdf_columns.txt
-        </span>
-       </code>
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#check-epsg-crs-codes-before-merging-to-ensure-proper-alignment">
-     Check EPSG CRS codes before merging, to ensure proper alignment
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#convert-pluto-to-epsg-code-4326">
-     Convert Pluto to EPSG code: 4326
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#verify-conversion">
-       Verify Conversion
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#join-1-bbl">
-     Join #1: BBL
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#check-data-type-of-join-column">
-       Check data type of join column
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#convert-street-flooding-geodataframe-s-bbl-column-from-object-to-float">
-       Convert
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         Street
-        </span>
-        <span class="pre">
-         Flooding
-        </span>
-       </code>
-       GeoDataFrame’s
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         bbl
-        </span>
-       </code>
-       column from
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         object
-        </span>
-       </code>
-       to
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         float
-        </span>
-       </code>
-       .
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#left-join-on-bbl">
-       Left Join on
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         BBL
-        </span>
-       </code>
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#create-column-to-store-index-before-merge">
-         Create column to store index before merge
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#preview-results-of-bbl-join">
-       Preview Results of
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         BBL
-        </span>
-       </code>
-       Join
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id6">
-         Check index
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id7">
-         Set
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           unique_key
-          </span>
-         </code>
-         as index
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id8">
-         Verify index change
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#list-attributes-in-a-5-column-grid">
-         List attributes in a 5 column grid
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#view-oldest-service-requests">
-         View oldest service requests
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#view-most-recent-service-requests">
-         View most recent service requests
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#check-join-by-bbl">
-       Check % Join by BBL
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#join-2-spatial-join">
-     Join #2: Spatial Join
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#split-dataframe-into-bbl-matches-and-non-matches">
-       Split DataFrame Into BBL Matches and Non-matches
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#bbl-matches">
-         BBL matches
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#add-bbl-match-count-to-json-file">
-       Add BBL match count to JSON file
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#bbl-mismatches">
-         BBL mismatches
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#perform-sjoin">
-       Perform
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         sjoin
-        </span>
-       </code>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#perform-sjoin-nearest">
-       Perform
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         sjoin_nearest
-        </span>
-       </code>
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#preview-sjoin-nearest-results">
-         Preview
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           sjoin_nearest
-          </span>
-         </code>
-         results
-        </a>
-       </li>
-      </ul>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#merge-bbl-and-sjoin-nearest-geopandas-dataframes">
-     Merge
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       BBL
-      </span>
-     </code>
-     and
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       sjoin_nearest
-      </span>
-     </code>
-     GeoPandas DataFrames
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#confirm-both-dataframe-columns-match">
-       Confirm Both DataFrame Columns Match
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#street-flooding-mappluto-bbl-column-count">
-         Street Flooding MapPluto
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           BBL
-          </span>
-         </code>
-         column count
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#street-flooding-mappluto-sjoin-nearest-column-count">
-         Street Flooding MapPluto
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           sjoin_nearest
-          </span>
-         </code>
-         column count
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#compare-columns">
-         Compare columns
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#verify-index-is-the-unique-key">
-         Verify index is the unique_key
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#dataframe-column-transform">
-         DataFrame column transform
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#re-compare-columns">
-         Re-compare columns
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#implement-merge">
-       Implement Merge
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#set-active-geometry">
-         Set active geometry
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#preview-results">
-         Preview Results
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#check-total-missing-joins">
-         Check total missing joins
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#save-final-merge-match-count-to-json-file">
-       Save Final Merge Match Count to JSON file
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#save-merged-dataset">
-     Save Merged Dataset
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#check-supported-driver-options">
-       Check supported driver options
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#confirm-output-folder-exists">
-       Confirm output folder exists
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#reindex-merged-geopandas-dataframe">
-       Reindex Merged GeoPandas DataFrame
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#save-as-gdb-using-openfilegdb-driver">
-       Save as
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         .gdb
-        </span>
-       </code>
-       using
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         OpenFileGDB
-        </span>
-       </code>
-       driver
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#save-as-geojson-using-geojson-driver">
-       Save as
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         .geojson
-        </span>
-       </code>
-       using
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         GeoJSON
-        </span>
-       </code>
-       driver
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Street Flooding & MapPLUTO</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import Libraries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-libraries">Standard Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-libraries">Custom Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#external-libraries">External Libraries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-variables">Define Variables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-files">Input Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-files">Output Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nyc-street-flooding-complaints">NYC Street Flooding Complaints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mappluto">MapPLUTO</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-street-flooding-complaints-and-mappluto-datasets">Combine <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">Complaints</span></code> and <code class="docutils literal notranslate"><span class="pre">MapPLUTO</span></code> Datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-street-flooding-complaints">Read <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">Complaints</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-street-flooding-complaints-column-names-to-nyc-street-flooding-gdf-columns-txt">Save <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">Complaints</span></code> Column Names to <code class="docutils literal notranslate"><span class="pre">nyc_street_flooding_gdf_columns.txt</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-index">Check Index</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#set-unique-key-as-index">Set <code class="docutils literal notranslate"><span class="pre">unique_key</span></code> as Index</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-index-change">Verify Index Change</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-mappluto">Read <code class="docutils literal notranslate"><span class="pre">MapPLUTO</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-pluto-column-names-to-pluto-gdf-columns-txt">Save <code class="docutils literal notranslate"><span class="pre">PLUTO</span></code> Column Names to <code class="docutils literal notranslate"><span class="pre">pluto_gdf_columns.txt</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-epsg-crs-codes-before-merging-to-ensure-proper-alignment">Check EPSG CRS codes before merging, to ensure proper alignment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-pluto-to-epsg-code-4326">Convert Pluto to EPSG code: 4326</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-conversion">Verify Conversion</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#join-1-bbl">Join #1: BBL</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-data-type-of-join-column">Check data type of join column</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-street-flooding-geodataframe-s-bbl-column-from-object-to-float">Convert <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span></code> GeoDataFrame’s <code class="docutils literal notranslate"><span class="pre">bbl</span></code> column from <code class="docutils literal notranslate"><span class="pre">object</span></code> to <code class="docutils literal notranslate"><span class="pre">float</span></code>.</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#left-join-on-bbl">Left Join on <code class="docutils literal notranslate"><span class="pre">BBL</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#create-column-to-store-index-before-merge">Create column to store index before merge</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-results-of-bbl-join">Preview Results of <code class="docutils literal notranslate"><span class="pre">BBL</span></code> Join</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Check index</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Set <code class="docutils literal notranslate"><span class="pre">unique_key</span></code> as index</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Verify index change</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#list-attributes-in-a-5-column-grid">List attributes in a 5 column grid</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#view-oldest-service-requests">View oldest service requests</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#view-most-recent-service-requests">View most recent service requests</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-join-by-bbl">Check % Join by BBL</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#join-2-spatial-join">Join #2: Spatial Join</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#split-dataframe-into-bbl-matches-and-non-matches">Split DataFrame Into BBL Matches and Non-matches</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#bbl-matches">BBL matches</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#add-bbl-match-count-to-json-file">Add BBL match count to JSON file</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#bbl-mismatches">BBL mismatches</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perform-sjoin">Perform <code class="docutils literal notranslate"><span class="pre">sjoin</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perform-sjoin-nearest">Perform <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-sjoin-nearest-results">Preview <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-bbl-and-sjoin-nearest-geopandas-dataframes">Merge <code class="docutils literal notranslate"><span class="pre">BBL</span></code> and <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> GeoPandas DataFrames</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confirm-both-dataframe-columns-match">Confirm Both DataFrame Columns Match</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#street-flooding-mappluto-bbl-column-count">Street Flooding MapPluto <code class="docutils literal notranslate"><span class="pre">BBL</span></code> column count</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#street-flooding-mappluto-sjoin-nearest-column-count">Street Flooding MapPluto <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> column count</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-columns">Compare columns</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-index-is-the-unique-key">Verify index is the unique_key</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-column-transform">DataFrame column transform</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#re-compare-columns">Re-compare columns</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-merge">Implement Merge</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#set-active-geometry">Set active geometry</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-results">Preview Results</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#check-total-missing-joins">Check total missing joins</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-final-merge-match-count-to-json-file">Save Final Merge Match Count to JSON file</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-merged-dataset">Save Merged Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-supported-driver-options">Check supported driver options</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confirm-output-folder-exists">Confirm output folder exists</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reindex-merged-geopandas-dataframe">Reindex Merged GeoPandas DataFrame</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-as-gdb-using-openfilegdb-driver">Save as <code class="docutils literal notranslate"><span class="pre">.gdb</span></code> using <code class="docutils literal notranslate"><span class="pre">OpenFileGDB</span></code> driver</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-as-geojson-using-geojson-driver">Save as <code class="docutils literal notranslate"><span class="pre">.geojson</span></code> using <code class="docutils literal notranslate"><span class="pre">GeoJSON</span></code> driver</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="street-flooding-mappluto">
-<h1>Street Flooding &amp; MapPLUTO<a class="headerlink" href="#street-flooding-mappluto" title="Permalink to this headline">#</a></h1>
+<h1>Street Flooding &amp; MapPLUTO<a class="headerlink" href="#street-flooding-mappluto" title="Permalink to this heading">#</a></h1>
 <p>Merge the NYC Street Flooding service requests dataset with MapPluto</p>
 <section id="import-libraries">
-<h2>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this headline">#</a></h2>
+<h2>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this heading">#</a></h2>
 <section id="standard-libraries">
-<h3>Standard Libraries<a class="headerlink" href="#standard-libraries" title="Permalink to this headline">#</a></h3>
+<h3>Standard Libraries<a class="headerlink" href="#standard-libraries" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -1578,7 +631,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="custom-libraries">
-<h3>Custom Libraries<a class="headerlink" href="#custom-libraries" title="Permalink to this headline">#</a></h3>
+<h3>Custom Libraries<a class="headerlink" href="#custom-libraries" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utilities</span> <span class="kn">import</span> <span class="p">(</span>
@@ -1590,7 +643,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="external-libraries">
-<h3>External Libraries<a class="headerlink" href="#external-libraries" title="Permalink to this headline">#</a></h3>
+<h3>External Libraries<a class="headerlink" href="#external-libraries" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
@@ -1603,9 +656,9 @@ title="Print to PDF"
 </section>
 </section>
 <section id="define-variables">
-<h2>Define Variables<a class="headerlink" href="#define-variables" title="Permalink to this headline">#</a></h2>
+<h2>Define Variables<a class="headerlink" href="#define-variables" title="Permalink to this heading">#</a></h2>
 <section id="input-files">
-<h3>Input Files<a class="headerlink" href="#input-files" title="Permalink to this headline">#</a></h3>
+<h3>Input Files<a class="headerlink" href="#input-files" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_stats_json_input</span> <span class="o">=</span> <span class="s1">&#39;data/data-stats.json&#39;</span>
@@ -1615,7 +668,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="output-files">
-<h3>Output Files<a class="headerlink" href="#output-files" title="Permalink to this headline">#</a></h3>
+<h3>Output Files<a class="headerlink" href="#output-files" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nyc_street_flooding_gdf_columns_output</span> <span class="o">=</span> <span class="s1">&#39;data/nyc_street_flooding_gdf_columns.txt&#39;</span>
@@ -1633,7 +686,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="nyc-street-flooding-complaints">
-<h3>NYC Street Flooding Complaints<a class="headerlink" href="#nyc-street-flooding-complaints" title="Permalink to this headline">#</a></h3>
+<h3>NYC Street Flooding Complaints<a class="headerlink" href="#nyc-street-flooding-complaints" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nyc_street_flooding_geojson</span> <span class="o">=</span> <span class="s1">&#39;data/street-flooding/street-flood-complaints_rows-all.geojson&#39;</span>
@@ -1643,7 +696,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="mappluto">
-<h3>MapPLUTO<a class="headerlink" href="#mappluto" title="Permalink to this headline">#</a></h3>
+<h3>MapPLUTO<a class="headerlink" href="#mappluto" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">map_pluto_gdb_folder</span> <span class="o">=</span> <span class="s1">&#39;data/PLUTO/MapPLUTO_22v3_1_water_included.gdb&#39;</span>
@@ -1667,9 +720,9 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </section>
 </section>
 <section id="combine-street-flooding-complaints-and-mappluto-datasets">
-<h2>Combine <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">Complaints</span></code> and <code class="docutils literal notranslate"><span class="pre">MapPLUTO</span></code> Datasets<a class="headerlink" href="#combine-street-flooding-complaints-and-mappluto-datasets" title="Permalink to this headline">#</a></h2>
+<h2>Combine <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">Complaints</span></code> and <code class="docutils literal notranslate"><span class="pre">MapPLUTO</span></code> Datasets<a class="headerlink" href="#combine-street-flooding-complaints-and-mappluto-datasets" title="Permalink to this heading">#</a></h2>
 <section id="read-street-flooding-complaints">
-<h3>Read <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">Complaints</span></code><a class="headerlink" href="#read-street-flooding-complaints" title="Permalink to this headline">#</a></h3>
+<h3>Read <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">Complaints</span></code><a class="headerlink" href="#read-street-flooding-complaints" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span>
@@ -1695,7 +748,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </div>
 </div>
 <section id="save-street-flooding-complaints-column-names-to-nyc-street-flooding-gdf-columns-txt">
-<h4>Save <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">Complaints</span></code> Column Names to <code class="docutils literal notranslate"><span class="pre">nyc_street_flooding_gdf_columns.txt</span></code><a class="headerlink" href="#save-street-flooding-complaints-column-names-to-nyc-street-flooding-gdf-columns-txt" title="Permalink to this headline">#</a></h4>
+<h4>Save <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">Complaints</span></code> Column Names to <code class="docutils literal notranslate"><span class="pre">nyc_street_flooding_gdf_columns.txt</span></code><a class="headerlink" href="#save-street-flooding-complaints-column-names-to-nyc-street-flooding-gdf-columns-txt" title="Permalink to this heading">#</a></h4>
 <p><span id="id1">[<a class="reference internal" href="references.html#id8" title="Vishal Hule. Writing list to a file in python. 2021. URL: https://pynative.com/python-write-list-to-file/ (visited on 2023-03-05).">Hule, 2021</a>]</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1715,7 +768,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </div>
 </section>
 <section id="check-index">
-<h4>Check Index<a class="headerlink" href="#check-index" title="Permalink to this headline">#</a></h4>
+<h4>Check Index<a class="headerlink" href="#check-index" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="o">.</span><span class="n">index</span>
@@ -1730,7 +783,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </div>
 </section>
 <section id="set-unique-key-as-index">
-<h4>Set <code class="docutils literal notranslate"><span class="pre">unique_key</span></code> as Index<a class="headerlink" href="#set-unique-key-as-index" title="Permalink to this headline">#</a></h4>
+<h4>Set <code class="docutils literal notranslate"><span class="pre">unique_key</span></code> as Index<a class="headerlink" href="#set-unique-key-as-index" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;unique_key&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
@@ -1740,7 +793,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </div>
 </section>
 <section id="verify-index-change">
-<h4>Verify Index Change<a class="headerlink" href="#verify-index-change" title="Permalink to this headline">#</a></h4>
+<h4>Verify Index Change<a class="headerlink" href="#verify-index-change" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="o">.</span><span class="n">index</span>
@@ -1761,7 +814,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </section>
 </section>
 <section id="read-mappluto">
-<h3>Read <code class="docutils literal notranslate"><span class="pre">MapPluto</span></code><a class="headerlink" href="#read-mappluto" title="Permalink to this headline">#</a></h3>
+<h3>Read <code class="docutils literal notranslate"><span class="pre">MapPLUTO</span></code><a class="headerlink" href="#read-mappluto" title="Permalink to this heading">#</a></h3>
 <p>Time to read gdb folder: ~<code class="docutils literal notranslate"><span class="pre">37m</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1775,7 +828,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </div>
 </div>
 <section id="save-pluto-column-names-to-pluto-gdf-columns-txt">
-<h4>Save <code class="docutils literal notranslate"><span class="pre">Pluto</span></code> Column Names to <code class="docutils literal notranslate"><span class="pre">pluto_gdf_columns.txt</span></code><a class="headerlink" href="#save-pluto-column-names-to-pluto-gdf-columns-txt" title="Permalink to this headline">#</a></h4>
+<h4>Save <code class="docutils literal notranslate"><span class="pre">PLUTO</span></code> Column Names to <code class="docutils literal notranslate"><span class="pre">pluto_gdf_columns.txt</span></code><a class="headerlink" href="#save-pluto-column-names-to-pluto-gdf-columns-txt" title="Permalink to this heading">#</a></h4>
 <p><span id="id2">[<a class="reference internal" href="references.html#id8" title="Vishal Hule. Writing list to a file in python. 2021. URL: https://pynative.com/python-write-list-to-file/ (visited on 2023-03-05).">Hule, 2021</a>]</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1796,7 +849,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </section>
 </section>
 <section id="check-epsg-crs-codes-before-merging-to-ensure-proper-alignment">
-<h3>Check EPSG CRS codes before merging, to ensure proper alignment<a class="headerlink" href="#check-epsg-crs-codes-before-merging-to-ensure-proper-alignment" title="Permalink to this headline">#</a></h3>
+<h3>Check EPSG CRS codes before merging, to ensure proper alignment<a class="headerlink" href="#check-epsg-crs-codes-before-merging-to-ensure-proper-alignment" title="Permalink to this heading">#</a></h3>
 <p>EPSG (European Petroleum Survey Group) Geodetic Parameter Dataset is a respository of coordinate reference systems and transformations datasets, managed by the International Association of Oil and Gas Producers (IOGP). It is widely used in Geographic Information Systems (GIS) to define and describe the spatial reference systems of geographic data. <span id="id3">[<a class="reference internal" href="references.html#id5" title="user Intgr et al. Epsg geodetic parameter dataset. 2019. URL: https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset (visited on 2023-03-05).">user Intgr et al., 2019</a>]</span></p>
 <p>CRS (Coordinate Reference System) is used to define and describe the spatial reference systems of geographic data. The CRS defines the origin, scale, and orientation of the coordinate system, as well as how the coordinates are mapped onto a flat surface such as a map or a computer screen. <span id="id4">[<a class="reference internal" href="references.html#id6" title="Jim Cain. Coordinate reference systems (best practices for assignment, manipulation and conversion in gis systems). In 2013 ESRI Petroleum GIS Conference, ESRIPetroGC, 1–58. 2013. URL: https://proceedings.esri.com/library/userconf/petrol13/.">Cain, 2013</a>]</span></p>
 <p>EPSG: 4326</p>
@@ -1847,7 +900,7 @@ Datum: North American Datum 1983
 </div>
 </section>
 <section id="convert-pluto-to-epsg-code-4326">
-<h3>Convert Pluto to EPSG code: 4326<a class="headerlink" href="#convert-pluto-to-epsg-code-4326" title="Permalink to this headline">#</a></h3>
+<h3>Convert Pluto to EPSG code: 4326<a class="headerlink" href="#convert-pluto-to-epsg-code-4326" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_gdf</span> <span class="o">=</span> <span class="n">pluto_gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">4326</span><span class="p">)</span>
@@ -1856,7 +909,7 @@ Datum: North American Datum 1983
 </div>
 </div>
 <section id="verify-conversion">
-<h4>Verify Conversion<a class="headerlink" href="#verify-conversion" title="Permalink to this headline">#</a></h4>
+<h4>Verify Conversion<a class="headerlink" href="#verify-conversion" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_gdf</span><span class="o">.</span><span class="n">crs</span>
@@ -1882,9 +935,9 @@ Datum: World Geodetic System 1984 ensemble
 </section>
 </section>
 <section id="join-1-bbl">
-<h3>Join #1: BBL<a class="headerlink" href="#join-1-bbl" title="Permalink to this headline">#</a></h3>
+<h3>Join #1: BBL<a class="headerlink" href="#join-1-bbl" title="Permalink to this heading">#</a></h3>
 <section id="check-data-type-of-join-column">
-<h4>Check data type of join column<a class="headerlink" href="#check-data-type-of-join-column" title="Permalink to this headline">#</a></h4>
+<h4>Check data type of join column<a class="headerlink" href="#check-data-type-of-join-column" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="p">[</span><span class="s1">&#39;bbl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
@@ -1911,7 +964,7 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 </section>
 <section id="convert-street-flooding-geodataframe-s-bbl-column-from-object-to-float">
-<h4>Convert <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span></code> GeoDataFrame’s <code class="docutils literal notranslate"><span class="pre">bbl</span></code> column from <code class="docutils literal notranslate"><span class="pre">object</span></code> to <code class="docutils literal notranslate"><span class="pre">float</span></code>.<a class="headerlink" href="#convert-street-flooding-geodataframe-s-bbl-column-from-object-to-float" title="Permalink to this headline">#</a></h4>
+<h4>Convert <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span></code> GeoDataFrame’s <code class="docutils literal notranslate"><span class="pre">bbl</span></code> column from <code class="docutils literal notranslate"><span class="pre">object</span></code> to <code class="docutils literal notranslate"><span class="pre">float</span></code>.<a class="headerlink" href="#convert-street-flooding-geodataframe-s-bbl-column-from-object-to-float" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="p">[</span><span class="s1">&#39;BBL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">street_flooding_gdf</span><span class="p">[</span><span class="s1">&#39;bbl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
@@ -1921,9 +974,9 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 </section>
 <section id="left-join-on-bbl">
-<h4>Left Join on <code class="docutils literal notranslate"><span class="pre">BBL</span></code><a class="headerlink" href="#left-join-on-bbl" title="Permalink to this headline">#</a></h4>
+<h4>Left Join on <code class="docutils literal notranslate"><span class="pre">BBL</span></code><a class="headerlink" href="#left-join-on-bbl" title="Permalink to this heading">#</a></h4>
 <section id="create-column-to-store-index-before-merge">
-<h5>Create column to store index before merge<a class="headerlink" href="#create-column-to-store-index-before-merge" title="Permalink to this headline">#</a></h5>
+<h5>Create column to store index before merge<a class="headerlink" href="#create-column-to-store-index-before-merge" title="Permalink to this heading">#</a></h5>
 <p><span id="id5">[<a class="reference internal" href="references.html#id7" title="Matthew Son. How to keep index when using pandas merge. 2019. URL: https://stackoverflow.com/questions/11976503/how-to-keep-index-when-using-pandas-merge (visited on 2023-03-05).">Son, 2019</a>]</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1947,9 +1000,9 @@ Datum: World Geodetic System 1984 ensemble
 </section>
 </section>
 <section id="preview-results-of-bbl-join">
-<h4>Preview Results of <code class="docutils literal notranslate"><span class="pre">BBL</span></code> Join<a class="headerlink" href="#preview-results-of-bbl-join" title="Permalink to this headline">#</a></h4>
+<h4>Preview Results of <code class="docutils literal notranslate"><span class="pre">BBL</span></code> Join<a class="headerlink" href="#preview-results-of-bbl-join" title="Permalink to this heading">#</a></h4>
 <section id="id6">
-<h5>Check index<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h5>
+<h5>Check index<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_gdf</span><span class="o">.</span><span class="n">index</span>
@@ -1969,7 +1022,7 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 </section>
 <section id="id7">
-<h5>Set <code class="docutils literal notranslate"><span class="pre">unique_key</span></code> as index<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h5>
+<h5>Set <code class="docutils literal notranslate"><span class="pre">unique_key</span></code> as index<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_gdf</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;unique_key&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
@@ -1979,7 +1032,7 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 </section>
 <section id="id8">
-<h5>Verify index change<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h5>
+<h5>Verify index change<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="o">.</span><span class="n">index</span>
@@ -1999,7 +1052,7 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 </section>
 <section id="list-attributes-in-a-5-column-grid">
-<h5>List attributes in a 5 column grid<a class="headerlink" href="#list-attributes-in-a-5-column-grid" title="Permalink to this headline">#</a></h5>
+<h5>List attributes in a 5 column grid<a class="headerlink" href="#list-attributes-in-a-5-column-grid" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_columns</span> <span class="o">=</span> <span class="n">street_flooding_pluto_gdf</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -2300,7 +1353,7 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 </section>
 <section id="view-oldest-service-requests">
-<h5>View oldest service requests<a class="headerlink" href="#view-oldest-service-requests" title="Permalink to this headline">#</a></h5>
+<h5>View oldest service requests<a class="headerlink" href="#view-oldest-service-requests" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="n">preview_columns</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -2464,7 +1517,7 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 </section>
 <section id="view-most-recent-service-requests">
-<h5>View most recent service requests<a class="headerlink" href="#view-most-recent-service-requests" title="Permalink to this headline">#</a></h5>
+<h5>View most recent service requests<a class="headerlink" href="#view-most-recent-service-requests" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="n">preview_columns</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -2629,7 +1682,7 @@ Datum: World Geodetic System 1984 ensemble
 </section>
 </section>
 <section id="check-join-by-bbl">
-<h4>Check % Join by BBL<a class="headerlink" href="#check-join-by-bbl" title="Permalink to this headline">#</a></h4>
+<h4>Check % Join by BBL<a class="headerlink" href="#check-join-by-bbl" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pct_join</span><span class="p">(</span><span class="n">gdf</span><span class="p">:</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">,</span> <span class="n">column_check</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -2670,12 +1723,12 @@ Datum: World Geodetic System 1984 ensemble
 </section>
 </section>
 <section id="join-2-spatial-join">
-<h3>Join #2: Spatial Join<a class="headerlink" href="#join-2-spatial-join" title="Permalink to this headline">#</a></h3>
+<h3>Join #2: Spatial Join<a class="headerlink" href="#join-2-spatial-join" title="Permalink to this heading">#</a></h3>
 <p><span id="id9">[<a class="reference internal" href="references.html#id9" title="Vishal Hule. Introduction to postgis: 11. spatial relationships. 2018. URL: https://postgis.net/workshops/postgis-intro/spatial_relationships.html (visited on 2023-03-05).">Hule, 2018</a>]</span></p>
 <section id="split-dataframe-into-bbl-matches-and-non-matches">
-<h4>Split DataFrame Into BBL Matches and Non-matches<a class="headerlink" href="#split-dataframe-into-bbl-matches-and-non-matches" title="Permalink to this headline">#</a></h4>
+<h4>Split DataFrame Into BBL Matches and Non-matches<a class="headerlink" href="#split-dataframe-into-bbl-matches-and-non-matches" title="Permalink to this heading">#</a></h4>
 <section id="bbl-matches">
-<h5>BBL matches<a class="headerlink" href="#bbl-matches" title="Permalink to this headline">#</a></h5>
+<h5>BBL matches<a class="headerlink" href="#bbl-matches" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_gdf</span> <span class="o">=</span> \
@@ -2721,7 +1774,7 @@ memory usage: 23.5+ MB
 </section>
 </section>
 <section id="add-bbl-match-count-to-json-file">
-<h4>Add BBL match count to JSON file<a class="headerlink" href="#add-bbl-match-count-to-json-file" title="Permalink to this headline">#</a></h4>
+<h4>Add BBL match count to JSON file<a class="headerlink" href="#add-bbl-match-count-to-json-file" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_stats_json_input</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">read_json</span><span class="p">:</span>
@@ -2762,7 +1815,7 @@ memory usage: 23.5+ MB
 </div>
 </div>
 <section id="bbl-mismatches">
-<h5>BBL mismatches<a class="headerlink" href="#bbl-mismatches" title="Permalink to this headline">#</a></h5>
+<h5>BBL mismatches<a class="headerlink" href="#bbl-mismatches" title="Permalink to this heading">#</a></h5>
 <p>Before rejoining with sjoin, extract the street flooding rows that did not
 match by BBL.</p>
 <div class="cell docutils container">
@@ -2840,7 +1893,7 @@ memory usage: 15.0+ MB
 </section>
 </section>
 <section id="perform-sjoin">
-<h4>Perform <code class="docutils literal notranslate"><span class="pre">sjoin</span></code><a class="headerlink" href="#perform-sjoin" title="Permalink to this headline">#</a></h4>
+<h4>Perform <code class="docutils literal notranslate"><span class="pre">sjoin</span></code><a class="headerlink" href="#perform-sjoin" title="Permalink to this heading">#</a></h4>
 <p><strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">sjoin</span></code> is skipped because the remaining street flooding complaint locations did no match the MapPluto dataset. <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> will be used instead. <em>[consider revisiting]</em></p>
 <p><span id="id10">[<a class="reference internal" href="references.html#id10" title="Martin Fleischmann et al. Spatial joins. 2021. URL: https://geopandas.org/en/stable/gallery/spatial_joins.html (visited on 2023-03-06).">et al., 2021</a>, <a class="reference internal" href="references.html#id9" title="Vishal Hule. Introduction to postgis: 11. spatial relationships. 2018. URL: https://postgis.net/workshops/postgis-intro/spatial_relationships.html (visited on 2023-03-05).">Hule, 2018</a>]</span></p>
 <p>Set active geometry</p>
@@ -2942,12 +1995,12 @@ nan_count
 </div>
 </section>
 <section id="perform-sjoin-nearest">
-<h4>Perform <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code><a class="headerlink" href="#perform-sjoin-nearest" title="Permalink to this headline">#</a></h4>
+<h4>Perform <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code><a class="headerlink" href="#perform-sjoin-nearest" title="Permalink to this heading">#</a></h4>
 <p><span id="id11">[<a class="reference internal" href="references.html#id10" title="Martin Fleischmann et al. Spatial joins. 2021. URL: https://geopandas.org/en/stable/gallery/spatial_joins.html (visited on 2023-03-06).">et al., 2021</a>, <a class="reference internal" href="references.html#id9" title="Vishal Hule. Introduction to postgis: 11. spatial relationships. 2018. URL: https://postgis.net/workshops/postgis-intro/spatial_relationships.html (visited on 2023-03-05).">Hule, 2018</a>]</span></p>
 <p>Use Projected CRS for <code class="docutils literal notranslate"><span class="pre">gpd.sjoin_nearest</span></code></p>
 <p>New York, Long Island (EPSG: 2263)</p>
 <p>Mercator (EPSG: 3857)</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Google Maps</p></li>
 <li><p>Open Street Maps</p></li>
 <li><p>Stamen Maps</p></li>
@@ -2979,7 +2032,7 @@ nan_count
 </div>
 </div>
 <section id="preview-sjoin-nearest-results">
-<h5>Preview <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> results<a class="headerlink" href="#preview-sjoin-nearest-results" title="Permalink to this headline">#</a></h5>
+<h5>Preview <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> results<a class="headerlink" href="#preview-sjoin-nearest-results" title="Permalink to this heading">#</a></h5>
 <p>Check index</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3264,11 +2317,11 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </section>
 </section>
 <section id="merge-bbl-and-sjoin-nearest-geopandas-dataframes">
-<h3>Merge <code class="docutils literal notranslate"><span class="pre">BBL</span></code> and <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> GeoPandas DataFrames<a class="headerlink" href="#merge-bbl-and-sjoin-nearest-geopandas-dataframes" title="Permalink to this headline">#</a></h3>
+<h3>Merge <code class="docutils literal notranslate"><span class="pre">BBL</span></code> and <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> GeoPandas DataFrames<a class="headerlink" href="#merge-bbl-and-sjoin-nearest-geopandas-dataframes" title="Permalink to this heading">#</a></h3>
 <section id="confirm-both-dataframe-columns-match">
-<h4>Confirm Both DataFrame Columns Match<a class="headerlink" href="#confirm-both-dataframe-columns-match" title="Permalink to this headline">#</a></h4>
+<h4>Confirm Both DataFrame Columns Match<a class="headerlink" href="#confirm-both-dataframe-columns-match" title="Permalink to this heading">#</a></h4>
 <section id="street-flooding-mappluto-bbl-column-count">
-<h5>Street Flooding MapPluto <code class="docutils literal notranslate"><span class="pre">BBL</span></code> column count<a class="headerlink" href="#street-flooding-mappluto-bbl-column-count" title="Permalink to this headline">#</a></h5>
+<h5>Street Flooding MapPluto <code class="docutils literal notranslate"><span class="pre">BBL</span></code> column count<a class="headerlink" href="#street-flooding-mappluto-bbl-column-count" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_columns_list</span> <span class="o">=</span> <span class="n">street_flooding_pluto_bbl_match_gdf</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -3297,7 +2350,7 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </section>
 <section id="street-flooding-mappluto-sjoin-nearest-column-count">
-<h5>Street Flooding MapPluto <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> column count<a class="headerlink" href="#street-flooding-mappluto-sjoin-nearest-column-count" title="Permalink to this headline">#</a></h5>
+<h5>Street Flooding MapPluto <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> column count<a class="headerlink" href="#street-flooding-mappluto-sjoin-nearest-column-count" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_map_pluto_sjoin_nearest_columns_list</span> <span class="o">=</span> <span class="n">street_flooding_map_pluto_sjoin_nearest_gdf</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -3326,7 +2379,7 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </section>
 <section id="compare-columns">
-<h5>Compare columns<a class="headerlink" href="#compare-columns" title="Permalink to this headline">#</a></h5>
+<h5>Compare columns<a class="headerlink" href="#compare-columns" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bbl_only</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">street_flooding_pluto_bbl_columns_list</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">street_flooding_map_pluto_sjoin_nearest_columns_list</span><span class="p">)</span>
@@ -3355,7 +2408,7 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </section>
 <section id="verify-index-is-the-unique-key">
-<h5>Verify index is the unique_key<a class="headerlink" href="#verify-index-is-the-unique-key" title="Permalink to this headline">#</a></h5>
+<h5>Verify index is the unique_key<a class="headerlink" href="#verify-index-is-the-unique-key" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_gdf</span><span class="o">.</span><span class="n">index</span>
@@ -3392,7 +2445,7 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </section>
 <section id="dataframe-column-transform">
-<h5>DataFrame column transform<a class="headerlink" href="#dataframe-column-transform" title="Permalink to this headline">#</a></h5>
+<h5>DataFrame column transform<a class="headerlink" href="#dataframe-column-transform" title="Permalink to this heading">#</a></h5>
 <p>BBL match DataFrame</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3441,7 +2494,7 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </section>
 <section id="re-compare-columns">
-<h5>Re-compare columns<a class="headerlink" href="#re-compare-columns" title="Permalink to this headline">#</a></h5>
+<h5>Re-compare columns<a class="headerlink" href="#re-compare-columns" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_gdf_pretransform_columns_list</span> <span class="o">=</span> <span class="n">street_flooding_pluto_bbl_match_gdf_pretransform</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -3487,9 +2540,9 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </section>
 </section>
 <section id="implement-merge">
-<h4>Implement <a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/mergingdata.html">Merge</a><a class="headerlink" href="#implement-merge" title="Permalink to this headline">#</a></h4>
+<h4>Implement <a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/mergingdata.html">Merge</a><a class="headerlink" href="#implement-merge" title="Permalink to this heading">#</a></h4>
 <section id="set-active-geometry">
-<h5>Set active geometry<a class="headerlink" href="#set-active-geometry" title="Permalink to this headline">#</a></h5>
+<h5>Set active geometry<a class="headerlink" href="#set-active-geometry" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_gdf_pretransform</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;geometry&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
@@ -3507,7 +2560,7 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </section>
 <section id="preview-results">
-<h5>Preview Results<a class="headerlink" href="#preview-results" title="Permalink to this headline">#</a></h5>
+<h5>Preview Results<a class="headerlink" href="#preview-results" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_merge_gdf</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -3769,7 +2822,7 @@ memory usage: 38.5+ MB
 </div>
 </section>
 <section id="check-total-missing-joins">
-<h5>Check total missing joins<a class="headerlink" href="#check-total-missing-joins" title="Permalink to this headline">#</a></h5>
+<h5>Check total missing joins<a class="headerlink" href="#check-total-missing-joins" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nan_count</span> <span class="o">=</span> <span class="n">street_flooding_mappluto_gdf_merge_gdf</span><span class="p">[</span><span class="s1">&#39;Borough&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -3838,7 +2891,7 @@ Name: Borough, dtype: int64
 </section>
 </section>
 <section id="save-final-merge-match-count-to-json-file">
-<h4>Save Final Merge Match Count to JSON file<a class="headerlink" href="#save-final-merge-match-count-to-json-file" title="Permalink to this headline">#</a></h4>
+<h4>Save Final Merge Match Count to JSON file<a class="headerlink" href="#save-final-merge-match-count-to-json-file" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_stats</span><span class="p">[</span><span class="s1">&#39;street_flood_mappluto_sjoin_nearest&#39;</span><span class="p">]</span> <span class="o">=</span> \
@@ -3879,11 +2932,11 @@ Name: Borough, dtype: int64
 </section>
 </section>
 <section id="save-merged-dataset">
-<h3>Save Merged Dataset<a class="headerlink" href="#save-merged-dataset" title="Permalink to this headline">#</a></h3>
+<h3>Save Merged Dataset<a class="headerlink" href="#save-merged-dataset" title="Permalink to this heading">#</a></h3>
 <p>Reference:</p>
 <p><a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html"><code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame.to_file</span></code></a></p>
 <section id="check-supported-driver-options">
-<h4>Check supported driver options<a class="headerlink" href="#check-supported-driver-options" title="Permalink to this headline">#</a></h4>
+<h4>Check supported driver options<a class="headerlink" href="#check-supported-driver-options" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fiona</span><span class="o">.</span><span class="n">supported_drivers</span>
@@ -3917,7 +2970,7 @@ Name: Borough, dtype: int64
 </div>
 </section>
 <section id="confirm-output-folder-exists">
-<h4>Confirm output folder exists<a class="headerlink" href="#confirm-output-folder-exists" title="Permalink to this headline">#</a></h4>
+<h4>Confirm output folder exists<a class="headerlink" href="#confirm-output-folder-exists" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;data/merge&#39;</span><span class="p">):</span>
@@ -3936,7 +2989,7 @@ Name: Borough, dtype: int64
 </div>
 </section>
 <section id="reindex-merged-geopandas-dataframe">
-<h4>Reindex Merged GeoPandas DataFrame<a class="headerlink" href="#reindex-merged-geopandas-dataframe" title="Permalink to this headline">#</a></h4>
+<h4>Reindex Merged GeoPandas DataFrame<a class="headerlink" href="#reindex-merged-geopandas-dataframe" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_to_save</span> <span class="o">=</span> <span class="n">street_flooding_mappluto_gdf_merge_gdf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -3953,7 +3006,7 @@ Name: Borough, dtype: int64
 </div>
 </section>
 <section id="save-as-gdb-using-openfilegdb-driver">
-<h4>Save as <code class="docutils literal notranslate"><span class="pre">.gdb</span></code> using <code class="docutils literal notranslate"><span class="pre">OpenFileGDB</span></code> driver<a class="headerlink" href="#save-as-gdb-using-openfilegdb-driver" title="Permalink to this headline">#</a></h4>
+<h4>Save as <code class="docutils literal notranslate"><span class="pre">.gdb</span></code> using <code class="docutils literal notranslate"><span class="pre">OpenFileGDB</span></code> driver<a class="headerlink" href="#save-as-gdb-using-openfilegdb-driver" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_to_save</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">merge_flood_mappluto_output_ofgdb</span><span class="p">,</span> <span class="n">driver</span> <span class="o">=</span> <span class="s1">&#39;OpenFileGDB&#39;</span><span class="p">,</span> <span class="n">crs</span> <span class="o">=</span> <span class="s1">&#39;EPSG:2263&#39;</span><span class="p">)</span>
@@ -3963,7 +3016,7 @@ Name: Borough, dtype: int64
 </div>
 </section>
 <section id="save-as-geojson-using-geojson-driver">
-<h4>Save as <code class="docutils literal notranslate"><span class="pre">.geojson</span></code> using <code class="docutils literal notranslate"><span class="pre">GeoJSON</span></code> driver<a class="headerlink" href="#save-as-geojson-using-geojson-driver" title="Permalink to this headline">#</a></h4>
+<h4>Save as <code class="docutils literal notranslate"><span class="pre">.geojson</span></code> using <code class="docutils literal notranslate"><span class="pre">GeoJSON</span></code> driver<a class="headerlink" href="#save-as-geojson-using-geojson-driver" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_to_save</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">merge_flood_mappluto_output_geojson</span><span class="p">,</span> <span class="n">driver</span> <span class="o">=</span> <span class="s1">&#39;GeoJSON&#39;</span><span class="p">,</span> <span class="n">crs</span> <span class="o">=</span> <span class="s1">&#39;EPSG:2263&#39;</span><span class="p">)</span>
@@ -3996,50 +3049,192 @@ Name: Borough, dtype: int64
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="scrub-flood-data.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Clean Data</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="scrub-flood-data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Clean Data</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="scrub-process-diagram.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="scrub-process-diagram.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">ETL Diagram</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import Libraries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-libraries">Standard Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-libraries">Custom Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#external-libraries">External Libraries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-variables">Define Variables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-files">Input Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-files">Output Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nyc-street-flooding-complaints">NYC Street Flooding Complaints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mappluto">MapPLUTO</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-street-flooding-complaints-and-mappluto-datasets">Combine <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">Complaints</span></code> and <code class="docutils literal notranslate"><span class="pre">MapPLUTO</span></code> Datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-street-flooding-complaints">Read <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">Complaints</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-street-flooding-complaints-column-names-to-nyc-street-flooding-gdf-columns-txt">Save <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">Complaints</span></code> Column Names to <code class="docutils literal notranslate"><span class="pre">nyc_street_flooding_gdf_columns.txt</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-index">Check Index</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#set-unique-key-as-index">Set <code class="docutils literal notranslate"><span class="pre">unique_key</span></code> as Index</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-index-change">Verify Index Change</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-mappluto">Read <code class="docutils literal notranslate"><span class="pre">MapPLUTO</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-pluto-column-names-to-pluto-gdf-columns-txt">Save <code class="docutils literal notranslate"><span class="pre">PLUTO</span></code> Column Names to <code class="docutils literal notranslate"><span class="pre">pluto_gdf_columns.txt</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-epsg-crs-codes-before-merging-to-ensure-proper-alignment">Check EPSG CRS codes before merging, to ensure proper alignment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-pluto-to-epsg-code-4326">Convert Pluto to EPSG code: 4326</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-conversion">Verify Conversion</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#join-1-bbl">Join #1: BBL</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-data-type-of-join-column">Check data type of join column</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-street-flooding-geodataframe-s-bbl-column-from-object-to-float">Convert <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span></code> GeoDataFrame’s <code class="docutils literal notranslate"><span class="pre">bbl</span></code> column from <code class="docutils literal notranslate"><span class="pre">object</span></code> to <code class="docutils literal notranslate"><span class="pre">float</span></code>.</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#left-join-on-bbl">Left Join on <code class="docutils literal notranslate"><span class="pre">BBL</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#create-column-to-store-index-before-merge">Create column to store index before merge</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-results-of-bbl-join">Preview Results of <code class="docutils literal notranslate"><span class="pre">BBL</span></code> Join</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Check index</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Set <code class="docutils literal notranslate"><span class="pre">unique_key</span></code> as index</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Verify index change</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#list-attributes-in-a-5-column-grid">List attributes in a 5 column grid</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#view-oldest-service-requests">View oldest service requests</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#view-most-recent-service-requests">View most recent service requests</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-join-by-bbl">Check % Join by BBL</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#join-2-spatial-join">Join #2: Spatial Join</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#split-dataframe-into-bbl-matches-and-non-matches">Split DataFrame Into BBL Matches and Non-matches</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#bbl-matches">BBL matches</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#add-bbl-match-count-to-json-file">Add BBL match count to JSON file</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#bbl-mismatches">BBL mismatches</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perform-sjoin">Perform <code class="docutils literal notranslate"><span class="pre">sjoin</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perform-sjoin-nearest">Perform <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-sjoin-nearest-results">Preview <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-bbl-and-sjoin-nearest-geopandas-dataframes">Merge <code class="docutils literal notranslate"><span class="pre">BBL</span></code> and <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> GeoPandas DataFrames</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confirm-both-dataframe-columns-match">Confirm Both DataFrame Columns Match</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#street-flooding-mappluto-bbl-column-count">Street Flooding MapPluto <code class="docutils literal notranslate"><span class="pre">BBL</span></code> column count</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#street-flooding-mappluto-sjoin-nearest-column-count">Street Flooding MapPluto <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> column count</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-columns">Compare columns</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-index-is-the-unique-key">Verify index is the unique_key</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-column-transform">DataFrame column transform</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#re-compare-columns">Re-compare columns</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-merge">Implement Merge</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#set-active-geometry">Set active geometry</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-results">Preview Results</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#check-total-missing-joins">Check total missing joins</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-final-merge-match-count-to-json-file">Save Final Merge Match Count to JSON file</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-merged-dataset">Save Merged Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-supported-driver-options">Check supported driver options</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confirm-output-folder-exists">Confirm output folder exists</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reindex-merged-geopandas-dataframe">Reindex Merged GeoPandas DataFrame</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-as-gdb-using-openfilegdb-driver">Save as <code class="docutils literal notranslate"><span class="pre">.gdb</span></code> using <code class="docutils literal notranslate"><span class="pre">OpenFileGDB</span></code> driver</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-as-geojson-using-geojson-driver">Save as <code class="docutils literal notranslate"><span class="pre">.geojson</span></code> using <code class="docutils literal notranslate"><span class="pre">GeoJSON</span></code> driver</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
   
-    By Ho Hsieh, Nathan Williamson, Mark Bauer, Chidi Ezeolu<br/>
-  
-      &copy; Copyright 2023.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
-</div>
+<p class="component-author">
+By Ho Hsieh, Nathan Williamson, Mark Bauer, Chidi Ezeolu
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
 
-      </div>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

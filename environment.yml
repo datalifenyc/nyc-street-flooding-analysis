@@ -1,6 +1,7 @@
 name: nyc-street-flooding-analysis
 channels:
   - defaults
+  - conda-forge
 dependencies:
   - python=3.11
   - pywin32

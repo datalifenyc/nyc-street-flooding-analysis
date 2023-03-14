@@ -12,6 +12,7 @@ execute:
     - 'merge-flood-pluto.ipynb' # gdb folder read time: ~42 minutes
     - 'join.ipynb'
     - 'nyc-311-groundtruth.ipynb'
+    - 'explore-data-profiling.ipynb'
 
 # HTML-specific settings
 html:
@@ -29,7 +30,7 @@ html:
   announcement: "NYC School of Data Conference - March 18!"
   comments:
     utterances:
-      repo: "datalifenyc/nyc-street-flooding-analysis/analysis-book"
+      repo: "datalifenyc/nyc-street-flooding-analysis"
 
 # BibTeX-specific settings
 bibtex_bibfiles:

@@ -14,7 +14,9 @@ parts:
   - caption: Explore 🗺
     chapters:
     - file: explore-map
-    - file: explore-auto-eda
+    # - file: explore-data-profiling
+    - url: https://nyc-street-flooding-analysis.datalife.nyc/data-profile.html
+      title: Data Profile
   - caption: Analysis 📈
     chapters:
     - file: nyc-311-groundtruth
