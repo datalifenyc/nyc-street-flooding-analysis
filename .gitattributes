@@ -1,2 +1,1 @@
 *.ipynb filter=lfs diff=lfs merge=lfs -text
-*data-profile.html filter=lfs diff=lfs merge=lfs -text
