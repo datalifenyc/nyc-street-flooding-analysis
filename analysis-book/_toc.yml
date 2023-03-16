@@ -20,6 +20,7 @@ parts:
   - caption: Analysis 📈
     chapters:
     - file: nyc-311-groundtruth
+    - file: nyc-311-vs-stormwaterflood
   - caption: Model 🏗
     chapters:
     - file: model-build

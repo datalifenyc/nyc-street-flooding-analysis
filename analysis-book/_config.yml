@@ -13,6 +13,7 @@ execute:
     - 'join.ipynb'
     - 'nyc-311-groundtruth.ipynb'
     - 'explore-data-profiling.ipynb'
+    - 'nyc-311-vs-stormwaterflood.ipynb'
 
 # HTML-specific settings
 html:
