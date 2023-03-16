@@ -513,7 +513,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-ground-truthing-311-street-flooding-complaints-to-actual-precipitation-depths">Objective: Ground-truthing 311 street flooding complaints to actual precipitation depths.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-ground-truthing-311-street-flooding-complaints-to-actual-precipitation-levels">Objective: Ground-truthing 311 street flooding complaints to actual precipitation levels.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links">Links</a></li>
 </ul>
 </li>
@@ -529,22 +529,24 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#read-in-nyc-311-street-flooding-complaints">Read in NYC 311 Street Flooding Complaints</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hour-max-depth-vs-6-hour-complaint-counts">6-Hour Max Depth vs. 6-Hour Complaint Counts</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#qualitative-analysis-311-complaint-vs-rain-event">Qualitative Analysis - 311 Complaint vs. Rain Event</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highest-event">Highest Event</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highest-events">Highest Events</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-high-depth-events">Additional High Depth Events</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interesting-events">Interesting Events</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantitative-analysis">Quantitative Analysis</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#total-daily-depth-vs-daily-complaint-counts">Total Daily Depth vs. Daily Complaint Counts</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#total-daily-precipitation-depth-vs-daily-complaint-counts">Total Daily Precipitation Depth vs. Daily Complaint Counts</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Qualitative Analysis - 311 Complaint vs. Rain Event</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Highest Event</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highest-event">Highest Event</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Quantitative Analysis</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Quantitative Analysis</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#weekly-total-depth-vs-weekly-complaint-counts">Weekly Total Depth vs. Weekly Complaint Counts</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Qualitative Analysis - 311 Complaint vs. Rain Event</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Highest Event</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Qualitative Analysis - 311 Complaint vs. Rain Event</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Highest Event</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Quantitative Analysis</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Quantitative Analysis</a></li>
 </ul>
 
             </nav>
@@ -560,10 +562,10 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="investigating-the-correlation-between-high-precipitation-events-and-311-street-flooding-complaints-in-new-york-city">
 <h1>Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City<a class="headerlink" href="#investigating-the-correlation-between-high-precipitation-events-and-311-street-flooding-complaints-in-new-york-city" title="Permalink to this heading">#</a></h1>
 <p>Author: Mark Bauer</p>
-<section id="objective-ground-truthing-311-street-flooding-complaints-to-actual-precipitation-depths">
-<h2>Objective: Ground-truthing 311 street flooding complaints to actual precipitation depths.<a class="headerlink" href="#objective-ground-truthing-311-street-flooding-complaints-to-actual-precipitation-depths" title="Permalink to this heading">#</a></h2>
+<section id="objective-ground-truthing-311-street-flooding-complaints-to-actual-precipitation-levels">
+<h2>Objective: Ground-truthing 311 street flooding complaints to actual precipitation levels.<a class="headerlink" href="#objective-ground-truthing-311-street-flooding-complaints-to-actual-precipitation-levels" title="Permalink to this heading">#</a></h2>
 <p>The NYC 311 is a fantastic system to alert the City of non-emergency services such as garbage and trash removal, noise levels, dirty sidewalks, etc. Department of Environmental Protection (DEP) is tasked with responding to 311’s Street Flooding complaints. While 311 is not directly intended to measure and observe flooding events, studies show that 311 street flooding complaints might be linked to actual flooding and have the potential to reveal areas that require greater sewer maintenence and resources.</p>
-<p>This analysis is designed to test the hypothesis that 311 Street Flooding Complaints are correlated with high precipitation events in Central Park, NYC from 2010 to 2020.</p>
+<p>This analysis is designed to test the hypothesis that 311 Street Flooding Complaints are correlated with high precipitation events in NYC.</p>
 </section>
 <section id="links">
 <h2>Links<a class="headerlink" href="#links" title="Permalink to this heading">#</a></h2>
@@ -799,8 +801,7 @@ memory usage: 3.8+ MB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># My usual sanity checks of the dataframe</span>
-<span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1038,9 +1039,7 @@ memory usage: 3.8+ MB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># exploratory data analysis</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;distribution of depths&#39;</span><span class="p">)</span>
@@ -1078,19 +1077,18 @@ memory usage: 3.8+ MB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># exploring highest values by 1-hour depths in NYC</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># highest values by date_time in NYC</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
-<span class="p">(</span><span class="n">df</span>
- <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
- <span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">,</span> <span class="s1">&#39;precip_in&#39;</span><span class="p">]]</span>
- <span class="o">.</span><span class="n">head</span><span class="p">()</span>
- <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">)</span>
- <span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;valid&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+     <span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">,</span> <span class="s1">&#39;precip_in&#39;</span><span class="p">]]</span>
+     <span class="o">.</span><span class="n">head</span><span class="p">()</span>
+     <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">)</span>
+     <span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;valid&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Highest Hourly Precipitation 2010 to 2020 (Central Park, NYC)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Highest Hourly Precipitation from 2010 to 2020 (Central Park, NYC)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Date (Hourly)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Depth (Inches)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -1098,13 +1096,14 @@ memory usage: 3.8+ MB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/34c244299756042659698ae8e2fc8ec34880141e9454692c966c3f0ccc568627.png" src="_images/34c244299756042659698ae8e2fc8ec34880141e9454692c966c3f0ccc568627.png" />
+<img alt="_images/7848915daed0742d3ea4bcaa0e7a38ba2cb67f14d0bfdbffd4202b1a83077a71.png" src="_images/7848915daed0742d3ea4bcaa0e7a38ba2cb67f14d0bfdbffd4202b1a83077a71.png" />
 </div>
 </div>
 <p>Nice tutorial about resampling: <a class="reference external" href="https://www.earthdatascience.org/courses/use-data-open-source-python/use-time-series-data-in-python/date-time-types-in-pandas-python/resample-time-series-data-pandas-python/">https://www.earthdatascience.org/courses/use-data-open-source-python/use-time-series-data-in-python/date-time-types-in-pandas-python/resample-time-series-data-pandas-python/</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resample to hourly precip max and save as new dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># resample to hourly precip max and save as new dataframe</span>
+<span class="c1"># data is already stored by hour, so we are basically just setting the index on date_time</span>
 <span class="n">one_hour</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">df</span>
     <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]]</span>
@@ -1178,7 +1177,7 @@ memory usage: 3.8+ MB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resample to 6-hour precip max and save as new dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># resample to 6-hour precip max and save as new dataframe</span>
 <span class="n">six_hour</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">df</span>
     <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]]</span>
@@ -1255,7 +1254,8 @@ memory usage: 3.8+ MB
 <h1>Compare 1-Hour and 6-Hour Max Precipitation Depth<a class="headerlink" href="#compare-1-hour-and-6-hour-max-precipitation-depth" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># exploratory timeseries</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">one_hour</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">six_hour</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -1515,7 +1515,7 @@ memory usage: 7.2+ MB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># only one 311 descriptor in this dataset - street flooding</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sanity check, only one 311 descriptor in this dataset - street flooding</span>
 <span class="n">complaints_df</span><span class="p">[</span><span class="s1">&#39;descriptor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1711,7 +1711,7 @@ Name: descriptor, dtype: int64
 <h1>6-Hour Max Depth vs. 6-Hour Complaint Counts<a class="headerlink" href="#hour-max-depth-vs-6-hour-complaint-counts" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resample to 6-hour precip max and save as new dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># resample to 6-hour precip max and save as new dataframe</span>
 <span class="n">hour_six_max</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">df</span>
     <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]]</span>
@@ -1726,7 +1726,7 @@ Name: descriptor, dtype: int64
 <span class="n">hour_six_max</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hour_six_max</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
 <span class="c1"># sanity check</span>
-<span class="n">hour_six_max</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">hour_six_max</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1752,47 +1752,37 @@ Name: descriptor, dtype: int64
       <th>precip_in</th>
       <th>rain_flag</th>
     </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>count</th>
-      <td>16069.000000</td>
-      <td>16069.000000</td>
+      <th>2010-01-01 00:00:00</th>
+      <td>0.0100</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>mean</th>
-      <td>0.017515</td>
-      <td>0.197834</td>
+      <th>2010-01-01 06:00:00</th>
+      <td>0.0000</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>std</th>
-      <td>0.076664</td>
-      <td>0.398379</td>
+      <th>2010-01-01 12:00:00</th>
+      <td>0.0000</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>min</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <th>2010-01-01 18:00:00</th>
+      <td>0.0100</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>25%</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>1.660000</td>
-      <td>1.000000</td>
+      <th>2010-01-02 00:00:00</th>
+      <td>0.0001</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -1816,7 +1806,7 @@ Name: descriptor, dtype: int64
 <span class="n">complaints_hourly</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">complaints_hourly</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
 <span class="c1"># sanity check</span>
-<span class="n">complaints_hourly</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">complaints_hourly</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1842,47 +1832,37 @@ Name: descriptor, dtype: int64
       <th>count</th>
       <th>complaint_flag</th>
     </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>count</th>
-      <td>16066.000000</td>
-      <td>16066.000000</td>
+      <th>2010-01-02 06:00:00</th>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>mean</th>
-      <td>1.736711</td>
-      <td>0.446595</td>
+      <th>2010-01-02 12:00:00</th>
+      <td>2</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>std</th>
-      <td>5.793867</td>
-      <td>0.497155</td>
+      <th>2010-01-02 18:00:00</th>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>min</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <th>2010-01-03 00:00:00</th>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>25%</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>2.000000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>209.000000</td>
-      <td>1.000000</td>
+      <th>2010-01-03 06:00:00</th>
+      <td>0</td>
+      <td>0</td>
     </tr>
   </tbody>
 </table>
@@ -1903,7 +1883,7 @@ Name: descriptor, dtype: int64
 <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
 <span class="c1"># sanity check</span>
-<span class="n">merged_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">merged_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1931,63 +1911,49 @@ Name: descriptor, dtype: int64
       <th>count</th>
       <th>complaint_flag</th>
     </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>count</th>
-      <td>16069.000000</td>
-      <td>16069.000000</td>
-      <td>16069.000000</td>
-      <td>16069.000000</td>
+      <th>2010-01-01 00:00:00</th>
+      <td>0.0100</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>mean</th>
-      <td>0.017515</td>
-      <td>0.197834</td>
-      <td>1.735329</td>
-      <td>0.446387</td>
+      <th>2010-01-01 06:00:00</th>
+      <td>0.0000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>std</th>
-      <td>0.076664</td>
-      <td>0.398379</td>
-      <td>5.792891</td>
-      <td>0.497133</td>
+      <th>2010-01-01 12:00:00</th>
+      <td>0.0000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>min</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <th>2010-01-01 18:00:00</th>
+      <td>0.0100</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>25%</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>2.000000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>1.660000</td>
-      <td>1.000000</td>
-      <td>209.000000</td>
-      <td>1.000000</td>
+      <th>2010-01-02 00:00:00</th>
+      <td>0.0001</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
   </tbody>
 </table>
@@ -1996,12 +1962,11 @@ Name: descriptor, dtype: int64
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="qualitative-analysis-311-complaint-vs-rain-event">
 <h1>Qualitative Analysis - 311 Complaint vs. Rain Event<a class="headerlink" href="#qualitative-analysis-311-complaint-vs-rain-event" title="Permalink to this heading">#</a></h1>
-<section id="highest-event">
-<h2>Highest Event<a class="headerlink" href="#highest-event" title="Permalink to this heading">#</a></h2>
+<section id="highest-events">
+<h2>Highest Events<a class="headerlink" href="#highest-events" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># highest 6-hour max precipitation depth event</span>
-<span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2045,6 +2010,34 @@ Name: descriptor, dtype: int64
       <td>47</td>
       <td>1</td>
     </tr>
+    <tr>
+      <th>2020-08-12 12:00:00</th>
+      <td>1.63</td>
+      <td>1</td>
+      <td>12</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-10-01 00:00:00</th>
+      <td>1.48</td>
+      <td>1</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2015-07-30 12:00:00</th>
+      <td>1.28</td>
+      <td>1</td>
+      <td>23</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2011-08-14 00:00:00</th>
+      <td>1.28</td>
+      <td>1</td>
+      <td>8</td>
+      <td>1</td>
+    </tr>
   </tbody>
 </table>
 </div></div></div>
@@ -2057,18 +2050,19 @@ Name: descriptor, dtype: int64
 <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
              <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
              <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span>
-             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Depth&#39;</span><span class="p">,</span> 
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> 
              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span>
              <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
              <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
              <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span>
-             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Complaints&#39;</span><span class="p">,</span> 
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;complaints&#39;</span><span class="p">,</span> 
              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span>
              <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
 
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">14</span><span class="p">)])</span>
+
 <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
@@ -2076,16 +2070,12 @@ Name: descriptor, dtype: int64
 <span class="n">event</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Highest 6-Hour Max Depth:</span><span class="se">\n</span><span class="si">{}</span><span class="s1"> inches on </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
 
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;6-Hour Interval&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (Inches)&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
-
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2894ceb6e1d64f30011c9edf6855569035a97b88680410a64dda189c6a410fc5.png" src="_images/2894ceb6e1d64f30011c9edf6855569035a97b88680410a64dda189c6a410fc5.png" />
+<img alt="_images/4fbaf00c7c555c09eafb6815ab29c6ebb51c11f6cdeb70b83b386ff14f235ca8.png" src="_images/4fbaf00c7c555c09eafb6815ab29c6ebb51c11f6cdeb70b83b386ff14f235ca8.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2143,7 +2133,7 @@ Name: descriptor, dtype: int64
 <span class="n">event</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Highest 6-Hour Max Depth:</span><span class="se">\n</span><span class="si">{}</span><span class="s1"> inches on </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
 
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2151,6 +2141,433 @@ Name: descriptor, dtype: int64
 <img alt="_images/ba59d4ab3666251e54f85a621522bb5296bad2c4aa485a0525d8021aabca6a1a.png" src="_images/ba59d4ab3666251e54f85a621522bb5296bad2c4aa485a0525d8021aabca6a1a.png" />
 </div>
 </div>
+</section>
+<section id="additional-high-depth-events">
+<h2>Additional High Depth Events<a class="headerlink" href="#additional-high-depth-events" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;complaints&#39;</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">19</span><span class="p">)])</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;6-Hour Interval&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="n">depth</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span>
+<span class="n">event</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;2nd Highest 6-Hour Max Depth:</span><span class="se">\n</span><span class="si">{}</span><span class="s1"> inches on </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4ae16387ff06a3aa6af7329d77c443c559729dc2284c40e9df5c74df5cd3a219.png" src="_images/4ae16387ff06a3aa6af7329d77c443c559729dc2284c40e9df5c74df5cd3a219.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;complaints&#39;</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;6-Hour Interval&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="n">depth</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span>
+<span class="n">event</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;3rd Highest 6-Hour Max Depth:</span><span class="se">\n</span><span class="si">{}</span><span class="s1"> inches on </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/86dfb2ef030561e6906c8dc090d7db6704995c482fb1acee59fbacd04cd1f9db.png" src="_images/86dfb2ef030561e6906c8dc090d7db6704995c482fb1acee59fbacd04cd1f9db.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;complaints&#39;</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">)])</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;6-Hour Interval&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="n">depth</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span>
+<span class="n">event</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;4th Highest 6-Hour Max Depth:</span><span class="se">\n</span><span class="si">{}</span><span class="s1"> inches on </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c7488dc1f48942c4fd53807b442e249689fffd3a0fa4c0197475b3ea3cc5c967.png" src="_images/c7488dc1f48942c4fd53807b442e249689fffd3a0fa4c0197475b3ea3cc5c967.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;complaints&#39;</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">21</span><span class="p">)])</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;6-Hour Interval&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="n">depth</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span>
+<span class="n">event</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">4</span><span class="p">]]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;5th Highest 6-Hour Max Depth:</span><span class="se">\n</span><span class="si">{}</span><span class="s1"> inches on </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/714e8fb063f534e96dacdda80db3392a0434b47752ecff86d3bfd4ede819c96e.png" src="_images/714e8fb063f534e96dacdda80db3392a0434b47752ecff86d3bfd4ede819c96e.png" />
+</div>
+</div>
+</section>
+<section id="interesting-events">
+<h2>Interesting Events<a class="headerlink" href="#interesting-events" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;complaints&#39;</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;6-Hour Interval&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9255bb335d2a73ed1652fe8023fd4191c5ae0e1cae615a5f0eddec57d523d03c.png" src="_images/9255bb335d2a73ed1652fe8023fd4191c5ae0e1cae615a5f0eddec57d523d03c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>precip_in</th>
+      <th>rain_flag</th>
+      <th>count</th>
+      <th>complaint_flag</th>
+    </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2017-05-05 12:00:00</th>
+      <td>1.23</td>
+      <td>1</td>
+      <td>209</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2016-02-08 06:00:00</th>
+      <td>0.03</td>
+      <td>1</td>
+      <td>141</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2018-04-16 06:00:00</th>
+      <td>0.71</td>
+      <td>1</td>
+      <td>124</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2013-05-08 06:00:00</th>
+      <td>1.06</td>
+      <td>1</td>
+      <td>123</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2020-07-10 12:00:00</th>
+      <td>0.96</td>
+      <td>1</td>
+      <td>117</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2014-12-09 06:00:00</th>
+      <td>0.28</td>
+      <td>1</td>
+      <td>111</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2014-12-09 12:00:00</th>
+      <td>0.32</td>
+      <td>1</td>
+      <td>104</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2014-11-17 12:00:00</th>
+      <td>0.52</td>
+      <td>1</td>
+      <td>103</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-10-01 06:00:00</th>
+      <td>0.35</td>
+      <td>1</td>
+      <td>97</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-12-01 12:00:00</th>
+      <td>0.42</td>
+      <td>1</td>
+      <td>94</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2012-05-21 06:00:00</th>
+      <td>0.56</td>
+      <td>1</td>
+      <td>86</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2020-11-30 12:00:00</th>
+      <td>0.14</td>
+      <td>1</td>
+      <td>85</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2019-07-22 18:00:00</th>
+      <td>0.76</td>
+      <td>1</td>
+      <td>82</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2015-05-31 18:00:00</th>
+      <td>0.09</td>
+      <td>1</td>
+      <td>81</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-08-05 12:00:00</th>
+      <td>0.00</td>
+      <td>0</td>
+      <td>78</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2014-04-30 18:00:00</th>
+      <td>0.57</td>
+      <td>1</td>
+      <td>76</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2016-02-16 12:00:00</th>
+      <td>0.58</td>
+      <td>1</td>
+      <td>76</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2016-11-15 12:00:00</th>
+      <td>0.29</td>
+      <td>1</td>
+      <td>75</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2014-04-30 12:00:00</th>
+      <td>0.36</td>
+      <td>1</td>
+      <td>75</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2018-11-25 06:00:00</th>
+      <td>0.00</td>
+      <td>0</td>
+      <td>74</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;complaints&#39;</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">)])</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;6-Hour Interval&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7c5cfb6364783c6e3e47baa878c228ed16d375639fc8f9d5145682b4d6f7e7d4.png" src="_images/7c5cfb6364783c6e3e47baa878c228ed16d375639fc8f9d5145682b4d6f7e7d4.png" />
+</div>
+</div>
+<p>2017-05-05: <a class="reference external" href="https://www.nytimes.com/2017/05/05/nyregion/flooding-new-york-roads-shutdown-rain.html">https://www.nytimes.com/2017/05/05/nyregion/flooding-new-york-roads-shutdown-rain.html</a><br />
+2016-02-08: <a class="reference external" href="https://www.cbsnews.com/newyork/news/queens-flooding-winter-storm/">https://www.cbsnews.com/newyork/news/queens-flooding-winter-storm/</a><br />
+2018-04-16: <a class="reference external" href="https://www.ny1.com/nyc/all-boroughs/news/2018/04/16/heavy-rains-causing-problems-across-nyc">https://www.ny1.com/nyc/all-boroughs/news/2018/04/16/heavy-rains-causing-problems-across-nyc</a><br />
+2013-05-08: <a class="reference external" href="https://9to5mac.com/2013/05/08/leak-causes-flood-at-fifth-avenue-apple-store-employees-blame-recent-construction/">https://9to5mac.com/2013/05/08/leak-causes-flood-at-fifth-avenue-apple-store-employees-blame-recent-construction/</a><br />
+2020-07-10: <a class="reference external" href="https://www.nytimes.com/2020/07/10/nyregion/tropical-storm-fay-nyc.html">https://www.nytimes.com/2020/07/10/nyregion/tropical-storm-fay-nyc.html</a><br />
+2014-12-09: <a class="reference external" href="https://www.cnn.com/2014/12/09/us/weather-record-rain/index.html">https://www.cnn.com/2014/12/09/us/weather-record-rain/index.html</a><br />
+2010-10-01: <a class="reference external" href="https://archive.nytimes.com/cityroom.blogs.nytimes.com/2010/10/01/strong-rains-drench-morning-commute/">https://archive.nytimes.com/cityroom.blogs.nytimes.com/2010/10/01/strong-rains-drench-morning-commute/</a><br />
+2010-12-01: <a class="reference external" href="https://dailygazette.com/2010/12/01/1201_warningfl/">https://dailygazette.com/2010/12/01/1201_warningfl/</a></p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="quantitative-analysis">
@@ -2368,7 +2785,7 @@ Dependent (reject H0)
 
 <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;precip_in&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Count of 311 Street Flooding Complaints vs. 6-Hour Max Depth&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Count of 6-Hour 311 Street Flooding Complaints vs. Precip 6-Hour Max (Inches)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;6-Hour Max (Inches)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;6-Hour Total Count&#39;</span><span class="p">)</span>
 
@@ -2377,7 +2794,7 @@ Dependent (reject H0)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a18ba08114f24249f4bbd9c6235b03a17cee40e7e4bb89ccc2d672e3a0abe87f.png" src="_images/a18ba08114f24249f4bbd9c6235b03a17cee40e7e4bb89ccc2d672e3a0abe87f.png" />
+<img alt="_images/663cf1f4f5540802bd0a63b15122dfcc6f93e784000d974e6c0bb642c6f183c6.png" src="_images/663cf1f4f5540802bd0a63b15122dfcc6f93e784000d974e6c0bb642c6f183c6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2509,8 +2926,8 @@ Dependent (reject H0)
 Dep. Variable:                  count   R-squared:                       0.218
 Model:                            OLS   Adj. R-squared:                  0.218
 Method:                 Least Squares   F-statistic:                     4479.
-Date:                Mon, 13 Mar 2023   Prob (F-statistic):               0.00
-Time:                        21:33:24   Log-Likelihood:                -49052.
+Date:                Wed, 15 Mar 2023   Prob (F-statistic):               0.00
+Time:                        21:57:12   Log-Likelihood:                -49052.
 No. Observations:               16069   AIC:                         9.811e+04
 Df Residuals:                   16067   BIC:                         9.812e+04
 Df Model:                           1                                         
@@ -2552,11 +2969,11 @@ R2: 0.218
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="total-daily-depth-vs-daily-complaint-counts">
-<h1>Total Daily Depth vs. Daily Complaint Counts<a class="headerlink" href="#total-daily-depth-vs-daily-complaint-counts" title="Permalink to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="total-daily-precipitation-depth-vs-daily-complaint-counts">
+<h1>Total Daily Precipitation Depth vs. Daily Complaint Counts<a class="headerlink" href="#total-daily-precipitation-depth-vs-daily-complaint-counts" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resample to daily precip sum and save as new dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># resample to daily precip sum and save as new dataframe</span>
 <span class="n">daily_total</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">df</span>
     <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]]</span>
@@ -2571,7 +2988,7 @@ R2: 0.218
 <span class="n">daily_total</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">daily_total</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
 <span class="c1"># sanity check</span>
-<span class="n">daily_total</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">daily_total</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2597,47 +3014,37 @@ R2: 0.218
       <th>precip_in</th>
       <th>rain_flag</th>
     </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>count</th>
-      <td>4018.000000</td>
-      <td>4018.000000</td>
+      <th>2010-01-01</th>
+      <td>0.0201</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>mean</th>
-      <td>0.135428</td>
-      <td>0.404430</td>
+      <th>2010-01-02</th>
+      <td>0.0004</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>std</th>
-      <td>0.373793</td>
-      <td>0.490842</td>
+      <th>2010-01-03</th>
+      <td>0.0004</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>min</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <th>2010-01-04</th>
+      <td>0.0000</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>25%</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>0.050300</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>5.810100</td>
-      <td>1.000000</td>
+      <th>2010-01-05</th>
+      <td>0.0001</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -2645,7 +3052,7 @@ R2: 0.218
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resample to daily complaint count and save as new dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># resample to daily complaint count and save as new dataframe</span>
 <span class="n">complaints_daily</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">complaints_df</span>
     <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date_time&#39;</span><span class="p">)[[</span><span class="s1">&#39;unique_key&#39;</span><span class="p">]]</span>
@@ -2660,8 +3067,7 @@ R2: 0.218
 <span class="n">complaints_daily</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">complaints_daily</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">complaints_daily</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">complaints_daily</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
-<span class="c1"># sanity check</span>
-<span class="n">complaints_daily</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">complaints_daily</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2687,47 +3093,37 @@ R2: 0.218
       <th>count</th>
       <th>complaint_flag</th>
     </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>count</th>
-      <td>4017.00000</td>
-      <td>4017.000000</td>
+      <th>2010-01-02</th>
+      <td>3</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>mean</th>
-      <td>6.94598</td>
-      <td>0.865073</td>
+      <th>2010-01-03</th>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>std</th>
-      <td>14.99928</td>
-      <td>0.341688</td>
+      <th>2010-01-04</th>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>min</th>
-      <td>0.00000</td>
-      <td>0.000000</td>
+      <th>2010-01-05</th>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>25%</th>
-      <td>1.00000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>3.00000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>6.00000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>247.00000</td>
-      <td>1.000000</td>
+      <th>2010-01-06</th>
+      <td>4</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -2746,6 +3142,9 @@ R2: 0.218
 
 <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
 <span class="n">merged_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -2788,36 +3187,36 @@ R2: 0.218
       <th>2010-01-01</th>
       <td>0.0201</td>
       <td>1</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>2010-01-02</th>
       <td>0.0004</td>
       <td>1</td>
-      <td>3.0</td>
-      <td>1.0</td>
+      <td>3</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>2010-01-03</th>
       <td>0.0004</td>
       <td>1</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>2010-01-04</th>
       <td>0.0000</td>
       <td>0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>2010-01-05</th>
       <td>0.0001</td>
       <td>1</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -2825,12 +3224,15 @@ R2: 0.218
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># exploratory timeseries</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
-<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span>
+             <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span>
+             <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Daily Total Depth&#39;</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Daily Precip Total Depth&#39;</span><span class="p">])</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Daily Complaints&#39;</span><span class="p">])</span>
 
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (Inches)&#39;</span><span class="p">)</span>
@@ -2843,14 +3245,14 @@ R2: 0.218
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/465739f438316f48d56ddd44bce3c97c2d6a01f41b433873b25b9958e2394930.png" src="_images/465739f438316f48d56ddd44bce3c97c2d6a01f41b433873b25b9958e2394930.png" />
+<img alt="_images/9b8f5a8dacc38f42389c07177acddea3ccc153edb0898738e5707177d8c42b0c.png" src="_images/9b8f5a8dacc38f42389c07177acddea3ccc153edb0898738e5707177d8c42b0c.png" />
 </div>
 </div>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1>Qualitative Analysis - 311 Complaint vs. Rain Event<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
-<section id="id2">
-<h2>Highest Event<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="highest-event">
+<h2>Highest Event<a class="headerlink" href="#highest-event" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -2894,8 +3296,8 @@ R2: 0.218
       <th>2011-08-14</th>
       <td>5.8101</td>
       <td>1</td>
-      <td>72.0</td>
-      <td>1.0</td>
+      <td>72</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -2909,14 +3311,14 @@ R2: 0.218
 <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
              <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
              <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span>
-             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Depth&#39;</span><span class="p">,</span> 
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> 
              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span>
              <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
              <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
              <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span>
-             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Complaints&#39;</span><span class="p">,</span> 
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;complaints&#39;</span><span class="p">,</span> 
              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span>
              <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
 
@@ -2926,20 +3328,15 @@ R2: 0.218
 <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">depth</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">event</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])[:</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Highest Daily Depth Amount: </span><span class="si">{:.2f}</span><span class="s1"> inches on </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
-
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Daily Interval&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Precipitation Depth (Inches)&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Highest Daily Depth Amount: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/abcd2fa198290ff51ee76cc567350c91770fb5d982154b42329549f083824008.png" src="_images/abcd2fa198290ff51ee76cc567350c91770fb5d982154b42329549f083824008.png" />
+<img alt="_images/067803666398d777ba0d495e71b8d902a5730c446130620e6896eb3f548553b3.png" src="_images/067803666398d777ba0d495e71b8d902a5730c446130620e6896eb3f548553b3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3009,8 +3406,8 @@ R2: 0.218
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="id3">
-<h1>Quantitative Analysis<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="id2">
+<h1>Quantitative Analysis<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total daily intervals: </span><span class="si">{:,}</span><span class="se">\n</span><span class="s1">-----&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">merged_df</span><span class="p">)))</span>
@@ -3055,12 +3452,12 @@ Normalize by row
   </thead>
   <tbody>
     <tr>
-      <th>0.0</th>
+      <th>0</th>
       <td>0.79</td>
       <td>0.21</td>
     </tr>
     <tr>
-      <th>1.0</th>
+      <th>1</th>
       <td>0.57</td>
       <td>0.43</td>
     </tr>
@@ -3088,6 +3485,24 @@ Normalize by row
 Dependent (reject H0)
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;precip_in&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Daily 311 Street Flooding Complaints vs. Daily Total Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Total Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c58cbc1b57d8b98b762daaeb9db183d94f5cf2eee4bbedae0ff769ea4f67e567.png" src="_images/c58cbc1b57d8b98b762daaeb9db183d94f5cf2eee4bbedae0ff769ea4f67e567.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3220,24 +3635,6 @@ Dependent (reject H0)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;precip_in&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Daily 311 Street Flooding Complaints vs. Daily Total Depth (Inches)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Total Depth (Inches)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/49550ffe834df20b9771fa74411183b429e6acc98b2b2922e2c6a0739851ca3c.png" src="_images/49550ffe834df20b9771fa74411183b429e6acc98b2b2922e2c6a0739851ca3c.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -3254,8 +3651,8 @@ Dependent (reject H0)
 Dep. Variable:                  count   R-squared:                       0.446
 Model:                            OLS   Adj. R-squared:                  0.446
 Method:                 Least Squares   F-statistic:                     3230.
-Date:                Mon, 13 Mar 2023   Prob (F-statistic):               0.00
-Time:                        21:33:27   Log-Likelihood:                -15396.
+Date:                Wed, 15 Mar 2023   Prob (F-statistic):               0.00
+Time:                        21:57:16   Log-Likelihood:                -15396.
 No. Observations:                4018   AIC:                         3.080e+04
 Df Residuals:                    4016   BIC:                         3.081e+04
 Df Model:                           1                                         
@@ -3316,7 +3713,7 @@ R2: 0.4458
 <span class="n">week_total</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">week_total</span><span class="p">[</span><span class="s1">&#39;rain_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
 <span class="c1"># sanity check</span>
-<span class="n">week_total</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">week_total</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3342,47 +3739,37 @@ R2: 0.4458
       <th>precip_in</th>
       <th>rain_flag</th>
     </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>count</th>
-      <td>575.000000</td>
-      <td>575.000000</td>
+      <th>2010-01-03</th>
+      <td>0.0209</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>mean</th>
-      <td>0.946349</td>
-      <td>0.944348</td>
+      <th>2010-01-10</th>
+      <td>0.0312</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>std</th>
-      <td>1.025975</td>
-      <td>0.229448</td>
+      <th>2010-01-17</th>
+      <td>0.5700</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>min</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <th>2010-01-24</th>
+      <td>0.0702</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>25%</th>
-      <td>0.200100</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>0.641000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>1.410400</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>7.900200</td>
-      <td>1.000000</td>
+      <th>2010-01-31</th>
+      <td>1.3405</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -3405,8 +3792,7 @@ R2: 0.4458
 <span class="n">complaints_weekly</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">complaints_weekly</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">complaints_weekly</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">complaints_weekly</span><span class="p">[</span><span class="s1">&#39;complaint_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
-<span class="c1"># sanity check</span>
-<span class="n">complaints_weekly</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">complaints_weekly</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3432,47 +3818,37 @@ R2: 0.4458
       <th>count</th>
       <th>complaint_flag</th>
     </tr>
+    <tr>
+      <th>date_time</th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>count</th>
-      <td>575.000000</td>
-      <td>575.000000</td>
+      <th>2010-01-03</th>
+      <td>3</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>mean</th>
-      <td>48.525217</td>
-      <td>0.998261</td>
+      <th>2010-01-10</th>
+      <td>11</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>std</th>
-      <td>49.102385</td>
-      <td>0.041703</td>
+      <th>2010-01-17</th>
+      <td>8</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>min</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <th>2010-01-24</th>
+      <td>13</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>25%</th>
-      <td>17.000000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>31.000000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>60.000000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>336.000000</td>
-      <td>1.000000</td>
+      <th>2010-01-31</th>
+      <td>73</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -3584,10 +3960,10 @@ R2: 0.4458
 </div></div></div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="id4">
-<h1>Qualitative Analysis - 311 Complaint vs. Rain Event<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h1>
-<section id="id5">
-<h2>Highest Event<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<section class="tex2jax_ignore mathjax_ignore" id="id3">
+<h1>Qualitative Analysis - 311 Complaint vs. Rain Event<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h1>
+<section id="id4">
+<h2>Highest Event<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -3646,14 +4022,14 @@ R2: 0.4458
 <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
              <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
              <span class="n">y</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span>
-             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Depth&#39;</span><span class="p">,</span> 
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> 
              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span>
              <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> 
              <span class="n">x</span><span class="o">=</span><span class="n">merged_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
              <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span>
-             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Complaints&#39;</span><span class="p">,</span> 
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;complaints&#39;</span><span class="p">,</span> 
              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span>
              <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
 
@@ -3664,20 +4040,15 @@ R2: 0.4458
 <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">depth</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">event</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">merged_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;precip_in&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])[:</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Highest Weekly Depth Amount: </span><span class="si">{:.2f}</span><span class="s1"> inches on </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
-
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Weekly Interval&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Weekly Total Precipitation Depth (Inches)&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Highest Weekly Depth Amount: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cd38c9f35362b6c9706186b2ba431925ae5d1c21217ee9810ce9bfd87850b4bb.png" src="_images/cd38c9f35362b6c9706186b2ba431925ae5d1c21217ee9810ce9bfd87850b4bb.png" />
+<img alt="_images/d5989aa7ba64713e3d187b9c3bb333fee53658bf1282fdd2d34467e868f76552.png" src="_images/d5989aa7ba64713e3d187b9c3bb333fee53658bf1282fdd2d34467e868f76552.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3748,8 +4119,8 @@ R2: 0.4458
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="id6">
-<h1>Quantitative Analysis<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="id5">
+<h1>Quantitative Analysis<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total weekly intervals: </span><span class="si">{:,}</span><span class="se">\n</span><span class="s1">-----&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">merged_df</span><span class="p">)))</span>
@@ -3827,6 +4198,24 @@ Normalize by row
 Independent (H0 holds true)
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;precip_in&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Total Weekly 311 Street Flooding Complaints vs. Total Weekly Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Total Depth (Inches)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6aa3f2d1ad7fc14f468b18688da0b030e240f9b26b89971351cb2c82a5e6e8bb.png" src="_images/6aa3f2d1ad7fc14f468b18688da0b030e240f9b26b89971351cb2c82a5e6e8bb.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3959,24 +4348,6 @@ Independent (H0 holds true)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;precip_in&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Total Weekly 311 Street Flooding Complaints vs. Total Weekly Depth (Inches)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Total Depth (Inches)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/95f2572e8141bd49322b96bcb1a2b5fdd0d67fe435d0c4a6fdbc6d6c6d5a7bc1.png" src="_images/95f2572e8141bd49322b96bcb1a2b5fdd0d67fe435d0c4a6fdbc6d6c6d5a7bc1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;precip_in&#39;</span><span class="p">]</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -3993,8 +4364,8 @@ Independent (H0 holds true)
 Dep. Variable:                  count   R-squared:                       0.478
 Model:                            OLS   Adj. R-squared:                  0.477
 Method:                 Least Squares   F-statistic:                     524.3
-Date:                Mon, 13 Mar 2023   Prob (F-statistic):           7.01e-83
-Time:                        21:33:29   Log-Likelihood:                -2867.6
+Date:                Wed, 15 Mar 2023   Prob (F-statistic):           7.01e-83
+Time:                        21:57:17   Log-Likelihood:                -2867.6
 No. Observations:                 575   AIC:                             5739.
 Df Residuals:                     573   BIC:                             5748.
 Df Model:                           1                                         
@@ -4099,7 +4470,7 @@ R2: 0.4778
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-ground-truthing-311-street-flooding-complaints-to-actual-precipitation-depths">Objective: Ground-truthing 311 street flooding complaints to actual precipitation depths.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-ground-truthing-311-street-flooding-complaints-to-actual-precipitation-levels">Objective: Ground-truthing 311 street flooding complaints to actual precipitation levels.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links">Links</a></li>
 </ul>
 </li>
@@ -4115,22 +4486,24 @@ R2: 0.4778
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#read-in-nyc-311-street-flooding-complaints">Read in NYC 311 Street Flooding Complaints</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hour-max-depth-vs-6-hour-complaint-counts">6-Hour Max Depth vs. 6-Hour Complaint Counts</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#qualitative-analysis-311-complaint-vs-rain-event">Qualitative Analysis - 311 Complaint vs. Rain Event</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highest-event">Highest Event</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highest-events">Highest Events</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-high-depth-events">Additional High Depth Events</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interesting-events">Interesting Events</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#quantitative-analysis">Quantitative Analysis</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#total-daily-depth-vs-daily-complaint-counts">Total Daily Depth vs. Daily Complaint Counts</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#total-daily-precipitation-depth-vs-daily-complaint-counts">Total Daily Precipitation Depth vs. Daily Complaint Counts</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Qualitative Analysis - 311 Complaint vs. Rain Event</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Highest Event</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highest-event">Highest Event</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Quantitative Analysis</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Quantitative Analysis</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#weekly-total-depth-vs-weekly-complaint-counts">Weekly Total Depth vs. Weekly Complaint Counts</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Qualitative Analysis - 311 Complaint vs. Rain Event</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Highest Event</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Qualitative Analysis - 311 Complaint vs. Rain Event</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Highest Event</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Quantitative Analysis</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Quantitative Analysis</a></li>
 </ul>
 
   </nav></div>
