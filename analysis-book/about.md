@@ -8,7 +8,9 @@
 
 Saturday, March 18, 2023
 ^^^
-[Schedule 🕘](https://nycsodata23.sched.com/)
+[Schedule](https://nycsodata23.sched.com/) 🕘 [Session Details](https://nycsodata23.sched.com/event/1JUZQ/going-beyond-eda-a-deeper-analysis-of-nyc-311-street-flooding-complaints)
+
+![Going-Beyond-EDA-NYC-Street-Flooding-Complaints-first-slide.png](img/Going-Beyond-EDA-NYC-Street-Flooding-Complaints-first-slide.png)
 +++
 __Organizers:__ [NYC Data Team @ OTI](https://www1.nyc.gov/content/oti/pages/) ✨ [BetaNYC](https://beta.nyc/) ✨ [Data Through Design](https://datathroughdesign.com/)
 ````
