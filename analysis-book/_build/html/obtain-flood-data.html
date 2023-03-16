@@ -1,49 +1,94 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Street Flooding &#8212; &lt;b&gt;Going Beyond EDA&lt;/b&gt;&lt;br&gt;A Deeper Analysis of NYC 311 Street Flooding Complaints</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datalifenyc/nyc-street-flooding-analysis");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -51,788 +96,485 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'obtain-flood-data';</script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="PLUTO &amp; MapPLUTO" href="obtain-pluto-data.html" />
-    <link rel="prev" title="NYC Open Data Week 2023 🗓" href="about.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+    <link rel="prev" title="NYC Open Data Week 2023 📊" href="about.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint">GitHub Repo Publically Available - March 6!</div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  <div class="bd-header-announcement container-fluid bd-header-announcement">
+    <div class="bd-header-announcement__content">NYC School of Data Conference - March 18!</div>
+  </div>
+
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="about.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/nyc-street-flooding-complaints-logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title"><b>Going Beyond EDA</b><br>A Deeper Analysis of NYC 311 Street Flooding Complaints</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/nyc-street-flooding-complaints-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/nyc-street-flooding-complaints-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="about.html">
-                    NYC Open Data Week 2023 🗓
+                    NYC Open Data Week 2023 📊
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Obtain 💾
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Obtain 💾</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Street Flooding
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="obtain-pluto-data.html">
-   PLUTO &amp; MapPLUTO
-  </a>
- </li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Street Flooding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="obtain-pluto-data.html">PLUTO &amp; MapPLUTO</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Scrub 🧹
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scrub &amp; Merge 🧹</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="scrub-flood-data.html">
-   Clean Data
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="scrub-flood-data.html">Clean Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge-flood-pluto.html">Street Flooding &amp; MapPLUTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrub-process-diagram.html">ETL Diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="join.html">Join Tutorial</a></li>
+
+
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Explore 📊
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Explore 🗺</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="explore-map.html">
-   Explore Map
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="explore-auto-eda.html">
-   Auto EDA
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="explore-map.html">Explore Map</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://nyc-street-flooding-analysis.datalife.nyc/data-profile.html">Data Profile</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Model 🏗
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Analysis 📈</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="model-build.html">
-   Build Models
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="nyc-311-groundtruth.html">Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="nyc-311-vs-stormwaterflood.html">NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)</a></li>
+
+
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Interpret 💡
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model 🏗</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="interpret-results.html">
-   Key Findings
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="model-build.html">Build Models</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Resources 📑
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpret 💡</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="references.html">
-   References
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="python-libraries.html">
-   Python Libraries
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="interpret-results.html">Key Findings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources 📑</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-libraries.html">Python Libraries</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            <div>
-    Powered by <a href="https://jupyterbook.org/">Jupyter Book</a>
-    <br/>
-    Informed by <a href="https://opendata.cityofnewyork.us">NYC Open Data</a>
-    <br/>
-    <span style="font-family:Baskerville;font-style:italic;color:Chocolate;">Driven by Curiosity!</span>
-</div>
-
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/HEAD/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?urlpath=tree/analysis-book/obtain-flood-data.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?urlpath=tree/analysis-book/obtain-flood-data.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://colab.research.google.com/github/datalifenyc/nyc-street-flooding-analysis/blob/main/analysis-book/obtain-flood-data.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/datalifenyc/nyc-street-flooding-analysis/blob/main/analysis-book/obtain-flood-data.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
-</div>
-
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/datalifenyc/nyc-street-flooding-analysis" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/datalifenyc/nyc-street-flooding-analysis/issues/new?title=Issue%20on%20page%20%2Fobtain-flood-data.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/obtain-flood-data.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/datalifenyc/nyc-street-flooding-analysis"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/datalifenyc/nyc-street-flooding-analysis/issues/new?title=Issue%20on%20page%20%2Fobtain-flood-data.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/obtain-flood-data.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#source-311-service-requests-from-2010-to-present">
-   Source: 311 Service Requests from 2010 to Present
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#about">
-     About
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-libraries">
-   Import Libraries
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#built-in-libraries">
-     Built-in Libraries
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#external-libraries">
-     External Libraries
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-variables">
-   Define Variables
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#download-311-service-complaints-for-street-flooding-sj">
-   Download 311 Service Complaints for
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     Street
-    </span>
-    <span class="pre">
-     Flooding
-    </span>
-    <span class="pre">
-     (SJ)
-    </span>
-   </code>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#save-geojson-data-locally">
-     Save
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       .geojson
-      </span>
-     </code>
-     data locally
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#define-prefix-for-output-variable">
-     Define prefix for output variable
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#save-json-data-locally">
-     Save
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       .json
-      </span>
-     </code>
-     data locally
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#save-csv-data-locally">
-     Save
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       .csv
-      </span>
-     </code>
-     data locally
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#view-street-flooding-metadata">
-   View Street Flooding Metadata
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#coordinate-reference-system-crs">
-     Coordinate Reference System (CRS)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#preview-data">
-   Preview Data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references">
-   References
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#python-standard-library">
-     Python Standard Library
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#format">
-       Format
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#date-and-time">
-       Date and Time
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#file-path-i-o">
-       File &amp; Path I/O
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#geopandas">
-     GeoPandas
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#user-guide">
-       User Guide
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#api-reference">
-       API Reference
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#jupyter-notebook">
-     Jupyter Notebook
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#magic-commands">
-       Magic (%%) Commands
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#pyproj">
-     pyproj
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#fix">
-       Fix
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#socrata-api">
-     Socrata API
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Street Flooding</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#source-311-service-requests-from-2010-to-present">
-   Source: 311 Service Requests from 2010 to Present
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#about">
-     About
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-libraries">
-   Import Libraries
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#built-in-libraries">
-     Built-in Libraries
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#external-libraries">
-     External Libraries
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-variables">
-   Define Variables
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#download-311-service-complaints-for-street-flooding-sj">
-   Download 311 Service Complaints for
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     Street
-    </span>
-    <span class="pre">
-     Flooding
-    </span>
-    <span class="pre">
-     (SJ)
-    </span>
-   </code>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#save-geojson-data-locally">
-     Save
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       .geojson
-      </span>
-     </code>
-     data locally
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#define-prefix-for-output-variable">
-     Define prefix for output variable
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#save-json-data-locally">
-     Save
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       .json
-      </span>
-     </code>
-     data locally
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#save-csv-data-locally">
-     Save
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       .csv
-      </span>
-     </code>
-     data locally
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#view-street-flooding-metadata">
-   View Street Flooding Metadata
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#coordinate-reference-system-crs">
-     Coordinate Reference System (CRS)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#preview-data">
-   Preview Data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references">
-   References
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#python-standard-library">
-     Python Standard Library
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#format">
-       Format
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#date-and-time">
-       Date and Time
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#file-path-i-o">
-       File &amp; Path I/O
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#geopandas">
-     GeoPandas
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#user-guide">
-       User Guide
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#api-reference">
-       API Reference
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#jupyter-notebook">
-     Jupyter Notebook
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#magic-commands">
-       Magic (%%) Commands
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#pyproj">
-     pyproj
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#fix">
-       Fix
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#socrata-api">
-     Socrata API
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Street Flooding</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-311-service-requests-from-2010-to-present">Source: 311 Service Requests from 2010 to Present</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#about">About</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import Libraries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#built-in-libraries">Built-in Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#external-libraries">External Libraries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-variables">Define Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-311-service-complaints-for-street-flooding-sj">Download 311 Service Complaints for <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">(SJ)</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-geojson-data-locally">Save <code class="docutils literal notranslate"><span class="pre">.geojson</span></code> data locally</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-prefix-for-output-variable">Define prefix for output variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-json-data-locally">Save <code class="docutils literal notranslate"><span class="pre">.json</span></code> data locally</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-csv-data-locally">Save <code class="docutils literal notranslate"><span class="pre">.csv</span></code> data locally</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#view-street-flooding-metadata">View Street Flooding Metadata</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-reference-system-crs">Coordinate Reference System (CRS)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-data">Preview Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-standard-library">Python Standard Library</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#format">Format</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#date-and-time">Date and Time</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#file-path-i-o">File &amp; Path I/O</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geopandas">GeoPandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#user-guide">User Guide</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook">Jupyter Notebook</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#magic-commands">Magic (%%) Commands</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyproj">pyproj</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fix">Fix</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#socrata-api">Socrata API</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="street-flooding">
-<h1>Street Flooding<a class="headerlink" href="#street-flooding" title="Permalink to this headline">#</a></h1>
+<h1>Street Flooding<a class="headerlink" href="#street-flooding" title="Permalink to this heading">#</a></h1>
 <section id="source-311-service-requests-from-2010-to-present">
-<h2>Source: 311 Service Requests from 2010 to Present<a class="headerlink" href="#source-311-service-requests-from-2010-to-present" title="Permalink to this headline">#</a></h2>
+<h2>Source: 311 Service Requests from 2010 to Present<a class="headerlink" href="#source-311-service-requests-from-2010-to-present" title="Permalink to this heading">#</a></h2>
 <section id="about">
-<h3>About<a class="headerlink" href="#about" title="Permalink to this headline">#</a></h3>
-<table class="colwidths-auto table">
+<h3>About<a class="headerlink" href="#about" title="Permalink to this heading">#</a></h3>
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Key</p></th>
 <th class="head"><p>Value</p></th>
@@ -864,7 +606,7 @@ title="Print to PDF"
 <td><p><a class="reference external" href="https://dev.socrata.com/foundry/data.cityofnewyork.us/erm2-nwe9">https://dev.socrata.com/foundry/data.cityofnewyork.us/erm2-nwe9</a></p></td>
 </tr>
 <tr class="row-even"><td><p>API Endpoints<br />(sample size: <code class="docutils literal notranslate"><span class="pre">10</span></code>)</p></td>
-<td><p><a class="reference external" href="https://data.cityofnewyork.us/resource/erm2-nwe9.json?%24limit=10&amp;descriptor=Street%20Flooding%20(SJ)">JSON</a><br><a class="reference external" href="https://data.cityofnewyork.us/resource/erm2-nwe9.geojson?%24limit=10&amp;descriptor=Street%20Flooding%20(SJ)">GeoJSON</a><br><a class="reference external" href="https://data.cityofnewyork.us/resource/erm2-nwe9.csv?%24limit=10&amp;descriptor=Street%20Flooding%20(SJ)">CSV</a></p></td>
+<td><p><a class="reference external" href="https://data.cityofnewyork.us/resource/erm2-nwe9.json?$limit=10&amp;descriptor=Street%20Flooding%20(SJ)">JSON</a><br><a class="reference external" href="https://data.cityofnewyork.us/resource/erm2-nwe9.geojson?$limit=10&amp;descriptor=Street%20Flooding%20(SJ)">GeoJSON</a><br><a class="reference external" href="https://data.cityofnewyork.us/resource/erm2-nwe9.csv?$limit=10&amp;descriptor=Street%20Flooding%20(SJ)">CSV</a></p></td>
 </tr>
 <tr class="row-odd"><td><p>Data Dictionary</p></td>
 <td><p><a class="reference external" href="https://data.cityofnewyork.us/api/views/erm2-nwe9/files/68b25fbb-9d30-486a-a571-7115f54911cd?download=true&amp;filename=311_SR_Data_Dictionary_2018.xlsx">311_SR_Data_Dictionary_2018.xlsx</a></p></td>
@@ -873,16 +615,16 @@ title="Print to PDF"
 <td><p>Sewer</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">descriptor</span></code></p></td>
-<td><p>Street Flooding (SJ)</p></td>
+<td><p>Street Flooding (SJ) ☔</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 </section>
 <section id="import-libraries">
-<h2>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this headline">#</a></h2>
+<h2>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this heading">#</a></h2>
 <section id="built-in-libraries">
-<h3>Built-in Libraries<a class="headerlink" href="#built-in-libraries" title="Permalink to this headline">#</a></h3>
+<h3>Built-in Libraries<a class="headerlink" href="#built-in-libraries" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import json</span>
@@ -895,7 +637,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="external-libraries">
-<h3>External Libraries<a class="headerlink" href="#external-libraries" title="Permalink to this headline">#</a></h3>
+<h3>External Libraries<a class="headerlink" href="#external-libraries" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import pyproj</span>
@@ -909,7 +651,7 @@ title="Print to PDF"
 </section>
 </section>
 <section id="define-variables">
-<h2>Define Variables<a class="headerlink" href="#define-variables" title="Permalink to this headline">#</a></h2>
+<h2>Define Variables<a class="headerlink" href="#define-variables" title="Permalink to this heading">#</a></h2>
 <p>Default limit = 1000</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -928,9 +670,9 @@ NYC_OPEN_DATA_311_API_CSV = &#39;https://data.cityofnewyork.us/resource/erm2-nwe
 </div>
 </section>
 <section id="download-311-service-complaints-for-street-flooding-sj">
-<h2>Download 311 Service Complaints for <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">(SJ)</span></code><a class="headerlink" href="#download-311-service-complaints-for-street-flooding-sj" title="Permalink to this headline">#</a></h2>
+<h2>Download 311 Service Complaints for <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">(SJ)</span></code><a class="headerlink" href="#download-311-service-complaints-for-street-flooding-sj" title="Permalink to this heading">#</a></h2>
 <section id="save-geojson-data-locally">
-<h3>Save <code class="docutils literal notranslate"><span class="pre">.geojson</span></code> data locally<a class="headerlink" href="#save-geojson-data-locally" title="Permalink to this headline">#</a></h3>
+<h3>Save <code class="docutils literal notranslate"><span class="pre">.geojson</span></code> data locally<a class="headerlink" href="#save-geojson-data-locally" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python<span class="w"> </span>obtainflooddata.py
@@ -940,7 +682,7 @@ NYC_OPEN_DATA_311_API_CSV = &#39;https://data.cityofnewyork.us/resource/erm2-nwe
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading Latest Street Flooding Dataset...
 
-Street flooding dataset has already been download for 2023-03-02.
+Street flooding dataset has already been download for 2023-03-15.
 
 Download Complete
 </pre></div>
@@ -949,7 +691,7 @@ Download Complete
 </div>
 </section>
 <section id="define-prefix-for-output-variable">
-<h3>Define prefix for output variable<a class="headerlink" href="#define-prefix-for-output-variable" title="Permalink to this headline">#</a></h3>
+<h3>Define prefix for output variable<a class="headerlink" href="#define-prefix-for-output-variable" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> echo skip
@@ -965,7 +707,7 @@ output_prefix = &#39;data/street-flooding/street_flood-complaints.&#39;
 </div>
 </section>
 <section id="save-json-data-locally">
-<h3>Save <code class="docutils literal notranslate"><span class="pre">.json</span></code> data locally<a class="headerlink" href="#save-json-data-locally" title="Permalink to this headline">#</a></h3>
+<h3>Save <code class="docutils literal notranslate"><span class="pre">.json</span></code> data locally<a class="headerlink" href="#save-json-data-locally" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> echo skip
@@ -982,7 +724,7 @@ street_flooding_jdf.to_json(output_prefix + &#39;json&#39;)
 </div>
 </section>
 <section id="save-csv-data-locally">
-<h3>Save <code class="docutils literal notranslate"><span class="pre">.csv</span></code> data locally<a class="headerlink" href="#save-csv-data-locally" title="Permalink to this headline">#</a></h3>
+<h3>Save <code class="docutils literal notranslate"><span class="pre">.csv</span></code> data locally<a class="headerlink" href="#save-csv-data-locally" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> echo skip
@@ -1000,7 +742,7 @@ street_flooding_cdf.to_csv(output_prefix + &#39;csv&#39;)
 </section>
 </section>
 <section id="view-street-flooding-metadata">
-<h2>View Street Flooding Metadata<a class="headerlink" href="#view-street-flooding-metadata" title="Permalink to this headline">#</a></h2>
+<h2>View Street Flooding Metadata<a class="headerlink" href="#view-street-flooding-metadata" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nyc_street_flooding_geojson</span> <span class="o">=</span> <span class="s1">&#39;data/street-flooding/street-flood-complaints_rows-all.geojson&#39;</span>
@@ -1017,63 +759,63 @@ street_flooding_cdf.to_csv(output_prefix + &#39;csv&#39;)
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
-RangeIndex: 35061 entries, 0 to 35060
+RangeIndex: 35145 entries, 0 to 35144
 Data columns (total 45 columns):
  #   Column                          Non-Null Count  Dtype         
 ---  ------                          --------------  -----         
- 0   location_state                  34054 non-null  object        
+ 0   location_state                  34136 non-null  object        
  1   facility_type                   23296 non-null  object        
- 2   intersection_street_2           11302 non-null  object        
- 3   city                            34196 non-null  object        
- 4   location_zip                    34054 non-null  object        
- 5   park_borough                    35057 non-null  object        
- 6   latitude                        34054 non-null  object        
+ 2   intersection_street_2           11328 non-null  object        
+ 3   city                            34280 non-null  object        
+ 4   location_zip                    34136 non-null  object        
+ 5   park_borough                    35141 non-null  object        
+ 6   latitude                        34136 non-null  object        
  7   road_ramp                       0 non-null      float64       
- 8   created_date                    35061 non-null  datetime64[ns]
- 9   agency                          35061 non-null  object        
- 10  park_facility_name              35061 non-null  object        
- 11  location_address                34054 non-null  object        
- 12  agency_name                     35061 non-null  object        
- 13  descriptor                      35061 non-null  object        
- 14  bbl                             21709 non-null  object        
- 15  location_city                   34054 non-null  object        
- 16  open_data_channel_type          35061 non-null  object        
- 17  cross_street_2                  30077 non-null  object        
+ 8   created_date                    35145 non-null  datetime64[ns]
+ 9   agency                          35145 non-null  object        
+ 10  park_facility_name              35145 non-null  object        
+ 11  location_address                34136 non-null  object        
+ 12  agency_name                     35145 non-null  object        
+ 13  descriptor                      35145 non-null  object        
+ 14  bbl                             21761 non-null  object        
+ 15  location_city                   34136 non-null  object        
+ 16  open_data_channel_type          35145 non-null  object        
+ 17  cross_street_2                  30135 non-null  object        
  18  bridge_highway_direction        0 non-null      float64       
- 19  longitude                       34054 non-null  object        
+ 19  longitude                       34136 non-null  object        
  20  bridge_highway_segment          0 non-null      float64       
- 21  street_name                     23811 non-null  object        
- 22  incident_address                23811 non-null  object        
- 23  address_type                    35055 non-null  object        
- 24  incident_zip                    34192 non-null  object        
- 25  unique_key                      35061 non-null  object        
- 26  complaint_type                  35061 non-null  object        
- 27  y_coordinate_state_plane        34054 non-null  object        
- 28  status                          35061 non-null  object        
+ 21  street_name                     23869 non-null  object        
+ 22  incident_address                23869 non-null  object        
+ 23  address_type                    35139 non-null  object        
+ 24  incident_zip                    34276 non-null  object        
+ 25  unique_key                      35145 non-null  object        
+ 26  complaint_type                  35145 non-null  object        
+ 27  y_coordinate_state_plane        34136 non-null  object        
+ 28  status                          35145 non-null  object        
  29  bridge_highway_name             0 non-null      float64       
  30  location_type                   0 non-null      float64       
  31  due_date                        1 non-null      datetime64[ns]
  32  taxi_company_borough            0 non-null      float64       
  33  taxi_pick_up_location           0 non-null      float64       
- 34  x_coordinate_state_plane        34054 non-null  object        
- 35  resolution_description          35036 non-null  object        
- 36  community_board                 35057 non-null  object        
- 37  resolution_action_updated_date  35044 non-null  datetime64[ns]
- 38  intersection_street_1           11302 non-null  object        
- 39  closed_date                     35036 non-null  datetime64[ns]
+ 34  x_coordinate_state_plane        34136 non-null  object        
+ 35  resolution_description          35118 non-null  object        
+ 36  community_board                 35141 non-null  object        
+ 37  resolution_action_updated_date  35126 non-null  datetime64[ns]
+ 38  intersection_street_1           11328 non-null  object        
+ 39  closed_date                     35119 non-null  datetime64[ns]
  40  vehicle_type                    0 non-null      float64       
- 41  cross_street_1                  30087 non-null  object        
- 42  borough                         35057 non-null  object        
+ 41  cross_street_1                  30145 non-null  object        
+ 42  borough                         35141 non-null  object        
  43  landmark                        0 non-null      float64       
- 44  geometry                        34054 non-null  geometry      
+ 44  geometry                        34136 non-null  geometry      
 dtypes: datetime64[ns](4), float64(9), geometry(1), object(31)
-memory usage: 12.0+ MB
+memory usage: 12.1+ MB
 </pre></div>
 </div>
 </div>
 </div>
 <section id="coordinate-reference-system-crs">
-<h3>Coordinate Reference System (CRS)<a class="headerlink" href="#coordinate-reference-system-crs" title="Permalink to this headline">#</a></h3>
+<h3>Coordinate Reference System (CRS)<a class="headerlink" href="#coordinate-reference-system-crs" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="o">.</span><span class="n">crs</span>
@@ -1098,7 +840,7 @@ Datum: World Geodetic System 1984
 </section>
 </section>
 <section id="preview-data">
-<h2>Preview Data<a class="headerlink" href="#preview-data" title="Permalink to this headline">#</a></h2>
+<h2>Preview Data<a class="headerlink" href="#preview-data" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="p">[[</span><span class="s1">&#39;created_date&#39;</span><span class="p">,</span> <span class="s1">&#39;borough&#39;</span><span class="p">,</span> <span class="s1">&#39;bbl&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -1238,74 +980,74 @@ Datum: World Geodetic System 1984
   </thead>
   <tbody>
     <tr>
-      <th>35051</th>
-      <td>2023-02-27 15:38:00</td>
-      <td>BROOKLYN</td>
-      <td>3078620043</td>
-      <td>POINT (-73.93696 40.61734)</td>
+      <th>35135</th>
+      <td>2023-03-13 14:47:00</td>
+      <td>STATEN ISLAND</td>
+      <td>5003740300</td>
+      <td>POINT (-74.12888 40.61988)</td>
     </tr>
     <tr>
-      <th>35052</th>
-      <td>2023-02-27 17:47:00</td>
-      <td>BROOKLYN</td>
-      <td>3056220059</td>
-      <td>POINT (-73.99228 40.63696)</td>
-    </tr>
-    <tr>
-      <th>35053</th>
-      <td>2023-02-27 08:17:00</td>
-      <td>QUEENS</td>
-      <td>4051937501</td>
-      <td>POINT (-73.82129 40.75430)</td>
-    </tr>
-    <tr>
-      <th>35054</th>
-      <td>2023-02-27 10:23:00</td>
-      <td>QUEENS</td>
-      <td>4137350027</td>
-      <td>POINT (-73.74750 40.65427)</td>
-    </tr>
-    <tr>
-      <th>35055</th>
-      <td>2023-02-28 16:11:00</td>
-      <td>QUEENS</td>
+      <th>35136</th>
+      <td>2023-03-13 08:05:00</td>
+      <td>MANHATTAN</td>
       <td>NaN</td>
-      <td>POINT (-73.84823 40.77452)</td>
+      <td>POINT (-73.91337 40.87177)</td>
     </tr>
     <tr>
-      <th>35056</th>
-      <td>2023-02-28 09:05:00</td>
-      <td>QUEENS</td>
-      <td>4153230012</td>
-      <td>POINT (-73.82283 40.60045)</td>
-    </tr>
-    <tr>
-      <th>35057</th>
-      <td>2023-02-28 06:50:00</td>
-      <td>QUEENS</td>
-      <td>4137360017</td>
-      <td>POINT (-73.74705 40.65379)</td>
-    </tr>
-    <tr>
-      <th>35058</th>
-      <td>2023-02-28 16:20:00</td>
-      <td>BROOKLYN</td>
-      <td>3010570002</td>
-      <td>POINT (-73.97358 40.67722)</td>
-    </tr>
-    <tr>
-      <th>35059</th>
-      <td>2023-02-28 17:32:00</td>
-      <td>QUEENS</td>
-      <td>4137330041</td>
-      <td>POINT (-73.74717 40.65494)</td>
-    </tr>
-    <tr>
-      <th>35060</th>
-      <td>2023-02-28 16:11:00</td>
+      <th>35137</th>
+      <td>2023-03-13 17:38:00</td>
       <td>BROOKLYN</td>
       <td>NaN</td>
-      <td>POINT (-73.97369 40.67708)</td>
+      <td>POINT (-73.93395 40.59963)</td>
+    </tr>
+    <tr>
+      <th>35138</th>
+      <td>2023-03-13 17:47:00</td>
+      <td>QUEENS</td>
+      <td>4102410047</td>
+      <td>POINT (-73.78442 40.70150)</td>
+    </tr>
+    <tr>
+      <th>35139</th>
+      <td>2023-03-13 14:11:00</td>
+      <td>QUEENS</td>
+      <td>4158040004</td>
+      <td>POINT (-73.76148 40.59613)</td>
+    </tr>
+    <tr>
+      <th>35140</th>
+      <td>2023-03-13 10:23:00</td>
+      <td>BRONX</td>
+      <td>2057680869</td>
+      <td>POINT (-73.90417 40.88488)</td>
+    </tr>
+    <tr>
+      <th>35141</th>
+      <td>2023-03-13 12:32:00</td>
+      <td>BROOKLYN</td>
+      <td>NaN</td>
+      <td>POINT (-73.96308 40.64944)</td>
+    </tr>
+    <tr>
+      <th>35142</th>
+      <td>2023-03-13 18:11:00</td>
+      <td>STATEN ISLAND</td>
+      <td>NaN</td>
+      <td>POINT (-74.23412 40.55597)</td>
+    </tr>
+    <tr>
+      <th>35143</th>
+      <td>2023-03-13 22:35:00</td>
+      <td>BROOKLYN</td>
+      <td>NaN</td>
+      <td>POINT (-73.95718 40.61833)</td>
+    </tr>
+    <tr>
+      <th>35144</th>
+      <td>2023-03-13 18:29:00</td>
+      <td>BROOKLYN</td>
+      <td>NaN</td>
+      <td>POINT (-73.96413 40.71807)</td>
     </tr>
   </tbody>
 </table>
@@ -1313,48 +1055,48 @@ Datum: World Geodetic System 1984
 </div>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <section id="python-standard-library">
-<h3>Python Standard Library<a class="headerlink" href="#python-standard-library" title="Permalink to this headline">#</a></h3>
+<h3>Python Standard Library<a class="headerlink" href="#python-standard-library" title="Permalink to this heading">#</a></h3>
 <section id="format">
-<h4>Format<a class="headerlink" href="#format" title="Permalink to this headline">#</a></h4>
+<h4>Format<a class="headerlink" href="#format" title="Permalink to this heading">#</a></h4>
 <p><a class="reference external" href="https://www.python-engineer.com/posts/pad-zeros-string/">How to pad zeros to a String in Python | Python Engineer</a><br />
 Contributer: <a class="reference external" href="https://patloeber.com">&#64;Patrick Loeber</a></p>
 </section>
 <section id="date-and-time">
-<h4>Date and Time<a class="headerlink" href="#date-and-time" title="Permalink to this headline">#</a></h4>
+<h4>Date and Time<a class="headerlink" href="#date-and-time" title="Permalink to this heading">#</a></h4>
 <p><a class="reference external" href="https://docs.python.org/3/library/datetime.html">datetime — Basic date and time types | Python &gt; Documentation</a></p>
 </section>
 <section id="file-path-i-o">
-<h4>File &amp; Path I/O<a class="headerlink" href="#file-path-i-o" title="Permalink to this headline">#</a></h4>
+<h4>File &amp; Path I/O<a class="headerlink" href="#file-path-i-o" title="Permalink to this heading">#</a></h4>
 <p><a class="reference external" href="https://docs.python.org/3/library/pathlib.html">pathlib — Object-oriented filesystem paths | Python &gt; Documentation</a></p>
 </section>
 </section>
 <section id="geopandas">
-<h3>GeoPandas<a class="headerlink" href="#geopandas" title="Permalink to this headline">#</a></h3>
+<h3>GeoPandas<a class="headerlink" href="#geopandas" title="Permalink to this heading">#</a></h3>
 <section id="user-guide">
-<h4>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">#</a></h4>
+<h4>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this heading">#</a></h4>
 <p><a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/io.html">Reading and Writing Files | GoePandas - Documentation - User Guide</a></p>
 <p><a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/mergingdata.html">Merging Data | GeoPandas - Documentation - User Guide</a></p>
 </section>
 <section id="api-reference">
-<h4>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">#</a></h4>
+<h4>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h4>
 <p><a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html">geopandas.GeoDataFrame.to_file | GeoPandas API reference</a></p>
 </section>
 </section>
 <section id="jupyter-notebook">
-<h3>Jupyter Notebook<a class="headerlink" href="#jupyter-notebook" title="Permalink to this headline">#</a></h3>
+<h3>Jupyter Notebook<a class="headerlink" href="#jupyter-notebook" title="Permalink to this heading">#</a></h3>
 <section id="magic-commands">
-<h4>Magic (%%) Commands<a class="headerlink" href="#magic-commands" title="Permalink to this headline">#</a></h4>
+<h4>Magic (%%) Commands<a class="headerlink" href="#magic-commands" title="Permalink to this heading">#</a></h4>
 <p><a class="reference external" href="https://stackoverflow.com/questions/19309287/how-to-intermittently-skip-certain-cells-when-running-ipython-notebook">How to (intermittently) skip certain cells when running IPython notebook? | stackoverflow</a><br />
 Contributor: <a class="reference external" href="https://stackoverflow.com/users/420385/mark">&#64;Mark</a></p>
 </section>
 </section>
 <section id="pyproj">
-<h3>pyproj<a class="headerlink" href="#pyproj" title="Permalink to this headline">#</a></h3>
+<h3>pyproj<a class="headerlink" href="#pyproj" title="Permalink to this heading">#</a></h3>
 <p><a class="reference external" href="https://stackoverflow.com/questions/69630630/on-fresh-conda-installation-of-pyproj-pyproj-unable-to-set-database-path-pypr">On fresh Conda installation of PyProj: pyproj unable to set database path. _pyproj_global_context_initialize()</a></p>
 <section id="fix">
-<h4>Fix<a class="headerlink" href="#fix" title="Permalink to this headline">#</a></h4>
+<h4>Fix<a class="headerlink" href="#fix" title="Permalink to this heading">#</a></h4>
 <p>Un-install pyproj</p>
 <p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">remove</span> <span class="pre">--force</span> <span class="pre">pyproj</span></code></p>
 <p>Re-install pyproj via <code class="docutils literal notranslate"><span class="pre">pip</span></code> instead of <code class="docutils literal notranslate"><span class="pre">conda</span></code></p>
@@ -1362,7 +1104,7 @@ Contributor: <a class="reference external" href="https://stackoverflow.com/users
 </section>
 </section>
 <section id="socrata-api">
-<h3>Socrata API<a class="headerlink" href="#socrata-api" title="Permalink to this headline">#</a></h3>
+<h3>Socrata API<a class="headerlink" href="#socrata-api" title="Permalink to this heading">#</a></h3>
 <p><a class="reference external" href="https://dev.socrata.com/docs/paging.html">Paging through Data | Socrata - Documentation</a></p>
 </section>
 </section>
@@ -1372,8 +1114,8 @@ Contributor: <a class="reference external" href="https://stackoverflow.com/users
     {
         requestKernel: true,
         binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
+            repo: "datalifenyc/nyc-street-flooding-analysis",
+            ref: "main",
         },
         codeMirrorConfig: {
             theme: "abcdef",
@@ -1388,50 +1130,143 @@ Contributor: <a class="reference external" href="https://stackoverflow.com/users
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="about.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">NYC Open Data Week 2023 🗓</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="about.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">NYC Open Data Week 2023 📊</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="obtain-pluto-data.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="obtain-pluto-data.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">PLUTO &amp; MapPLUTO</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-311-service-requests-from-2010-to-present">Source: 311 Service Requests from 2010 to Present</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#about">About</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import Libraries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#built-in-libraries">Built-in Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#external-libraries">External Libraries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-variables">Define Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-311-service-complaints-for-street-flooding-sj">Download 311 Service Complaints for <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span> <span class="pre">(SJ)</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-geojson-data-locally">Save <code class="docutils literal notranslate"><span class="pre">.geojson</span></code> data locally</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-prefix-for-output-variable">Define prefix for output variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-json-data-locally">Save <code class="docutils literal notranslate"><span class="pre">.json</span></code> data locally</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-csv-data-locally">Save <code class="docutils literal notranslate"><span class="pre">.csv</span></code> data locally</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#view-street-flooding-metadata">View Street Flooding Metadata</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-reference-system-crs">Coordinate Reference System (CRS)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-data">Preview Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-standard-library">Python Standard Library</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#format">Format</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#date-and-time">Date and Time</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#file-path-i-o">File &amp; Path I/O</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geopandas">GeoPandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#user-guide">User Guide</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook">Jupyter Notebook</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#magic-commands">Magic (%%) Commands</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyproj">pyproj</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fix">Fix</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#socrata-api">Socrata API</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
   
-    By Ho Hsieh, Nathan Williamson, Mark Bauer, Chidi Ezeolu<br/>
-  
-      &copy; Copyright 2023.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
-</div>
+<p class="component-author">
+By Ho Hsieh, Nathan Williamson, Mark Bauer, Chidi Ezeolu
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
 
-      </div>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

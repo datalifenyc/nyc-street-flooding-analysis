@@ -3,7 +3,6 @@
 
 # # PLUTO & MapPLUTO
 # 
-# In addition to the PLUTO and MapPLUTO datasets, NYC has a rich set of GIS metadata resources. {cite}`cityofnewyork`
 
 # ## Source 1: NYC Open Data
 # 
@@ -66,6 +65,8 @@
 # | Download | [MapPLUTO - Shoreline Clipped (FGDB)](https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyc_mappluto_22v3_1_fgdb.zip)<br>[MapPLUTO - Water Included (FGDB)](https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyc_mappluto_22v3_1_unclipped_fgdb.zip)<br>[MapPLUTO - Shoreline Clipped (Shapefile)](https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyc_mappluto_22v3_1_shp.zip)<br>[MapPLUTO - Water Included (Shapefile)](https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyc_mappluto_22v3_1_unclipped_shp.zip) |
 # | REST API | [REST Endpoint](https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/MAPPLUTO/FeatureServer/0) |
 # 
+
+# In addition to the PLUTO and MapPLUTO datasets, NYC has a rich set of GIS metadata resources. {cite}`cityofnewyork`
 
 # ## Import Libraries
 

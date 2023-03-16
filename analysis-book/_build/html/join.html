@@ -1,0 +1,2649 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Join Tutorial &#8212; &lt;b&gt;Going Beyond EDA&lt;/b&gt;&lt;br&gt;A Deeper Analysis of NYC 311 Street Flooding Complaints</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datalifenyc/nyc-street-flooding-analysis");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'join';</script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Explore Map" href="explore-map.html" />
+    <link rel="prev" title="ETL Diagram" href="scrub-process-diagram.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+
+  <div class="bd-header-announcement container-fluid bd-header-announcement">
+    <div class="bd-header-announcement__content">NYC School of Data Conference - March 18!</div>
+  </div>
+
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="about.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nyc-street-flooding-complaints-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/nyc-street-flooding-complaints-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="about.html">
+                    NYC Open Data Week 2023 📊
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Obtain 💾</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="obtain-flood-data.html">Street Flooding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="obtain-pluto-data.html">PLUTO &amp; MapPLUTO</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scrub &amp; Merge 🧹</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="scrub-flood-data.html">Clean Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge-flood-pluto.html">Street Flooding &amp; MapPLUTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrub-process-diagram.html">ETL Diagram</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Join Tutorial</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Explore 🗺</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="explore-map.html">Explore Map</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://nyc-street-flooding-analysis.datalife.nyc/data-profile.html">Data Profile</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Analysis 📈</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="nyc-311-groundtruth.html">Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="nyc-311-vs-stormwaterflood.html">NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model 🏗</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="model-build.html">Build Models</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpret 💡</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="interpret-results.html">Key Findings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources 📑</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-libraries.html">Python Libraries</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?urlpath=tree/analysis-book/join.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/datalifenyc/nyc-street-flooding-analysis/blob/main/analysis-book/join.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/datalifenyc/nyc-street-flooding-analysis" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/datalifenyc/nyc-street-flooding-analysis/issues/new?title=Issue%20on%20page%20%2Fjoin.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/join.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Join Tutorial</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Join Tutorial</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries">Importing Libraries</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieve-data">Retrieve Data</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="join-tutorial">
+<h1>Join Tutorial<a class="headerlink" href="#join-tutorial" title="Permalink to this heading">#</a></h1>
+<p>Join points to closest BBL shapes tutorial.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="importing-libraries">
+<h1>Importing Libraries<a class="headerlink" href="#importing-libraries" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">fiona</span>
+<span class="kn">from</span> <span class="nn">fiona.crs</span> <span class="kn">import</span> <span class="n">from_epsg</span>
+<span class="kn">import</span> <span class="nn">geoplot</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">FuncFormatter</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">make_axes_locatable</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.facecolor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<p>Printing versions of Python modules and packages with <strong>watermark</strong> - the IPython magic extension.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> watermark
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">watermark</span> -v -p numpy,pandas,geopandas,geoplot,fiona,matplotlib.pyplot,seaborn
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Python implementation: CPython
+Python version       : 3.8.13
+IPython version      : 8.4.0
+
+numpy            : 1.23.1
+pandas           : 1.4.3
+geopandas        : 0.11.1
+geoplot          : 0.5.1
+fiona            : 1.8.21
+matplotlib.pyplot: unknown
+seaborn          : 0.11.2
+</pre></div>
+</div>
+</div>
+</div>
+<p>Documention for installing watermark: <a class="github reference external" href="https://github.com/rasbt/watermark">rasbt/watermark</a></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="retrieve-data">
+<h1>Retrieve Data<a class="headerlink" href="#retrieve-data" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/mebauer/nyc-311-street-flooding/main/data/</span><span class="se">\</span>
+<span class="s1">street-flooding-complaints.csv&#39;</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4263</span><span class="p">))</span>
+
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">2263</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(26959, 35)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>unique_key</th>
+      <th>created_date</th>
+      <th>agency</th>
+      <th>agency_name</th>
+      <th>complaint_type</th>
+      <th>descriptor</th>
+      <th>incident_zip</th>
+      <th>incident_address</th>
+      <th>street_name</th>
+      <th>cross_street_1</th>
+      <th>...</th>
+      <th>intersection_street_1</th>
+      <th>intersection_street_2</th>
+      <th>closed_date</th>
+      <th>resolution_description</th>
+      <th>resolution_action_updated_date</th>
+      <th>location_type</th>
+      <th>landmark</th>
+      <th>facility_type</th>
+      <th>due_date</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>48542220</td>
+      <td>2020-12-31T15:41:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11420.0</td>
+      <td>117-17 135 STREET</td>
+      <td>135 STREET</td>
+      <td>FOCH BLVD</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2021-01-01T00:20:00.000</td>
+      <td>Please call 311 for further information. If yo...</td>
+      <td>2021-01-01T00:20:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (1038500.000 186000.014)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>48536430</td>
+      <td>2020-12-31T14:49:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11357.0</td>
+      <td>20-24 150 STREET</td>
+      <td>150 STREET</td>
+      <td>20 AVE</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2021-01-04T10:15:00.000</td>
+      <td>The Department of Environment Protection inspe...</td>
+      <td>2021-01-04T10:15:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (1035682.000 223771.014)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>48539361</td>
+      <td>2020-12-31T14:03:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11228.0</td>
+      <td>7223 8 AVENUE</td>
+      <td>8 AVENUE</td>
+      <td>72 ST</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2021-01-02T11:25:00.000</td>
+      <td>The Department of Environmental Protection has...</td>
+      <td>2021-01-02T11:25:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (979584.000 168255.014)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>48543132</td>
+      <td>2020-12-31T13:48:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>10032.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>RIVERSIDE DRIVE</td>
+      <td>WEST  165 STREET</td>
+      <td>2020-12-31T14:50:00.000</td>
+      <td>Please call 311 for further information. If yo...</td>
+      <td>2020-12-31T14:50:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (999557.000 245700.014)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>48536441</td>
+      <td>2020-12-31T13:10:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11234.0</td>
+      <td>3123 FILLMORE AVENUE</td>
+      <td>FILLMORE AVENUE</td>
+      <td>E 31 ST</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2021-01-03T10:45:00.000</td>
+      <td>The Department of Environmental Protection ins...</td>
+      <td>2021-01-03T10:45:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (1001868.000 161232.014)</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 35 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="_images/a16ff1f81f2c811aca27cdfff1ca051c91d4050bab8b7967f6b0b0c0d667e02c.png" src="_images/a16ff1f81f2c811aca27cdfff1ca051c91d4050bab8b7967f6b0b0c0d667e02c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;~/Downloads/nyc_mappluto_22v3_1_fgdb/MapPLUTO_22v3_1.gdb&#39;</span>
+<span class="n">pluto_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+
+<span class="n">pluto_gdf</span> <span class="o">=</span> <span class="n">pluto_gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">2263</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">pluto_gdf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">pluto_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(500, 95)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Borough</th>
+      <th>Block</th>
+      <th>Lot</th>
+      <th>CD</th>
+      <th>BCT2020</th>
+      <th>BCTCB2020</th>
+      <th>CT2010</th>
+      <th>CB2010</th>
+      <th>SchoolDist</th>
+      <th>Council</th>
+      <th>...</th>
+      <th>FIRM07_FLAG</th>
+      <th>PFIRM15_FLAG</th>
+      <th>Version</th>
+      <th>DCPEdited</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Notes</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MN</td>
+      <td>1</td>
+      <td>10</td>
+      <td>101</td>
+      <td>1000500</td>
+      <td>10005000003</td>
+      <td>5</td>
+      <td>1000</td>
+      <td>02</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1</td>
+      <td>1</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.688766</td>
+      <td>-74.018682</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>7.478663e+06</td>
+      <td>MULTIPOLYGON (((980783.787 191526.763, 980898....</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MN</td>
+      <td>1</td>
+      <td>101</td>
+      <td>101</td>
+      <td>1000100</td>
+      <td>None</td>
+      <td>1</td>
+      <td>1001</td>
+      <td>02</td>
+      <td>1</td>
+      <td>...</td>
+      <td>None</td>
+      <td>1</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.689920</td>
+      <td>-74.045337</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>5.018973e+05</td>
+      <td>MULTIPOLYGON (((972409.690 190685.560, 972428....</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MN</td>
+      <td>1</td>
+      <td>201</td>
+      <td>101</td>
+      <td>1000100</td>
+      <td>10001001000</td>
+      <td>1</td>
+      <td>1000</td>
+      <td>02</td>
+      <td>1</td>
+      <td>...</td>
+      <td>None</td>
+      <td>1</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.698188</td>
+      <td>-74.041329</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1.148539e+06</td>
+      <td>MULTIPOLYGON (((973648.661 193712.461, 973648....</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>MN</td>
+      <td>2</td>
+      <td>1</td>
+      <td>101</td>
+      <td>1000900</td>
+      <td>10009001022</td>
+      <td>9</td>
+      <td>1025</td>
+      <td>02</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1</td>
+      <td>1</td>
+      <td>22v3.1</td>
+      <td>t</td>
+      <td>40.700369</td>
+      <td>-74.012911</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1.008250e+05</td>
+      <td>MULTIPOLYGON (((980639.785 194217.691, 980609....</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>MN</td>
+      <td>2</td>
+      <td>2</td>
+      <td>101</td>
+      <td>1000900</td>
+      <td>10009001022</td>
+      <td>9</td>
+      <td>1025</td>
+      <td>02</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1</td>
+      <td>1</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.700550</td>
+      <td>-74.011588</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>8.724425e+04</td>
+      <td>MULTIPOLYGON (((980915.002 194319.141, 980795....</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 95 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="_images/ab7a27d258c9a91616d0b51d92a71729bfaf61ea8a9dfa6c7660f203cd2410ef.png" src="_images/ab7a27d258c9a91616d0b51d92a71729bfaf61ea8a9dfa6c7660f203cd2410ef.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_gdf</span><span class="o">.</span><span class="n">sindex</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>rtree.index.Index(bounds=[971045.2731347084, 188447.4288892746, 985249.228328228, 201211.1846499443], size=70)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">offset</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">bounds</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="n">offset</span><span class="p">,</span> <span class="o">-</span><span class="n">offset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">offset</span><span class="p">]</span>
+
+<span class="n">bbox</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>minx</th>
+      <th>miny</th>
+      <th>maxx</th>
+      <th>maxy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.038300e+06</td>
+      <td>185800.014393</td>
+      <td>1.038700e+06</td>
+      <td>186200.014393</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.035482e+06</td>
+      <td>223571.014417</td>
+      <td>1.035882e+06</td>
+      <td>223971.014417</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9.793840e+05</td>
+      <td>168055.014382</td>
+      <td>9.797840e+05</td>
+      <td>168455.014382</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>9.993570e+05</td>
+      <td>245500.014431</td>
+      <td>9.997570e+05</td>
+      <td>245900.014431</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.001668e+06</td>
+      <td>161032.014377</td>
+      <td>1.002068e+06</td>
+      <td>161432.014377</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hits</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">pluto_gdf</span><span class="o">.</span><span class="n">sindex</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">row</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">hits</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">hits</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(26959,)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    []
+1    []
+2    []
+3    []
+4    []
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+        <span class="c1"># index of points table</span>
+        <span class="s2">&quot;pt_idx&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">hits</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">hits</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">len</span><span class="p">)),</span>
+
+        <span class="c1"># ordinal position of line - access via iloc later</span>
+        <span class="s2">&quot;line_i&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">hits</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">tmp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(721, 2)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pt_idx</th>
+      <th>line_i</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>459</td>
+      <td>128.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>459</td>
+      <td>145.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>459</td>
+      <td>137.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>459</td>
+      <td>139.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>459</td>
+      <td>140.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Join back to the lines on line_i; we use reset_index() to </span>
+<span class="c1"># give us the ordinal position of each line</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pluto_gdf</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;line_i&quot;</span><span class="p">)</span>
+
+<span class="n">tmp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pt_idx</th>
+      <th>line_i</th>
+      <th>Borough</th>
+      <th>Block</th>
+      <th>Lot</th>
+      <th>CD</th>
+      <th>BCT2020</th>
+      <th>BCTCB2020</th>
+      <th>CT2010</th>
+      <th>CB2010</th>
+      <th>...</th>
+      <th>FIRM07_FLAG</th>
+      <th>PFIRM15_FLAG</th>
+      <th>Version</th>
+      <th>DCPEdited</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Notes</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>459</td>
+      <td>128.0</td>
+      <td>MN</td>
+      <td>79</td>
+      <td>27</td>
+      <td>101</td>
+      <td>1001502</td>
+      <td>10015021000</td>
+      <td>15.02</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.710322</td>
+      <td>-74.008466</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>5670.917438</td>
+      <td>MULTIPOLYGON (((981955.698 198099.048, 981894....</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>459</td>
+      <td>145.0</td>
+      <td>MN</td>
+      <td>92</td>
+      <td>23</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011011</td>
+      <td>15.01</td>
+      <td>1007</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.710594</td>
+      <td>-74.007185</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1702.936740</td>
+      <td>MULTIPOLYGON (((982289.308 198169.543, 982267....</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>459</td>
+      <td>137.0</td>
+      <td>MN</td>
+      <td>89</td>
+      <td>3</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011017</td>
+      <td>15.01</td>
+      <td>1005</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.710635</td>
+      <td>-74.007964</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>5632.008015</td>
+      <td>MULTIPOLYGON (((982020.597 198116.096, 981985....</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>459</td>
+      <td>139.0</td>
+      <td>MN</td>
+      <td>90</td>
+      <td>23</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011009</td>
+      <td>15.01</td>
+      <td>1004</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.710956</td>
+      <td>-74.007773</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1021.570578</td>
+      <td>MULTIPOLYGON (((982110.692 198297.452, 982090....</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>459</td>
+      <td>140.0</td>
+      <td>MN</td>
+      <td>90</td>
+      <td>24</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011009</td>
+      <td>15.01</td>
+      <td>1004</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.711005</td>
+      <td>-74.007817</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1242.680263</td>
+      <td>MULTIPOLYGON (((982106.447 198327.138, 982072....</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 97 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Join back to the original points to get their geometry</span>
+<span class="c1"># rename the point geometry as &quot;point&quot;</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;point&quot;</span><span class="p">),</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;pt_idx&quot;</span><span class="p">)</span>
+
+<span class="c1"># Convert back to a GeoDataFrame, so we can do spatial ops</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="s2">&quot;geometry&quot;</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">gdf</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+
+<span class="n">tmp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pt_idx</th>
+      <th>line_i</th>
+      <th>Borough</th>
+      <th>Block</th>
+      <th>Lot</th>
+      <th>CD</th>
+      <th>BCT2020</th>
+      <th>BCTCB2020</th>
+      <th>CT2010</th>
+      <th>CB2010</th>
+      <th>...</th>
+      <th>PFIRM15_FLAG</th>
+      <th>Version</th>
+      <th>DCPEdited</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Notes</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>geometry</th>
+      <th>point</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>459</td>
+      <td>128.0</td>
+      <td>MN</td>
+      <td>79</td>
+      <td>27</td>
+      <td>101</td>
+      <td>1001502</td>
+      <td>10015021000</td>
+      <td>15.02</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>None</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.710322</td>
+      <td>-74.008466</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>5670.917438</td>
+      <td>MULTIPOLYGON (((981955.698 198099.048, 981894....</td>
+      <td>POINT (982027.000 198304.014)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>459</td>
+      <td>145.0</td>
+      <td>MN</td>
+      <td>92</td>
+      <td>23</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011011</td>
+      <td>15.01</td>
+      <td>1007</td>
+      <td>...</td>
+      <td>None</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.710594</td>
+      <td>-74.007185</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1702.936740</td>
+      <td>MULTIPOLYGON (((982289.308 198169.543, 982267....</td>
+      <td>POINT (982027.000 198304.014)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>459</td>
+      <td>137.0</td>
+      <td>MN</td>
+      <td>89</td>
+      <td>3</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011017</td>
+      <td>15.01</td>
+      <td>1005</td>
+      <td>...</td>
+      <td>None</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.710635</td>
+      <td>-74.007964</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>5632.008015</td>
+      <td>MULTIPOLYGON (((982020.597 198116.096, 981985....</td>
+      <td>POINT (982027.000 198304.014)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>459</td>
+      <td>139.0</td>
+      <td>MN</td>
+      <td>90</td>
+      <td>23</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011009</td>
+      <td>15.01</td>
+      <td>1004</td>
+      <td>...</td>
+      <td>None</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.710956</td>
+      <td>-74.007773</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1021.570578</td>
+      <td>MULTIPOLYGON (((982110.692 198297.452, 982090....</td>
+      <td>POINT (982027.000 198304.014)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>459</td>
+      <td>140.0</td>
+      <td>MN</td>
+      <td>90</td>
+      <td>24</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011009</td>
+      <td>15.01</td>
+      <td>1004</td>
+      <td>...</td>
+      <td>None</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.711005</td>
+      <td>-74.007817</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1242.680263</td>
+      <td>MULTIPOLYGON (((982106.447 198327.138, 982072....</td>
+      <td>POINT (982027.000 198304.014)</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 98 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmp</span><span class="p">[</span><span class="s2">&quot;snap_dist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">point</span><span class="p">))</span>
+
+<span class="n">tmp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pt_idx</th>
+      <th>line_i</th>
+      <th>Borough</th>
+      <th>Block</th>
+      <th>Lot</th>
+      <th>CD</th>
+      <th>BCT2020</th>
+      <th>BCTCB2020</th>
+      <th>CT2010</th>
+      <th>CB2010</th>
+      <th>...</th>
+      <th>Version</th>
+      <th>DCPEdited</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Notes</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>geometry</th>
+      <th>point</th>
+      <th>snap_dist</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>459</td>
+      <td>128.0</td>
+      <td>MN</td>
+      <td>79</td>
+      <td>27</td>
+      <td>101</td>
+      <td>1001502</td>
+      <td>10015021000</td>
+      <td>15.02</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.710322</td>
+      <td>-74.008466</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>5670.917438</td>
+      <td>MULTIPOLYGON (((981955.698 198099.048, 981894....</td>
+      <td>POINT (982027.000 198304.014)</td>
+      <td>210.186017</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>459</td>
+      <td>145.0</td>
+      <td>MN</td>
+      <td>92</td>
+      <td>23</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011011</td>
+      <td>15.01</td>
+      <td>1007</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.710594</td>
+      <td>-74.007185</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1702.936740</td>
+      <td>MULTIPOLYGON (((982289.308 198169.543, 982267....</td>
+      <td>POINT (982027.000 198304.014)</td>
+      <td>244.527951</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>459</td>
+      <td>137.0</td>
+      <td>MN</td>
+      <td>89</td>
+      <td>3</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011017</td>
+      <td>15.01</td>
+      <td>1005</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.710635</td>
+      <td>-74.007964</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>5632.008015</td>
+      <td>MULTIPOLYGON (((982020.597 198116.096, 981985....</td>
+      <td>POINT (982027.000 198304.014)</td>
+      <td>69.911787</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>459</td>
+      <td>139.0</td>
+      <td>MN</td>
+      <td>90</td>
+      <td>23</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011009</td>
+      <td>15.01</td>
+      <td>1004</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.710956</td>
+      <td>-74.007773</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1021.570578</td>
+      <td>MULTIPOLYGON (((982110.692 198297.452, 982090....</td>
+      <td>POINT (982027.000 198304.014)</td>
+      <td>49.550503</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>459</td>
+      <td>140.0</td>
+      <td>MN</td>
+      <td>90</td>
+      <td>24</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011009</td>
+      <td>15.01</td>
+      <td>1004</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.711005</td>
+      <td>-74.007817</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1242.680263</td>
+      <td>MULTIPOLYGON (((982106.447 198327.138, 982072....</td>
+      <td>POINT (982027.000 198304.014)</td>
+      <td>30.673000</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 99 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Discard any lines that are greater than tolerance from points</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">tmp</span><span class="o">.</span><span class="n">snap_dist</span> <span class="o">&lt;=</span> <span class="n">offset</span><span class="p">]</span>
+
+<span class="c1"># Sort on ascending snap distance, so that closest goes to top</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;snap_dist&quot;</span><span class="p">])</span>
+
+<span class="n">tmp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pt_idx</th>
+      <th>line_i</th>
+      <th>Borough</th>
+      <th>Block</th>
+      <th>Lot</th>
+      <th>CD</th>
+      <th>BCT2020</th>
+      <th>BCTCB2020</th>
+      <th>CT2010</th>
+      <th>CB2010</th>
+      <th>...</th>
+      <th>Version</th>
+      <th>DCPEdited</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Notes</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>geometry</th>
+      <th>point</th>
+      <th>snap_dist</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>448</th>
+      <td>19254</td>
+      <td>340.0</td>
+      <td>MN</td>
+      <td>16</td>
+      <td>3</td>
+      <td>101</td>
+      <td>1031704</td>
+      <td>10317044000</td>
+      <td>317.04</td>
+      <td>4001</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>t</td>
+      <td>40.712618</td>
+      <td>-74.016586</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>2.052775e+06</td>
+      <td>MULTIPOLYGON (((980584.841 200985.007, 980594....</td>
+      <td>POINT (979355.000 197234.014)</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>483</th>
+      <td>19475</td>
+      <td>340.0</td>
+      <td>MN</td>
+      <td>16</td>
+      <td>3</td>
+      <td>101</td>
+      <td>1031704</td>
+      <td>10317044000</td>
+      <td>317.04</td>
+      <td>4001</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>t</td>
+      <td>40.712618</td>
+      <td>-74.016586</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>2.052775e+06</td>
+      <td>MULTIPOLYGON (((980584.841 200985.007, 980594....</td>
+      <td>POINT (979355.000 197234.014)</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>324</th>
+      <td>15235</td>
+      <td>340.0</td>
+      <td>MN</td>
+      <td>16</td>
+      <td>3</td>
+      <td>101</td>
+      <td>1031704</td>
+      <td>10317044000</td>
+      <td>317.04</td>
+      <td>4001</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>t</td>
+      <td>40.712618</td>
+      <td>-74.016586</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>2.052775e+06</td>
+      <td>MULTIPOLYGON (((980584.841 200985.007, 980594....</td>
+      <td>POINT (979759.000 199686.014)</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>518</th>
+      <td>21495</td>
+      <td>455.0</td>
+      <td>MN</td>
+      <td>25</td>
+      <td>7502</td>
+      <td>101</td>
+      <td>1000900</td>
+      <td>10009001001</td>
+      <td>9</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.705919</td>
+      <td>-74.010766</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>2.585314e+04</td>
+      <td>MULTIPOLYGON (((981284.442 196374.824, 981236....</td>
+      <td>POINT (981399.000 196469.014)</td>
+      <td>11.267715</td>
+    </tr>
+    <tr>
+      <th>516</th>
+      <td>21495</td>
+      <td>47.0</td>
+      <td>MN</td>
+      <td>25</td>
+      <td>27</td>
+      <td>101</td>
+      <td>1000900</td>
+      <td>10009001000</td>
+      <td>9</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.705686</td>
+      <td>-74.010287</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1.625568e+04</td>
+      <td>MULTIPOLYGON (((981492.934 196409.111, 981478....</td>
+      <td>POINT (981399.000 196469.014)</td>
+      <td>11.310903</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 99 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># group by the index of the points and take the first, which is the</span>
+<span class="c1"># closest line </span>
+<span class="n">closest</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;pt_idx&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+
+<span class="c1"># construct a GeoDataFrame of the closest lines</span>
+<span class="n">closest</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">closest</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="s2">&quot;geometry&quot;</span><span class="p">)</span>
+
+<span class="n">closest</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>line_i</th>
+      <th>Borough</th>
+      <th>Block</th>
+      <th>Lot</th>
+      <th>CD</th>
+      <th>BCT2020</th>
+      <th>BCTCB2020</th>
+      <th>CT2010</th>
+      <th>CB2010</th>
+      <th>SchoolDist</th>
+      <th>...</th>
+      <th>Version</th>
+      <th>DCPEdited</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Notes</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>geometry</th>
+      <th>point</th>
+      <th>snap_dist</th>
+    </tr>
+    <tr>
+      <th>pt_idx</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>459</th>
+      <td>138.0</td>
+      <td>MN</td>
+      <td>90</td>
+      <td>1</td>
+      <td>101</td>
+      <td>1001501</td>
+      <td>10015011009</td>
+      <td>15.01</td>
+      <td>1004</td>
+      <td>02</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.711176</td>
+      <td>-74.008123</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>6523.195602</td>
+      <td>MULTIPOLYGON (((982041.663 198346.135, 982046....</td>
+      <td>POINT (982027.000 198304.014)</td>
+      <td>13.819315</td>
+    </tr>
+    <tr>
+      <th>1096</th>
+      <td>353.0</td>
+      <td>MN</td>
+      <td>143</td>
+      <td>7503</td>
+      <td>101</td>
+      <td>1003900</td>
+      <td>10039003007</td>
+      <td>39</td>
+      <td>4007</td>
+      <td>02</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>t</td>
+      <td>40.717834</td>
+      <td>-74.009967</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>5299.637906</td>
+      <td>MULTIPOLYGON (((981511.400 200756.768, 981461....</td>
+      <td>POINT (981500.000 200877.014)</td>
+      <td>26.688052</td>
+    </tr>
+    <tr>
+      <th>1859</th>
+      <td>356.0</td>
+      <td>MN</td>
+      <td>144</td>
+      <td>31</td>
+      <td>101</td>
+      <td>1003300</td>
+      <td>10033002018</td>
+      <td>33</td>
+      <td>3022</td>
+      <td>02</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>t</td>
+      <td>40.716852</td>
+      <td>-74.008459</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>1353.898306</td>
+      <td>MULTIPOLYGON (((981934.351 200443.725, 981920....</td>
+      <td>POINT (981942.000 200380.014)</td>
+      <td>46.337050</td>
+    </tr>
+    <tr>
+      <th>2563</th>
+      <td>386.0</td>
+      <td>MN</td>
+      <td>151</td>
+      <td>1</td>
+      <td>101</td>
+      <td>1003300</td>
+      <td>10033003004</td>
+      <td>33</td>
+      <td>1010</td>
+      <td>02</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>t</td>
+      <td>40.715820</td>
+      <td>-74.005977</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>26217.794000</td>
+      <td>MULTIPOLYGON (((982672.512 200047.743, 982690....</td>
+      <td>POINT (982569.000 199967.014)</td>
+      <td>26.450837</td>
+    </tr>
+    <tr>
+      <th>4135</th>
+      <td>212.0</td>
+      <td>MN</td>
+      <td>38</td>
+      <td>17</td>
+      <td>101</td>
+      <td>1000700</td>
+      <td>10007007002</td>
+      <td>7</td>
+      <td>1012</td>
+      <td>02</td>
+      <td>...</td>
+      <td>22v3.1</td>
+      <td>None</td>
+      <td>40.705661</td>
+      <td>-74.006168</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>28946.530441</td>
+      <td>MULTIPOLYGON (((982494.655 196247.048, 982403....</td>
+      <td>POINT (982649.000 196479.014)</td>
+      <td>31.676819</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 98 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Join back to the original points:</span>
+<span class="n">updated_points</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">closest</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]))</span>
+
+<span class="n">updated_points</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>unique_key</th>
+      <th>created_date</th>
+      <th>agency</th>
+      <th>agency_name</th>
+      <th>complaint_type</th>
+      <th>descriptor</th>
+      <th>incident_zip</th>
+      <th>incident_address</th>
+      <th>street_name</th>
+      <th>cross_street_1</th>
+      <th>...</th>
+      <th>PFIRM15_FLAG</th>
+      <th>Version</th>
+      <th>DCPEdited</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Notes</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>point</th>
+      <th>snap_dist</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>48542220</td>
+      <td>2020-12-31T15:41:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11420.0</td>
+      <td>117-17 135 STREET</td>
+      <td>135 STREET</td>
+      <td>FOCH BLVD</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>48536430</td>
+      <td>2020-12-31T14:49:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11357.0</td>
+      <td>20-24 150 STREET</td>
+      <td>150 STREET</td>
+      <td>20 AVE</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>48539361</td>
+      <td>2020-12-31T14:03:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11228.0</td>
+      <td>7223 8 AVENUE</td>
+      <td>8 AVENUE</td>
+      <td>72 ST</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>48543132</td>
+      <td>2020-12-31T13:48:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>10032.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>48536441</td>
+      <td>2020-12-31T13:10:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11234.0</td>
+      <td>3123 FILLMORE AVENUE</td>
+      <td>FILLMORE AVENUE</td>
+      <td>E 31 ST</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 132 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">updated_points</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>unique_key</th>
+      <th>incident_zip</th>
+      <th>bbl</th>
+      <th>x_coordinate_state_plane</th>
+      <th>y_coordinate_state_plane</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>location_type</th>
+      <th>landmark</th>
+      <th>facility_type</th>
+      <th>...</th>
+      <th>BBL</th>
+      <th>CondoNo</th>
+      <th>XCoord</th>
+      <th>YCoord</th>
+      <th>APPBBL</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>snap_dist</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>2.695900e+04</td>
+      <td>26959.000000</td>
+      <td>1.615900e+04</td>
+      <td>2.695900e+04</td>
+      <td>26959.000000</td>
+      <td>26959.000000</td>
+      <td>26959.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>8.600000e+01</td>
+      <td>45.000000</td>
+      <td>86.000000</td>
+      <td>86.000000</td>
+      <td>6.100000e+01</td>
+      <td>86.000000</td>
+      <td>86.000000</td>
+      <td>86.0</td>
+      <td>8.600000e+01</td>
+      <td>86.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>3.254573e+07</td>
+      <td>10969.384436</td>
+      <td>3.699429e+09</td>
+      <td>1.005498e+06</td>
+      <td>186184.607441</td>
+      <td>40.677615</td>
+      <td>-73.923323</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1.000691e+09</td>
+      <td>1692.355556</td>
+      <td>981860.232558</td>
+      <td>197816.534884</td>
+      <td>1.000704e+09</td>
+      <td>40.709637</td>
+      <td>-74.008620</td>
+      <td>0.0</td>
+      <td>1.464337e+05</td>
+      <td>55.102735</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>9.167418e+06</td>
+      <td>536.377470</td>
+      <td>1.075864e+09</td>
+      <td>3.505257e+04</td>
+      <td>30576.150750</td>
+      <td>0.083924</td>
+      <td>0.126329</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>4.924506e+05</td>
+      <td>891.678528</td>
+      <td>1349.550990</td>
+      <td>1455.157179</td>
+      <td>4.997937e+05</td>
+      <td>0.003994</td>
+      <td>0.004868</td>
+      <td>0.0</td>
+      <td>4.086507e+05</td>
+      <td>41.886663</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.563993e+07</td>
+      <td>10001.000000</td>
+      <td>0.000000e+00</td>
+      <td>9.133570e+05</td>
+      <td>121032.000000</td>
+      <td>40.498628</td>
+      <td>-74.254937</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1.000078e+09</td>
+      <td>65.000000</td>
+      <td>979652.000000</td>
+      <td>195554.000000</td>
+      <td>1.000070e+09</td>
+      <td>40.703427</td>
+      <td>-74.016586</td>
+      <td>0.0</td>
+      <td>6.592921e+02</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>2.455603e+07</td>
+      <td>10312.000000</td>
+      <td>3.060255e+09</td>
+      <td>9.868870e+05</td>
+      <td>161248.000000</td>
+      <td>40.609123</td>
+      <td>-73.990504</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1.000210e+09</td>
+      <td>960.000000</td>
+      <td>980937.250000</td>
+      <td>196635.250000</td>
+      <td>1.000250e+09</td>
+      <td>40.706394</td>
+      <td>-74.011948</td>
+      <td>0.0</td>
+      <td>6.331987e+03</td>
+      <td>28.184895</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>3.291181e+07</td>
+      <td>11221.000000</td>
+      <td>4.067910e+09</td>
+      <td>1.007480e+06</td>
+      <td>183618.000000</td>
+      <td>40.670610</td>
+      <td>-73.916267</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1.000610e+09</td>
+      <td>1704.000000</td>
+      <td>981720.000000</td>
+      <td>197685.000000</td>
+      <td>1.000710e+09</td>
+      <td>40.709276</td>
+      <td>-74.009125</td>
+      <td>0.0</td>
+      <td>1.725629e+04</td>
+      <td>38.098773</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>4.043790e+07</td>
+      <td>11385.000000</td>
+      <td>4.156250e+09</td>
+      <td>1.033980e+06</td>
+      <td>206488.500000</td>
+      <td>40.733373</td>
+      <td>-73.820554</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1.001055e+09</td>
+      <td>2442.000000</td>
+      <td>982535.000000</td>
+      <td>198845.750000</td>
+      <td>1.000970e+09</td>
+      <td>40.712461</td>
+      <td>-74.006186</td>
+      <td>0.0</td>
+      <td>4.467984e+04</td>
+      <td>75.728271</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>4.854313e+07</td>
+      <td>11697.000000</td>
+      <td>5.080500e+09</td>
+      <td>1.067279e+06</td>
+      <td>271876.000000</td>
+      <td>40.912869</td>
+      <td>-73.700384</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1.001620e+09</td>
+      <td>3035.000000</td>
+      <td>984839.000000</td>
+      <td>200803.000000</td>
+      <td>1.001621e+09</td>
+      <td>40.717834</td>
+      <td>-73.997875</td>
+      <td>0.0</td>
+      <td>2.052775e+06</td>
+      <td>165.787876</td>
+    </tr>
+  </tbody>
+</table>
+<p>8 rows × 59 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">updated_points</span><span class="p">[</span><span class="s1">&#39;unique_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">is_unique</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "datalifenyc/nyc-street-flooding-analysis",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="scrub-process-diagram.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ETL Diagram</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="explore-map.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Explore Map</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Join Tutorial</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries">Importing Libraries</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieve-data">Retrieve Data</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ho Hsieh, Nathan Williamson, Mark Bauer, Chidi Ezeolu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

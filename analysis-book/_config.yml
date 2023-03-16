@@ -1,17 +1,21 @@
+# Book settings
 title: "<b>Going Beyond EDA</b><br>A Deeper Analysis of NYC 311 Street Flooding Complaints"
 author: Ho Hsieh, Nathan Williamson, Mark Bauer, Chidi Ezeolu
 copyright: "2023"
 logo: "nyc-street-flooding-complaints-logo.png"
+only_build_toc_files: true
+
+# Execution settings
 execute:
-  timeout: 400
-repository:
-  url: https://github.com/datalifenyc/nyc-street-flooding-analysis
-  path_to_book: analysis-book
-  branch: main
-exclude_patterns: [
-  # scrub-process-diagram.ipynb, # Uncomment if Graphviz is not installed.
-  explore-flood-pluto.ipynb
-]
+  timeout: 5400 # 90 min test for full read of gdb folder # 400
+  exclude_patterns:
+    - 'merge-flood-pluto.ipynb' # gdb folder read time: ~42 minutes
+    - 'join.ipynb'
+    - 'nyc-311-groundtruth.ipynb'
+    - 'explore-data-profiling.ipynb'
+    - 'nyc-311-vs-stormwaterflood.ipynb'
+
+# HTML-specific settings
 html:
   favicon: favicon.ico
   use_repository_button: true
@@ -24,14 +28,29 @@ html:
             <br/>
             <span style="font-family:Baskerville;font-style:italic;color:Chocolate;">Driven by Curiosity!</span>
         </div>
-  announcement: "GitHub Repo Publically Available - March 6!"
+  announcement: "NYC School of Data Conference - March 18!"
+  comments:
+    utterances:
+      repo: "datalifenyc/nyc-street-flooding-analysis"
+
+# BibTeX-specific settings
+bibtex_bibfiles:
+  - references.bib
+
+# Launch button settings
+launch_buttons:
+  binderhub_url: "https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F"
+  colab_url: "https://colab.research.google.com"
+  thebe: true
+
+repository:
+  url: https://github.com/datalifenyc/nyc-street-flooding-analysis
+  path_to_book: analysis-book
+  branch: main
+
+# Advanced and power-user settings
 sphinx:
   config:
     html_js_files:
     - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
     bibtex_reference_style: author_year
-bibtex_bibfiles:
-  - references.bib
-launch_buttons:
-  binderhub_url: "https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/HEAD"
-  colab_url: "https://colab.research.google.com"

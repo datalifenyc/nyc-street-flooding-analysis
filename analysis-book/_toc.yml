@@ -5,14 +5,22 @@ parts:
     chapters: 
     - file: obtain-flood-data
     - file: obtain-pluto-data
-  - caption: Scrub 🧹
+  - caption: Scrub & Merge 🧹
     chapters:
     - file: scrub-flood-data
-  - caption: Explore 📊
+    - file: merge-flood-pluto
+    - file: scrub-process-diagram
+    - file: join
+  - caption: Explore 🗺
     chapters:
     - file: explore-map
-    - file: explore-flood-pluto
-    - file: explore-auto-eda
+    # - file: explore-data-profiling
+    - url: https://nyc-street-flooding-analysis.datalife.nyc/data-profile.html
+      title: Data Profile
+  - caption: Analysis 📈
+    chapters:
+    - file: nyc-311-groundtruth
+    - file: nyc-311-vs-stormwaterflood
   - caption: Model 🏗
     chapters:
     - file: model-build

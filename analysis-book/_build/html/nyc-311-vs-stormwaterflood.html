@@ -1,0 +1,2652 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs) &#8212; &lt;b&gt;Going Beyond EDA&lt;/b&gt;&lt;br&gt;A Deeper Analysis of NYC 311 Street Flooding Complaints</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datalifenyc/nyc-street-flooding-analysis");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nyc-311-vs-stormwaterflood';</script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Build Models" href="model-build.html" />
+    <link rel="prev" title="Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City" href="nyc-311-groundtruth.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+
+  <div class="bd-header-announcement container-fluid bd-header-announcement">
+    <div class="bd-header-announcement__content">NYC School of Data Conference - March 18!</div>
+  </div>
+
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="about.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nyc-street-flooding-complaints-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/nyc-street-flooding-complaints-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="about.html">
+                    NYC Open Data Week 2023 📊
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Obtain 💾</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="obtain-flood-data.html">Street Flooding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="obtain-pluto-data.html">PLUTO &amp; MapPLUTO</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scrub &amp; Merge 🧹</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="scrub-flood-data.html">Clean Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge-flood-pluto.html">Street Flooding &amp; MapPLUTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrub-process-diagram.html">ETL Diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="join.html">Join Tutorial</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Explore 🗺</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="explore-map.html">Explore Map</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://nyc-street-flooding-analysis.datalife.nyc/data-profile.html">Data Profile</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Analysis 📈</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="nyc-311-groundtruth.html">Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model 🏗</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="model-build.html">Build Models</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpret 💡</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="interpret-results.html">Key Findings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources 📑</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-libraries.html">Python Libraries</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?urlpath=tree/analysis-book/nyc-311-vs-stormwaterflood.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/datalifenyc/nyc-street-flooding-analysis/blob/main/analysis-book/nyc-311-vs-stormwaterflood.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/datalifenyc/nyc-street-flooding-analysis" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/datalifenyc/nyc-street-flooding-analysis/issues/new?title=Issue%20on%20page%20%2Fnyc-311-vs-stormwaterflood.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/nyc-311-vs-stormwaterflood.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data">Get Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-nyc-311-complaints">Get Data – NYC 311 Complaints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-nyc-stormwater-flood-map">Get Data – NYC Stormwater Flood Map</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-nyc-ntas">Get Data – NYC NTAs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize">Visualize</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-analysis">Spatial analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics-get-area-of-storm-water-floods-by-nta">1. Zonal Statistics - get area of storm water floods by nta</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics-get-counts-of-311-flood-complaints-by-nta">2. Zonal Statistics - get counts of 311 flood complaints by nta</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-analysis">Statistical Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation">1. Correlation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-plot">2. Bivariate Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">3. Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-311-complaints-of-different-years">4. Regression – 311 Complaints of Different Years</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#good-to-have">Good to have</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">————————— NOTES ————————————</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-311-eda">RAW 311 EDA</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="nyc-311-complaints-vs-storm-water-flooding-by-neighborhood-tabulation-areas-ntas">
+<h1>NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)<a class="headerlink" href="#nyc-311-complaints-vs-storm-water-flooding-by-neighborhood-tabulation-areas-ntas" title="Permalink to this heading">#</a></h1>
+<ol class="arabic">
+<li><p>Get data</p></li>
+<li><p>Get Zonal Statistics of complaint count by NTA for each and all years (and bbl?)</p>
+<p>(a)</p>
+</li>
+<li><p>Rasterize data storm water layer and NTA layer</p></li>
+<li><p>Get Zonal Statistics of area? of storm water flooding by NTA – this data has no time info</p>
+<p>(b)</p>
+</li>
+<li><p>storm water layer, cut by NTA polygon,</p></li>
+<li><p>get area? of polygon within NTA (zonal statistics? spatial join then group by get sum of areas?)</p></li>
+<li><p>Regress between complaint counts and storm water flooding</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># import seaborn as sns</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;1.3.4&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pwd
+<span class="o">%</span><span class="k">cd</span> /Users/ho/Documents/GitHub/nyc-flood
+<span class="o">!</span>pwd
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ho/Documents/GitHub/nyc-flood
+/Users/ho/Documents/GitHub/nyc-flood
+/Users/ho/Documents/GitHub/nyc-flood
+</pre></div>
+</div>
+</div>
+</div>
+<section id="get-data">
+<h2>Get Data<a class="headerlink" href="#get-data" title="Permalink to this heading">#</a></h2>
+<section id="get-data-nyc-311-complaints">
+<h3>Get Data – NYC 311 Complaints<a class="headerlink" href="#get-data-nyc-311-complaints" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/mebauer/nyc-311-street-flooding/</span><span class="se">\</span>
+<span class="s1">main/data/street-flooding-complaints.csv&#39;</span>
+
+<span class="n">df_311</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df_311</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">df_311</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(27902, 34)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>unique_key</th>
+      <th>created_date</th>
+      <th>agency</th>
+      <th>agency_name</th>
+      <th>complaint_type</th>
+      <th>descriptor</th>
+      <th>incident_zip</th>
+      <th>incident_address</th>
+      <th>street_name</th>
+      <th>cross_street_1</th>
+      <th>...</th>
+      <th>location</th>
+      <th>intersection_street_1</th>
+      <th>intersection_street_2</th>
+      <th>closed_date</th>
+      <th>resolution_description</th>
+      <th>resolution_action_updated_date</th>
+      <th>location_type</th>
+      <th>landmark</th>
+      <th>facility_type</th>
+      <th>due_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>48542220</td>
+      <td>2020-12-31T15:41:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11420.0</td>
+      <td>117-17 135 STREET</td>
+      <td>135 STREET</td>
+      <td>FOCH BLVD</td>
+      <td>...</td>
+      <td>{'latitude': '40.67703755925495', 'longitude':...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2021-01-01T00:20:00.000</td>
+      <td>Please call 311 for further information. If yo...</td>
+      <td>2021-01-01T00:20:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>48536430</td>
+      <td>2020-12-31T14:49:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11357.0</td>
+      <td>20-24 150 STREET</td>
+      <td>150 STREET</td>
+      <td>20 AVE</td>
+      <td>...</td>
+      <td>{'latitude': '40.78072630540092', 'longitude':...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2021-01-04T10:15:00.000</td>
+      <td>The Department of Environment Protection inspe...</td>
+      <td>2021-01-04T10:15:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>48539361</td>
+      <td>2020-12-31T14:03:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11228.0</td>
+      <td>7223 8 AVENUE</td>
+      <td>8 AVENUE</td>
+      <td>72 ST</td>
+      <td>...</td>
+      <td>{'latitude': '40.62849640806448', 'longitude':...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2021-01-02T11:25:00.000</td>
+      <td>The Department of Environmental Protection has...</td>
+      <td>2021-01-02T11:25:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>48543132</td>
+      <td>2020-12-31T13:48:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>10032.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>{'latitude': '40.841051689545516', 'longitude'...</td>
+      <td>RIVERSIDE DRIVE</td>
+      <td>WEST  165 STREET</td>
+      <td>2020-12-31T14:50:00.000</td>
+      <td>Please call 311 for further information. If yo...</td>
+      <td>2020-12-31T14:50:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>48536441</td>
+      <td>2020-12-31T13:10:00.000</td>
+      <td>DEP</td>
+      <td>Department of Environmental Protection</td>
+      <td>Sewer</td>
+      <td>Street Flooding (SJ)</td>
+      <td>11234.0</td>
+      <td>3123 FILLMORE AVENUE</td>
+      <td>FILLMORE AVENUE</td>
+      <td>E 31 ST</td>
+      <td>...</td>
+      <td>{'latitude': '40.609203447399906', 'longitude'...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2021-01-03T10:45:00.000</td>
+      <td>The Department of Environmental Protection ins...</td>
+      <td>2021-01-03T10:45:00.000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 34 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_311</span><span class="p">[[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>latitude</th>
+      <th>longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>40.677038</td>
+      <td>-73.804417</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>40.780726</td>
+      <td>-73.814288</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>40.628496</td>
+      <td>-74.016810</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>40.841052</td>
+      <td>-73.944679</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>40.609203</td>
+      <td>-73.936548</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df_311</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_311</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;unique_key&#39;, &#39;created_date&#39;, &#39;agency&#39;, &#39;agency_name&#39;, &#39;complaint_type&#39;,
+       &#39;descriptor&#39;, &#39;incident_zip&#39;, &#39;incident_address&#39;, &#39;street_name&#39;,
+       &#39;cross_street_1&#39;, &#39;cross_street_2&#39;, &#39;address_type&#39;, &#39;city&#39;, &#39;status&#39;,
+       &#39;community_board&#39;, &#39;bbl&#39;, &#39;borough&#39;, &#39;x_coordinate_state_plane&#39;,
+       &#39;y_coordinate_state_plane&#39;, &#39;open_data_channel_type&#39;,
+       &#39;park_facility_name&#39;, &#39;park_borough&#39;, &#39;latitude&#39;, &#39;longitude&#39;,
+       &#39;location&#39;, &#39;intersection_street_1&#39;, &#39;intersection_street_2&#39;,
+       &#39;closed_date&#39;, &#39;resolution_description&#39;,
+       &#39;resolution_action_updated_date&#39;, &#39;location_type&#39;, &#39;landmark&#39;,
+       &#39;facility_type&#39;, &#39;due_date&#39;],
+      dtype=&#39;object&#39;)
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 27902 entries, 0 to 27901
+Data columns (total 34 columns):
+ #   Column                          Non-Null Count  Dtype  
+---  ------                          --------------  -----  
+ 0   unique_key                      27902 non-null  int64  
+ 1   created_date                    27902 non-null  object 
+ 2   agency                          27902 non-null  object 
+ 3   agency_name                     27902 non-null  object 
+ 4   complaint_type                  27902 non-null  object 
+ 5   descriptor                      27902 non-null  object 
+ 6   incident_zip                    27045 non-null  float64
+ 7   incident_address                17865 non-null  object 
+ 8   street_name                     17865 non-null  object 
+ 9   cross_street_1                  24148 non-null  object 
+ 10  cross_street_2                  24137 non-null  object 
+ 11  address_type                    27896 non-null  object 
+ 12  city                            27048 non-null  object 
+ 13  status                          27902 non-null  object 
+ 14  community_board                 27900 non-null  object 
+ 15  bbl                             16159 non-null  float64
+ 16  borough                         27900 non-null  object 
+ 17  x_coordinate_state_plane        26959 non-null  float64
+ 18  y_coordinate_state_plane        26959 non-null  float64
+ 19  open_data_channel_type          27902 non-null  object 
+ 20  park_facility_name              27902 non-null  object 
+ 21  park_borough                    27900 non-null  object 
+ 22  latitude                        26959 non-null  float64
+ 23  longitude                       26959 non-null  float64
+ 24  location                        26959 non-null  object 
+ 25  intersection_street_1           10091 non-null  object 
+ 26  intersection_street_2           10091 non-null  object 
+ 27  closed_date                     27900 non-null  object 
+ 28  resolution_description          27896 non-null  object 
+ 29  resolution_action_updated_date  27902 non-null  object 
+ 30  location_type                   0 non-null      float64
+ 31  landmark                        0 non-null      float64
+ 32  facility_type                   0 non-null      float64
+ 33  due_date                        1 non-null      object 
+dtypes: float64(9), int64(1), object(24)
+memory usage: 7.2+ MB
+None
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># to date_time</span>
+<span class="n">df_311</span><span class="p">[</span><span class="s1">&#39;date_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_311</span><span class="p">[</span><span class="s1">&#39;created_date&#39;</span><span class="p">],</span> <span class="n">infer_datetime_format</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_311</span> <span class="o">=</span> <span class="n">df_311</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;date_time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df_311</span><span class="o">.</span><span class="n">date_time</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0   2010-01-02 08:26:00
+1   2010-01-02 12:00:00
+2   2010-01-02 17:45:00
+3   2010-01-04 16:47:00
+4   2010-01-05 10:37:00
+Name: date_time, dtype: datetime64[ns]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make spatial info</span>
+
+<span class="n">gdf_311</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+    <span class="n">df_311</span><span class="p">,</span>
+    <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span>
+        <span class="n">df_311</span><span class="p">[</span><span class="s1">&#39;x_coordinate_state_plane&#39;</span><span class="p">],</span>
+        <span class="n">df_311</span><span class="p">[</span><span class="s1">&#39;y_coordinate_state_plane&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">gdf_311</span> <span class="o">=</span> <span class="n">gdf_311</span><span class="o">.</span><span class="n">set_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">2263</span><span class="p">)</span>
+<span class="n">gdf_311</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ho/opt/anaconda3/envs/pyv37/lib/python3.7/site-packages/geopandas/array.py:275: ShapelyDeprecationWarning: The array interface is deprecated and will no longer work in Shapely 2.0. Convert the &#39;.coords&#39; to a numpy array instead.
+  return GeometryArray(vectorized.points_from_xy(x, y, z), crs=crs)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Projected CRS: EPSG:2263&gt;
+Name: NAD83 / New York Long Island (ftUS)
+Axis Info [cartesian]:
+- X[east]: Easting (US survey foot)
+- Y[north]: Northing (US survey foot)
+Area of Use:
+- name: United States (USA) - New York - counties of Bronx; Kings; Nassau; New York; Queens; Richmond; Suffolk.
+- bounds: (-74.26, 40.47, -71.8, 41.3)
+Coordinate Operation:
+- name: SPCS83 New York Long Island zone (US Survey feet)
+- method: Lambert Conic Conformal (2SP)
+Datum: North American Datum 1983
+- Ellipsoid: GRS 1980
+- Prime Meridian: Greenwich
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="get-data-nyc-stormwater-flood-map">
+<h3>Get Data – NYC Stormwater Flood Map<a class="headerlink" href="#get-data-nyc-stormwater-flood-map" title="Permalink to this heading">#</a></h3>
+<p>Quote from the Data’s Data Dictionary</p>
+<blockquote>
+<div><p>The geodatabase contains a single feature class that shows two (2) flooding categories.</p>
+<ul class="simple">
+<li><p>The “Nuisance Flooding (ponding depths greater or equal to 4 in. and less than 1 ft.)” and</p></li>
+<li><p>“Deep and Contiguous Flooding (ponding depths 1 ft. and greater)”</p></li>
+</ul>
+<p>categories were created using hydrologic and hydraulic computer models and represent flood risk due to extreme rainfall.  Please refer to the New York City Stormwater Resiliency Plan for more information on the purpose of the study, how datasets were developed, applications for this data, and other details.</p>
+<p>A coded value domain is used for the “Flooding_Category” field. See Column Info tab of the Data Dictionary for definition of each code.</p>
+<p>The New York City Stormwater Flood Maps show areas of potential flooding of at least 0.25 contiguous acres with flood depths of 4 inches or more.  This dataset contains some potential flooding areas less than 0.25 acres due to proximity and overlap with masking layers.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fn_sw</span> <span class="o">=</span> <span class="s2">&quot;/Users/ho/Documents/GitHub/nyc-flood/data/raw/NYC_Stormwater_Flood_Map_-_Moderate_Flood_with_Current_Sea_Levels/NYC Stormwater Flood Map - Moderate Flood with Current Sea Levels.gdb&quot;</span>
+
+<span class="n">gdf_sw</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fn_sw</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gdf_sw</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gdf_sw</span><span class="o">.</span><span class="n">head</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2, 4)
+&lt;bound method NDFrame.head of    Flooding_Category  Shape_Length    Shape_Area  \
+0                  1  6.456233e+06  7.937311e+07   
+1                  2  2.601608e+06  4.119771e+07   
+
+                                            geometry  
+0  MULTIPOLYGON Z (((917257.748 120888.120 0.000,...  
+1  MULTIPOLYGON Z (((917182.612 120877.544 0.000,...  &gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">gdf_sw</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gdf_sw</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Flooding_Category&#39;, &#39;Shape_Length&#39;, &#39;Shape_Area&#39;, &#39;geometry&#39;], dtype=&#39;object&#39;)
+&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
+RangeIndex: 2 entries, 0 to 1
+Data columns (total 4 columns):
+ #   Column             Non-Null Count  Dtype   
+---  ------             --------------  -----   
+ 0   Flooding_Category  2 non-null      int64   
+ 1   Shape_Length       2 non-null      float64 
+ 2   Shape_Area         2 non-null      float64 
+ 3   geometry           2 non-null      geometry
+dtypes: float64(2), geometry(1), int64(1)
+memory usage: 192.0 bytes
+None
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="get-data-nyc-ntas">
+<h3>Get Data – NYC NTAs<a class="headerlink" href="#get-data-nyc-ntas" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="n">fn_nta</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;/Users/ho/Documents/GitHub/nyc-flood/data/raw/nynta2020_23a/*.shp&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">gdf_nta</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fn_nta</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">gdf_nta</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gdf_nta</span><span class="o">.</span><span class="n">head</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(262, 12)
+&lt;bound method NDFrame.head of      BoroCode       BoroName CountyFIPS NTA2020                      NTAName  \
+0           3       Brooklyn        047  BK0101                   Greenpoint   
+1           3       Brooklyn        047  BK0102                 Williamsburg   
+2           3       Brooklyn        047  BK0103           South Williamsburg   
+3           3       Brooklyn        047  BK0104            East Williamsburg   
+4           3       Brooklyn        047  BK0201             Brooklyn Heights   
+..        ...            ...        ...     ...                          ...   
+257         5  Staten Island        085  SI0391      Freshkills Park (South)   
+258         5  Staten Island        085  SI9561               Fort Wadsworth   
+259         5  Staten Island        085  SI9591  Hoffman &amp; Swinburne Islands   
+260         5  Staten Island        085  SI9592                 Miller Field   
+261         5  Staten Island        085  SI9593             Great Kills Park   
+
+      NTAAbbrev NTAType CDTA2020  \
+0         Grnpt       0     BK01   
+1      Wllmsbrg       0     BK01   
+2     SWllmsbrg       0     BK01   
+3     EWllmsbrg       0     BK01   
+4         BkHts       0     BK02   
+..          ...     ...      ...   
+257  FrshklPK_S       9     SI03   
+258   FtWdswrth       6     SI95   
+259    HffmnIsl       9     SI95   
+260     MllrFld       9     SI95   
+261    GrtKlsPk       9     SI95   
+
+                                              CDTAName    Shape_Leng  \
+0       BK01 Williamsburg-Greenpoint (CD 1 Equivalent)  28914.172236   
+1       BK01 Williamsburg-Greenpoint (CD 1 Equivalent)  28158.316197   
+2       BK01 Williamsburg-Greenpoint (CD 1 Equivalent)  18250.280262   
+3       BK01 Williamsburg-Greenpoint (CD 1 Equivalent)  43184.772815   
+4    BK02 Downtown Brooklyn-Fort Greene (CD 2 Appro...  14312.504911   
+..                                                 ...           ...   
+257              SI03 South Shore (CD 3 Approximation)  33945.420291   
+258  SI95 Great Kills Park-Fort Wadsworth (JIA 95 A...  14816.104455   
+259  SI95 Great Kills Park-Fort Wadsworth (JIA 95 A...   4743.128127   
+260  SI95 Great Kills Park-Fort Wadsworth (JIA 95 A...  19197.200973   
+261  SI95 Great Kills Park-Fort Wadsworth (JIA 95 A...  41465.430028   
+
+       Shape_Area                                           geometry  
+0    3.532185e+07  POLYGON ((1003059.997 204572.025, 1002991.367 ...  
+1    2.886214e+07  POLYGON ((994849.011 203499.267, 994911.093 20...  
+2    1.520896e+07  POLYGON ((998047.210 196303.325, 998157.901 19...  
+3    5.226621e+07  POLYGON ((1005302.497 199455.730, 1005307.792 ...  
+4    9.982322e+06  POLYGON ((986367.735 190549.239, 985813.835 19...  
+..            ...                                                ...  
+257  4.775877e+07  POLYGON ((928531.433 150471.714, 929005.649 15...  
+258  9.864874e+06  POLYGON ((967656.829 155637.132, 967549.629 15...  
+259  6.357020e+05  MULTIPOLYGON (((970217.022 145643.332, 970227....  
+260  1.086680e+07  POLYGON ((960721.609 147492.642, 960370.525 14...  
+261  2.337791e+07  POLYGON ((952739.319 138974.819, 952732.507 13...  
+
+[262 rows x 12 columns]&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="n">gdf_nta</span><span class="p">[</span><span class="s2">&quot;CDTAName_2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_nta</span><span class="p">[</span><span class="s2">&quot;CDTAName&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_name</span><span class="p">)</span>
+
+<span class="n">gdf_nta</span><span class="p">[</span><span class="s2">&quot;CDTAName_2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0          Williamsburg-Greenpoint
+1          Williamsburg-Greenpoint
+2          Williamsburg-Greenpoint
+3          Williamsburg-Greenpoint
+4    Downtown Brooklyn-Fort Greene
+5    Downtown Brooklyn-Fort Greene
+6    Downtown Brooklyn-Fort Greene
+7    Downtown Brooklyn-Fort Greene
+8    Downtown Brooklyn-Fort Greene
+9               Bedford-Stuyvesant
+Name: CDTAName_2, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="visualize">
+<h2>Visualize<a class="headerlink" href="#visualize" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
+
+<span class="n">gdf_nta</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">gdf_311</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">gdf_nta</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="n">gdf_nta</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">gdf_sw</span><span class="p">[</span><span class="n">gdf_sw</span><span class="p">[</span><span class="s1">&#39;Flooding_Category&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
+<span class="n">gdf_sw</span><span class="p">[</span><span class="n">gdf_sw</span><span class="p">[</span><span class="s1">&#39;Flooding_Category&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="spatial-analysis">
+<h2>Spatial analysis<a class="headerlink" href="#spatial-analysis" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># same coordinate system</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gdf_311</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gdf_sw</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gdf_nta</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+
+<span class="c1"># unit for epsg 2263 is ft</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epsg:2263
+epsg:2263
+epsg:2263
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gdf_sw[&#39;Flooding_Category&#39;].head()</span>
+<span class="c1"># gdf_sw.info()</span>
+<span class="n">gdf_nta</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="n">gdf_nta</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">gdf_nta</span><span class="p">[[</span><span class="s2">&quot;NTA2020&quot;</span><span class="p">,</span> <span class="s2">&quot;NTAName&quot;</span><span class="p">,</span> <span class="s2">&quot;NTAAbbrev&quot;</span><span class="p">,</span> <span class="s2">&quot;NTAType&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
+RangeIndex: 262 entries, 0 to 261
+Data columns (total 13 columns):
+ #   Column      Non-Null Count  Dtype   
+---  ------      --------------  -----   
+ 0   BoroCode    262 non-null    int64   
+ 1   BoroName    262 non-null    object  
+ 2   CountyFIPS  262 non-null    object  
+ 3   NTA2020     262 non-null    object  
+ 4   NTAName     262 non-null    object  
+ 5   NTAAbbrev   262 non-null    object  
+ 6   NTAType     262 non-null    object  
+ 7   CDTA2020    262 non-null    object  
+ 8   CDTAName    262 non-null    object  
+ 9   Shape_Leng  262 non-null    float64 
+ 10  Shape_Area  262 non-null    float64 
+ 11  geometry    262 non-null    geometry
+ 12  CDTAName_2  262 non-null    object  
+dtypes: float64(2), geometry(1), int64(1), object(9)
+memory usage: 26.7+ KB
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NTA2020</th>
+      <th>NTAName</th>
+      <th>NTAAbbrev</th>
+      <th>NTAType</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>BK0101</td>
+      <td>Greenpoint</td>
+      <td>Grnpt</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>BK0102</td>
+      <td>Williamsburg</td>
+      <td>Wllmsbrg</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>BK0103</td>
+      <td>South Williamsburg</td>
+      <td>SWllmsbrg</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>BK0104</td>
+      <td>East Williamsburg</td>
+      <td>EWllmsbrg</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BK0201</td>
+      <td>Brooklyn Heights</td>
+      <td>BkHts</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="zonal-statistics-get-area-of-storm-water-floods-by-nta">
+<h3>1. Zonal Statistics - get area of storm water floods by nta<a class="headerlink" href="#zonal-statistics-get-area-of-storm-water-floods-by-nta" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># flood cat 1</span>
+
+<span class="n">gdf_sw1</span> <span class="o">=</span> <span class="n">gdf_sw</span><span class="p">[</span><span class="n">gdf_sw</span><span class="p">[</span><span class="s1">&#39;Flooding_Category&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Perform a spatial overlay between the two datasets</span>
+<span class="n">col_area</span> <span class="o">=</span> <span class="s2">&quot;area_1&quot;</span>
+<span class="n">intersect</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">overlay</span><span class="p">(</span><span class="n">gdf_nta</span><span class="p">,</span> <span class="n">gdf_sw1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;intersection&#39;</span><span class="p">)</span> <span class="c1">#Intersect</span>
+<span class="n">intersect</span><span class="p">[</span><span class="n">col_area</span><span class="p">]</span> <span class="o">=</span> <span class="n">intersect</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">area</span> <span class="c1">#Calculate area column</span>
+<span class="n">interarea</span> <span class="o">=</span> <span class="n">intersect</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;NTA2020&#39;</span><span class="p">)[</span><span class="n">col_area</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1">#Sum per id_col</span>
+
+<span class="n">interarea_sw1</span> <span class="o">=</span> <span class="n">interarea</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">interarea_sw1</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NTA2020
+BK0101    467067.461780
+BK0102    530276.021515
+BK0103    640600.725771
+BK0104    537490.748283
+BK0202     39532.737758
+Name: area_1, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># flood cat 2</span>
+
+<span class="n">gdf_sw2</span> <span class="o">=</span> <span class="n">gdf_sw</span><span class="p">[</span><span class="n">gdf_sw</span><span class="p">[</span><span class="s1">&#39;Flooding_Category&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Perform a spatial overlay between the two datasets</span>
+<span class="n">col_area</span> <span class="o">=</span> <span class="s2">&quot;area_2&quot;</span>
+<span class="n">intersect</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">overlay</span><span class="p">(</span><span class="n">gdf_nta</span><span class="p">,</span> <span class="n">gdf_sw2</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;intersection&#39;</span><span class="p">)</span> <span class="c1">#Intersect</span>
+<span class="n">intersect</span><span class="p">[</span><span class="n">col_area</span><span class="p">]</span> <span class="o">=</span> <span class="n">intersect</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">area</span> <span class="c1">#Calculate area column</span>
+<span class="n">interarea</span> <span class="o">=</span> <span class="n">intersect</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;NTA2020&#39;</span><span class="p">)[</span><span class="n">col_area</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1">#Sum per id_col</span>
+
+<span class="n">interarea_sw2</span> <span class="o">=</span> <span class="n">interarea</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">interarea_sw2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NTA2020
+BK0101    205400.901252
+BK0102    317958.625597
+BK0103    656351.894516
+BK0104     92390.450821
+BK0202      9288.103214
+Name: area_2, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Merge the 2 type of floods to NTA and calculate sum (area_all)</span>
+
+<span class="n">gdf_sw_nta</span> <span class="o">=</span> <span class="n">gdf_nta</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="n">interarea_sw1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;NTA2020&#39;</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">gdf_sw_nta</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="n">interarea_sw2</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;NTA2020&#39;</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;area_1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;area_1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;area_2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;area_2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;area_all&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;area_1&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;area_2&quot;</span><span class="p">]</span>
+<span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;area_all&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;area_all&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>BoroCode</th>
+      <th>BoroName</th>
+      <th>CountyFIPS</th>
+      <th>NTA2020</th>
+      <th>NTAName</th>
+      <th>NTAAbbrev</th>
+      <th>NTAType</th>
+      <th>CDTA2020</th>
+      <th>CDTAName</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>geometry</th>
+      <th>CDTAName_2</th>
+      <th>area_1</th>
+      <th>area_2</th>
+      <th>area_all</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0101</td>
+      <td>Greenpoint</td>
+      <td>Grnpt</td>
+      <td>0</td>
+      <td>BK01</td>
+      <td>BK01 Williamsburg-Greenpoint (CD 1 Equivalent)</td>
+      <td>28914.172236</td>
+      <td>3.532185e+07</td>
+      <td>POLYGON ((1003059.997 204572.025, 1002991.367 ...</td>
+      <td>Williamsburg-Greenpoint</td>
+      <td>467067.461780</td>
+      <td>205400.901252</td>
+      <td>6.724684e+05</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0102</td>
+      <td>Williamsburg</td>
+      <td>Wllmsbrg</td>
+      <td>0</td>
+      <td>BK01</td>
+      <td>BK01 Williamsburg-Greenpoint (CD 1 Equivalent)</td>
+      <td>28158.316197</td>
+      <td>2.886214e+07</td>
+      <td>POLYGON ((994849.011 203499.267, 994911.093 20...</td>
+      <td>Williamsburg-Greenpoint</td>
+      <td>530276.021515</td>
+      <td>317958.625597</td>
+      <td>8.482346e+05</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0103</td>
+      <td>South Williamsburg</td>
+      <td>SWllmsbrg</td>
+      <td>0</td>
+      <td>BK01</td>
+      <td>BK01 Williamsburg-Greenpoint (CD 1 Equivalent)</td>
+      <td>18250.280262</td>
+      <td>1.520896e+07</td>
+      <td>POLYGON ((998047.210 196303.325, 998157.901 19...</td>
+      <td>Williamsburg-Greenpoint</td>
+      <td>640600.725771</td>
+      <td>656351.894516</td>
+      <td>1.296953e+06</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0104</td>
+      <td>East Williamsburg</td>
+      <td>EWllmsbrg</td>
+      <td>0</td>
+      <td>BK01</td>
+      <td>BK01 Williamsburg-Greenpoint (CD 1 Equivalent)</td>
+      <td>43184.772815</td>
+      <td>5.226621e+07</td>
+      <td>POLYGON ((1005302.497 199455.730, 1005307.792 ...</td>
+      <td>Williamsburg-Greenpoint</td>
+      <td>537490.748283</td>
+      <td>92390.450821</td>
+      <td>6.298812e+05</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0201</td>
+      <td>Brooklyn Heights</td>
+      <td>BkHts</td>
+      <td>0</td>
+      <td>BK02</td>
+      <td>BK02 Downtown Brooklyn-Fort Greene (CD 2 Appro...</td>
+      <td>14312.504911</td>
+      <td>9.982322e+06</td>
+      <td>POLYGON ((986367.735 190549.239, 985813.835 19...</td>
+      <td>Downtown Brooklyn-Fort Greene</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000e+00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="zonal-statistics-get-counts-of-311-flood-complaints-by-nta">
+<h3>2. Zonal Statistics - get counts of 311 flood complaints by nta<a class="headerlink" href="#zonal-statistics-get-counts-of-311-flood-complaints-by-nta" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gdf_311</span>
+
+<span class="n">joined_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">gdf_311</span><span class="p">,</span> <span class="n">gdf_nta</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="s1">&#39;within&#39;</span><span class="p">)</span>
+<span class="n">count_pt</span> <span class="o">=</span> <span class="n">joined_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;NTA2020&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;count_311&#39;</span><span class="p">)</span>
+<span class="n">count_pt</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NTA2020</th>
+      <th>count_311</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>BK0101</td>
+      <td>109</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>BK0102</td>
+      <td>79</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>BK0103</td>
+      <td>136</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>BK0104</td>
+      <td>82</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BK0201</td>
+      <td>24</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;count_311_x&quot;</span><span class="p">,</span> <span class="s2">&quot;count_311_y&quot;</span><span class="p">,</span> <span class="s2">&quot;count_311&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>BoroCode</th>
+      <th>BoroName</th>
+      <th>CountyFIPS</th>
+      <th>NTA2020</th>
+      <th>NTAName</th>
+      <th>NTAAbbrev</th>
+      <th>NTAType</th>
+      <th>CDTA2020</th>
+      <th>CDTAName</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>geometry</th>
+      <th>CDTAName_2</th>
+      <th>area_1</th>
+      <th>area_2</th>
+      <th>area_all</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0101</td>
+      <td>Greenpoint</td>
+      <td>Grnpt</td>
+      <td>0</td>
+      <td>BK01</td>
+      <td>BK01 Williamsburg-Greenpoint (CD 1 Equivalent)</td>
+      <td>28914.172236</td>
+      <td>3.532185e+07</td>
+      <td>POLYGON ((1003059.997 204572.025, 1002991.367 ...</td>
+      <td>Williamsburg-Greenpoint</td>
+      <td>467067.461780</td>
+      <td>205400.901252</td>
+      <td>6.724684e+05</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0102</td>
+      <td>Williamsburg</td>
+      <td>Wllmsbrg</td>
+      <td>0</td>
+      <td>BK01</td>
+      <td>BK01 Williamsburg-Greenpoint (CD 1 Equivalent)</td>
+      <td>28158.316197</td>
+      <td>2.886214e+07</td>
+      <td>POLYGON ((994849.011 203499.267, 994911.093 20...</td>
+      <td>Williamsburg-Greenpoint</td>
+      <td>530276.021515</td>
+      <td>317958.625597</td>
+      <td>8.482346e+05</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0103</td>
+      <td>South Williamsburg</td>
+      <td>SWllmsbrg</td>
+      <td>0</td>
+      <td>BK01</td>
+      <td>BK01 Williamsburg-Greenpoint (CD 1 Equivalent)</td>
+      <td>18250.280262</td>
+      <td>1.520896e+07</td>
+      <td>POLYGON ((998047.210 196303.325, 998157.901 19...</td>
+      <td>Williamsburg-Greenpoint</td>
+      <td>640600.725771</td>
+      <td>656351.894516</td>
+      <td>1.296953e+06</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0104</td>
+      <td>East Williamsburg</td>
+      <td>EWllmsbrg</td>
+      <td>0</td>
+      <td>BK01</td>
+      <td>BK01 Williamsburg-Greenpoint (CD 1 Equivalent)</td>
+      <td>43184.772815</td>
+      <td>5.226621e+07</td>
+      <td>POLYGON ((1005302.497 199455.730, 1005307.792 ...</td>
+      <td>Williamsburg-Greenpoint</td>
+      <td>537490.748283</td>
+      <td>92390.450821</td>
+      <td>6.298812e+05</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0201</td>
+      <td>Brooklyn Heights</td>
+      <td>BkHts</td>
+      <td>0</td>
+      <td>BK02</td>
+      <td>BK02 Downtown Brooklyn-Fort Greene (CD 2 Appro...</td>
+      <td>14312.504911</td>
+      <td>9.982322e+06</td>
+      <td>POLYGON ((986367.735 190549.239, 985813.835 19...</td>
+      <td>Downtown Brooklyn-Fort Greene</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000e+00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># join count_311 with NTA and zonal stats for stormwater</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># drop column if already exist</span>
+    <span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;count_311&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="n">gdf_sw_nta</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="n">count_pt</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;NTA2020&#39;</span><span class="p">)</span>
+<span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;count_311&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;count_311&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>BoroCode</th>
+      <th>BoroName</th>
+      <th>CountyFIPS</th>
+      <th>NTA2020</th>
+      <th>NTAName</th>
+      <th>NTAAbbrev</th>
+      <th>NTAType</th>
+      <th>CDTA2020</th>
+      <th>CDTAName</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>geometry</th>
+      <th>CDTAName_2</th>
+      <th>area_1</th>
+      <th>area_2</th>
+      <th>area_all</th>
+      <th>count_311</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0101</td>
+      <td>Greenpoint</td>
+      <td>Grnpt</td>
+      <td>0</td>
+      <td>BK01</td>
+      <td>BK01 Williamsburg-Greenpoint (CD 1 Equivalent)</td>
+      <td>28914.172236</td>
+      <td>3.532185e+07</td>
+      <td>POLYGON ((1003059.997 204572.025, 1002991.367 ...</td>
+      <td>Williamsburg-Greenpoint</td>
+      <td>467067.461780</td>
+      <td>205400.901252</td>
+      <td>6.724684e+05</td>
+      <td>109</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0102</td>
+      <td>Williamsburg</td>
+      <td>Wllmsbrg</td>
+      <td>0</td>
+      <td>BK01</td>
+      <td>BK01 Williamsburg-Greenpoint (CD 1 Equivalent)</td>
+      <td>28158.316197</td>
+      <td>2.886214e+07</td>
+      <td>POLYGON ((994849.011 203499.267, 994911.093 20...</td>
+      <td>Williamsburg-Greenpoint</td>
+      <td>530276.021515</td>
+      <td>317958.625597</td>
+      <td>8.482346e+05</td>
+      <td>79</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0103</td>
+      <td>South Williamsburg</td>
+      <td>SWllmsbrg</td>
+      <td>0</td>
+      <td>BK01</td>
+      <td>BK01 Williamsburg-Greenpoint (CD 1 Equivalent)</td>
+      <td>18250.280262</td>
+      <td>1.520896e+07</td>
+      <td>POLYGON ((998047.210 196303.325, 998157.901 19...</td>
+      <td>Williamsburg-Greenpoint</td>
+      <td>640600.725771</td>
+      <td>656351.894516</td>
+      <td>1.296953e+06</td>
+      <td>136</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0104</td>
+      <td>East Williamsburg</td>
+      <td>EWllmsbrg</td>
+      <td>0</td>
+      <td>BK01</td>
+      <td>BK01 Williamsburg-Greenpoint (CD 1 Equivalent)</td>
+      <td>43184.772815</td>
+      <td>5.226621e+07</td>
+      <td>POLYGON ((1005302.497 199455.730, 1005307.792 ...</td>
+      <td>Williamsburg-Greenpoint</td>
+      <td>537490.748283</td>
+      <td>92390.450821</td>
+      <td>6.298812e+05</td>
+      <td>82</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3</td>
+      <td>Brooklyn</td>
+      <td>047</td>
+      <td>BK0201</td>
+      <td>Brooklyn Heights</td>
+      <td>BkHts</td>
+      <td>0</td>
+      <td>BK02</td>
+      <td>BK02 Downtown Brooklyn-Fort Greene (CD 2 Appro...</td>
+      <td>14312.504911</td>
+      <td>9.982322e+06</td>
+      <td>POLYGON ((986367.735 190549.239, 985813.835 19...</td>
+      <td>Downtown Brooklyn-Fort Greene</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000e+00</td>
+      <td>24</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="statistical-analysis">
+<h2>Statistical Analysis<a class="headerlink" href="#statistical-analysis" title="Permalink to this heading">#</a></h2>
+<p>Assess relationship between area of floods and counts of 311 complaints</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;BoroCode&#39;, &#39;BoroName&#39;, &#39;CountyFIPS&#39;, &#39;NTA2020&#39;, &#39;NTAName&#39;, &#39;NTAAbbrev&#39;,
+       &#39;NTAType&#39;, &#39;CDTA2020&#39;, &#39;CDTAName&#39;, &#39;Shape_Leng&#39;, &#39;Shape_Area&#39;,
+       &#39;geometry&#39;, &#39;CDTAName_2&#39;, &#39;area_1&#39;, &#39;area_2&#39;, &#39;area_all&#39;, &#39;count_311&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="correlation">
+<h3>1. Correlation<a class="headerlink" href="#correlation" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># correlation</span>
+<span class="c1"># calculate the spearmans&#39;s correlation between two variables</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">spearmanr</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Spearmans correlation&quot;</span><span class="p">)</span>
+
+<span class="n">spm_corrs</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">corr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;area_all&#39;</span><span class="p">],</span> <span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;count_311&#39;</span><span class="p">])</span>
+<span class="n">spm_corrs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">corr</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;-- All Flooding vs Counts of 311 Complaints: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">corr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;area_1&#39;</span><span class="p">],</span> <span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;count_311&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;-- Nuisance Flooding (1 ft &gt; depth &gt;= 4 inch) vs Counts of 311 Complaints: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">spm_corrs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">corr</span><span class="p">]</span>
+
+<span class="n">corr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;area_2&#39;</span><span class="p">],</span> <span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;count_311&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;-- Deep and Contiguous Flooding (depth &gt;= 1 ft) vs Counts of 311 Complaints: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">spm_corrs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">corr</span><span class="p">]</span>
+
+
+<span class="n">fds</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;area_all&#39;</span><span class="p">,</span> <span class="s1">&#39;area_1&#39;</span><span class="p">,</span> <span class="s1">&#39;area_2&#39;</span><span class="p">]</span>
+<span class="n">floodtypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;All Flooding&#39;</span><span class="p">,</span> <span class="s1">&#39;Nuisance Flooding&#39;</span><span class="p">,</span> <span class="s1">&#39;Deep and Contiguous Flooding&#39;</span><span class="p">]</span>
+
+
+<span class="c1"># plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">cla</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn-darkgrid&quot;</span><span class="p">)</span>
+<span class="n">nrows</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">ncols</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">irow</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nrows</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">icol</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ncols</span><span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>   
+            <span class="n">fd</span><span class="p">,</span> <span class="n">spm_corr</span><span class="p">,</span> <span class="n">floodtype</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">fds</span><span class="p">,</span> <span class="n">spm_corrs</span><span class="p">,</span> <span class="n">floodtypes</span><span class="p">))[</span><span class="n">n</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># scatterplot / lineplot</span>
+        <span class="n">scatter</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">gdf_sw_nta</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;count_311&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">irow</span><span class="p">,</span> <span class="n">icol</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1">#, legend=False)</span>
+
+        <span class="n">axs</span><span class="p">[</span><span class="n">irow</span><span class="p">,</span> <span class="n">icol</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;count_311&quot;</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+
+        <span class="n">scatter</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Spearmans correlation = </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">spm_corr</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">scatter</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">floodtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">scatter</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;count of 311 complaints&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">ft</span><span class="o">/</span><span class="n">drjxcwpd0cb31nn1whf1scxh0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_91717</span><span class="o">/</span><span class="mf">3007284127.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># correlation</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># calculate the spearmans&#39;s correlation between two variables</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">spearmanr</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Spearmans correlation&quot;</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="bivariate-plot">
+<h3>2. Bivariate Plot<a class="headerlink" href="#bivariate-plot" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">cla</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="c1"># fig, ax = plt.subplots(1, 1, figsize=(10, 10), sharey=True, sharex=True)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">gdf_sw_nta</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;area_all&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;count_311&quot;</span><span class="p">)</span>
+<span class="c1"># fig = fig_sns.fig</span>
+
+<span class="c1"># xlim = 1000</span>
+<span class="c1"># # ylim = 6.06e15</span>
+<span class="c1"># plt.xlim(0, xlim)</span>
+<span class="c1"># # plt.ylim(0, ylim)</span>
+<span class="c1"># plt.yscale(&#39;log&#39;)</span>
+<span class="c1"># # plt.xscale(&#39;log&#39;)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Counts of 311 Flood Complaints within NTA&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Area with Storm Water Floods by NTA (ft2)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Counts of 311 Flood Complaints vs Area of Storm Water Floods by NTA&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="c1"># plt.grid(color = &#39;grey&#39;, linestyle = &#39;--&#39;, linewidth = 0.5)</span>
+<span class="c1"># plt.grid()</span>
+<span class="c1"># plt.style.use(&quot;seaborn-darkgrid&quot;) # default</span>
+
+<span class="c1"># # plt.savefig()</span>
+
+<span class="c1"># all year&#39;s complaints vs type 1 flood area</span>
+
+<span class="c1"># all year&#39;s complaints vs type 2 flood area</span>
+
+<span class="c1"># all year&#39;s complaints vs both floods area</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="regression">
+<h3>3. Regression<a class="headerlink" href="#regression" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="regression-311-complaints-of-different-years">
+<h3>4. Regression – 311 Complaints of Different Years<a class="headerlink" href="#regression-311-complaints-of-different-years" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fds</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;area_all&#39;</span><span class="p">,</span> <span class="s1">&#39;area_1&#39;</span><span class="p">,</span> <span class="s1">&#39;area_2&#39;</span><span class="p">]</span>
+<span class="n">floodtypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;All Flooding&#39;</span><span class="p">,</span> <span class="s1">&#39;Nuisance Flooding&#39;</span><span class="p">,</span> <span class="s1">&#39;Deep and Contiguous Flooding&#39;</span><span class="p">]</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">fds</span><span class="p">,</span> <span class="n">spm_corrs</span><span class="p">,</span> <span class="n">floodtypes</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;area_all&#39;, 0.7148412020345325, &#39;All Flooding&#39;),
+ (&#39;area_1&#39;, 0.7381619751706313, &#39;Nuisance Flooding&#39;),
+ (&#39;area_2&#39;, 0.6318213708878877, &#39;Deep and Contiguous Flooding&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># each year&#39;s complaints vs type 1 flood area</span>
+
+<span class="c1"># each year&#39;s complaints vs type 2 flood area</span>
+
+<span class="c1"># each year&#39;s complaints vs both flood area</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="good-to-have">
+<h3>Good to have<a class="headerlink" href="#good-to-have" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>correlation and regression of 2111 complaints from different years</p></li>
+<li><p>how many complaints are within the floods? flood type 1? flood type 2?</p></li>
+<li><p>bbl instead of NTA?</p></li>
+<li><p>census info?</p></li>
+</ol>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="notes">
+<h1>————————— NOTES ————————————<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="raw-311-eda">
+<h1>RAW 311 EDA<a class="headerlink" href="#raw-311-eda" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fn_2021</span> <span class="o">=</span> <span class="s2">&quot;./data/raw/311_Service_Requests_from_2010_to_Present.csv&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2021</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fn_2021</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ho/opt/anaconda3/envs/pyv37/lib/python3.7/site-packages/IPython/core/interactiveshell.py:3444: DtypeWarning: Columns (8,18,20,31,32) have mixed types.Specify dtype option on import or set low_memory=False.
+  exec(code_obj, self.user_global_ns, self.user_ns)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df_2021</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">df_2021</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3214355, 41)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unique Key</th>
+      <th>Created Date</th>
+      <th>Closed Date</th>
+      <th>Agency</th>
+      <th>Agency Name</th>
+      <th>Complaint Type</th>
+      <th>Descriptor</th>
+      <th>Location Type</th>
+      <th>Incident Zip</th>
+      <th>Incident Address</th>
+      <th>...</th>
+      <th>Vehicle Type</th>
+      <th>Taxi Company Borough</th>
+      <th>Taxi Pick Up Location</th>
+      <th>Bridge Highway Name</th>
+      <th>Bridge Highway Direction</th>
+      <th>Road Ramp</th>
+      <th>Bridge Highway Segment</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>48544884</td>
+      <td>01/01/2021 12:00:00 AM</td>
+      <td>01/08/2021 12:00:01 AM</td>
+      <td>DOHMH</td>
+      <td>Department of Health and Mental Hygiene</td>
+      <td>Food Poisoning</td>
+      <td>1 or 2</td>
+      <td>Restaurant/Bar/Deli/Bakery</td>
+      <td>11209.0</td>
+      <td>9208 3 AVENUE</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>40.619073</td>
+      <td>-74.032865</td>
+      <td>(40.61907281707007, -74.03286537421556)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>48537501</td>
+      <td>01/01/2021 12:00:04 AM</td>
+      <td>01/01/2021 12:23:27 AM</td>
+      <td>NYPD</td>
+      <td>New York City Police Department</td>
+      <td>Noise - Commercial</td>
+      <td>Car/Truck Music</td>
+      <td>Store/Commercial</td>
+      <td>11209.0</td>
+      <td>8424 3 AVENUE</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>40.624794</td>
+      <td>-74.030527</td>
+      <td>(40.62479360728003, -74.03052663868758)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>48538615</td>
+      <td>01/01/2021 12:00:17 AM</td>
+      <td>01/01/2021 12:43:43 AM</td>
+      <td>NYPD</td>
+      <td>New York City Police Department</td>
+      <td>Illegal Fireworks</td>
+      <td>NaN</td>
+      <td>Street/Sidewalk</td>
+      <td>11230.0</td>
+      <td>788 EAST   10 STREET</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>40.630019</td>
+      <td>-73.967198</td>
+      <td>(40.630019060451055, -73.96719768603026)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>48537564</td>
+      <td>01/01/2021 12:00:24 AM</td>
+      <td>01/01/2021 12:42:21 AM</td>
+      <td>NYPD</td>
+      <td>New York City Police Department</td>
+      <td>Illegal Fireworks</td>
+      <td>NaN</td>
+      <td>Street/Sidewalk</td>
+      <td>11230.0</td>
+      <td>818 AVENUE H</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>40.629251</td>
+      <td>-73.968672</td>
+      <td>(40.629250930510345, -73.96867153886495)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>48542561</td>
+      <td>01/01/2021 12:00:49 AM</td>
+      <td>01/01/2021 01:08:12 AM</td>
+      <td>NYPD</td>
+      <td>New York City Police Department</td>
+      <td>Noise - Residential</td>
+      <td>Loud Talking</td>
+      <td>Residential Building/House</td>
+      <td>10460.0</td>
+      <td>932 EAST  173 STREET</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>40.835505</td>
+      <td>-73.888182</td>
+      <td>(40.835504863783285, -73.88818185441696)</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 41 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complaints</span> <span class="o">=</span> <span class="n">df_2021</span><span class="p">[</span><span class="s2">&quot;Complaint Type&quot;</span><span class="p">]</span>
+<span class="n">complaints_uni</span> <span class="o">=</span> <span class="n">complaints</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">complaints_uni</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Food Poisoning&#39;, &#39;Noise - Commercial&#39;, &#39;Illegal Fireworks&#39;,
+       &#39;Noise - Residential&#39;, &#39;UNSANITARY CONDITION&#39;,
+       &#39;Noise - Street/Sidewalk&#39;, &#39;Illegal Parking&#39;,
+       &#39;Mass Gathering Complaint&#39;, &#39;Noise - Helicopter&#39;,
+       &#39;Noise - Vehicle&#39;, &#39;Blocked Driveway&#39;, &#39;HEAT/HOT WATER&#39;, &#39;Sewer&#39;,
+       &#39;FLOORING/STAIRS&#39;, &#39;Request Large Bulky Item Collection&#39;,
+       &#39;NonCompliance with Phased Reopening&#39;,
+       &#39;Non-Emergency Police Matter&#39;, &#39;Traffic Signal Condition&#39;, &#39;Noise&#39;,
+       &#39;Dirty Conditions&#39;, &#39;Missed Collection (All Materials)&#39;,
+       &#39;Water System&#39;, &#39;Plumbing&#39;, &#39;Drinking&#39;, &#39;Animal-Abuse&#39;,
+       &#39;Street Condition&#39;, &#39;Lead&#39;, &#39;Indoor Air Quality&#39;, &#39;Smoking&#39;,
+       &#39;Traffic&#39;, &#39;Drug Activity&#39;, &#39;GENERAL&#39;, &#39;PAINT/PLASTER&#39;,
+       &#39;DOOR/WINDOW&#39;, &#39;Elevator&#39;, &#39;General Construction/Plumbing&#39;,
+       &#39;Taxi Complaint&#39;, &#39;Bus Stop Shelter Complaint&#39;, &#39;WATER LEAK&#39;,
+       &#39;ELECTRIC&#39;, &#39;Street Sign - Missing&#39;, &#39;Street Light Condition&#39;,
+       &#39;Non-Residential Heat&#39;, &#39;Food Establishment&#39;, &#39;SAFETY&#39;,
+       &#39;Abandoned Vehicle&#39;, &#39;PLUMBING&#39;, &#39;Air Quality&#39;, &#39;APPLIANCE&#39;,
+       &#39;Consumer Complaint&#39;, &#39;Rodent&#39;, &#39;Damaged Tree&#39;,
+       &#39;Illegal Animal Kept as Pet&#39;, &#39;Sanitation Condition&#39;,
+       &#39;New Tree Request&#39;, &#39;Building/Use&#39;, &#39;Curb Condition&#39;,
+       &#39;Other Enforcement&#39;, &#39;Homeless Person Assistance&#39;,
+       &#39;Unsanitary Pigeon Condition&#39;, &#39;Water Quality&#39;, &#39;Derelict Bicycle&#39;,
+       &#39;Noise - Park&#39;, &#39;Homeless Street Condition&#39;,
+       &#39;Root/Sewer/Sidewalk Condition&#39;, &#39;Maintenance or Facility&#39;,
+       &#39;Street Sign - Damaged&#39;, &#39;Highway Condition&#39;, &#39;Snow&#39;, &#39;Asbestos&#39;,
+       &#39;Dead/Dying Tree&#39;, &#39;For Hire Vehicle Complaint&#39;,
+       &#39;Street Sign - Dangling&#39;, &#39;Vacant Lot&#39;, &#39;Animal in a Park&#39;,
+       &#39;Sidewalk Condition&#39;, &#39;Real Time Enforcement&#39;, &#39;Lost Property&#39;,
+       &#39;Outdoor Dining&#39;, &#39;Derelict Vehicles&#39;, &#39;Graffiti&#39;,
+       &#39;Violation of Park Rules&#39;, &#39;Highway Sign - Missing&#39;,
+       &#39;For Hire Vehicle Report&#39;, &#39;Illegal Tree Damage&#39;, &#39;Boilers&#39;,
+       &#39;Unsanitary Animal Pvt Property&#39;,
+       &#39;Private or Charter School Reopening&#39;,
+       &#39;Special Projects Inspection Team (SPIT)&#39;, &#39;Vending&#39;,
+       &#39;Cranes and Derricks&#39;, &#39;Overgrown Tree/Branches&#39;,
+       &#39;Home Delivered Meal - Missed Delivery&#39;, &#39;Industrial Waste&#39;,
+       &#39;Emergency Response Team (ERT)&#39;, &#39;ELEVATOR&#39;, &#39;Water Conservation&#39;,
+       &#39;Noise - House of Worship&#39;, &#39;BEST/Site Safety&#39;, &#39;OUTSIDE BUILDING&#39;,
+       &#39;Electrical&#39;, &#39;Uprooted Stump&#39;, &#39;Hazardous Materials&#39;,
+       &#39;Urinating in Public&#39;, &#39;Overflowing Litter Baskets&#39;,
+       &#39;Collection Truck Noise&#39;, &#39;Broken Parking Meter&#39;,
+       &#39;Highway Sign - Damaged&#39;, &#39;COVID-19 Non-essential Construction&#39;,
+       &#39;Construction Lead Dust&#39;, &#39;AHV Inspection Unit&#39;,
+       &#39;Litter Basket / Request&#39;, &#39;Sweeping/Missed&#39;,
+       &#39;Bike/Roller/Skate Chronic&#39;, &#39;Ferry Complaint&#39;,
+       &#39;X-Ray Machine/Equipment&#39;, &#39;Tattooing&#39;,
+       &#39;Animal Facility - No Permit&#39;, &#39;Public Payphone Complaint&#39;,
+       &#39;Ferry Inquiry&#39;, &#39;Taxi Report&#39;, &#39;Taxi Compliment&#39;,
+       &#39;Bike Rack Condition&#39;, &#39;Radioactive Material&#39;, &#39;Bridge Condition&#39;,
+       &#39;Panhandling&#39;, &#39;Indoor Sewage&#39;, &#39;Mobile Food Vendor&#39;, &#39;Day Care&#39;,
+       &#39;Wood Pile Remaining&#39;, &#39;Investigations and Discipline (IAD)&#39;,
+       &#39;Peeling Paint&#39;, &#39;LinkNYC&#39;, &#39;Posting Advertisement&#39;,
+       &#39;Sweeping/Inadequate&#39;, &#39;School Maintenance&#39;, &#39;Drinking Water&#39;,
+       &#39;Recycling Enforcement&#39;, &#39;Bus Stop Shelter Placement&#39;,
+       &#39;Window Guard&#39;, &#39;Harboring Bees/Wasps&#39;, &#39;Highway Sign - Dangling&#39;,
+       &#39;Encampment&#39;, &#39;Poison Ivy&#39;, &#39;Green Taxi Complaint&#39;,
+       &#39;Municipal Parking Facility&#39;,
+       &#39;Special Natural Area District (SNAD)&#39;, &#39;Unleashed Dog&#39;,
+       &#39;Mosquitoes&#39;, &#39;Plant&#39;, &#39;Pet Shop&#39;, &#39;Disorderly Youth&#39;,
+       &#39;Bottled Water&#39;, &#39;Scaffold Safety&#39;, &#39;Unsanitary Animal Facility&#39;,
+       &#39;DEP Street Condition&#39;, &#39;Illegal Animal Sold&#39;,
+       &#39;Foam Ban Enforcement&#39;, &#39;Mold&#39;, &#39;Beach/Pool/Sauna Complaint&#39;,
+       &#39;Building Condition&#39;, &#39;Adopt-A-Basket&#39;, &#39;Public Toilet&#39;,
+       &#39;Found Property&#39;, &#39;Green Taxi Report&#39;, &#39;Snow Removal&#39;,
+       &#39;Cooling Tower&#39;, &#39;FHV Licensee Complaint&#39;,
+       &#39;Building Marshals office&#39;, &#39;Calorie Labeling&#39;, &#39;Internal Code&#39;,
+       &#39;Tunnel Condition&#39;, &#39;Tanning&#39;, &#39;Taxi Licensee Complaint&#39;,
+       &#39;DSNY Spillage&#39;, &#39;Borough Office&#39;, &#39;SRDE&#39;, &#39;Unlicensed Dog&#39;,
+       &#39;Standing Water&#39;, &#39;Facades&#39;, &#39;Missed Collection&#39;,
+       &#39;Dept of Investigations&#39;, &#39;Overflowing Recycling Baskets&#39;,
+       &#39;DEP Sidewalk Condition&#39;, &#39;DEP Highway Condition&#39;, &#39;Squeegee&#39;,
+       &#39;Dirty Condition&#39;, &#39;Sweeping/Missed-Inadequate&#39;, &#39;Lifeguard&#39;,
+       &#39;Executive Inspections&#39;, &#39;E-Scooter&#39;, &#39;SRGOVG&#39;,
+       &#39;Electronics Waste Appointment&#39;, &#39;Vaccine Mandate Non-Compliance&#39;,
+       &#39;Storm&#39;, &#39;Dispatched Taxi Complaint&#39;, &#39;Change Collection Schedule&#39;,
+       &#39;Miscellaneous Categories&#39;,
+       &#39;Sanitation Worker or Vehicle Complaint&#39;, &#39;Illegal Dumping&#39;,
+       &#39;Litter Basket Request&#39;, &#39;Abandoned Bike&#39;,
+       &#39;Residential Disposal Complaint&#39;, &#39;Obstruction&#39;,
+       &#39;Litter Basket Complaint&#39;, &#39;Illegal Posting&#39;, &#39;Dead Animal&#39;,
+       &#39;Dumpster Complaint&#39;, &#39;Commercial Disposal Complaint&#39;,
+       &#39;Lot Condition&#39;, &#39;Street Sweeping Complaint&#39;, &#39;DSNY Internal&#39;,
+       &#39;Institution Disposal Complaint&#39;, &#39;Transfer Station Complaint&#39;,
+       &#39;Snow or Ice&#39;, &#39;DEP Bridge Condition&#39;, &#39;Retailer Complaint&#39;,
+       &#39;Recycling Basket Complaint&#39;, &#39;Incorrect Data&#39;,
+       &#39;Special Operations&#39;, &#39;Forensic Engineering&#39;,
+       &#39;Seasonal Collection&#39;, &#39;Face Covering Violation&#39;,
+       &#39;Private School Vaccine Mandate Non-Compliance&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df_2021[df_2021[&#39;Agency Name&#39;].str.contains(&quot;Water&quot;)]</span>
+<span class="n">df_2021</span><span class="p">[</span><span class="s1">&#39;Agency Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Department of Health and Mental Hygiene&#39;,
+       &#39;New York City Police Department&#39;,
+       &#39;Department of Housing Preservation and Development&#39;,
+       &#39;Mayorâ\x80\x99s Office of Special Enforcement&#39;,
+       &#39;Economic Development Corporation&#39;,
+       &#39;Department of Environmental Protection&#39;,
+       &#39;Department of Sanitation&#39;, &#39;Department of Transportation&#39;,
+       &#39;Department of Buildings&#39;, &#39;Taxi and Limousine Commission&#39;,
+       &#39;Department of Consumer Affairs&#39;,
+       &#39;Department of Parks and Recreation&#39;,
+       &#39;Department of Homeless Services&#39;, &#39;Department for the Aging&#39;,
+       &#39;Department of Information Technology and Telecommunications&#39;,
+       &#39;Department of Education&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># agnm = &quot;Department of Environmental Protection&quot;</span>
+
+<span class="k">for</span> <span class="n">agnm</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Department of Transportation&#39;</span><span class="p">,</span> <span class="s1">&#39;Department of Buildings&#39;</span><span class="p">]:</span> <span class="c1"># &quot;Department of Environmental Protection&quot;, &#39;Department of Sanitation&#39;, </span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">agnm</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_2021</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_2021</span><span class="p">[</span><span class="s2">&quot;Agency Name&quot;</span><span class="p">]</span><span class="o">==</span><span class="n">agnm</span><span class="p">,</span> <span class="s2">&quot;Complaint Type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="c1"># &#39;Sewer&#39;, &#39;Water System&#39;, &#39;Water Quality&#39;, &#39;Water Conservation&#39;, </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Department of Transportation
+[&#39;Traffic Signal Condition&#39; &#39;Street Condition&#39;
+ &#39;Bus Stop Shelter Complaint&#39; &#39;Street Sign - Missing&#39;
+ &#39;Street Light Condition&#39; &#39;Curb Condition&#39; &#39;Street Sign - Damaged&#39;
+ &#39;Highway Condition&#39; &#39;Street Sign - Dangling&#39; &#39;Sidewalk Condition&#39;
+ &#39;Outdoor Dining&#39; &#39;Highway Sign - Missing&#39; &#39;Broken Parking Meter&#39;
+ &#39;Highway Sign - Damaged&#39; &#39;Ferry Complaint&#39; &#39;Ferry Inquiry&#39;
+ &#39;Bike Rack Condition&#39; &#39;Bridge Condition&#39; &#39;Bus Stop Shelter Placement&#39;
+ &#39;Highway Sign - Dangling&#39; &#39;Municipal Parking Facility&#39;
+ &#39;DEP Street Condition&#39; &#39;Building Condition&#39; &#39;Public Toilet&#39;
+ &#39;Tunnel Condition&#39; &#39;DEP Sidewalk Condition&#39; &#39;DEP Highway Condition&#39;
+ &#39;E-Scooter&#39; &#39;DEP Bridge Condition&#39;]
+Department of Buildings
+[&#39;Plumbing&#39; &#39;Elevator&#39; &#39;General Construction/Plumbing&#39; &#39;Building/Use&#39;
+ &#39;Real Time Enforcement&#39; &#39;Boilers&#39;
+ &#39;Special Projects Inspection Team (SPIT)&#39; &#39;Cranes and Derricks&#39;
+ &#39;Emergency Response Team (ERT)&#39; &#39;BEST/Site Safety&#39; &#39;Electrical&#39;
+ &#39;COVID-19 Non-essential Construction&#39; &#39;AHV Inspection Unit&#39;
+ &#39;Investigations and Discipline (IAD)&#39;
+ &#39;Special Natural Area District (SNAD)&#39; &#39;Scaffold Safety&#39;
+ &#39;Building Marshals office&#39; &#39;Borough Office&#39; &#39;Facades&#39;
+ &#39;Dept of Investigations&#39; &#39;Executive Inspections&#39;
+ &#39;Miscellaneous Categories&#39; &#39;Special Operations&#39; &#39;Forensic Engineering&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df_2021</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_2021</span><span class="p">[</span><span class="s2">&quot;Complaint Type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Sewer&#39;</span><span class="p">,</span> <span class="s1">&#39;Water System&#39;</span><span class="p">,</span> <span class="s1">&#39;Water Quality&#39;</span><span class="p">,</span> <span class="s1">&#39;Water Conservation&#39;</span><span class="p">]),</span> <span class="p">:]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">df_2021</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_2021</span><span class="p">[</span><span class="s2">&quot;Complaint Type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Sewer&#39;</span><span class="p">,</span> <span class="s1">&#39;Water System&#39;</span><span class="p">,</span> <span class="s1">&#39;Water Quality&#39;</span><span class="p">,</span> <span class="s1">&#39;Water Conservation&#39;</span><span class="p">]),</span><span class="s2">&quot;Descriptor&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(98078, 41)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Sewer Backup (Use Comments) (SA)&#39;, &#39;Leak (Use Comments) (WA2)&#39;,
+       &#39;Hydrant Leaking (WC1)&#39;,
+       &#39;Catch Basin Clogged/Flooding (Use Comments) (SC)&#39;,
+       &#39;Hydrant Running (WC3)&#39;,
+       &#39;unknown odor/taste in drinking water (QA6)&#39;,
+       &#39;Possible Water Main Break (Use Comments) (WA1)&#39;,
+       &#39;Street Flooding (SJ)&#39;, &#39;Taste/Odor, Musty/Stale (QA4)&#39;,
+       &#39;Dirty Water (WE)&#39;, &#39;Manhole Overflow (Use Comments) (SA1)&#39;,
+       &#39;Manhole Cover Missing (Emergency) (SA3)&#39;,
+       &#39;Taste/Odor, Chemical (QA2)&#39;, &#39;Hydrant Knocked Over/Missing (WC)&#39;,
+       &#39;Clear Water With Other Particles (Use Comments) (QEZ)&#39;,
+       &#39;Water Meter Broken/Leaking - Private Residence (CMR)&#39;,
+       &#39;Excessive Water In Basement (WEFB)&#39;, &#39;No Water (WNW)&#39;,
+       &#39;Sewer Odor (SA2)&#39;, &#39;Hydrant Running Full (WA4)&#39;,
+       &#39;LOW WATER PRESSURE - WLWP&#39;, &#39;Taste/Odor, Bitter/Metallic (QA3)&#39;,
+       &#39;Catch Basin Sunken/Damaged/Raised (SC1)&#39;,
+       &#39;Defective/Missing Curb Piece (SC4)&#39;,
+       &#39;Other Water Problem (Use Comments) (WZZ)&#39;,
+       &#39;Other Sewer Problem (Use Comments) (SZZ)&#39;,
+       &#39;Taste/Odor, Chlorine (QA1)&#39;, &#39;Cloudy Or Milky Water (QB1)&#39;,
+       &#39;No Sampling Required, Requested Information (QG2)&#39;,
+       &#39;Culvert Blocked/Needs Cleaning (SE)&#39;, &#39;Taste/Odor, Sewer (QA5)&#39;,
+       &#39;Hydrant Defective (WC2)&#39;, &#39;High Water Pressure (WHP)&#39;,
+       &#39;Illegal Use Of A Hydrant (CIN)&#39;,
+       &#39;Hyd Valve Box Cover Missing (WV2)&#39;,
+       &#39;Hydrant Locking Device Request (Use Comments) (WC5)&#39;,
+       &#39;Wasting Faucets,Sinks,Flushometer,Urinal,Etc. - Private Residence (CWR)&#39;,
+       &#39;Illegal Use Of Hose - Private Residence&#39;,
+       &#39;Catch Basin Grating Missing (SA4)&#39;,
+       &#39;RAIN GARDEN FLOODING (SRGFLD)&#39;, &#39;RAIN GARDEN DEBRIS (SRGDBR)&#39;,
+       &#39;Water Meter Broken/Leaking - Other (CMO)&#39;,
+       &#39;Manhole Sunken/Damaged/Raised *For Dep Internal Use Only* (WF2)&#39;,
+       &#39;Manhole Sunken/Damaged/Raised (SB1)&#39;,
+       &#39;Water Meter Stolen/Missing - Private Residence (CLR)&#39;,
+       &#39;Oil, Grease In Water (QD1)&#39;,
+       &#39;Water Meter Stolen/Missing - Other (CLO)&#39;,
+       &#39;Manhole Cover Broken/Making Noise (SB)&#39;,
+       &#39;Cloudy Or Milky, Other (Use Comments) (QBZ)&#39;,
+       &#39;DAMAGE STRUCTURE/RAILING (SRGDM)&#39;, &#39;Highway Flooding (SH)&#39;,
+       &#39;Defective Water Sampling Station (QSS)&#39;,
+       &#39;Catch Basin Search (SC2)&#39;, &#39;Rooftank Leak Or Overflow (CKO)&#39;,
+       &#39;Wasting Faucets,Sinks,Flushometer,Urinal,Etc. - Other (CWO)&#39;,
+       &#39;Manhole Cover Missing (Emergency) For Dep Internal Use Only (WF)&#39;,
+       &#39;Defective Street Cut (WZZ1)&#39;, &#39;Illegal Use Of Hose - Other (CCO)&#39;,
+       &#39;Plate Noisy/Sunken/Raised (SB5)&#39;,
+       &#39;Remove Hydrant Locking Device (WC6)&#39;,
+       &#39;Request To Open A Hydrant (WC4)&#39;,
+       &#39;Plate Missing/Moved-Exposing Hole (SB4)&#39;,
+       &#39;Street Cave-In *Dep Internal Use Only* (SG1)&#39;,
+       &#39;Catch Basin Connection Broken *Dep Internal Use Only* (SC5)&#39;,
+       &#39;Clear Water With Organisms (Insects, Worms) (QE2)&#39;,
+       &#39;Sewer Break (SBR)&#39;,
+       &#39;Caps &amp; Chains Missing-Fire Dept Use Only (WKMC)&#39;,
+       &#39;Manhole Cover Broken/Making Noise *For Dep Internal Use Only* (WF1)&#39;,
+       &#39;Fire Hydrant Emergency (FHE)&#39;,
+       &#39;Other Water Problem (Use Comments) (QZZ)&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df_2021</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_2021</span><span class="p">[</span><span class="s2">&quot;Agency Name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Department of Environmental Protection&quot;</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Complaint Type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Sewer&#39;</span><span class="p">,</span> <span class="s1">&#39;Water System&#39;</span><span class="p">,</span> <span class="s1">&#39;Water Quality&#39;</span><span class="p">,</span> <span class="s1">&#39;Water Conservation&#39;</span><span class="p">]),</span><span class="s2">&quot;Descriptor&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>108        Sewer Backup (Use Comments) (SA)
+347        Sewer Backup (Use Comments) (SA)
+385        Sewer Backup (Use Comments) (SA)
+408               Leak (Use Comments) (WA2)
+1791                  Hydrant Leaking (WC1)
+                         ...               
+3213658                    Dirty Water (WE)
+3213659       RAIN GARDEN FLOODING (SRGFLD)
+3213695    Sewer Backup (Use Comments) (SA)
+3213696             Hydrant Defective (WC2)
+3213771      Illegal Use Of A Hydrant (CIN)
+Name: Descriptor, Length: 98078, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">df_2021</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "datalifenyc/nyc-street-flooding-analysis",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="nyc-311-groundtruth.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="model-build.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Build Models</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data">Get Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-nyc-311-complaints">Get Data – NYC 311 Complaints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-nyc-stormwater-flood-map">Get Data – NYC Stormwater Flood Map</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-nyc-ntas">Get Data – NYC NTAs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize">Visualize</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-analysis">Spatial analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics-get-area-of-storm-water-floods-by-nta">1. Zonal Statistics - get area of storm water floods by nta</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics-get-counts-of-311-flood-complaints-by-nta">2. Zonal Statistics - get counts of 311 flood complaints by nta</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-analysis">Statistical Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation">1. Correlation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-plot">2. Bivariate Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">3. Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-311-complaints-of-different-years">4. Regression – 311 Complaints of Different Years</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#good-to-have">Good to have</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">————————— NOTES ————————————</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-311-eda">RAW 311 EDA</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ho Hsieh, Nathan Williamson, Mark Bauer, Chidi Ezeolu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

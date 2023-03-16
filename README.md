@@ -1,18 +1,18 @@
-# Going Beyond EDA: A Deeper Analysis of NYC 311 Street Flooding Complaints
+# Going Beyond EDA: A Deeper Analysis of NYC 311 Street Flooding Complaints 📈
 
 The objective of this presentation is to examine multiple approaches for gaining deeper insights and a better understanding of the [NYC 311 Street Flood Complaints](https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9) open data.
 
-[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://nyc-street-flooding-analysis.datalife.nyc) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/datalifenyc/nyc-street-flooding-analysis/github-actions-upload-to-gcp-storage.yml)
+[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://nyc-street-flooding-analysis.datalife.nyc) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/datalifenyc/nyc-street-flooding-analysis/github-actions-upload-to-gcp-storage.yml)
 
-## Event Details
+## Event Details 📅
 
 __NYC Open Data Website:__ [NYC Open Data Week 2023](https://www.open-data.nyc/)
 
-__Date:__ Saturday, March 18, 2023
+__Date:__ [Saturday, March 18, 2023 🕘](https://nycsodata23.sched.com/)
 
 __Analysis Book:__ [nyc-street-flooding-analysis.datalife.nyc](https://nyc-street-flooding-analysis.datalife.nyc)
 
-## Contributors | Say Hello 👋
+## Contributors 💻
 
 | Presenter | LinkedIn | GitHub | Twitter |
 | --------- | -------- | ------ | ------- |
@@ -21,7 +21,7 @@ __Analysis Book:__ [nyc-street-flooding-analysis.datalife.nyc](https://nyc-stree
 | Mark Bauer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/markebauer) | [![GitHub followers](https://img.shields.io/github/followers/mebauer?style=social)](https://github.com/mebauer) | [![Twitter Follow](https://img.shields.io/twitter/follow/markbauerwater?style=social)](https://twitter.com/markbauerwater) |
 | Chidi Ezeolu | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/chidi-ezeolu-411b0856) | [![GitHub followers](https://img.shields.io/github/followers/datalifenyc?style=social)](https://github.com/datalifenyc)| |
 
-## Installation
+## Installation 💽
 
 ### Application Installs
 
@@ -51,10 +51,7 @@ __Analysis Book:__ [nyc-street-flooding-analysis.datalife.nyc](https://nyc-stree
     conda env create -f environment.yml
     ```
 
-    Two alternative environment files are provided, in case you experience issues building the environment from the detailed build yml file.
-
-    1. `environment_no_builds.yml`
-    2. `environment_from_history.yml`
+    Two alternative environment files are provided, which offer detailed library versions (`environment-no-builds.yml`) and build info (`environment-with-builds.yml`).
 
 4. Activate conda environment
 

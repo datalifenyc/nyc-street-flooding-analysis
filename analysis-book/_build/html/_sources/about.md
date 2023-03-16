@@ -1,27 +1,40 @@
-# [NYC Open Data Week 2023](https://www.open-data.nyc/) 🗓
+# [NYC Open Data Week 2023](https://www.open-data.nyc/) 📊
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/datalifenyc/nyc-street-flooding-analysis?style=social)](https://github.com/datalifenyc/nyc-street-flooding-analysis)
+[![GitHub Repo stars](https://img.shields.io/github/stars/datalifenyc/nyc-street-flooding-analysis?style=social)](https://github.com/datalifenyc/nyc-street-flooding-analysis) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F)
 
-## Description 📰
+## When 🗓
+
+````{card} NYC School of Data
+
+Saturday, March 18, 2023
+^^^
+[Schedule](https://nycsodata23.sched.com/) 🕘 [Session Details](https://nycsodata23.sched.com/event/1JUZQ/going-beyond-eda-a-deeper-analysis-of-nyc-311-street-flooding-complaints)
+
+![Going-Beyond-EDA-NYC-Street-Flooding-Complaints-first-slide.png](img/Going-Beyond-EDA-NYC-Street-Flooding-Complaints-first-slide.png)
++++
+__Organizers:__ [NYC Data Team @ OTI](https://www1.nyc.gov/content/oti/pages/) ✨ [BetaNYC](https://beta.nyc/) ✨ [Data Through Design](https://datathroughdesign.com/)
+````
+
+## Description 🌦
 
 - What secrets can we learn about NYC from 311 Street Flooding Complaints❓
 - Have you ever considered examining the relationship of NYC 311 Street Complaints dataset to other geospatial datasets❓
 
-__In the talk, we attempt to answer three questions:__
+__In this talk, we attempt to answer three questions:__
 
 ::::{grid}
 :gutter: 3
 
-:::{grid-item-card} 1️⃣
-_How can we measure inequality in street flooding complaints?_
+:::{grid-item-card}
+_How can we __measure inequality__ in street flooding complaints?_
 :::
 
-:::{grid-item-card} 2️⃣
-_Is there a relationship between street flooding complaints and property values?_
+:::{grid-item-card}
+_Is there a relationship between street flooding complaints and __property values__?_
 :::
 
-:::{grid-item-card} 3️⃣
-_How does street flooding complaints compare to actual modeled flooding data?_
+:::{grid-item-card}
+_How does street flooding complaints compare to __actual modeled__ flooding data?_
 :::
 ::::
 
@@ -39,7 +52,7 @@ Anyone with __beginner-level__ proficiency is welcome! It is helpful, but not re
 ✔ Working with Jupyter Notebooks  
 ✔ Interest in NYC 311 Open Data or Street Flooding datasets  
 
-## Speakers 🗣
+## Speakers | Say Hello 👋
 
 A group of civic minded __data enthusiasts__, who enjoy solving City related data problems together.
 
@@ -50,18 +63,47 @@ A group of civic minded __data enthusiasts__, who enjoy solving City related dat
 | Mark Bauer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/markebauer) | [![GitHub followers](https://img.shields.io/github/followers/mebauer?style=social)](https://github.com/mebauer) | [![Twitter Follow](https://img.shields.io/twitter/follow/markbauerwater?style=social)](https://twitter.com/markbauerwater) |
 | Chidi Ezeolu | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/chidi-ezeolu-411b0856) | [![GitHub followers](https://img.shields.io/github/followers/datalifenyc?style=social)](https://github.com/datalifenyc)| |
 
-## Agenda
+## Agenda 📄
 
-1. Introduction
-    - Walkthrough of Website and GitHub Repo
-2. Statement of Goals
-    - Brief Overview of Data Science Lifecyle
-    - Why Beyond EDA?
-3. Hypothesis & Methodology
-    - Method 1
-    - Method 2
-    - Method 3
-4. Summary & Conclusions
-    - References
-    - Additional Resources
-    - Q & A
+::::{grid}
+:gutter: 2
+
+:::{grid-item-card} 1️⃣ Introduction
+
+- Who we are
+- Website and GitHub Repo
+:::
+
+:::{grid-item-card} 2️⃣ Statement of Objectives
+
+- Brief Overview of Data Science Lifecyle
+- Why Beyond EDA?
+:::
+::::
+
+::::{grid}
+:gutter: 2
+
+:::{grid-item-card} 3️⃣ Analysis Methods
+
+- Method 1
+- Method 2
+- Method 3
+:::
+
+:::{grid-item-card} 4️⃣ Summary & Conclusions
+
+- References & Resources
+- Q & A
+:::
+::::
+
+## Visualizations 🖼
+
+![geospatial-analysis-wordcloud-roosevelt-station-background-dark](img/geospatial-analysis-wordcloud-roosevelt-station-background-dark.png)
+
+{cite}`ezeolu2023geospatialanalysis,wiki2019spatialanalysis`
+
+![nyc-subway-street-flood-rain-collage](img/nyc-subway-street-flooding-rain-collage.jpg)
+
+{cite}`ezeolu2023nycsubwayfloodcollage`

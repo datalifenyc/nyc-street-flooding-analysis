@@ -77,8 +77,4 @@ with Diagram("\nScrub and Merge: NYC Street Flooding Complaints with MapPLUTO",
         >> street_flood_clean
 
 
-# In[ ]:
-
-
-
-
+# ![scrub process diagram](img/scrub-process-diagram.png)

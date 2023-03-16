@@ -17,6 +17,9 @@
 # Deploy To Google Cloud Run Using Github Actions
 # https://towardsdatascience.com/deploy-to-google-cloud-run-using-github-actions-590ecf957af0
 
+# Github actions actions/checkout@v2 lfs: true flag not converting pointers to actual files
+# https://stackoverflow.com/questions/61463578/github-actions-actions-checkoutv2-lfs-true-flag-not-converting-pointers-to-act
+
 name: Upload Files to GCP Storage
 on: [push]
 jobs:
@@ -32,6 +35,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        lfs: true
+    - name: Checkout LFS files
+      run: git lfs checkout
       
     - id: 'auth'
       uses: google-github-actions/auth@v0
@@ -42,4 +49,4 @@ jobs:
       uses: 'google-github-actions/setup-gcloud@v0'
 
     - name: 'Use glcloud CLI'
-      run: 'gsutil -m rsync -R -d analysis-book/_build/html gs://nyc_street_flooding_analysis_nb_bucket_00'
+      run: 'gsutil -m rsync -r -d analysis-book/_build/html gs://nyc_street_flooding_analysis_nb_bucket_00'
