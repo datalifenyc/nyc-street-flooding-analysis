@@ -21,7 +21,10 @@
 # https://stackoverflow.com/questions/61463578/github-actions-actions-checkoutv2-lfs-true-flag-not-converting-pointers-to-act
 
 name: Upload Files to GCP Storage
-on: [push]
+on: 
+  push:
+    branches:
+      - main
 jobs:
   Upload-NYC-Street-Flooding-Analysis-Book-Files:
     name: Copy latest files to GCP Storage
