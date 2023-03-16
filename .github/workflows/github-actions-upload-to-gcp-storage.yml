@@ -49,4 +49,4 @@ jobs:
       uses: 'google-github-actions/setup-gcloud@v0'
 
     - name: 'Use glcloud CLI'
-      run: 'gsutil -m rsync -R -d analysis-book/_build/html gs://nyc_street_flooding_analysis_nb_bucket_00'
+      run: 'gsutil -m rsync -r -d analysis-book/_build/html gs://nyc_street_flooding_analysis_nb_bucket_00'
