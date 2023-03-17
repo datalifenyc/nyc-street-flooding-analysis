@@ -8,7 +8,7 @@ The objective of this presentation is to examine multiple approaches for gaining
 
 __NYC Open Data Website:__ [NYC Open Data Week 2023](https://www.open-data.nyc/)
 
-__Date:__ [Saturday, March 18, 2023 🕘](https://nycsodata23.sched.com/)
+__Date:__ [Saturday, March 18, 2023 🕘](https://nycsodata23.sched.com/event/1JUZQ/going-beyond-eda-a-deeper-analysis-of-nyc-311-street-flooding-complaints)
 
 __Analysis Book:__ [nyc-street-flooding-analysis.datalife.nyc](https://nyc-street-flooding-analysis.datalife.nyc)
 
@@ -73,3 +73,7 @@ __Analysis Book:__ [nyc-street-flooding-analysis.datalife.nyc](https://nyc-stree
     ```bash
     git lfs push origin main
     ```
+
+## Notes
+
+Jupyter Notebooks can be found in the [analysis-book](analysis-book/) folder.
