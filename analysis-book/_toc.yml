@@ -5,6 +5,7 @@ parts:
     chapters: 
     - file: obtain-flood-data
     - file: obtain-pluto-data
+    - file: obtain-census-data
   - caption: Scrub & Merge 🧹
     chapters:
     - file: scrub-flood-data

@@ -1,0 +1,1500 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>U.S. Census Bureau Data &#8212; &lt;b&gt;Going Beyond EDA&lt;/b&gt;&lt;br&gt;A Deeper Analysis of NYC 311 Street Flooding Complaints</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datalifenyc/nyc-street-flooding-analysis");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'obtain-census-data';</script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Clean Data" href="scrub-flood-data.html" />
+    <link rel="prev" title="PLUTO &amp; MapPLUTO" href="obtain-pluto-data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+
+  <div class="bd-header-announcement container-fluid bd-header-announcement">
+    <div class="bd-header-announcement__content">NYC School of Data Conference - March 18!</div>
+  </div>
+
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="about.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nyc-street-flooding-complaints-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/nyc-street-flooding-complaints-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="about.html">
+                    NYC Open Data Week 2023 📊
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Obtain 💾</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="obtain-flood-data.html">Street Flooding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="obtain-pluto-data.html">PLUTO &amp; MapPLUTO</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">U.S. Census Bureau Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scrub &amp; Merge 🧹</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="scrub-flood-data.html">Clean Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge-flood-pluto.html">Street Flooding &amp; MapPLUTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrub-process-diagram.html">ETL Diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="join.html">Join Tutorial</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Explore 🗺</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="explore-map.html">Explore Map</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://nyc-street-flooding-analysis.datalife.nyc/data-profile.html">Data Profile</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Analysis 📈</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="nyc-311-groundtruth.html">Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="nyc-311-vs-stormwaterflood.html">NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model 🏗</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="model-build.html">Build Models</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpret 💡</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="interpret-results.html">Key Findings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources 📑</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-libraries.html">Python Libraries</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?urlpath=tree/analysis-book/obtain-census-data.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/datalifenyc/nyc-street-flooding-analysis/blob/main/analysis-book/obtain-census-data.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/datalifenyc/nyc-street-flooding-analysis" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/datalifenyc/nyc-street-flooding-analysis/issues/new?title=Issue%20on%20page%20%2Fobtain-census-data.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/obtain-census-data.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>U.S. Census Bureau Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#american-community-survey-5-year-estimates-subject-tables-5-year">American Community Survey: 5-Year Estimates: Subject Tables 5-Year</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import Libraries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-libraries">Standard Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-libraries">Custom Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#external-libraries">External Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-libraries">Configure Libraries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-variables">Define Variables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inputs">Inputs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs">Outputs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-from-census-data-api">Get Data From Census Data API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-acs-5-year-estimates-subject-tables-5-year">Dataset: <code class="docutils literal notranslate"><span class="pre">ACS:</span> <span class="pre">5-Year</span> <span class="pre">Estimates:</span> <span class="pre">Subject</span> <span class="pre">Tables</span> <span class="pre">5-Year</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confirm-connection">Confirm Connection</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-variable-data">View Variable Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specify-search-criteria-for-label-column">Specify Search Criteria for <code class="docutils literal notranslate"><span class="pre">label</span></code> column</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#income"><code class="docutils literal notranslate"><span class="pre">income</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#race"><code class="docutils literal notranslate"><span class="pre">race</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-variable-dataframe-by-search-criteria">Filter Variable DataFrame by Search Criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-selected-labels">Preview Selected Labels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#store-selected-names-and-labels-in-a-dictionary">Store Selected <code class="docutils literal notranslate"><span class="pre">names</span></code> and <code class="docutils literal notranslate"><span class="pre">labels</span></code> in a dictionary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-geography-options">View Geography Options</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-census-data-medium-income-in-the-past-12-months">Get Census Data: <code class="docutils literal notranslate"><span class="pre">Medium</span> <span class="pre">Income</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">Past</span> <span class="pre">12</span> <span class="pre">Months</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-census-data">Preview Census Data</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="u-s-census-bureau-data">
+<h1>U.S. Census Bureau Data<a class="headerlink" href="#u-s-census-bureau-data" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://www.census.gov/data/developers/guidance/api-user-guide.Available_Data.html#list-tab-2080675447">Census Data API User Guide</a></p>
+<p><a class="reference external" href="https://www.census.gov/data/developers/updates/new-discovery-tool.html">Census Data API Discovery Tool</a></p>
+<section id="american-community-survey-5-year-estimates-subject-tables-5-year">
+<h2>American Community Survey: 5-Year Estimates: Subject Tables 5-Year<a class="headerlink" href="#american-community-survey-5-year-estimates-subject-tables-5-year" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://www.census.gov/acs/www/data/data-tables-and-tools/subject-tables/">2017-2021 ACS 5-Year Subject Tables</a></p>
+<p><strong>Description:</strong></p>
+<p>“The American Community Survey (ACS) is an ongoing survey that provides data every year – giving communities the current information they need to plan investments and services. The ACS covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. The subject tables include the following geographies: nation, all states (including DC and Puerto Rico), all metropolitan areas, all congressional districts, all counties, all places and all tracts. Subject tables provide an overview of the estimates available in a particular topic. The data are presented as both counts and percentages. There are over 66,000 variables in this dataset.”</p>
+<p><strong>Vintage:</strong></p>
+<ul class="simple">
+<li><p>2021</p></li>
+</ul>
+<p><strong>Dataset Name:</strong></p>
+<ul class="simple">
+<li><p>acs› acs5› subject</p></li>
+</ul>
+<p><strong>Dataset Type:</strong></p>
+<ul class="simple">
+<li><p>Aggregate</p></li>
+</ul>
+<p><a class="reference external" href="http://api.census.gov/data/2021/acs/acs5/subject/geography.html">Geographies</a></p>
+<p><a class="reference external" href="http://api.census.gov/data/2021/acs/acs5/subject/variables.html">Variables</a></p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Label</span></code> prefix</strong> = Estimate!!Median income (dollars)!!HOUSEHOLD INCOME BY RACE AND HISPANIC OR LATINO ORIGIN OF HOUSEHOLDER!!Households</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Concept</span></code></strong> = MEDIAN INCOME IN THE PAST 12 MONTHS (IN 2021 INFLATION-ADJUSTED DOLLARS)</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Required</span></code></strong> = not required</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Limit</span></code></strong> = 0</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Predicate</span> <span class="pre">Type</span></code></strong> = int</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Group</span></code></strong> = <a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/groups/S1903.html">S1903</a></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Label</p></th>
+<th class="head"><p>Attributes EA</p></th>
+<th class="head"><p>Attributes M</p></th>
+<th class="head"><p>Attributes MA</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_001E.json">S1903_C03_001E</a></p></td>
+<td><p>-</p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_001EA.html">S1903_C03_001EA</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_001M.html">S1903_C03_001M</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_001MA.html">S1903_C03_001MA</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_002E.json">S1903_C03_002E</a></p></td>
+<td><p>One race–!!White</p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_002EA.html">S1903_C03_002EA</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_002M.html">S1903_C03_002M</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_002MA.html">S1903_C03_002MA</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_003E.json">S1903_C03_003E</a></p></td>
+<td><p>One race–!!Black or African American</p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_003EA.html">S1903_C03_003EA</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_003M.html">S1903_C03_003M</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_003MA.html">S1903_C03_003MA</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_004E.json">S1903_C03_004E</a></p></td>
+<td><p>One race–!!American Indian and Alaska Native</p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_004EA.html">S1903_C03_004EA</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_004M.html">S1903_C03_004M</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_004MA.html">S1903_C03_004MA</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_005E.json">S1903_C03_005E</a></p></td>
+<td><p>One race–!!Asian</p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_005EA.html">S1903_C03_005EA</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_005M.html">S1903_C03_005M</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_005MA.html">S1903_C03_005MA</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_006E.json">S1903_C03_006E</a></p></td>
+<td><p>One race–!!Native Hawaiian and Other Pacific Islander</p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_006EA.html">S1903_C03_006EA</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_006M.html">S1903_C03_006M</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_006MA.html">S1903_C03_006MA</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_007E.json">S1903_C03_007E</a></p></td>
+<td><p>One race–!!Some other race</p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_007EA.html">S1903_C03_007EA</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_007M.html">S1903_C03_007M</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_007MA.html">S1903_C03_007MA</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_008E.json">S1903_C03_008E</a></p></td>
+<td><p>Two or more races</p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_008EA.html">S1903_C03_008EA</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_008M.html">S1903_C03_008M</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_008MA.html">S1903_C03_008MA</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_009E.json">S1903_C03_009E</a></p></td>
+<td><p>Hispanic or Latino origin (of any race)</p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_009EA.html">S1903_C03_009EA</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_009M.html">S1903_C03_009M</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_009MA.html">S1903_C03_009MA</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_010E.json">S1903_C03_010E</a></p></td>
+<td><p>White alone, not Hispanic or Latino</p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_010EA.html">S1903_C03_010EA</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_010M.html">S1903_C03_010M</a></p></td>
+<td><p><a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables/S1903_C03_010MA.html">S1903_C03_010MA</a></p></td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference external" href="https://www.census.gov/data/developers/data-sets/acs-1year/notes-on-acs-estimate-and-annotation-values.html">Estimate and Annotation Values</a></p>
+<ul class="simple">
+<li><p><strong>EA</strong> - Annotation of Estimate</p></li>
+<li><p><strong>M</strong> - Margin of Error</p></li>
+<li><p><strong>MA</strong> - Annotation of Margin of Error</p></li>
+</ul>
+<p><a class="reference external" href="http://api.census.gov/data/2021/acs/acs5/subject/groups.html">Groups</a></p>
+<p><a class="reference external" href="http://api.census.gov/data/2021/acs/acs5/subject/sorts.html">Sorts</a></p>
+<p><a class="reference external" href="http://api.census.gov/data/2021/acs/acs5/subject/examples.html">Examples</a></p>
+<ul class="simple">
+<li><p>Contains Geography Hierarchy</p></li>
+</ul>
+<p><a class="reference external" href="https://www.census.gov/developer/">Developer Documentation</a></p>
+<p><a class="reference external" href="http://api.census.gov/data/2021/acs/acs5/subject">API Base URL</a></p>
+<p><span id="id1">[<a class="reference internal" href="references.html#id16" title="U.S. Census Bureau. American community survey: 5-year estimates: subject tables 5-year. 2021. URL: https://www.census.gov/programs-surveys/acs/data/summary-file.2021.html (visited on 2023-03-16).">Bureau, 2021</a>]</span></p>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=h1BWuz0mdcs">Getting Started with American Community Survey Data in R and Python | U.S. Census Bureau | YouTube</a></p>
+</section>
+<section id="import-libraries">
+<h2>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this heading">#</a></h2>
+<section id="standard-libraries">
+<h3>Standard Libraries<a class="headerlink" href="#standard-libraries" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="custom-libraries">
+<h3>Custom Libraries<a class="headerlink" href="#custom-libraries" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="external-libraries">
+<h3>External Libraries<a class="headerlink" href="#external-libraries" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cenpy</span> <span class="kn">import</span> <span class="n">remote</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="configure-libraries">
+<h3>Configure Libraries<a class="headerlink" href="#configure-libraries" title="Permalink to this heading">#</a></h3>
+<p><span id="id2">[<a class="reference internal" href="references.html#id17" title="Pratik Choudhari. How to use dotenv package to load environment variables in python. 2022. URL: https://www.python-engineer.com/posts/dotenv-python/ (visited on 2023-03-16).">Choudhari, 2022</a>]</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="define-variables">
+<h2>Define Variables<a class="headerlink" href="#define-variables" title="Permalink to this heading">#</a></h2>
+<section id="inputs">
+<h3>Inputs<a class="headerlink" href="#inputs" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">census_api</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CENSUS_API&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="outputs">
+<h3>Outputs<a class="headerlink" href="#outputs" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">census_folder_output</span> <span class="o">=</span> <span class="s1">&#39;data/census&#39;</span>
+<span class="n">census_file_output</span> <span class="o">=</span> <span class="s1">&#39;census-income-race-2021-5yr.csv&#39;</span>
+<span class="n">census_path_output</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">census_folder_output</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">census_file_output</span><span class="si">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">census_folder_output</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating new folder for ACS dataset: &quot;</span><span class="si">{census_folder_output}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">census_folder_output</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">census_folder_output</span><span class="si">}</span><span class="s1">&quot; folder already exists&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;data/census&quot; folder already exists
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="get-data-from-census-data-api">
+<h2>Get Data From Census Data API<a class="headerlink" href="#get-data-from-census-data-api" title="Permalink to this heading">#</a></h2>
+<section id="dataset-acs-5-year-estimates-subject-tables-5-year">
+<h3>Dataset: <code class="docutils literal notranslate"><span class="pre">ACS:</span> <span class="pre">5-Year</span> <span class="pre">Estimates:</span> <span class="pre">Subject</span> <span class="pre">Tables</span> <span class="pre">5-Year</span></code><a class="headerlink" href="#dataset-acs-5-year-estimates-subject-tables-5-year" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subject_table_conn</span> <span class="o">=</span> <span class="n">remote</span><span class="o">.</span><span class="n">APIConnection</span><span class="p">(</span>
+    <span class="n">api_name</span> <span class="o">=</span> <span class="s1">&#39;ACSST5Y2021&#39;</span><span class="p">,</span>
+    <span class="n">apikey</span> <span class="o">=</span> <span class="n">census_api</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="confirm-connection">
+<h4>Confirm Connection<a class="headerlink" href="#confirm-connection" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subject_table_conn</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Connection to American Community Survey: 5-Year Estimates: Subject Tables 5-Year (ID: https://api.census.gov/data/id/ACSST5Y2021)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="view-variable-data">
+<h3>View Variable Data<a class="headerlink" href="#view-variable-data" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ACSST5Y2021_var_df</span> <span class="o">=</span> <span class="n">subject_table_conn</span><span class="o">.</span><span class="n">variables</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ACSST5Y2021_var_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>concept</th>
+      <th>predicateType</th>
+      <th>group</th>
+      <th>limit</th>
+      <th>predicateOnly</th>
+      <th>hasGeoCollectionSupport</th>
+      <th>attributes</th>
+      <th>required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>for</th>
+      <td>Census API FIPS 'for' clause</td>
+      <td>Census API Geography Specification</td>
+      <td>fips-for</td>
+      <td>N/A</td>
+      <td>0</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>in</th>
+      <td>Census API FIPS 'in' clause</td>
+      <td>Census API Geography Specification</td>
+      <td>fips-in</td>
+      <td>N/A</td>
+      <td>0</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>ucgid</th>
+      <td>Uniform Census Geography Identifier clause</td>
+      <td>Census API Geography Specification</td>
+      <td>ucgid</td>
+      <td>N/A</td>
+      <td>0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>S0804_C04_068E</th>
+      <td>Estimate!!Public transportation (excluding tax...</td>
+      <td>MEANS OF TRANSPORTATION TO WORK BY SELECTED CH...</td>
+      <td>float</td>
+      <td>S0804</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>S0804_C04_068EA,S0804_C04_068M,S0804_C04_068MA</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>S0503_C02_078E</th>
+      <td>Estimate!!Foreign born; Born in Europe!!Civili...</td>
+      <td>SELECTED CHARACTERISTICS OF THE FOREIGN-BORN P...</td>
+      <td>float</td>
+      <td>S0503</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>S0503_C02_078EA,S0503_C02_078M,S0503_C02_078MA</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="specify-search-criteria-for-label-column">
+<h3>Specify Search Criteria for <code class="docutils literal notranslate"><span class="pre">label</span></code> column<a class="headerlink" href="#specify-search-criteria-for-label-column" title="Permalink to this heading">#</a></h3>
+<section id="income">
+<h4><code class="docutils literal notranslate"><span class="pre">income</span></code><a class="headerlink" href="#income" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">income_search</span> <span class="o">=</span> <span class="s1">&#39;income&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="race">
+<h4><code class="docutils literal notranslate"><span class="pre">race</span></code><a class="headerlink" href="#race" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">race_search</span> <span class="o">=</span> <span class="s1">&#39;race&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="filter-variable-dataframe-by-search-criteria">
+<h3>Filter Variable DataFrame by Search Criteria<a class="headerlink" href="#filter-variable-dataframe-by-search-criteria" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;number of labels: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ACSST5Y2021_var_df</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>number of labels: 18827
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">income_race_filter</span> <span class="o">=</span> <span class="n">ACSST5Y2021_var_df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">income_search</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">ACSST5Y2021_var_df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">race_search</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="preview-selected-labels">
+<h3>Preview Selected Labels<a class="headerlink" href="#preview-selected-labels" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ACSST5Y2021_var_df</span><span class="p">[</span><span class="n">income_race_filter</span><span class="p">][[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;attributes&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>attributes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>S1902_C03_020E</th>
+      <td>Estimate!!Mean income (dollars)!!PER CAPITA IN...</td>
+      <td>S1902_C03_020EA,S1902_C03_020M,S1902_C03_020MA</td>
+    </tr>
+    <tr>
+      <th>S1902_C03_021E</th>
+      <td>Estimate!!Mean income (dollars)!!PER CAPITA IN...</td>
+      <td>S1902_C03_021EA,S1902_C03_021M,S1902_C03_021MA</td>
+    </tr>
+    <tr>
+      <th>S1902_C03_022E</th>
+      <td>Estimate!!Mean income (dollars)!!PER CAPITA IN...</td>
+      <td>S1902_C03_022EA,S1902_C03_022M,S1902_C03_022MA</td>
+    </tr>
+    <tr>
+      <th>S1902_C03_023E</th>
+      <td>Estimate!!Mean income (dollars)!!PER CAPITA IN...</td>
+      <td>S1902_C03_023EA,S1902_C03_023M,S1902_C03_023MA</td>
+    </tr>
+    <tr>
+      <th>S1902_C03_024E</th>
+      <td>Estimate!!Mean income (dollars)!!PER CAPITA IN...</td>
+      <td>S1902_C03_024EA,S1902_C03_024M,S1902_C03_024MA</td>
+    </tr>
+    <tr>
+      <th>S1902_C03_025E</th>
+      <td>Estimate!!Mean income (dollars)!!PER CAPITA IN...</td>
+      <td>S1902_C03_025EA,S1902_C03_025M,S1902_C03_025MA</td>
+    </tr>
+    <tr>
+      <th>S1902_C03_026E</th>
+      <td>Estimate!!Mean income (dollars)!!PER CAPITA IN...</td>
+      <td>S1902_C03_026EA,S1902_C03_026M,S1902_C03_026MA</td>
+    </tr>
+    <tr>
+      <th>S1902_C03_027E</th>
+      <td>Estimate!!Mean income (dollars)!!PER CAPITA IN...</td>
+      <td>S1902_C03_027EA,S1902_C03_027M,S1902_C03_027MA</td>
+    </tr>
+    <tr>
+      <th>S1903_C03_002E</th>
+      <td>Estimate!!Median income (dollars)!!HOUSEHOLD I...</td>
+      <td>S1903_C03_002EA,S1903_C03_002M,S1903_C03_002MA</td>
+    </tr>
+    <tr>
+      <th>S1903_C03_003E</th>
+      <td>Estimate!!Median income (dollars)!!HOUSEHOLD I...</td>
+      <td>S1903_C03_003EA,S1903_C03_003M,S1903_C03_003MA</td>
+    </tr>
+    <tr>
+      <th>S1903_C03_004E</th>
+      <td>Estimate!!Median income (dollars)!!HOUSEHOLD I...</td>
+      <td>S1903_C03_004EA,S1903_C03_004M,S1903_C03_004MA</td>
+    </tr>
+    <tr>
+      <th>S1903_C03_005E</th>
+      <td>Estimate!!Median income (dollars)!!HOUSEHOLD I...</td>
+      <td>S1903_C03_005EA,S1903_C03_005M,S1903_C03_005MA</td>
+    </tr>
+    <tr>
+      <th>S1903_C03_006E</th>
+      <td>Estimate!!Median income (dollars)!!HOUSEHOLD I...</td>
+      <td>S1903_C03_006EA,S1903_C03_006M,S1903_C03_006MA</td>
+    </tr>
+    <tr>
+      <th>S1903_C03_007E</th>
+      <td>Estimate!!Median income (dollars)!!HOUSEHOLD I...</td>
+      <td>S1903_C03_007EA,S1903_C03_007M,S1903_C03_007MA</td>
+    </tr>
+    <tr>
+      <th>S1903_C03_008E</th>
+      <td>Estimate!!Median income (dollars)!!HOUSEHOLD I...</td>
+      <td>S1903_C03_008EA,S1903_C03_008M,S1903_C03_008MA</td>
+    </tr>
+    <tr>
+      <th>S1903_C03_009E</th>
+      <td>Estimate!!Median income (dollars)!!HOUSEHOLD I...</td>
+      <td>S1903_C03_009EA,S1903_C03_009M,S1903_C03_009MA</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="store-selected-names-and-labels-in-a-dictionary">
+<h3>Store Selected <code class="docutils literal notranslate"><span class="pre">names</span></code> and <code class="docutils literal notranslate"><span class="pre">labels</span></code> in a dictionary<a class="headerlink" href="#store-selected-names-and-labels-in-a-dictionary" title="Permalink to this heading">#</a></h3>
+<p>Compare results with Census API documentation for <a class="reference external" href="https://api.census.gov/data/2021/acs/acs5/subject/variables.html">variables</a></p>
+<p><img alt="ACSST5Y2021-variables-screenshots" src="_images/ACSST5Y2021-variables-screenshots.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;S1903_C03_001E&#39;</span><span class="p">:</span> <span class="s1">&#39;Households&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;S1903_C03_002E&#39;</span><span class="p">:</span> <span class="s1">&#39;White&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;S1903_C03_003E&#39;</span><span class="p">:</span> <span class="s1">&#39;Black or African American&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;S1903_C03_004E&#39;</span><span class="p">:</span> <span class="s1">&#39;American Indian and Alaska Native&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;S1903_C03_005E&#39;</span><span class="p">:</span> <span class="s1">&#39;Asian&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;S1903_C03_006E&#39;</span><span class="p">:</span> <span class="s1">&#39;Native Hawaiian and Other Pacific Islander&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;S1903_C03_007E&#39;</span><span class="p">:</span> <span class="s1">&#39;One race_Some other race&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;S1903_C03_008E&#39;</span><span class="p">:</span> <span class="s1">&#39;Two or more races&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;S1903_C03_009E&#39;</span><span class="p">:</span> <span class="s1">&#39;Hispanic or Latino origin (of any race)&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;S1903_C03_010E&#39;</span><span class="p">:</span> <span class="s1">&#39;White alone, not Hispanic or Latino&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">names_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="view-geography-options">
+<h3>View Geography Options<a class="headerlink" href="#view-geography-options" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subject_table_conn</span><span class="o">.</span><span class="n">geographies</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;fips&#39;:                                                  name geoLevelDisplay  \
+ 0                                                  us             010   
+ 1                                              region             020   
+ 2                                            division             030   
+ 3                                               state             040   
+ 4                                              county             050   
+ 5                                  county subdivision             060   
+ 6                             subminor civil division             067   
+ 7                                               tract             140   
+ 8                                               place             160   
+ 9                                   consolidated city             170   
+ 10                 alaska native regional corporation             230   
+ 11  american indian area/alaska native area/hawaii...             250   
+ 12                       tribal subdivision/remainder             251   
+ 13  american indian area/alaska native area (reser...             252   
+ 14  american indian area (off-reservation trust la...             254   
+ 15                                tribal census tract             256   
+ 16                                    state (or part)             260   
+ 17         metropolitan/micropolitan statistical area             310   
+ 18                           principal city (or part)             312   
+ 19                              metropolitan division             314   
+ 20                          combined statistical area             330   
+ 21            combined new england city and town area             335   
+ 22                     new england city and town area             350   
+ 23                                     principal city             352   
+ 24                                     necta division             355   
+ 25                                         urban area             400   
+ 26                             congressional district             500   
+ 27         state legislative district (upper chamber)             610   
+ 28         state legislative district (lower chamber)             620   
+ 29                          public use microdata area             795   
+ 30                           zip code tabulation area             860   
+ 31                       school district (elementary)             950   
+ 32                        school district (secondary)             960   
+ 33                          school district (unified)             970   
+ 
+    referenceDate                                           requires  \
+ 0     2021-01-01                                                NaN   
+ 1     2021-01-01                                                NaN   
+ 2     2021-01-01                                                NaN   
+ 3     2021-01-01                                                NaN   
+ 4     2021-01-01                                            [state]   
+ 5     2021-01-01                                    [state, county]   
+ 6     2021-01-01                [state, county, county subdivision]   
+ 7     2021-01-01                                    [state, county]   
+ 8     2021-01-01                                            [state]   
+ 9     2021-01-01                                            [state]   
+ 10    2021-01-01                                            [state]   
+ 11    2021-01-01                                                NaN   
+ 12    2021-01-01  [american indian area/alaska native area/hawai...   
+ 13    2021-01-01                                                NaN   
+ 14    2021-01-01                                                NaN   
+ 15    2021-01-01  [american indian area/alaska native area/hawai...   
+ 16    2021-01-01  [american indian area/alaska native area/hawai...   
+ 17    2021-01-01                                                NaN   
+ 18    2021-01-01  [metropolitan/micropolitan statistical area, s...   
+ 19    2021-01-01       [metropolitan/micropolitan statistical area]   
+ 20    2021-01-01                                                NaN   
+ 21    2021-01-01                                                NaN   
+ 22    2021-01-01                                                NaN   
+ 23    2021-01-01  [new england city and town area, state (or part)]   
+ 24    2021-01-01                   [new england city and town area]   
+ 25    2021-01-01                                                NaN   
+ 26    2021-01-01                                            [state]   
+ 27    2021-01-01                                            [state]   
+ 28    2021-01-01                                            [state]   
+ 29    2021-01-01                                            [state]   
+ 30    2021-01-01                                                NaN   
+ 31    2021-01-01                                            [state]   
+ 32    2021-01-01                                            [state]   
+ 33    2021-01-01                                            [state]   
+ 
+                                              wildcard  \
+ 0                                                 NaN   
+ 1                                                 NaN   
+ 2                                                 NaN   
+ 3                                                 NaN   
+ 4                                             [state]   
+ 5                                            [county]   
+ 6                                                 NaN   
+ 7                                            [county]   
+ 8                                             [state]   
+ 9                                             [state]   
+ 10                                            [state]   
+ 11                                                NaN   
+ 12  [american indian area/alaska native area/hawai...   
+ 13                                                NaN   
+ 14                                                NaN   
+ 15                                                NaN   
+ 16                                                NaN   
+ 17                                                NaN   
+ 18                                                NaN   
+ 19                                                NaN   
+ 20                                                NaN   
+ 21                                                NaN   
+ 22                                                NaN   
+ 23                                  [state (or part)]   
+ 24                                                NaN   
+ 25                                                NaN   
+ 26                                            [state]   
+ 27                                                NaN   
+ 28                                                NaN   
+ 29                                            [state]   
+ 30                                                NaN   
+ 31                                            [state]   
+ 32                                            [state]   
+ 33                                            [state]   
+ 
+                                     optionalWithWCFor  
+ 0                                                 NaN  
+ 1                                                 NaN  
+ 2                                                 NaN  
+ 3                                                 NaN  
+ 4                                               state  
+ 5                                              county  
+ 6                                                 NaN  
+ 7                                              county  
+ 8                                               state  
+ 9                                               state  
+ 10                                              state  
+ 11                                                NaN  
+ 12  american indian area/alaska native area/hawaii...  
+ 13                                                NaN  
+ 14                                                NaN  
+ 15                                                NaN  
+ 16                                                NaN  
+ 17                                                NaN  
+ 18                                                NaN  
+ 19                                                NaN  
+ 20                                                NaN  
+ 21                                                NaN  
+ 22                                                NaN  
+ 23                                    state (or part)  
+ 24                                                NaN  
+ 25                                                NaN  
+ 26                                              state  
+ 27                                                NaN  
+ 28                                                NaN  
+ 29                                              state  
+ 30                                                NaN  
+ 31                                              state  
+ 32                                              state  
+ 33                                              state  }
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="get-census-data-medium-income-in-the-past-12-months">
+<h3>Get Census Data: <code class="docutils literal notranslate"><span class="pre">Medium</span> <span class="pre">Income</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">Past</span> <span class="pre">12</span> <span class="pre">Months</span></code><a class="headerlink" href="#get-census-data-medium-income-in-the-past-12-months" title="Permalink to this heading">#</a></h3>
+<p>Note: 2021 inflation-adjusted dollars</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">census_path_output</span><span class="p">):</span>
+    <span class="n">income_race_rename_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">census_path_output</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">income_race_df</span> <span class="o">=</span> <span class="n">subject_table_conn</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">names_list</span><span class="p">,</span> <span class="n">geo_unit</span> <span class="o">=</span> <span class="s1">&#39;zip code tabulation area&#39;</span><span class="p">)</span>
+    <span class="n">income_race_rename_df</span> <span class="o">=</span> <span class="n">income_race_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">income_race_rename_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">names_dict</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">income_race_rename_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">census_path_output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="preview-census-data">
+<h3>Preview Census Data<a class="headerlink" href="#preview-census-data" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://www.census.gov/data/developers/data-sets/acs-1year/notes-on-acs-estimate-and-annotation-values.html">Notes on ACS Estimate and Annotation Values</a></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Estimate Value</p></th>
+<th class="head text-center"><p>Annotation Value</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>-666666666</p></td>
+<td class="text-center"><p>-</p></td>
+<td><p>“The estimate could not be computed because there were an insufficient number of sample observations. For a ratio of medians estimate, one or both of the median estimates falls in the lowest interval or highest interval of an open-ended distribution. The estimate could not be computed because there were an insufficient number of sample observations. For a ratio of medians estimate, one or both of the median estimates falls in the lowest interval or highest interval of an open-ended distribution. For a 5-year median estimate, the margin of error associated with a median was larger than the median itself.”</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zip_codes_in_nyc</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;11101&#39;</span><span class="p">,</span> <span class="c1"># Long Island City</span>
+    <span class="s1">&#39;10001&#39;</span><span class="p">,</span> <span class="c1"># Hudson Yards</span>
+    <span class="s1">&#39;10458&#39;</span><span class="p">,</span> <span class="c1"># Fordham</span>
+    <span class="s1">&#39;10304&#39;</span><span class="p">,</span> <span class="c1"># Stapleton</span>
+    <span class="s1">&#39;11209&#39;</span> <span class="c1"># Bay Ridge</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zip_code_filter</span> <span class="o">=</span> <span class="n">income_race_rename_df</span><span class="p">[</span><span class="s1">&#39;zip code tabulation area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">zip_codes_in_nyc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">income_race_rename_df</span><span class="p">[</span><span class="n">zip_code_filter</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>Households</th>
+      <th>White</th>
+      <th>Black or African American</th>
+      <th>American Indian and Alaska Native</th>
+      <th>Asian</th>
+      <th>Native Hawaiian and Other Pacific Islander</th>
+      <th>One race_Some other race</th>
+      <th>Two or more races</th>
+      <th>Hispanic or Latino origin (of any race)</th>
+      <th>White alone, not Hispanic or Latino</th>
+      <th>zip code tabulation area</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "datalifenyc/nyc-street-flooding-analysis",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "nyc-street-flooding-analysis"
+        },
+        kernelOptions: {
+            name: "nyc-street-flooding-analysis",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'nyc-street-flooding-analysis'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="obtain-pluto-data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PLUTO &amp; MapPLUTO</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="scrub-flood-data.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Clean Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#american-community-survey-5-year-estimates-subject-tables-5-year">American Community Survey: 5-Year Estimates: Subject Tables 5-Year</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import Libraries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-libraries">Standard Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-libraries">Custom Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#external-libraries">External Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-libraries">Configure Libraries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-variables">Define Variables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inputs">Inputs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs">Outputs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-from-census-data-api">Get Data From Census Data API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-acs-5-year-estimates-subject-tables-5-year">Dataset: <code class="docutils literal notranslate"><span class="pre">ACS:</span> <span class="pre">5-Year</span> <span class="pre">Estimates:</span> <span class="pre">Subject</span> <span class="pre">Tables</span> <span class="pre">5-Year</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confirm-connection">Confirm Connection</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-variable-data">View Variable Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specify-search-criteria-for-label-column">Specify Search Criteria for <code class="docutils literal notranslate"><span class="pre">label</span></code> column</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#income"><code class="docutils literal notranslate"><span class="pre">income</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#race"><code class="docutils literal notranslate"><span class="pre">race</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-variable-dataframe-by-search-criteria">Filter Variable DataFrame by Search Criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-selected-labels">Preview Selected Labels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#store-selected-names-and-labels-in-a-dictionary">Store Selected <code class="docutils literal notranslate"><span class="pre">names</span></code> and <code class="docutils literal notranslate"><span class="pre">labels</span></code> in a dictionary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-geography-options">View Geography Options</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-census-data-medium-income-in-the-past-12-months">Get Census Data: <code class="docutils literal notranslate"><span class="pre">Medium</span> <span class="pre">Income</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">Past</span> <span class="pre">12</span> <span class="pre">Months</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-census-data">Preview Census Data</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ho Hsieh, Nathan Williamson, Mark Bauer, Chidi Ezeolu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -203,6 +203,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Street Flooding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="obtain-pluto-data.html">PLUTO &amp; MapPLUTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="obtain-census-data.html">U.S. Census Bureau Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Scrub &amp; Merge 🧹</span></p>
 <ul class="nav bd-sidenav">
@@ -679,7 +680,7 @@ NYC_OPEN_DATA_311_API_CSV = &#39;https://data.cityofnewyork.us/resource/erm2-nwe
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading Latest Street Flooding Dataset...
 
-Street flooding dataset has already been download for 2023-03-15.
+Street flooding dataset has already been download for 2023-03-16.
 
 Download Complete
 </pre></div>
@@ -756,55 +757,55 @@ street_flooding_cdf.to_csv(output_prefix + &#39;csv&#39;)
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
-RangeIndex: 35145 entries, 0 to 35144
+RangeIndex: 35156 entries, 0 to 35155
 Data columns (total 45 columns):
  #   Column                          Non-Null Count  Dtype         
 ---  ------                          --------------  -----         
- 0   location_state                  34136 non-null  object        
+ 0   location_state                  34147 non-null  object        
  1   facility_type                   23296 non-null  object        
- 2   intersection_street_2           11328 non-null  object        
- 3   city                            34280 non-null  object        
- 4   location_zip                    34136 non-null  object        
- 5   park_borough                    35141 non-null  object        
- 6   latitude                        34136 non-null  object        
+ 2   intersection_street_2           11329 non-null  object        
+ 3   city                            34291 non-null  object        
+ 4   location_zip                    34147 non-null  object        
+ 5   park_borough                    35152 non-null  object        
+ 6   latitude                        34147 non-null  object        
  7   road_ramp                       0 non-null      float64       
- 8   created_date                    35145 non-null  datetime64[ns]
- 9   agency                          35145 non-null  object        
- 10  park_facility_name              35145 non-null  object        
- 11  location_address                34136 non-null  object        
- 12  agency_name                     35145 non-null  object        
- 13  descriptor                      35145 non-null  object        
- 14  bbl                             21761 non-null  object        
- 15  location_city                   34136 non-null  object        
- 16  open_data_channel_type          35145 non-null  object        
- 17  cross_street_2                  30135 non-null  object        
+ 8   created_date                    35156 non-null  datetime64[ns]
+ 9   agency                          35156 non-null  object        
+ 10  park_facility_name              35156 non-null  object        
+ 11  location_address                34147 non-null  object        
+ 12  agency_name                     35156 non-null  object        
+ 13  descriptor                      35156 non-null  object        
+ 14  bbl                             21770 non-null  object        
+ 15  location_city                   34147 non-null  object        
+ 16  open_data_channel_type          35156 non-null  object        
+ 17  cross_street_2                  30145 non-null  object        
  18  bridge_highway_direction        0 non-null      float64       
- 19  longitude                       34136 non-null  object        
+ 19  longitude                       34147 non-null  object        
  20  bridge_highway_segment          0 non-null      float64       
- 21  street_name                     23869 non-null  object        
- 22  incident_address                23869 non-null  object        
- 23  address_type                    35139 non-null  object        
- 24  incident_zip                    34276 non-null  object        
- 25  unique_key                      35145 non-null  object        
- 26  complaint_type                  35145 non-null  object        
- 27  y_coordinate_state_plane        34136 non-null  object        
- 28  status                          35145 non-null  object        
+ 21  street_name                     23879 non-null  object        
+ 22  incident_address                23879 non-null  object        
+ 23  address_type                    35150 non-null  object        
+ 24  incident_zip                    34287 non-null  object        
+ 25  unique_key                      35156 non-null  object        
+ 26  complaint_type                  35156 non-null  object        
+ 27  y_coordinate_state_plane        34147 non-null  object        
+ 28  status                          35156 non-null  object        
  29  bridge_highway_name             0 non-null      float64       
  30  location_type                   0 non-null      float64       
  31  due_date                        1 non-null      datetime64[ns]
  32  taxi_company_borough            0 non-null      float64       
  33  taxi_pick_up_location           0 non-null      float64       
- 34  x_coordinate_state_plane        34136 non-null  object        
- 35  resolution_description          35118 non-null  object        
- 36  community_board                 35141 non-null  object        
- 37  resolution_action_updated_date  35126 non-null  datetime64[ns]
- 38  intersection_street_1           11328 non-null  object        
- 39  closed_date                     35119 non-null  datetime64[ns]
+ 34  x_coordinate_state_plane        34147 non-null  object        
+ 35  resolution_description          35130 non-null  object        
+ 36  community_board                 35152 non-null  object        
+ 37  resolution_action_updated_date  35138 non-null  datetime64[ns]
+ 38  intersection_street_1           11329 non-null  object        
+ 39  closed_date                     35130 non-null  datetime64[ns]
  40  vehicle_type                    0 non-null      float64       
- 41  cross_street_1                  30145 non-null  object        
- 42  borough                         35141 non-null  object        
+ 41  cross_street_1                  30155 non-null  object        
+ 42  borough                         35152 non-null  object        
  43  landmark                        0 non-null      float64       
- 44  geometry                        34136 non-null  geometry      
+ 44  geometry                        34147 non-null  geometry      
 dtypes: datetime64[ns](4), float64(9), geometry(1), object(31)
 memory usage: 12.1+ MB
 </pre></div>
@@ -977,74 +978,74 @@ Datum: World Geodetic System 1984
   </thead>
   <tbody>
     <tr>
-      <th>35135</th>
-      <td>2023-03-13 14:47:00</td>
+      <th>35146</th>
+      <td>2023-03-14 11:17:00</td>
       <td>STATEN ISLAND</td>
-      <td>5003740300</td>
-      <td>POINT (-74.12888 40.61988)</td>
+      <td>5038070017</td>
+      <td>POINT (-74.08984 40.57387)</td>
     </tr>
     <tr>
-      <th>35136</th>
-      <td>2023-03-13 08:05:00</td>
-      <td>MANHATTAN</td>
-      <td>NaN</td>
-      <td>POINT (-73.91337 40.87177)</td>
-    </tr>
-    <tr>
-      <th>35137</th>
-      <td>2023-03-13 17:38:00</td>
-      <td>BROOKLYN</td>
-      <td>NaN</td>
-      <td>POINT (-73.93395 40.59963)</td>
-    </tr>
-    <tr>
-      <th>35138</th>
-      <td>2023-03-13 17:47:00</td>
+      <th>35147</th>
+      <td>2023-03-14 01:08:00</td>
       <td>QUEENS</td>
-      <td>4102410047</td>
-      <td>POINT (-73.78442 40.70150)</td>
+      <td>NaN</td>
+      <td>POINT (-73.74217 40.59824)</td>
     </tr>
     <tr>
-      <th>35139</th>
-      <td>2023-03-13 14:11:00</td>
+      <th>35148</th>
+      <td>2023-03-14 19:14:00</td>
+      <td>BROOKLYN</td>
+      <td>3005070001</td>
+      <td>POINT (-74.00893 40.68132)</td>
+    </tr>
+    <tr>
+      <th>35149</th>
+      <td>2023-03-14 01:14:00</td>
       <td>QUEENS</td>
-      <td>4158040004</td>
-      <td>POINT (-73.76148 40.59613)</td>
+      <td>4134710052</td>
+      <td>POINT (-73.75586 40.66162)</td>
     </tr>
     <tr>
-      <th>35140</th>
-      <td>2023-03-13 10:23:00</td>
-      <td>BRONX</td>
-      <td>2057680869</td>
-      <td>POINT (-73.90417 40.88488)</td>
+      <th>35150</th>
+      <td>2023-03-14 14:50:00</td>
+      <td>QUEENS</td>
+      <td>4101930001</td>
+      <td>POINT (-73.78699 40.69363)</td>
     </tr>
     <tr>
-      <th>35141</th>
-      <td>2023-03-13 12:32:00</td>
+      <th>35151</th>
+      <td>2023-03-14 14:53:00</td>
+      <td>QUEENS</td>
+      <td>4160250028</td>
+      <td>POINT (-73.79491 40.59847)</td>
+    </tr>
+    <tr>
+      <th>35152</th>
+      <td>2023-03-14 17:41:00</td>
+      <td>QUEENS</td>
+      <td>4049150005</td>
+      <td>POINT (-73.79812 40.77302)</td>
+    </tr>
+    <tr>
+      <th>35153</th>
+      <td>2023-03-14 13:47:00</td>
       <td>BROOKLYN</td>
-      <td>NaN</td>
-      <td>POINT (-73.96308 40.64944)</td>
+      <td>3032680001</td>
+      <td>POINT (-73.92115 40.69879)</td>
     </tr>
     <tr>
-      <th>35142</th>
-      <td>2023-03-13 18:11:00</td>
-      <td>STATEN ISLAND</td>
+      <th>35154</th>
+      <td>2023-03-14 12:47:00</td>
+      <td>QUEENS</td>
       <td>NaN</td>
-      <td>POINT (-74.23412 40.55597)</td>
+      <td>POINT (-73.86493 40.73689)</td>
     </tr>
     <tr>
-      <th>35143</th>
-      <td>2023-03-13 22:35:00</td>
+      <th>35155</th>
+      <td>2023-03-14 13:35:00</td>
       <td>BROOKLYN</td>
-      <td>NaN</td>
-      <td>POINT (-73.95718 40.61833)</td>
-    </tr>
-    <tr>
-      <th>35144</th>
-      <td>2023-03-13 18:29:00</td>
-      <td>BROOKLYN</td>
-      <td>NaN</td>
-      <td>POINT (-73.96413 40.71807)</td>
+      <td>3072640043</td>
+      <td>POINT (-73.96079 40.58254)</td>
     </tr>
   </tbody>
 </table>
