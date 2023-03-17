@@ -1255,7 +1255,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">census_path_output</span><span class="p">):</span>
-    <span class="n">income_race_rename_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">census_path_output</span><span class="p">)</span>
+    <span class="n">income_race_rename_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">census_path_output</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">income_race_df</span> <span class="o">=</span> <span class="n">subject_table_conn</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">names_list</span><span class="p">,</span> <span class="n">geo_unit</span> <span class="o">=</span> <span class="s1">&#39;zip code tabulation area&#39;</span><span class="p">)</span>
     <span class="n">income_race_rename_df</span> <span class="o">=</span> <span class="n">income_race_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -1328,7 +1328,6 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Unnamed: 0</th>
       <th>Households</th>
       <th>White</th>
       <th>Black or African American</th>
