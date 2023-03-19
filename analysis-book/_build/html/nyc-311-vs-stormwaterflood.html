@@ -235,8 +235,6 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)</a></li>
-
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources 📑</span></p>
 <ul class="nav bd-sidenav">
@@ -502,33 +500,27 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data">Get Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-nyc-311-complaints">Get Data – NYC 311 Complaints</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-nyc-stormwater-flood-map">Get Data – NYC Stormwater Flood Map</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-nyc-ntas">Get Data – NYC NTAs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize">Visualize</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize">Visualize</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-analysis">Spatial analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-aggregation">Spatial Aggregation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics-get-area-of-storm-water-floods-by-nta">1. Zonal Statistics - get area of storm water floods by nta</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics-get-counts-of-311-flood-complaints-by-nta">2. Zonal Statistics - get counts of 311 flood complaints by nta</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3. Visualize</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-analysis">Statistical Analysis</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation">1. Correlation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-plot">2. Bivariate Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#did-people-complain-equally-to-minor-flooding-and-severe-flooding">2. Did people complain equally to minor flooding and severe flooding?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">3. Regression</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-311-complaints-of-different-years">4. Regression – 311 Complaints of Different Years</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#good-to-have">Good to have</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-step">Next Step!</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">————————— NOTES ————————————</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-311-eda">RAW 311 EDA</a></li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -541,18 +533,17 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="nyc-311-complaints-vs-storm-water-flooding-by-neighborhood-tabulation-areas-ntas">
 <h1>NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)<a class="headerlink" href="#nyc-311-complaints-vs-storm-water-flooding-by-neighborhood-tabulation-areas-ntas" title="Permalink to this heading">#</a></h1>
-<ol class="arabic">
+<p>Author: Ho Hsieh
+<a class="reference external" href="https://www.linkedin.com/in/hohsieh/">LinkedIn</a>
+<a class="reference external" href="https://github.com/hohsieh">GitHub</a></p>
+<p>In this study, we want to examine if the counts of NYC 311 street flood complaints can be explained by flood area within the Neighborhood Tabulation Areas (NTAs).</p>
+<p>The 311 flood complaints data are prepared from a previous project and can be accessed at <a class="reference external" href="https://raw.githubusercontent.com/mebauer/nyc-311-street-flooding/main/data/street-flooding-complaints.csv">here</a></p>
+<p>The flood data used here are the modeled New York City Stormwater Flood Maps (Moderate Stormwater Flood with Current Sea Level Rise) <a class="reference external" href="https://experience.arcgis.com/experience/6f4cc60710dc433585790cd2b4b5dd0e">here</a></p>
+<p>The notebook contains 3 main steps</p>
+<ol class="arabic simple">
 <li><p>Get data</p></li>
-<li><p>Get Zonal Statistics of complaint count by NTA for each and all years (and bbl?)</p>
-<p>(a)</p>
-</li>
-<li><p>Rasterize data storm water layer and NTA layer</p></li>
-<li><p>Get Zonal Statistics of area? of storm water flooding by NTA – this data has no time info</p>
-<p>(b)</p>
-</li>
-<li><p>storm water layer, cut by NTA polygon,</p></li>
-<li><p>get area? of polygon within NTA (zonal statistics? spatial join then group by get sum of areas?)</p></li>
-<li><p>Regress between complaint counts and storm water flooding</p></li>
+<li><p>Spatial Aggregation: get zonal statistics of complaint count by NTA, flood area by NTA</p></li>
+<li><p>Statistical Analysis: correlation, regression between complaint counts and stormwater flood</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -560,14 +551,8 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="c1"># import seaborn as sns</span>
-
-<span class="n">pd</span><span class="o">.</span><span class="n">__version__</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;1.3.4&#39;
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">glob</span>
 </pre></div>
 </div>
 </div>
@@ -581,7 +566,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ho/Documents/GitHub/nyc-flood
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ho/Documents/GitHub/nyc-flood/src
 /Users/ho/Documents/GitHub/nyc-flood
 /Users/ho/Documents/GitHub/nyc-flood
 </pre></div>
@@ -594,8 +579,7 @@ document.write(`
 <h3>Get Data – NYC 311 Complaints<a class="headerlink" href="#get-data-nyc-311-complaints" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/mebauer/nyc-311-street-flooding/</span><span class="se">\</span>
-<span class="s1">main/data/street-flooding-complaints.csv&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/mebauer/nyc-311-street-flooding/main/data/street-flooding-complaints.csv&#39;</span>
 
 <span class="n">df_311</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
@@ -938,11 +922,7 @@ Name: date_time, dtype: datetime64[ns]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ho/opt/anaconda3/envs/pyv37/lib/python3.7/site-packages/geopandas/array.py:275: ShapelyDeprecationWarning: The array interface is deprecated and will no longer work in Shapely 2.0. Convert the &#39;.coords&#39; to a numpy array instead.
-  return GeometryArray(vectorized.points_from_xy(x, y, z), crs=crs)
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Projected CRS: EPSG:2263&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Derived Projected CRS: EPSG:2263&gt;
 Name: NAD83 / New York Long Island (ftUS)
 Axis Info [cartesian]:
 - X[east]: Easting (US survey foot)
@@ -977,6 +957,7 @@ Datum: North American Datum 1983
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fn_sw</span> <span class="o">=</span> <span class="s2">&quot;/Users/ho/Documents/GitHub/nyc-flood/data/raw/NYC_Stormwater_Flood_Map_-_Moderate_Flood_with_Current_Sea_Levels/NYC Stormwater Flood Map - Moderate Flood with Current Sea Levels.gdb&quot;</span>
+<span class="c1"># fn_sw = &quot;/Users/mac/Downloads/nyc-flood/data/raw/NYC_Stormwater_Flood_Map_-_Moderate_Flood_with_Current_Sea_Levels/NYC Stormwater Flood Map - Moderate Flood with Current Sea Levels.gdb&quot;</span>
 
 <span class="n">gdf_sw</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fn_sw</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">gdf_sw</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -1027,8 +1008,8 @@ None
 <h3>Get Data – NYC NTAs<a class="headerlink" href="#get-data-nyc-ntas" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
-<span class="n">fn_nta</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;/Users/ho/Documents/GitHub/nyc-flood/data/raw/nynta2020_23a/*.shp&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fn_nta</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;/Users/ho/Documents/GitHub/nyc-flood/data/raw/nynta2020_23a/*.shp&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># fn_nta = glob.glob(&quot;/Users/mac/Downloads/nyc-flood/data/raw/nynta2020_23a/*.shp&quot;)[0]</span>
 
 <span class="n">gdf_nta</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fn_nta</span><span class="p">)</span>
 
@@ -1124,27 +1105,39 @@ Name: CDTAName_2, dtype: object
 </div>
 </div>
 </section>
-</section>
 <section id="visualize">
-<h2>Visualize<a class="headerlink" href="#visualize" title="Permalink to this heading">#</a></h2>
+<h3>Visualize<a class="headerlink" href="#visualize" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
 
 <span class="n">gdf_nta</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">gdf_311</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">gdf_311</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">gdf_nta</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 
 <span class="n">gdf_nta</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">gdf_sw</span><span class="p">[</span><span class="n">gdf_sw</span><span class="p">[</span><span class="s1">&#39;Flooding_Category&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
 <span class="n">gdf_sw</span><span class="p">[</span><span class="n">gdf_sw</span><span class="p">[</span><span class="s1">&#39;Flooding_Category&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
+
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;311 Street Flooding Complaints&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Stormwater Flood Map - Moderate Flood with Current Sea Levels&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/60b6e58ac8f1330f2a670c25f4fe81326f5935c5f784abaf8a5cc65cb913f265.png" src="_images/60b6e58ac8f1330f2a670c25f4fe81326f5935c5f784abaf8a5cc65cb913f265.png" />
+</div>
 </div>
 </section>
-<section id="spatial-analysis">
-<h2>Spatial analysis<a class="headerlink" href="#spatial-analysis" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="spatial-aggregation">
+<h2>Spatial Aggregation<a class="headerlink" href="#spatial-aggregation" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># same coordinate system</span>
@@ -1157,9 +1150,9 @@ Name: CDTAName_2, dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epsg:2263
-epsg:2263
-epsg:2263
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EPSG:2263
+EPSG:2263
+EPSG:2263
 </pre></div>
 </div>
 </div>
@@ -1488,6 +1481,10 @@ Name: area_2, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ho/.local/lib/python3.11/site-packages/IPython/core/interactiveshell.py:3400: FutureWarning: The `op` parameter is deprecated and will be removed in a future release. Please use the `predicate` parameter instead.
+  if await self.run_code(code, result, async_=asy):
+</pre></div>
+</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1542,7 +1539,7 @@ Name: area_2, dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;count_311_x&quot;</span><span class="p">,</span> <span class="s2">&quot;count_311_y&quot;</span><span class="p">,</span> <span class="s2">&quot;count_311&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gdf_sw_nta.drop(columns=[&quot;count_311_x&quot;, &quot;count_311_y&quot;, &quot;count_311&quot;], inplace=True)</span>
 <span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1844,6 +1841,51 @@ Name: area_2, dtype: float64
 </table>
 </div></div></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;/Users/ho/Documents/GitHub/nyc-flood/data/processed/nta_flood_vs_311.shp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>3. Visualize<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a choropleth map of 311 complaints counts and storm water flood area by NTAs</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">missing_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span><span class="s2">&quot;edgecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Missing values&quot;</span><span class="p">}</span>
+<span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">column</span><span class="o">=</span><span class="s1">&#39;count_311&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;OrRd&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s2">&quot;Counts of 311 Complaints&quot;</span><span class="p">},</span> <span class="n">missing_kwds</span><span class="o">=</span><span class="n">missing_kwds</span><span class="p">)</span>
+<span class="n">gdf_nta</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Counts of 311 Complaints by NTA&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+
+
+<span class="n">missing_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span><span class="s2">&quot;edgecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Missing values&quot;</span><span class="p">}</span>
+<span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">column</span><span class="o">=</span><span class="s1">&#39;area_all&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s2">&quot;Area of Storm Water Flooding (ft2)&quot;</span><span class="p">},</span> <span class="n">missing_kwds</span><span class="o">=</span><span class="n">missing_kwds</span><span class="p">)</span>
+<span class="n">gdf_nta</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Area of Storm Water Flooding by NTA (ft2)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/20b29824e6682e0aad78cfbb1b88ac3536a95335e51629a61b5d453fcf7c103f.png" src="_images/20b29824e6682e0aad78cfbb1b88ac3536a95335e51629a61b5d453fcf7c103f.png" />
+</div>
+</div>
 </section>
 </section>
 <section id="statistical-analysis">
@@ -1851,14 +1893,21 @@ Name: area_2, dtype: float64
 <p>Assess relationship between area of floods and counts of 311 complaints</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">columns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fn_sw_nta = glob.glob(&quot;/Users/mac/Downloads/nyc-flood/data/processed/*.shp&quot;)[0]</span>
+<span class="n">fn_sw_nta</span> <span class="o">=</span> <span class="s2">&quot;/Users/ho/Documents/GitHub/nyc-flood/data/processed/nta_flood_vs_311.shp&quot;</span>
+
+<span class="n">gdf_sw_nta</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fn_sw_nta</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;BoroCode&#39;, &#39;BoroName&#39;, &#39;CountyFIPS&#39;, &#39;NTA2020&#39;, &#39;NTAName&#39;, &#39;NTAAbbrev&#39;,
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(262, 17)
+Index([&#39;BoroCode&#39;, &#39;BoroName&#39;, &#39;CountyFIPS&#39;, &#39;NTA2020&#39;, &#39;NTAName&#39;, &#39;NTAAbbrev&#39;,
        &#39;NTAType&#39;, &#39;CDTA2020&#39;, &#39;CDTAName&#39;, &#39;Shape_Leng&#39;, &#39;Shape_Area&#39;,
-       &#39;geometry&#39;, &#39;CDTAName_2&#39;, &#39;area_1&#39;, &#39;area_2&#39;, &#39;area_all&#39;, &#39;count_311&#39;],
+       &#39;CDTAName_2&#39;, &#39;area_1&#39;, &#39;area_2&#39;, &#39;area_all&#39;, &#39;count_311&#39;, &#39;geometry&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -1870,7 +1919,6 @@ Name: area_2, dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># correlation</span>
 <span class="c1"># calculate the spearmans&#39;s correlation between two variables</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">spearmanr</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Spearmans correlation&quot;</span><span class="p">)</span>
 
@@ -1887,19 +1935,30 @@ Name: area_2, dtype: float64
 <span class="n">corr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;area_2&#39;</span><span class="p">],</span> <span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;count_311&#39;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;-- Deep and Contiguous Flooding (depth &gt;= 1 ft) vs Counts of 311 Complaints: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">spm_corrs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">corr</span><span class="p">]</span>
-
-
-<span class="n">fds</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;area_all&#39;</span><span class="p">,</span> <span class="s1">&#39;area_1&#39;</span><span class="p">,</span> <span class="s1">&#39;area_2&#39;</span><span class="p">]</span>
-<span class="n">floodtypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;All Flooding&#39;</span><span class="p">,</span> <span class="s1">&#39;Nuisance Flooding&#39;</span><span class="p">,</span> <span class="s1">&#39;Deep and Contiguous Flooding&#39;</span><span class="p">]</span>
-
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Spearmans correlation
+-- All Flooding vs Counts of 311 Complaints: 0.71
+-- Nuisance Flooding (1 ft &gt; depth &gt;= 4 inch) vs Counts of 311 Complaints: 0.74
+-- Deep and Contiguous Flooding (depth &gt;= 1 ft) vs Counts of 311 Complaints: 0.63
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fds</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;area_all&#39;</span><span class="p">,</span> <span class="s1">&#39;area_1&#39;</span><span class="p">,</span> <span class="s1">&#39;area_2&#39;</span><span class="p">]</span>
+<span class="n">floodtypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;All Flooding (ft2)&#39;</span><span class="p">,</span> <span class="s1">&#39;Nuisance Flooding (ft2)&#39;</span><span class="p">,</span> <span class="s1">&#39;Deep and Contiguous Flooding (ft2)&#39;</span><span class="p">]</span>
 
 <span class="c1"># plot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">cla</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn-darkgrid&quot;</span><span class="p">)</span>
 <span class="n">nrows</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">ncols</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span> 
+                      <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">irow</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nrows</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">icol</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ncols</span><span class="p">):</span>
@@ -1912,591 +1971,225 @@ Name: area_2, dtype: float64
 
         <span class="c1"># scatterplot / lineplot</span>
         <span class="n">scatter</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
-            <span class="n">data</span><span class="o">=</span><span class="n">gdf_sw_nta</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;count_311&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">irow</span><span class="p">,</span> <span class="n">icol</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1">#, legend=False)</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">gdf_sw_nta</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count_311&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> 
+            <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">irow</span><span class="p">,</span> <span class="n">icol</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1">#, legend=False)</span>
 
-        <span class="n">axs</span><span class="p">[</span><span class="n">irow</span><span class="p">,</span> <span class="n">icol</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s2">&quot;count_311&quot;</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="c1"># axs[irow, icol].plot(np.array(gdf_sw_nta[&quot;count_311&quot;]), </span>
+        <span class="c1">#                     np.array(gdf_sw_nta[f&quot;{fd}&quot;]), color=&#39;r&#39;)</span>
 
-        <span class="n">scatter</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Spearmans correlation = </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">spm_corr</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">scatter</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">floodtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">scatter</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;count of 311 complaints&quot;</span><span class="p">)</span>
+        <span class="n">scatter</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Spearmans Correlation = </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">spm_corr</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">scatter</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">floodtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">scatter</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Count of 311 Complaints&quot;</span><span class="p">)</span>
 
+        <span class="n">axs</span><span class="p">[</span><span class="n">irow</span><span class="p">,</span> <span class="n">icol</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">get_label</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">irow</span><span class="p">,</span> <span class="n">icol</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">get_label</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">axs</span><span class="p">[</span><span class="n">irow</span><span class="p">,</span> <span class="n">icol</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelbottom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">irow</span><span class="p">,</span> <span class="n">icol</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelleft</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/ft/drjxcwpd0cb31nn1whf1scxh0000gn/T/ipykernel_20799/1769750736.py:6: MatplotlibDeprecationWarning: The seaborn styles shipped by Matplotlib are deprecated since 3.6, as they no longer correspond to the styles shipped by seaborn. However, they will remain available as &#39;seaborn-v0_8-&lt;style&gt;&#39;. Alternatively, directly use the seaborn API instead.
+  plt.style.use(&quot;seaborn-darkgrid&quot;)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 640x480 with 0 Axes&gt;
+</pre></div>
+</div>
+<img alt="_images/47bd25bb0520050bcfda044d404b01d1232aadfd8029c4a3d1fbd68788e206b9.png" src="_images/47bd25bb0520050bcfda044d404b01d1232aadfd8029c4a3d1fbd68788e206b9.png" />
+</div>
+</div>
+</section>
+<section id="did-people-complain-equally-to-minor-flooding-and-severe-flooding">
+<h3>2. Did people complain equally to minor flooding and severe flooding?<a class="headerlink" href="#did-people-complain-equally-to-minor-flooding-and-severe-flooding" title="Permalink to this heading">#</a></h3>
+<p>As the area of storm water flooding increase, the increase of the counts of 311 complaints slow down. (people who will complain alreay complain)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+                      <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">gdf_sw_nta</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;area_all&#39;</span><span class="p">)</span>
+<span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;count_311_cumsum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">count_311</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">gdf_sw_nta</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area_all&#39;</span><span class="p">,</span> 
+    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count_311_cumsum&#39;</span><span class="p">,</span> 
+    <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
+
+<span class="n">scatter</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Flood Area (ft2)&quot;</span><span class="p">)</span>
+<span class="n">scatter</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Count of 311 Complaints&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">ft</span><span class="o">/</span><span class="n">drjxcwpd0cb31nn1whf1scxh0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_91717</span><span class="o">/</span><span class="mf">3007284127.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># correlation</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># calculate the spearmans&#39;s correlation between two variables</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">spearmanr</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Spearmans correlation&quot;</span><span class="p">)</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
-</pre></div>
+<img alt="_images/41d4f19019e9158f2e36395d4d4f53f770920a173edef4c140146bf86ee7b2df.png" src="_images/41d4f19019e9158f2e36395d4d4f53f770920a173edef4c140146bf86ee7b2df.png" />
 </div>
 </div>
-</div>
-</section>
-<section id="bivariate-plot">
-<h3>2. Bivariate Plot<a class="headerlink" href="#bivariate-plot" title="Permalink to this heading">#</a></h3>
+<p>People complained more when it’s deep and contiguous flooding.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+                      <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">cla</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">gdf_sw_nta</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;area_1&#39;</span><span class="p">)</span>
+<span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;count_311_cumsum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">count_311</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
 
-<span class="c1"># fig, ax = plt.subplots(1, 1, figsize=(10, 10), sharey=True, sharex=True)</span>
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">gdf_sw_nta</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area_1&#39;</span><span class="p">,</span> 
+    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count_311_cumsum&#39;</span><span class="p">,</span> 
+    <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;skyblue&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">gdf_sw_nta</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;area_all&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;count_311&quot;</span><span class="p">)</span>
-<span class="c1"># fig = fig_sns.fig</span>
+<span class="n">gdf_sw_nta</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;area_2&#39;</span><span class="p">)</span>
+<span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;count_311_cumsum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="o">.</span><span class="n">count_311</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
 
-<span class="c1"># xlim = 1000</span>
-<span class="c1"># # ylim = 6.06e15</span>
-<span class="c1"># plt.xlim(0, xlim)</span>
-<span class="c1"># # plt.ylim(0, ylim)</span>
-<span class="c1"># plt.yscale(&#39;log&#39;)</span>
-<span class="c1"># # plt.xscale(&#39;log&#39;)</span>
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">gdf_sw_nta</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area_2&#39;</span><span class="p">,</span> 
+    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;count_311_cumsum&#39;</span><span class="p">,</span> 
+    <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;royalblue&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Counts of 311 Flood Complaints within NTA&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Area with Storm Water Floods by NTA (ft2)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Counts of 311 Flood Complaints vs Area of Storm Water Floods by NTA&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="c1"># plt.grid(color = &#39;grey&#39;, linestyle = &#39;--&#39;, linewidth = 0.5)</span>
-<span class="c1"># plt.grid()</span>
-<span class="c1"># plt.style.use(&quot;seaborn-darkgrid&quot;) # default</span>
 
-<span class="c1"># # plt.savefig()</span>
-
-<span class="c1"># all year&#39;s complaints vs type 1 flood area</span>
-
-<span class="c1"># all year&#39;s complaints vs type 2 flood area</span>
-
-<span class="c1"># all year&#39;s complaints vs both floods area</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Nuisance Flooding&#39;</span><span class="p">,</span> <span class="s1">&#39;Deep and Contiguous Flooding&#39;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Flood Area (ft2)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Cumulative Counts of 311 Complaints&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Cumulative Counts of 311 Complaints&#39;)
+</pre></div>
+</div>
+<img alt="_images/0742246cdddd154f0c6ba4aa59440cdadcd9bb67377056f494e715d25868c377.png" src="_images/0742246cdddd154f0c6ba4aa59440cdadcd9bb67377056f494e715d25868c377.png" />
 </div>
 </div>
 </section>
 <section id="regression">
 <h3>3. Regression<a class="headerlink" href="#regression" title="Permalink to this heading">#</a></h3>
-</section>
-<section id="regression-311-complaints-of-different-years">
-<h3>4. Regression – 311 Complaints of Different Years<a class="headerlink" href="#regression-311-complaints-of-different-years" title="Permalink to this heading">#</a></h3>
+<p>The 311 counts are discrete count numbers and are usually modeled by Poisson distribution or negative binomial distribution. Here we use negative binomial distribution.</p>
+<p>The result shows that when log(storm water flood area) increase by 1 unit, the counts of 311 complains increase by 10% in each neighborhood.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fds</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;area_all&#39;</span><span class="p">,</span> <span class="s1">&#39;area_1&#39;</span><span class="p">,</span> <span class="s1">&#39;area_2&#39;</span><span class="p">]</span>
-<span class="n">floodtypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;All Flooding&#39;</span><span class="p">,</span> <span class="s1">&#39;Nuisance Flooding&#39;</span><span class="p">,</span> <span class="s1">&#39;Deep and Contiguous Flooding&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 
-<span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">fds</span><span class="p">,</span> <span class="n">spm_corrs</span><span class="p">,</span> <span class="n">floodtypes</span><span class="p">))</span>
+<span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;log_area_1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;area_1&#39;</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">)</span>
+<span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;log_area_2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;area_2&#39;</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">)</span>
+<span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;log_Shape_Area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">gdf_sw_nta</span><span class="p">[</span><span class="s1">&#39;Shape_Area&#39;</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="p">[[</span><span class="s1">&#39;count_311&#39;</span><span class="p">]]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">gdf_sw_nta</span><span class="p">[[</span><span class="s1">&#39;log_area_all&#39;</span><span class="p">,</span> <span class="s1">&#39;log_Shape_Area&#39;</span><span class="p">]]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">glm_model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">genmod</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">family</span><span class="o">.</span><span class="n">NegativeBinomial</span><span class="p">())</span>
+<span class="n">glm_result</span> <span class="o">=</span> <span class="n">glm_model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">glm_result</span><span class="o">.</span><span class="n">aic</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">glm_result</span><span class="o">.</span><span class="n">bic</span><span class="p">)</span>
+
+<span class="n">glm_result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+
+<span class="c1"># exp(0.0992)-1 = 0.104</span>
+<span class="c1">## log(area_all) increae by 1 unit, count_311 increase by 10%</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;area_all&#39;, 0.7148412020345325, &#39;All Flooding&#39;),
- (&#39;area_1&#39;, 0.7381619751706313, &#39;Nuisance Flooding&#39;),
- (&#39;area_2&#39;, 0.6318213708878877, &#39;Deep and Contiguous Flooding&#39;)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2721.0004753624216
+-1184.041098602999
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ho/opt/anaconda3/envs/nyc-flood/lib/python3.11/site-packages/statsmodels/genmod/generalized_linear_model.py:1799: FutureWarning: The bic value is computed using the deviance formula. After 0.13 this will change to the log-likelihood based formula. This change has no impact on the relative rank of models compared using BIC. You can directly access the log-likelihood version using the `bic_llf` attribute. You can suppress this message by calling statsmodels.genmod.generalized_linear_model.SET_USE_BIC_LLF with True to get the LLF-based version now or False to retainthe deviance version.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_html"><table class="simpletable">
+<caption>Generalized Linear Model Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>       <td>count_311</td>    <th>  No. Observations:  </th>  <td>   262</td> 
+</tr>
+<tr>
+  <th>Model:</th>                  <td>GLM</td>       <th>  Df Residuals:      </th>  <td>   259</td> 
+</tr>
+<tr>
+  <th>Model Family:</th>    <td>NegativeBinomial</td> <th>  Df Model:          </th>  <td>     2</td> 
+</tr>
+<tr>
+  <th>Link Function:</th>          <td>Log</td>       <th>  Scale:             </th> <td>  1.0000</td>
+</tr>
+<tr>
+  <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -1357.5</td>
+</tr>
+<tr>
+  <th>Date:</th>            <td>Fri, 17 Mar 2023</td> <th>  Deviance:          </th> <td>  258.16</td>
+</tr>
+<tr>
+  <th>Time:</th>                <td>22:55:27</td>     <th>  Pearson chi2:      </th>  <td>  315.</td> 
+</tr>
+<tr>
+  <th>No. Iterations:</th>          <td>8</td>        <th>  Pseudo R-squ. (CS):</th>  <td>0.5998</td> 
+</tr>
+<tr>
+  <th>Covariance Type:</th>     <td>nonrobust</td>    <th>                     </th>     <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+         <td></td>           <th>coef</th>     <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>const</th>          <td>  -11.6930</td> <td>    1.403</td> <td>   -8.332</td> <td> 0.000</td> <td>  -14.443</td> <td>   -8.943</td>
+</tr>
+<tr>
+  <th>log_area_all</th>   <td>    0.0992</td> <td>    0.015</td> <td>    6.743</td> <td> 0.000</td> <td>    0.070</td> <td>    0.128</td>
+</tr>
+<tr>
+  <th>log_Shape_Area</th> <td>    0.8739</td> <td>    0.086</td> <td>   10.111</td> <td> 0.000</td> <td>    0.705</td> <td>    1.043</td>
+</tr>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># if the model fit well, the points should fall along the red line.</span>
+<span class="c1"># plt.style.use(&quot;seaborn-darkgrid&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">glm_result</span><span class="o">.</span><span class="n">fittedvalues</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;firebrick&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Counts of 311 Complaints&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Counts of 311 Complaints&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/48b819a027e3b6227d84a01eef0f432b4371d2e7de56ae99662d534e9b345287.png" src="_images/48b819a027e3b6227d84a01eef0f432b4371d2e7de56ae99662d534e9b345287.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># each year&#39;s complaints vs type 1 flood area</span>
-
-<span class="c1"># each year&#39;s complaints vs type 2 flood area</span>
-
-<span class="c1"># each year&#39;s complaints vs both flood area</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">glm_result</span><span class="o">.</span><span class="n">fittedvalues</span><span class="p">,</span> <span class="n">glm_result</span><span class="o">.</span><span class="n">resid_pearson</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted Counts of 311 Complaints&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/00d0f579c800098bc4643ac5ef65a6ecb2df519c84e9d1bdff49fa0628eabcc8.png" src="_images/00d0f579c800098bc4643ac5ef65a6ecb2df519c84e9d1bdff49fa0628eabcc8.png" />
+</div>
 </div>
 </section>
-<section id="good-to-have">
-<h3>Good to have<a class="headerlink" href="#good-to-have" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="next-step">
+<h2>Next Step!<a class="headerlink" href="#next-step" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p>correlation and regression of 2111 complaints from different years</p></li>
-<li><p>how many complaints are within the floods? flood type 1? flood type 2?</p></li>
-<li><p>bbl instead of NTA?</p></li>
-<li><p>census info?</p></li>
+<li><p>Are the coefficients vary spatially?</p></li>
+<li><p>Are there other variables good predictors of the 311 flood complaints? eg. population, income level</p></li>
 </ol>
 </section>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="notes">
-<h1>————————— NOTES ————————————<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="raw-311-eda">
-<h1>RAW 311 EDA<a class="headerlink" href="#raw-311-eda" title="Permalink to this heading">#</a></h1>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fn_2021</span> <span class="o">=</span> <span class="s2">&quot;./data/raw/311_Service_Requests_from_2010_to_Present.csv&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2021</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fn_2021</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ho/opt/anaconda3/envs/pyv37/lib/python3.7/site-packages/IPython/core/interactiveshell.py:3444: DtypeWarning: Columns (8,18,20,31,32) have mixed types.Specify dtype option on import or set low_memory=False.
-  exec(code_obj, self.user_global_ns, self.user_ns)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df_2021</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">df_2021</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3214355, 41)
-</pre></div>
-</div>
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Unique Key</th>
-      <th>Created Date</th>
-      <th>Closed Date</th>
-      <th>Agency</th>
-      <th>Agency Name</th>
-      <th>Complaint Type</th>
-      <th>Descriptor</th>
-      <th>Location Type</th>
-      <th>Incident Zip</th>
-      <th>Incident Address</th>
-      <th>...</th>
-      <th>Vehicle Type</th>
-      <th>Taxi Company Borough</th>
-      <th>Taxi Pick Up Location</th>
-      <th>Bridge Highway Name</th>
-      <th>Bridge Highway Direction</th>
-      <th>Road Ramp</th>
-      <th>Bridge Highway Segment</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th>Location</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>48544884</td>
-      <td>01/01/2021 12:00:00 AM</td>
-      <td>01/08/2021 12:00:01 AM</td>
-      <td>DOHMH</td>
-      <td>Department of Health and Mental Hygiene</td>
-      <td>Food Poisoning</td>
-      <td>1 or 2</td>
-      <td>Restaurant/Bar/Deli/Bakery</td>
-      <td>11209.0</td>
-      <td>9208 3 AVENUE</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>40.619073</td>
-      <td>-74.032865</td>
-      <td>(40.61907281707007, -74.03286537421556)</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>48537501</td>
-      <td>01/01/2021 12:00:04 AM</td>
-      <td>01/01/2021 12:23:27 AM</td>
-      <td>NYPD</td>
-      <td>New York City Police Department</td>
-      <td>Noise - Commercial</td>
-      <td>Car/Truck Music</td>
-      <td>Store/Commercial</td>
-      <td>11209.0</td>
-      <td>8424 3 AVENUE</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>40.624794</td>
-      <td>-74.030527</td>
-      <td>(40.62479360728003, -74.03052663868758)</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>48538615</td>
-      <td>01/01/2021 12:00:17 AM</td>
-      <td>01/01/2021 12:43:43 AM</td>
-      <td>NYPD</td>
-      <td>New York City Police Department</td>
-      <td>Illegal Fireworks</td>
-      <td>NaN</td>
-      <td>Street/Sidewalk</td>
-      <td>11230.0</td>
-      <td>788 EAST   10 STREET</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>40.630019</td>
-      <td>-73.967198</td>
-      <td>(40.630019060451055, -73.96719768603026)</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>48537564</td>
-      <td>01/01/2021 12:00:24 AM</td>
-      <td>01/01/2021 12:42:21 AM</td>
-      <td>NYPD</td>
-      <td>New York City Police Department</td>
-      <td>Illegal Fireworks</td>
-      <td>NaN</td>
-      <td>Street/Sidewalk</td>
-      <td>11230.0</td>
-      <td>818 AVENUE H</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>40.629251</td>
-      <td>-73.968672</td>
-      <td>(40.629250930510345, -73.96867153886495)</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>48542561</td>
-      <td>01/01/2021 12:00:49 AM</td>
-      <td>01/01/2021 01:08:12 AM</td>
-      <td>NYPD</td>
-      <td>New York City Police Department</td>
-      <td>Noise - Residential</td>
-      <td>Loud Talking</td>
-      <td>Residential Building/House</td>
-      <td>10460.0</td>
-      <td>932 EAST  173 STREET</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>40.835505</td>
-      <td>-73.888182</td>
-      <td>(40.835504863783285, -73.88818185441696)</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 41 columns</p>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complaints</span> <span class="o">=</span> <span class="n">df_2021</span><span class="p">[</span><span class="s2">&quot;Complaint Type&quot;</span><span class="p">]</span>
-<span class="n">complaints_uni</span> <span class="o">=</span> <span class="n">complaints</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-<span class="n">complaints_uni</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Food Poisoning&#39;, &#39;Noise - Commercial&#39;, &#39;Illegal Fireworks&#39;,
-       &#39;Noise - Residential&#39;, &#39;UNSANITARY CONDITION&#39;,
-       &#39;Noise - Street/Sidewalk&#39;, &#39;Illegal Parking&#39;,
-       &#39;Mass Gathering Complaint&#39;, &#39;Noise - Helicopter&#39;,
-       &#39;Noise - Vehicle&#39;, &#39;Blocked Driveway&#39;, &#39;HEAT/HOT WATER&#39;, &#39;Sewer&#39;,
-       &#39;FLOORING/STAIRS&#39;, &#39;Request Large Bulky Item Collection&#39;,
-       &#39;NonCompliance with Phased Reopening&#39;,
-       &#39;Non-Emergency Police Matter&#39;, &#39;Traffic Signal Condition&#39;, &#39;Noise&#39;,
-       &#39;Dirty Conditions&#39;, &#39;Missed Collection (All Materials)&#39;,
-       &#39;Water System&#39;, &#39;Plumbing&#39;, &#39;Drinking&#39;, &#39;Animal-Abuse&#39;,
-       &#39;Street Condition&#39;, &#39;Lead&#39;, &#39;Indoor Air Quality&#39;, &#39;Smoking&#39;,
-       &#39;Traffic&#39;, &#39;Drug Activity&#39;, &#39;GENERAL&#39;, &#39;PAINT/PLASTER&#39;,
-       &#39;DOOR/WINDOW&#39;, &#39;Elevator&#39;, &#39;General Construction/Plumbing&#39;,
-       &#39;Taxi Complaint&#39;, &#39;Bus Stop Shelter Complaint&#39;, &#39;WATER LEAK&#39;,
-       &#39;ELECTRIC&#39;, &#39;Street Sign - Missing&#39;, &#39;Street Light Condition&#39;,
-       &#39;Non-Residential Heat&#39;, &#39;Food Establishment&#39;, &#39;SAFETY&#39;,
-       &#39;Abandoned Vehicle&#39;, &#39;PLUMBING&#39;, &#39;Air Quality&#39;, &#39;APPLIANCE&#39;,
-       &#39;Consumer Complaint&#39;, &#39;Rodent&#39;, &#39;Damaged Tree&#39;,
-       &#39;Illegal Animal Kept as Pet&#39;, &#39;Sanitation Condition&#39;,
-       &#39;New Tree Request&#39;, &#39;Building/Use&#39;, &#39;Curb Condition&#39;,
-       &#39;Other Enforcement&#39;, &#39;Homeless Person Assistance&#39;,
-       &#39;Unsanitary Pigeon Condition&#39;, &#39;Water Quality&#39;, &#39;Derelict Bicycle&#39;,
-       &#39;Noise - Park&#39;, &#39;Homeless Street Condition&#39;,
-       &#39;Root/Sewer/Sidewalk Condition&#39;, &#39;Maintenance or Facility&#39;,
-       &#39;Street Sign - Damaged&#39;, &#39;Highway Condition&#39;, &#39;Snow&#39;, &#39;Asbestos&#39;,
-       &#39;Dead/Dying Tree&#39;, &#39;For Hire Vehicle Complaint&#39;,
-       &#39;Street Sign - Dangling&#39;, &#39;Vacant Lot&#39;, &#39;Animal in a Park&#39;,
-       &#39;Sidewalk Condition&#39;, &#39;Real Time Enforcement&#39;, &#39;Lost Property&#39;,
-       &#39;Outdoor Dining&#39;, &#39;Derelict Vehicles&#39;, &#39;Graffiti&#39;,
-       &#39;Violation of Park Rules&#39;, &#39;Highway Sign - Missing&#39;,
-       &#39;For Hire Vehicle Report&#39;, &#39;Illegal Tree Damage&#39;, &#39;Boilers&#39;,
-       &#39;Unsanitary Animal Pvt Property&#39;,
-       &#39;Private or Charter School Reopening&#39;,
-       &#39;Special Projects Inspection Team (SPIT)&#39;, &#39;Vending&#39;,
-       &#39;Cranes and Derricks&#39;, &#39;Overgrown Tree/Branches&#39;,
-       &#39;Home Delivered Meal - Missed Delivery&#39;, &#39;Industrial Waste&#39;,
-       &#39;Emergency Response Team (ERT)&#39;, &#39;ELEVATOR&#39;, &#39;Water Conservation&#39;,
-       &#39;Noise - House of Worship&#39;, &#39;BEST/Site Safety&#39;, &#39;OUTSIDE BUILDING&#39;,
-       &#39;Electrical&#39;, &#39;Uprooted Stump&#39;, &#39;Hazardous Materials&#39;,
-       &#39;Urinating in Public&#39;, &#39;Overflowing Litter Baskets&#39;,
-       &#39;Collection Truck Noise&#39;, &#39;Broken Parking Meter&#39;,
-       &#39;Highway Sign - Damaged&#39;, &#39;COVID-19 Non-essential Construction&#39;,
-       &#39;Construction Lead Dust&#39;, &#39;AHV Inspection Unit&#39;,
-       &#39;Litter Basket / Request&#39;, &#39;Sweeping/Missed&#39;,
-       &#39;Bike/Roller/Skate Chronic&#39;, &#39;Ferry Complaint&#39;,
-       &#39;X-Ray Machine/Equipment&#39;, &#39;Tattooing&#39;,
-       &#39;Animal Facility - No Permit&#39;, &#39;Public Payphone Complaint&#39;,
-       &#39;Ferry Inquiry&#39;, &#39;Taxi Report&#39;, &#39;Taxi Compliment&#39;,
-       &#39;Bike Rack Condition&#39;, &#39;Radioactive Material&#39;, &#39;Bridge Condition&#39;,
-       &#39;Panhandling&#39;, &#39;Indoor Sewage&#39;, &#39;Mobile Food Vendor&#39;, &#39;Day Care&#39;,
-       &#39;Wood Pile Remaining&#39;, &#39;Investigations and Discipline (IAD)&#39;,
-       &#39;Peeling Paint&#39;, &#39;LinkNYC&#39;, &#39;Posting Advertisement&#39;,
-       &#39;Sweeping/Inadequate&#39;, &#39;School Maintenance&#39;, &#39;Drinking Water&#39;,
-       &#39;Recycling Enforcement&#39;, &#39;Bus Stop Shelter Placement&#39;,
-       &#39;Window Guard&#39;, &#39;Harboring Bees/Wasps&#39;, &#39;Highway Sign - Dangling&#39;,
-       &#39;Encampment&#39;, &#39;Poison Ivy&#39;, &#39;Green Taxi Complaint&#39;,
-       &#39;Municipal Parking Facility&#39;,
-       &#39;Special Natural Area District (SNAD)&#39;, &#39;Unleashed Dog&#39;,
-       &#39;Mosquitoes&#39;, &#39;Plant&#39;, &#39;Pet Shop&#39;, &#39;Disorderly Youth&#39;,
-       &#39;Bottled Water&#39;, &#39;Scaffold Safety&#39;, &#39;Unsanitary Animal Facility&#39;,
-       &#39;DEP Street Condition&#39;, &#39;Illegal Animal Sold&#39;,
-       &#39;Foam Ban Enforcement&#39;, &#39;Mold&#39;, &#39;Beach/Pool/Sauna Complaint&#39;,
-       &#39;Building Condition&#39;, &#39;Adopt-A-Basket&#39;, &#39;Public Toilet&#39;,
-       &#39;Found Property&#39;, &#39;Green Taxi Report&#39;, &#39;Snow Removal&#39;,
-       &#39;Cooling Tower&#39;, &#39;FHV Licensee Complaint&#39;,
-       &#39;Building Marshals office&#39;, &#39;Calorie Labeling&#39;, &#39;Internal Code&#39;,
-       &#39;Tunnel Condition&#39;, &#39;Tanning&#39;, &#39;Taxi Licensee Complaint&#39;,
-       &#39;DSNY Spillage&#39;, &#39;Borough Office&#39;, &#39;SRDE&#39;, &#39;Unlicensed Dog&#39;,
-       &#39;Standing Water&#39;, &#39;Facades&#39;, &#39;Missed Collection&#39;,
-       &#39;Dept of Investigations&#39;, &#39;Overflowing Recycling Baskets&#39;,
-       &#39;DEP Sidewalk Condition&#39;, &#39;DEP Highway Condition&#39;, &#39;Squeegee&#39;,
-       &#39;Dirty Condition&#39;, &#39;Sweeping/Missed-Inadequate&#39;, &#39;Lifeguard&#39;,
-       &#39;Executive Inspections&#39;, &#39;E-Scooter&#39;, &#39;SRGOVG&#39;,
-       &#39;Electronics Waste Appointment&#39;, &#39;Vaccine Mandate Non-Compliance&#39;,
-       &#39;Storm&#39;, &#39;Dispatched Taxi Complaint&#39;, &#39;Change Collection Schedule&#39;,
-       &#39;Miscellaneous Categories&#39;,
-       &#39;Sanitation Worker or Vehicle Complaint&#39;, &#39;Illegal Dumping&#39;,
-       &#39;Litter Basket Request&#39;, &#39;Abandoned Bike&#39;,
-       &#39;Residential Disposal Complaint&#39;, &#39;Obstruction&#39;,
-       &#39;Litter Basket Complaint&#39;, &#39;Illegal Posting&#39;, &#39;Dead Animal&#39;,
-       &#39;Dumpster Complaint&#39;, &#39;Commercial Disposal Complaint&#39;,
-       &#39;Lot Condition&#39;, &#39;Street Sweeping Complaint&#39;, &#39;DSNY Internal&#39;,
-       &#39;Institution Disposal Complaint&#39;, &#39;Transfer Station Complaint&#39;,
-       &#39;Snow or Ice&#39;, &#39;DEP Bridge Condition&#39;, &#39;Retailer Complaint&#39;,
-       &#39;Recycling Basket Complaint&#39;, &#39;Incorrect Data&#39;,
-       &#39;Special Operations&#39;, &#39;Forensic Engineering&#39;,
-       &#39;Seasonal Collection&#39;, &#39;Face Covering Violation&#39;,
-       &#39;Private School Vaccine Mandate Non-Compliance&#39;], dtype=object)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df_2021[df_2021[&#39;Agency Name&#39;].str.contains(&quot;Water&quot;)]</span>
-<span class="n">df_2021</span><span class="p">[</span><span class="s1">&#39;Agency Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Department of Health and Mental Hygiene&#39;,
-       &#39;New York City Police Department&#39;,
-       &#39;Department of Housing Preservation and Development&#39;,
-       &#39;Mayorâ\x80\x99s Office of Special Enforcement&#39;,
-       &#39;Economic Development Corporation&#39;,
-       &#39;Department of Environmental Protection&#39;,
-       &#39;Department of Sanitation&#39;, &#39;Department of Transportation&#39;,
-       &#39;Department of Buildings&#39;, &#39;Taxi and Limousine Commission&#39;,
-       &#39;Department of Consumer Affairs&#39;,
-       &#39;Department of Parks and Recreation&#39;,
-       &#39;Department of Homeless Services&#39;, &#39;Department for the Aging&#39;,
-       &#39;Department of Information Technology and Telecommunications&#39;,
-       &#39;Department of Education&#39;], dtype=object)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># agnm = &quot;Department of Environmental Protection&quot;</span>
-
-<span class="k">for</span> <span class="n">agnm</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Department of Transportation&#39;</span><span class="p">,</span> <span class="s1">&#39;Department of Buildings&#39;</span><span class="p">]:</span> <span class="c1"># &quot;Department of Environmental Protection&quot;, &#39;Department of Sanitation&#39;, </span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">agnm</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">df_2021</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_2021</span><span class="p">[</span><span class="s2">&quot;Agency Name&quot;</span><span class="p">]</span><span class="o">==</span><span class="n">agnm</span><span class="p">,</span> <span class="s2">&quot;Complaint Type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
-<span class="c1"># &#39;Sewer&#39;, &#39;Water System&#39;, &#39;Water Quality&#39;, &#39;Water Conservation&#39;, </span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Department of Transportation
-[&#39;Traffic Signal Condition&#39; &#39;Street Condition&#39;
- &#39;Bus Stop Shelter Complaint&#39; &#39;Street Sign - Missing&#39;
- &#39;Street Light Condition&#39; &#39;Curb Condition&#39; &#39;Street Sign - Damaged&#39;
- &#39;Highway Condition&#39; &#39;Street Sign - Dangling&#39; &#39;Sidewalk Condition&#39;
- &#39;Outdoor Dining&#39; &#39;Highway Sign - Missing&#39; &#39;Broken Parking Meter&#39;
- &#39;Highway Sign - Damaged&#39; &#39;Ferry Complaint&#39; &#39;Ferry Inquiry&#39;
- &#39;Bike Rack Condition&#39; &#39;Bridge Condition&#39; &#39;Bus Stop Shelter Placement&#39;
- &#39;Highway Sign - Dangling&#39; &#39;Municipal Parking Facility&#39;
- &#39;DEP Street Condition&#39; &#39;Building Condition&#39; &#39;Public Toilet&#39;
- &#39;Tunnel Condition&#39; &#39;DEP Sidewalk Condition&#39; &#39;DEP Highway Condition&#39;
- &#39;E-Scooter&#39; &#39;DEP Bridge Condition&#39;]
-Department of Buildings
-[&#39;Plumbing&#39; &#39;Elevator&#39; &#39;General Construction/Plumbing&#39; &#39;Building/Use&#39;
- &#39;Real Time Enforcement&#39; &#39;Boilers&#39;
- &#39;Special Projects Inspection Team (SPIT)&#39; &#39;Cranes and Derricks&#39;
- &#39;Emergency Response Team (ERT)&#39; &#39;BEST/Site Safety&#39; &#39;Electrical&#39;
- &#39;COVID-19 Non-essential Construction&#39; &#39;AHV Inspection Unit&#39;
- &#39;Investigations and Discipline (IAD)&#39;
- &#39;Special Natural Area District (SNAD)&#39; &#39;Scaffold Safety&#39;
- &#39;Building Marshals office&#39; &#39;Borough Office&#39; &#39;Facades&#39;
- &#39;Dept of Investigations&#39; &#39;Executive Inspections&#39;
- &#39;Miscellaneous Categories&#39; &#39;Special Operations&#39; &#39;Forensic Engineering&#39;]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df_2021</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_2021</span><span class="p">[</span><span class="s2">&quot;Complaint Type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Sewer&#39;</span><span class="p">,</span> <span class="s1">&#39;Water System&#39;</span><span class="p">,</span> <span class="s1">&#39;Water Quality&#39;</span><span class="p">,</span> <span class="s1">&#39;Water Conservation&#39;</span><span class="p">]),</span> <span class="p">:]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">df_2021</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_2021</span><span class="p">[</span><span class="s2">&quot;Complaint Type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Sewer&#39;</span><span class="p">,</span> <span class="s1">&#39;Water System&#39;</span><span class="p">,</span> <span class="s1">&#39;Water Quality&#39;</span><span class="p">,</span> <span class="s1">&#39;Water Conservation&#39;</span><span class="p">]),</span><span class="s2">&quot;Descriptor&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(98078, 41)
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Sewer Backup (Use Comments) (SA)&#39;, &#39;Leak (Use Comments) (WA2)&#39;,
-       &#39;Hydrant Leaking (WC1)&#39;,
-       &#39;Catch Basin Clogged/Flooding (Use Comments) (SC)&#39;,
-       &#39;Hydrant Running (WC3)&#39;,
-       &#39;unknown odor/taste in drinking water (QA6)&#39;,
-       &#39;Possible Water Main Break (Use Comments) (WA1)&#39;,
-       &#39;Street Flooding (SJ)&#39;, &#39;Taste/Odor, Musty/Stale (QA4)&#39;,
-       &#39;Dirty Water (WE)&#39;, &#39;Manhole Overflow (Use Comments) (SA1)&#39;,
-       &#39;Manhole Cover Missing (Emergency) (SA3)&#39;,
-       &#39;Taste/Odor, Chemical (QA2)&#39;, &#39;Hydrant Knocked Over/Missing (WC)&#39;,
-       &#39;Clear Water With Other Particles (Use Comments) (QEZ)&#39;,
-       &#39;Water Meter Broken/Leaking - Private Residence (CMR)&#39;,
-       &#39;Excessive Water In Basement (WEFB)&#39;, &#39;No Water (WNW)&#39;,
-       &#39;Sewer Odor (SA2)&#39;, &#39;Hydrant Running Full (WA4)&#39;,
-       &#39;LOW WATER PRESSURE - WLWP&#39;, &#39;Taste/Odor, Bitter/Metallic (QA3)&#39;,
-       &#39;Catch Basin Sunken/Damaged/Raised (SC1)&#39;,
-       &#39;Defective/Missing Curb Piece (SC4)&#39;,
-       &#39;Other Water Problem (Use Comments) (WZZ)&#39;,
-       &#39;Other Sewer Problem (Use Comments) (SZZ)&#39;,
-       &#39;Taste/Odor, Chlorine (QA1)&#39;, &#39;Cloudy Or Milky Water (QB1)&#39;,
-       &#39;No Sampling Required, Requested Information (QG2)&#39;,
-       &#39;Culvert Blocked/Needs Cleaning (SE)&#39;, &#39;Taste/Odor, Sewer (QA5)&#39;,
-       &#39;Hydrant Defective (WC2)&#39;, &#39;High Water Pressure (WHP)&#39;,
-       &#39;Illegal Use Of A Hydrant (CIN)&#39;,
-       &#39;Hyd Valve Box Cover Missing (WV2)&#39;,
-       &#39;Hydrant Locking Device Request (Use Comments) (WC5)&#39;,
-       &#39;Wasting Faucets,Sinks,Flushometer,Urinal,Etc. - Private Residence (CWR)&#39;,
-       &#39;Illegal Use Of Hose - Private Residence&#39;,
-       &#39;Catch Basin Grating Missing (SA4)&#39;,
-       &#39;RAIN GARDEN FLOODING (SRGFLD)&#39;, &#39;RAIN GARDEN DEBRIS (SRGDBR)&#39;,
-       &#39;Water Meter Broken/Leaking - Other (CMO)&#39;,
-       &#39;Manhole Sunken/Damaged/Raised *For Dep Internal Use Only* (WF2)&#39;,
-       &#39;Manhole Sunken/Damaged/Raised (SB1)&#39;,
-       &#39;Water Meter Stolen/Missing - Private Residence (CLR)&#39;,
-       &#39;Oil, Grease In Water (QD1)&#39;,
-       &#39;Water Meter Stolen/Missing - Other (CLO)&#39;,
-       &#39;Manhole Cover Broken/Making Noise (SB)&#39;,
-       &#39;Cloudy Or Milky, Other (Use Comments) (QBZ)&#39;,
-       &#39;DAMAGE STRUCTURE/RAILING (SRGDM)&#39;, &#39;Highway Flooding (SH)&#39;,
-       &#39;Defective Water Sampling Station (QSS)&#39;,
-       &#39;Catch Basin Search (SC2)&#39;, &#39;Rooftank Leak Or Overflow (CKO)&#39;,
-       &#39;Wasting Faucets,Sinks,Flushometer,Urinal,Etc. - Other (CWO)&#39;,
-       &#39;Manhole Cover Missing (Emergency) For Dep Internal Use Only (WF)&#39;,
-       &#39;Defective Street Cut (WZZ1)&#39;, &#39;Illegal Use Of Hose - Other (CCO)&#39;,
-       &#39;Plate Noisy/Sunken/Raised (SB5)&#39;,
-       &#39;Remove Hydrant Locking Device (WC6)&#39;,
-       &#39;Request To Open A Hydrant (WC4)&#39;,
-       &#39;Plate Missing/Moved-Exposing Hole (SB4)&#39;,
-       &#39;Street Cave-In *Dep Internal Use Only* (SG1)&#39;,
-       &#39;Catch Basin Connection Broken *Dep Internal Use Only* (SC5)&#39;,
-       &#39;Clear Water With Organisms (Insects, Worms) (QE2)&#39;,
-       &#39;Sewer Break (SBR)&#39;,
-       &#39;Caps &amp; Chains Missing-Fire Dept Use Only (WKMC)&#39;,
-       &#39;Manhole Cover Broken/Making Noise *For Dep Internal Use Only* (WF1)&#39;,
-       &#39;Fire Hydrant Emergency (FHE)&#39;,
-       &#39;Other Water Problem (Use Comments) (QZZ)&#39;], dtype=object)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df_2021</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_2021</span><span class="p">[</span><span class="s2">&quot;Agency Name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Department of Environmental Protection&quot;</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Complaint Type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Sewer&#39;</span><span class="p">,</span> <span class="s1">&#39;Water System&#39;</span><span class="p">,</span> <span class="s1">&#39;Water Quality&#39;</span><span class="p">,</span> <span class="s1">&#39;Water Conservation&#39;</span><span class="p">]),</span><span class="s2">&quot;Descriptor&quot;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>108        Sewer Backup (Use Comments) (SA)
-347        Sewer Backup (Use Comments) (SA)
-385        Sewer Backup (Use Comments) (SA)
-408               Leak (Use Comments) (WA2)
-1791                  Hydrant Leaking (WC1)
-                         ...               
-3213658                    Dirty Water (WE)
-3213659       RAIN GARDEN FLOODING (SRGFLD)
-3213695    Sewer Backup (Use Comments) (SA)
-3213696             Hydrant Defective (WC2)
-3213771      Illegal Use Of A Hydrant (CIN)
-Name: Descriptor, Length: 98078, dtype: object
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">df_2021</span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -2560,33 +2253,27 @@ Name: Descriptor, Length: 98078, dtype: object
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data">Get Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-nyc-311-complaints">Get Data – NYC 311 Complaints</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-nyc-stormwater-flood-map">Get Data – NYC Stormwater Flood Map</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-nyc-ntas">Get Data – NYC NTAs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize">Visualize</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize">Visualize</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-analysis">Spatial analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-aggregation">Spatial Aggregation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics-get-area-of-storm-water-floods-by-nta">1. Zonal Statistics - get area of storm water floods by nta</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics-get-counts-of-311-flood-complaints-by-nta">2. Zonal Statistics - get counts of 311 flood complaints by nta</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3. Visualize</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-analysis">Statistical Analysis</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation">1. Correlation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-plot">2. Bivariate Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#did-people-complain-equally-to-minor-flooding-and-severe-flooding">2. Did people complain equally to minor flooding and severe flooding?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">3. Regression</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-311-complaints-of-different-years">4. Regression – 311 Complaints of Different Years</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#good-to-have">Good to have</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-step">Next Step!</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">————————— NOTES ————————————</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-311-eda">RAW 311 EDA</a></li>
-</ul>
-
   </nav></div>
 
 </div></div>
