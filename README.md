@@ -12,6 +12,8 @@ __Date:__ [Saturday, March 18, 2023 🕘](https://nycsodata23.sched.com/event/1J
 
 __Analysis Book:__ [nyc-street-flooding-analysis.datalife.nyc](https://nyc-street-flooding-analysis.datalife.nyc)
 
+__Presentation Slides:__ [⭳ Download](slides/NYC-Open-Data-Week-2023_NYC-School-of-Data_Going-Beyond-EDA-NYC-Street-Flooding-Complaints_2023-03-18_FINAL.pdf)
+
 ## Contributors 💻
 
 | Presenter | LinkedIn | GitHub | Twitter |
