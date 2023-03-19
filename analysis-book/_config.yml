@@ -14,6 +14,7 @@ execute:
     - 'nyc-311-groundtruth.ipynb'
     - 'explore-data-profiling.ipynb'
     - 'nyc-311-vs-stormwaterflood.ipynb'
+    - 'merge-flood-pluto-census.ipynb'
 
 # HTML-specific settings
 html:

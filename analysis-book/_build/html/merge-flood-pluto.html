@@ -238,14 +238,6 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model 🏗</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="model-build.html">Build Models</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpret 💡</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="interpret-results.html">Key Findings</a></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources 📑</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
@@ -545,6 +537,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-street-flooding-geodataframe-s-bbl-column-from-object-to-float">Convert <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span></code> GeoDataFrame’s <code class="docutils literal notranslate"><span class="pre">bbl</span></code> column from <code class="docutils literal notranslate"><span class="pre">object</span></code> to <code class="docutils literal notranslate"><span class="pre">float</span></code>.</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#left-join-on-bbl">Left Join on <code class="docutils literal notranslate"><span class="pre">BBL</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#create-column-to-store-index-before-merge">Create column to store index before merge</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#preserve-multipolygon-geometry-for-the-bbl-merge">Preserve multipolygon geometry for the bbl merge</a></li>
 </ul>
 </li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-results-of-bbl-join">Preview Results of <code class="docutils literal notranslate"><span class="pre">BBL</span></code> Join</a><ul class="nav section-nav flex-column">
@@ -604,6 +597,14 @@ document.write(`
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting">Troubleshooting</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#geospatial-libraries">geospatial libraries</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#geopandas-dataframes-and-categorical-data">GeoPandas DataFrames and categorical data</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -617,7 +618,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="street-flooding-mappluto">
 <h1>Street Flooding &amp; MapPLUTO<a class="headerlink" href="#street-flooding-mappluto" title="Permalink to this heading">#</a></h1>
-<p>Merge the NYC Street Flooding service requests dataset with MapPluto</p>
+<p>Merge the NYC Street Flooding Service Requests dataset with MapPLUTO</p>
 <section id="import-libraries">
 <h2>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this heading">#</a></h2>
 <section id="standard-libraries">
@@ -650,6 +651,7 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">fiona</span>
+<span class="kn">from</span> <span class="nn">shapely</span> <span class="kn">import</span> <span class="n">wkt</span>
 </pre></div>
 </div>
 </div>
@@ -729,8 +731,29 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span>
     <span class="n">nyc_street_flooding_geojson</span><span class="p">,</span> 
     <span class="n">driver</span> <span class="o">=</span> <span class="s1">&#39;GeoJSON&#39;</span><span class="p">,</span> 
-    <span class="c1"># rows = 500</span>
+    <span class="c1"># rows = 100</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Geographic 2D CRS: EPSG:4326&gt;
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- undefined
+Datum: World Geodetic System 1984
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich
 </pre></div>
 </div>
 </div>
@@ -743,7 +766,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># of Street Flooding Complaints: 35076
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># of Street Flooding Complaints: 35156
 </pre></div>
 </div>
 </div>
@@ -777,7 +800,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RangeIndex(start=0, stop=35076, step=1)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RangeIndex(start=0, stop=35156, step=1)
 </pre></div>
 </div>
 </div>
@@ -787,7 +810,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 <h4>Set <code class="docutils literal notranslate"><span class="pre">unique_key</span></code> as Index<a class="headerlink" href="#set-unique-key-as-index" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;unique_key&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test before deciding | street_flooding_gdf.set_index(&#39;unique_key&#39;, inplace = True)</span>
 </pre></div>
 </div>
 </div>
@@ -802,12 +825,7 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;15639934&#39;, &#39;15640572&#39;, &#39;15640664&#39;, &#39;15655327&#39;, &#39;15668560&#39;, &#39;15674300&#39;,
-       &#39;15674896&#39;, &#39;15674924&#39;, &#39;15675505&#39;, &#39;15683503&#39;,
-       ...
-       &#39;56938247&#39;, &#39;56939162&#39;, &#39;56939933&#39;, &#39;56940422&#39;, &#39;56941710&#39;, &#39;56943896&#39;,
-       &#39;56945114&#39;, &#39;56947312&#39;, &#39;56949537&#39;, &#39;56951729&#39;],
-      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=35076)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RangeIndex(start=0, stop=35156, step=1)
 </pre></div>
 </div>
 </div>
@@ -819,10 +837,37 @@ map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
 <p>Time to read gdb folder: ~<code class="docutils literal notranslate"><span class="pre">37m</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">map_pluto_gdb_folder</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data/PLUTO/MapPLUTO_22v3_1_water_included.gdb
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> echo &quot;[skip] using gdb file&quot;
+map_pluto_shp_folder  = &#39;data/PLUTO/MapPLUTO_22v3_1_water_included.shp&#39;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[skip] using gdb file
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span>
     <span class="n">map_pluto_gdb_folder</span><span class="p">,</span> 
     <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;FileGDB&#39;</span><span class="p">,</span> 
-    <span class="c1"># rows = 15</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="s1">&#39;fiona&#39;</span><span class="p">,</span>
+    <span class="n">crs</span> <span class="o">=</span> <span class="s1">&#39;EPSG2263&#39;</span><span class="p">,</span>
+    <span class="c1"># rows = 100000</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -904,7 +949,106 @@ Datum: North American Datum 1983
 <h3>Convert Pluto to EPSG code: 4326<a class="headerlink" href="#convert-pluto-to-epsg-code-4326" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_gdf</span> <span class="o">=</span> <span class="n">pluto_gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">4326</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_gdf</span><span class="o">.</span><span class="n">geometry</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0         MULTIPOLYGON (((979834.644 191977.863, 980575....
+1         MULTIPOLYGON (((973839.736 193894.244, 972500....
+2         MULTIPOLYGON (((979286.676 198786.617, 977468....
+3         MULTIPOLYGON (((979340.404 199175.516, 977511....
+4         MULTIPOLYGON (((981288.593 194289.382, 981164....
+                                ...                        
+857209    MULTIPOLYGON (((914466.480 124580.058, 914512....
+857210    MULTIPOLYGON (((914321.022 124460.350, 914256....
+857211    MULTIPOLYGON (((914318.219 124604.403, 914338....
+857212    MULTIPOLYGON (((914740.567 124877.857, 914639....
+857213    MULTIPOLYGON (((914842.706 124746.005, 914775....
+Name: geometry, Length: 857214, dtype: geometry
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_gdf</span> <span class="o">=</span> <span class="n">pluto_gdf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_gdf</span><span class="p">[</span><span class="s1">&#39;geometry_multipolygon_pluto_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pluto_4326_gdf</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_gdf</span><span class="o">.</span><span class="n">geometry</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0         MULTIPOLYGON (((979834.644 191977.863, 980575....
+1         MULTIPOLYGON (((973839.736 193894.244, 972500....
+2         MULTIPOLYGON (((979286.676 198786.617, 977468....
+3         MULTIPOLYGON (((979340.404 199175.516, 977511....
+4         MULTIPOLYGON (((981288.593 194289.382, 981164....
+                                ...                        
+857209    MULTIPOLYGON (((914466.480 124580.058, 914512....
+857210    MULTIPOLYGON (((914321.022 124460.350, 914256....
+857211    MULTIPOLYGON (((914318.219 124604.403, 914338....
+857212    MULTIPOLYGON (((914740.567 124877.857, 914639....
+857213    MULTIPOLYGON (((914842.706 124746.005, 914775....
+Name: geometry, Length: 857214, dtype: geometry
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_gdf</span><span class="p">[</span><span class="s1">&#39;geometry_multipolygon_pluto_x&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0         NaN
+1         NaN
+2         NaN
+3         NaN
+4         NaN
+         ... 
+857209    NaN
+857210    NaN
+857211    NaN
+857212    NaN
+857213    NaN
+Name: geometry_multipolygon_pluto_x, Length: 857214, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_gdf</span><span class="o">.</span><span class="n">geometry</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0         MULTIPOLYGON (((979834.644 191977.863, 980575....
+1         MULTIPOLYGON (((973839.736 193894.244, 972500....
+2         MULTIPOLYGON (((979286.676 198786.617, 977468....
+3         MULTIPOLYGON (((979340.404 199175.516, 977511....
+4         MULTIPOLYGON (((981288.593 194289.382, 981164....
+                                ...                        
+857209    MULTIPOLYGON (((914466.480 124580.058, 914512....
+857210    MULTIPOLYGON (((914321.022 124460.350, 914256....
+857211    MULTIPOLYGON (((914318.219 124604.403, 914338....
+857212    MULTIPOLYGON (((914740.567 124877.857, 914639....
+857213    MULTIPOLYGON (((914842.706 124746.005, 914775....
+Name: geometry, Length: 857214, dtype: geometry
 </pre></div>
 </div>
 </div>
@@ -918,16 +1062,18 @@ Datum: North American Datum 1983
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Geographic 2D CRS: EPSG:4326&gt;
-Name: WGS 84
-Axis Info [ellipsoidal]:
-- Lat[north]: Geodetic latitude (degree)
-- Lon[east]: Geodetic longitude (degree)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Derived Projected CRS: EPSG:2263&gt;
+Name: NAD83 / New York Long Island (ftUS)
+Axis Info [cartesian]:
+- [east]: Easting (US survey foot)
+- [north]: Northing (US survey foot)
 Area of Use:
-- name: World.
-- bounds: (-180.0, -90.0, 180.0, 90.0)
-Datum: World Geodetic System 1984 ensemble
-- Ellipsoid: WGS 84
+- undefined
+Coordinate Operation:
+- name: unnamed
+- method: Lambert Conic Conformal (2SP)
+Datum: North American Datum 1983
+- Ellipsoid: GRS 1980
 - Prime Meridian: Greenwich
 </pre></div>
 </div>
@@ -981,16 +1127,54 @@ Datum: World Geodetic System 1984 ensemble
 <p><span id="id5">[<a class="reference internal" href="references.html#id7" title="Matthew Son. How to keep index when using pandas merge. 2019. URL: https://stackoverflow.com/questions/11976503/how-to-keep-index-when-using-pandas-merge (visited on 2023-03-05).">Son, 2019</a>]</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="p">[</span><span class="s1">&#39;unique_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">street_flooding_gdf</span><span class="o">.</span><span class="n">index</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># street_flooding_gdf[&#39;unique_key&#39;] = street_flooding_gdf.index</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="preserve-multipolygon-geometry-for-the-bbl-merge">
+<h5>Preserve multipolygon geometry for the bbl merge<a class="headerlink" href="#preserve-multipolygon-geometry-for-the-bbl-merge" title="Permalink to this heading">#</a></h5>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="p">[</span><span class="s1">&#39;geometry_point_street_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">street_flooding_gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_gdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-    <span class="n">street_flooding_gdf</span><span class="p">,</span>
-    <span class="n">pluto_4326_gdf</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_list</span> <span class="o">=</span> <span class="n">pluto_4326_gdf</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>geometry
+geometry_multipolygon_pluto_x
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_bbl_gdf</span> <span class="o">=</span> <span class="n">pluto_4326_gdf</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;geometry&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_gdf</span> <span class="o">=</span> <span class="n">street_flooding_gdf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">pluto_4326_bbl_gdf</span><span class="p">,</span>
     <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;BBL&#39;</span><span class="p">,</span>
     <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
 <span class="p">)</span>
@@ -1014,9 +1198,9 @@ Datum: World Geodetic System 1984 ensemble
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Int64Index([    0,     1,     2,     3,     4,     5,     6,     7,     8,
                 9,
             ...
-            35066, 35067, 35068, 35069, 35070, 35071, 35072, 35073, 35074,
-            35075],
-           dtype=&#39;int64&#39;, length=35076)
+            35146, 35147, 35148, 35149, 35150, 35151, 35152, 35153, 35154,
+            35155],
+           dtype=&#39;int64&#39;, length=35156)
 </pre></div>
 </div>
 </div>
@@ -1026,7 +1210,7 @@ Datum: World Geodetic System 1984 ensemble
 <h5>Set <code class="docutils literal notranslate"><span class="pre">unique_key</span></code> as index<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_gdf</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;unique_key&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># street_flooding_pluto_gdf.set_index(&#39;unique_key&#39;, inplace = True)</span>
 </pre></div>
 </div>
 </div>
@@ -1036,17 +1220,7 @@ Datum: World Geodetic System 1984 ensemble
 <h5>Verify index change<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_gdf</span><span class="o">.</span><span class="n">index</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;15639934&#39;, &#39;15640572&#39;, &#39;15640664&#39;, &#39;15655327&#39;, &#39;15668560&#39;, &#39;15674300&#39;,
-       &#39;15674896&#39;, &#39;15674924&#39;, &#39;15675505&#39;, &#39;15683503&#39;,
-       ...
-       &#39;56938247&#39;, &#39;56939162&#39;, &#39;56939933&#39;, &#39;56940422&#39;, &#39;56941710&#39;, &#39;56943896&#39;,
-       &#39;56945114&#39;, &#39;56947312&#39;, &#39;56949537&#39;, &#39;56951729&#39;],
-      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=35076)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># street_flooding_gdf.index</span>
 </pre></div>
 </div>
 </div>
@@ -1150,186 +1324,194 @@ Datum: World Geodetic System 1984 ensemble
     </tr>
     <tr>
       <th>5</th>
+      <td>unique_key</td>
       <td>complaint_type</td>
       <td>y_coordinate_state_plane</td>
       <td>status</td>
       <td>bridge_highway_name</td>
-      <td>location_type</td>
     </tr>
     <tr>
       <th>6</th>
+      <td>location_type</td>
       <td>due_date</td>
       <td>taxi_company_borough</td>
       <td>taxi_pick_up_location</td>
       <td>x_coordinate_state_plane</td>
-      <td>resolution_description</td>
     </tr>
     <tr>
       <th>7</th>
+      <td>resolution_description</td>
       <td>community_board</td>
       <td>resolution_action_updated_date</td>
       <td>intersection_street_1</td>
       <td>closed_date</td>
-      <td>vehicle_type</td>
     </tr>
     <tr>
       <th>8</th>
+      <td>vehicle_type</td>
       <td>cross_street_1</td>
       <td>borough</td>
       <td>landmark</td>
-      <td>geometry_x</td>
-      <td>BBL</td>
+      <td>geometry</td>
     </tr>
     <tr>
       <th>9</th>
+      <td>BBL</td>
+      <td>geometry_point_street_x</td>
       <td>Borough</td>
       <td>Block</td>
       <td>Lot</td>
-      <td>CD</td>
-      <td>BCT2020</td>
     </tr>
     <tr>
       <th>10</th>
+      <td>CD</td>
+      <td>BCT2020</td>
       <td>BCTCB2020</td>
       <td>CT2010</td>
       <td>CB2010</td>
-      <td>SchoolDist</td>
-      <td>Council</td>
     </tr>
     <tr>
       <th>11</th>
+      <td>SchoolDist</td>
+      <td>Council</td>
       <td>ZipCode</td>
       <td>FireComp</td>
       <td>PolicePrct</td>
-      <td>HealthCenterDistrict</td>
-      <td>HealthArea</td>
     </tr>
     <tr>
       <th>12</th>
+      <td>HealthCenterDistrict</td>
+      <td>HealthArea</td>
       <td>Sanitboro</td>
       <td>SanitDistrict</td>
       <td>SanitSub</td>
-      <td>Address</td>
-      <td>ZoneDist1</td>
     </tr>
     <tr>
       <th>13</th>
+      <td>Address</td>
+      <td>ZoneDist1</td>
       <td>ZoneDist2</td>
       <td>ZoneDist3</td>
       <td>ZoneDist4</td>
-      <td>Overlay1</td>
-      <td>Overlay2</td>
     </tr>
     <tr>
       <th>14</th>
+      <td>Overlay1</td>
+      <td>Overlay2</td>
       <td>SPDist1</td>
       <td>SPDist2</td>
       <td>SPDist3</td>
-      <td>LtdHeight</td>
-      <td>SplitZone</td>
     </tr>
     <tr>
       <th>15</th>
+      <td>LtdHeight</td>
+      <td>SplitZone</td>
       <td>BldgClass</td>
       <td>LandUse</td>
       <td>Easements</td>
-      <td>OwnerType</td>
-      <td>OwnerName</td>
     </tr>
     <tr>
       <th>16</th>
+      <td>OwnerType</td>
+      <td>OwnerName</td>
       <td>LotArea</td>
       <td>BldgArea</td>
       <td>ComArea</td>
-      <td>ResArea</td>
-      <td>OfficeArea</td>
     </tr>
     <tr>
       <th>17</th>
+      <td>ResArea</td>
+      <td>OfficeArea</td>
       <td>RetailArea</td>
       <td>GarageArea</td>
       <td>StrgeArea</td>
-      <td>FactryArea</td>
-      <td>OtherArea</td>
     </tr>
     <tr>
       <th>18</th>
+      <td>FactryArea</td>
+      <td>OtherArea</td>
       <td>AreaSource</td>
       <td>NumBldgs</td>
       <td>NumFloors</td>
-      <td>UnitsRes</td>
-      <td>UnitsTotal</td>
     </tr>
     <tr>
       <th>19</th>
+      <td>UnitsRes</td>
+      <td>UnitsTotal</td>
       <td>LotFront</td>
       <td>LotDepth</td>
       <td>BldgFront</td>
-      <td>BldgDepth</td>
-      <td>Ext</td>
     </tr>
     <tr>
       <th>20</th>
+      <td>BldgDepth</td>
+      <td>Ext</td>
       <td>ProxCode</td>
       <td>IrrLotCode</td>
       <td>LotType</td>
-      <td>BsmtCode</td>
-      <td>AssessLand</td>
     </tr>
     <tr>
       <th>21</th>
+      <td>BsmtCode</td>
+      <td>AssessLand</td>
       <td>AssessTot</td>
       <td>ExemptTot</td>
       <td>YearBuilt</td>
-      <td>YearAlter1</td>
-      <td>YearAlter2</td>
     </tr>
     <tr>
       <th>22</th>
+      <td>YearAlter1</td>
+      <td>YearAlter2</td>
       <td>HistDist</td>
       <td>Landmark</td>
       <td>BuiltFAR</td>
-      <td>ResidFAR</td>
-      <td>CommFAR</td>
     </tr>
     <tr>
       <th>23</th>
+      <td>ResidFAR</td>
+      <td>CommFAR</td>
       <td>FacilFAR</td>
       <td>BoroCode</td>
       <td>CondoNo</td>
-      <td>Tract2010</td>
-      <td>XCoord</td>
     </tr>
     <tr>
       <th>24</th>
+      <td>Tract2010</td>
+      <td>XCoord</td>
       <td>YCoord</td>
       <td>ZoneMap</td>
       <td>ZMCode</td>
-      <td>Sanborn</td>
-      <td>TaxMap</td>
     </tr>
     <tr>
       <th>25</th>
+      <td>Sanborn</td>
+      <td>TaxMap</td>
       <td>EDesigNum</td>
       <td>APPBBL</td>
       <td>APPDate</td>
-      <td>PLUTOMapID</td>
-      <td>FIRM07_FLAG</td>
     </tr>
     <tr>
       <th>26</th>
+      <td>PLUTOMapID</td>
+      <td>FIRM07_FLAG</td>
       <td>PFIRM15_FLAG</td>
       <td>Version</td>
       <td>DCPEdited</td>
-      <td>Latitude</td>
-      <td>Longitude</td>
     </tr>
     <tr>
       <th>27</th>
+      <td>Latitude</td>
+      <td>Longitude</td>
       <td>Notes</td>
       <td>Shape_Leng</td>
       <td>Shape_Area</td>
-      <td>geometry_y</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>geometry_multipolygon_pluto_x</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
       <td>None</td>
     </tr>
   </tbody>
@@ -1339,14 +1521,15 @@ Datum: World Geodetic System 1984 ensemble
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preview_columns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;geometry_multipolygon_pluto_x&#39;</span><span class="p">,</span>
     <span class="s1">&#39;created_date&#39;</span><span class="p">,</span>
     <span class="s1">&#39;borough&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Borough&#39;</span><span class="p">,</span>
     <span class="s1">&#39;street_name&#39;</span><span class="p">,</span>
     <span class="s1">&#39;bbl&#39;</span><span class="p">,</span>
     <span class="s1">&#39;ZipCode&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;geometry_x&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;geometry_y&#39;</span>
+    <span class="c1"># &#39;geometry_x&#39;,</span>
+    <span class="c1"># &#39;geometry_y&#39;</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -1357,7 +1540,7 @@ Datum: World Geodetic System 1984 ensemble
 <h5>View oldest service requests<a class="headerlink" href="#view-oldest-service-requests" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="n">preview_columns</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="n">preview_columns</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1380,137 +1563,65 @@ Datum: World Geodetic System 1984 ensemble
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>geometry_multipolygon_pluto_x</th>
       <th>created_date</th>
       <th>borough</th>
       <th>Borough</th>
       <th>street_name</th>
       <th>bbl</th>
       <th>ZipCode</th>
-      <th>geometry_x</th>
-      <th>geometry_y</th>
-    </tr>
-    <tr>
-      <th>unique_key</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>15639934</th>
+      <th>0</th>
+      <td>NaN</td>
       <td>2010-01-02 08:26:00</td>
       <td>BROOKLYN</td>
       <td>BK</td>
       <td>DARE COURT</td>
       <td>3089000064</td>
       <td>11229.0</td>
-      <td>POINT (-73.92178 40.58778)</td>
-      <td>MULTIPOLYGON (((-73.92178 40.58775, -73.92190 ...</td>
     </tr>
     <tr>
-      <th>15640572</th>
+      <th>1</th>
+      <td>NaN</td>
       <td>2010-01-02 12:00:00</td>
       <td>STATEN ISLAND</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>POINT (-74.14329 40.63866)</td>
-      <td>None</td>
     </tr>
     <tr>
-      <th>15640664</th>
+      <th>2</th>
+      <td>NaN</td>
       <td>2010-01-02 17:45:00</td>
       <td>QUEENS</td>
       <td>QN</td>
       <td>146 STREET</td>
       <td>4120050012</td>
       <td>11436.0</td>
-      <td>POINT (-73.79530 40.68140)</td>
-      <td>MULTIPOLYGON (((-73.79538 40.68137, -73.79572 ...</td>
     </tr>
     <tr>
-      <th>15655327</th>
+      <th>3</th>
+      <td>NaN</td>
       <td>2010-01-04 16:47:00</td>
       <td>QUEENS</td>
       <td>QN</td>
       <td>218 STREET</td>
       <td>4106210008</td>
       <td>11428.0</td>
-      <td>POINT (-73.73843 40.72006)</td>
-      <td>MULTIPOLYGON (((-73.73872 40.71972, -73.73882 ...</td>
     </tr>
     <tr>
-      <th>15668560</th>
+      <th>4</th>
+      <td>NaN</td>
       <td>2010-01-05 10:37:00</td>
       <td>BROOKLYN</td>
       <td>BK</td>
       <td>EAST   63 STREET</td>
       <td>3086550021</td>
       <td>11234.0</td>
-      <td>POINT (-73.90969 40.61250)</td>
-      <td>MULTIPOLYGON (((-73.90970 40.61231, -73.90969 ...</td>
-    </tr>
-    <tr>
-      <th>15674300</th>
-      <td>2010-01-06 19:26:00</td>
-      <td>BROOKLYN</td>
-      <td>BK</td>
-      <td>REWE STREET</td>
-      <td>3029270015</td>
-      <td>11211.0</td>
-      <td>POINT (-73.93297 40.71584)</td>
-      <td>MULTIPOLYGON (((-73.93246 40.71532, -73.93290 ...</td>
-    </tr>
-    <tr>
-      <th>15674896</th>
-      <td>2010-01-06 08:24:00</td>
-      <td>QUEENS</td>
-      <td>QN</td>
-      <td>139 STREET</td>
-      <td>4119960122</td>
-      <td>11436.0</td>
-      <td>POINT (-73.80255 40.67925)</td>
-      <td>MULTIPOLYGON (((-73.80262 40.67914, -73.80261 ...</td>
-    </tr>
-    <tr>
-      <th>15674924</th>
-      <td>2010-01-06 09:17:00</td>
-      <td>STATEN ISLAND</td>
-      <td>SI</td>
-      <td>ROMA AVENUE</td>
-      <td>5040740044</td>
-      <td>10306.0</td>
-      <td>POINT (-74.10646 40.55866)</td>
-      <td>MULTIPOLYGON (((-74.10647 40.55873, -74.10677 ...</td>
-    </tr>
-    <tr>
-      <th>15675505</th>
-      <td>2010-01-06 06:00:00</td>
-      <td>QUEENS</td>
-      <td>QN</td>
-      <td>77 PLACE</td>
-      <td>4030030044</td>
-      <td>11379.0</td>
-      <td>POINT (-73.87694 40.71804)</td>
-      <td>MULTIPOLYGON (((-73.87643 40.71806, -73.87640 ...</td>
-    </tr>
-    <tr>
-      <th>15683503</th>
-      <td>2010-01-07 10:16:00</td>
-      <td>STATEN ISLAND</td>
-      <td>SI</td>
-      <td>WILLOW ROAD EAST</td>
-      <td>5014850078</td>
-      <td>10314.0</td>
-      <td>POINT (-74.14943 40.61979)</td>
-      <td>MULTIPOLYGON (((-74.14912 40.61951, -74.14913 ...</td>
     </tr>
   </tbody>
 </table>
@@ -1521,7 +1632,7 @@ Datum: World Geodetic System 1984 ensemble
 <h5>View most recent service requests<a class="headerlink" href="#view-most-recent-service-requests" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="n">preview_columns</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="n">preview_columns</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1544,141 +1655,90 @@ Datum: World Geodetic System 1984 ensemble
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>geometry_multipolygon_pluto_x</th>
       <th>created_date</th>
       <th>borough</th>
       <th>Borough</th>
       <th>street_name</th>
       <th>bbl</th>
       <th>ZipCode</th>
-      <th>geometry_x</th>
-      <th>geometry_y</th>
-    </tr>
-    <tr>
-      <th>unique_key</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>56938247</th>
-      <td>2023-03-02 09:29:00</td>
-      <td>MANHATTAN</td>
-      <td>MN</td>
-      <td>7 AVENUE</td>
-      <td>1010230029</td>
-      <td>10019.0</td>
-      <td>POINT (-73.98261 40.76200)</td>
-      <td>MULTIPOLYGON (((-73.98255 40.76234, -73.98292 ...</td>
-    </tr>
-    <tr>
-      <th>56939162</th>
-      <td>2023-03-02 13:35:00</td>
-      <td>QUEENS</td>
+      <th>35151</th>
       <td>NaN</td>
-      <td>BEACH  142 STREET</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>POINT (-73.85860 40.57202)</td>
-      <td>None</td>
-    </tr>
-    <tr>
-      <th>56939933</th>
-      <td>2023-03-02 09:56:00</td>
+      <td>2023-03-14 14:53:00</td>
       <td>QUEENS</td>
       <td>QN</td>
-      <td>BENTLEY ROAD</td>
-      <td>4137330024</td>
-      <td>11422.0</td>
-      <td>POINT (-73.74748 40.65428)</td>
-      <td>MULTIPOLYGON (((-73.74731 40.65459, -73.74725 ...</td>
+      <td>DECOSTA AVENUE</td>
+      <td>4160250028</td>
+      <td>11692.0</td>
     </tr>
     <tr>
-      <th>56940422</th>
-      <td>2023-03-02 16:23:00</td>
+      <th>35152</th>
+      <td>NaN</td>
+      <td>2023-03-14 17:41:00</td>
       <td>QUEENS</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>POINT (-73.83286 40.66191)</td>
-      <td>None</td>
+      <td>QN</td>
+      <td>26 AVENUE</td>
+      <td>4049150005</td>
+      <td>11358.0</td>
     </tr>
     <tr>
-      <th>56941710</th>
-      <td>2023-03-02 14:05:00</td>
+      <th>35153</th>
+      <td>NaN</td>
+      <td>2023-03-14 13:47:00</td>
       <td>BROOKLYN</td>
       <td>BK</td>
-      <td>AVENUE D</td>
-      <td>3079320010</td>
-      <td>11203.0</td>
-      <td>POINT (-73.92330 40.64253)</td>
-      <td>MULTIPOLYGON (((-73.92271 40.64247, -73.92267 ...</td>
+      <td>HIMROD STREET</td>
+      <td>3032680001</td>
+      <td>11237.0</td>
     </tr>
     <tr>
-      <th>56943896</th>
-      <td>2023-03-03 08:44:00</td>
-      <td>BROOKLYN</td>
+      <th>35154</th>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>POINT (-73.93198 40.63027)</td>
-      <td>None</td>
-    </tr>
-    <tr>
-      <th>56945114</th>
-      <td>2023-03-03 13:02:00</td>
+      <td>2023-03-14 12:47:00</td>
       <td>QUEENS</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>POINT (-73.86326 40.72866)</td>
-      <td>None</td>
     </tr>
     <tr>
-      <th>56947312</th>
-      <td>2023-03-03 08:59:00</td>
-      <td>BRONX</td>
-      <td>BX</td>
-      <td>ST ANNS AVENUE</td>
-      <td>2026190001</td>
-      <td>10456.0</td>
-      <td>POINT (-73.90983 40.82142)</td>
-      <td>MULTIPOLYGON (((-73.90931 40.82118, -73.90975 ...</td>
-    </tr>
-    <tr>
-      <th>56949537</th>
-      <td>2023-03-03 12:29:00</td>
-      <td>BRONX</td>
-      <td>BX</td>
-      <td>WATERBURY AVENUE</td>
-      <td>2053330042</td>
-      <td>10461.0</td>
-      <td>POINT (-73.83166 40.83728)</td>
-      <td>MULTIPOLYGON (((-73.83123 40.83701, -73.83129 ...</td>
-    </tr>
-    <tr>
-      <th>56951729</th>
-      <td>2023-03-03 09:26:00</td>
-      <td>STATEN ISLAND</td>
+      <th>35155</th>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>POINT (-74.09018 40.60813)</td>
-      <td>None</td>
+      <td>2023-03-14 13:35:00</td>
+      <td>BROOKLYN</td>
+      <td>BK</td>
+      <td>BRIGHTON    8 COURT</td>
+      <td>3072640043</td>
+      <td>11235.0</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;street_flooding_pluto_gdf.to_file(</span>
+<span class="sd">    merge_flood_mappluto_output_ofgdb, </span>
+<span class="sd">    driver = &#39;OpenFileGDB&#39;, </span>
+<span class="sd">    # engine = &#39;fiona&#39;,</span>
+<span class="sd">    # index = True,</span>
+<span class="sd">    # crs = &#39;EPSG:4326&#39;</span>
+<span class="sd">    # crs = &#39;EPSG:2263&#39;</span>
+<span class="sd">)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;street_flooding_pluto_gdf.to_file(\n    merge_flood_mappluto_output_ofgdb, \n    driver = &#39;OpenFileGDB&#39;, \n    # engine = &#39;fiona&#39;,\n    # index = True,\n    # crs = &#39;EPSG:4326&#39;\n    # crs = &#39;EPSG:2263&#39;\n)\n\n&quot;
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 </section>
@@ -1706,15 +1766,15 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bbl_join_stats_dict</span> <span class="o">=</span> <span class="n">pct_join</span><span class="p">(</span><span class="n">street_flooding_pluto_gdf</span><span class="p">,</span> <span class="s1">&#39;geometry_y&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bbl_join_stats_dict</span> <span class="o">=</span> <span class="n">pct_join</span><span class="p">(</span><span class="n">street_flooding_pluto_gdf</span><span class="p">,</span> <span class="s1">&#39;Borough&#39;</span><span class="p">)</span>
 <span class="n">bbl_join_stats_dict</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 35076,
- &#39;match_count&#39;: 21560,
- &#39;missing_geometry_y_count&#39;: 13516,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 35156,
+ &#39;match_count&#39;: 21612,
+ &#39;missing_Borough_count&#39;: 13544,
  &#39;pct_join&#39;: 61.47,
  &#39;pct_missing&#39;: 38.53}
 </pre></div>
@@ -1733,7 +1793,7 @@ Datum: World Geodetic System 1984 ensemble
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_gdf</span> <span class="o">=</span> \
-    <span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="s1">&#39;geometry_y&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="s1">&#39;Borough&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1747,10 +1807,10 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
-Index: 21560 entries, 15639934 to 56949537
-Columns: 139 entries, location_state to geometry_y
-dtypes: datetime64[ns](4), float64(58), geometry(2), object(75)
-memory usage: 23.5+ MB
+Int64Index: 35156 entries, 0 to 35155
+Columns: 141 entries, location_state to geometry_multipolygon_pluto_x
+dtypes: datetime64[ns](4), float64(58), geometry(1), object(78)
+memory usage: 38.1+ MB
 </pre></div>
 </div>
 </div>
@@ -1758,8 +1818,25 @@ memory usage: 23.5+ MB
 <p>Verify match count</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bbl_join_stats_dict</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 35156,
+ &#39;match_count&#39;: 21612,
+ &#39;missing_Borough_count&#39;: 13544,
+ &#39;pct_join&#39;: 61.47,
+ &#39;pct_missing&#39;: 38.53}
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Note:</strong> Revisit calculation for match</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">match_count</span> <span class="o">=</span> <span class="n">bbl_join_stats_dict</span><span class="p">[</span><span class="s1">&#39;df_size&#39;</span><span class="p">]</span> <span class="o">-</span> \
-    <span class="n">bbl_join_stats_dict</span><span class="p">[</span><span class="s1">&#39;missing_geometry_y_count&#39;</span><span class="p">]</span>
+    <span class="n">bbl_join_stats_dict</span><span class="p">[</span><span class="s1">&#39;missing_Borough_count&#39;</span><span class="p">]</span>
 
 <span class="n">match_count</span> <span class="o">==</span> \
     <span class="nb">len</span><span class="p">(</span><span class="n">street_flooding_pluto_bbl_match_gdf</span><span class="p">)</span>
@@ -1767,7 +1844,7 @@ memory usage: 23.5+ MB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
 </pre></div>
 </div>
 </div>
@@ -1791,7 +1868,7 @@ memory usage: 23.5+ MB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;street_flood_orig&#39;: 35076, &#39;street_flood_clean&#39;: 34069}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;street_flood_orig&#39;: 35156, &#39;street_flood_clean&#39;: 34147, &#39;street_flood_mappluto_bbl&#39;: 35156, &#39;street_flood_mappluto_sjoin_nearest&#39;: 34206}
 </pre></div>
 </div>
 </div>
@@ -1810,7 +1887,7 @@ memory usage: 23.5+ MB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;street_flood_orig&#39;: 35076, &#39;street_flood_clean&#39;: 34069, &#39;street_flood_mappluto_bbl&#39;: 21560}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;street_flood_orig&#39;: 35156, &#39;street_flood_clean&#39;: 34147, &#39;street_flood_mappluto_bbl&#39;: 35156, &#39;street_flood_mappluto_sjoin_nearest&#39;: 34206}
 </pre></div>
 </div>
 </div>
@@ -1822,48 +1899,198 @@ match by BBL.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_mismatch_gdf</span> <span class="o">=</span> \
-    <span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="s1">&#39;geometry_y&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Rename <code class="docutils literal notranslate"><span class="pre">geometry_x</span></code> column back to original name, <code class="docutils literal notranslate"><span class="pre">geometry</span></code></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_mismatch_gdf_prejoin</span> <span class="o">=</span> \
-    <span class="n">street_flooding_pluto_bbl_mismatch_gdf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="n">street_flooding_pluto_gdf</span><span class="p">[</span><span class="s1">&#39;Borough&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_mismatch_gdf_prejoin</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;geometry_x&#39;</span><span class="p">:</span> <span class="s1">&#39;geometry&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_mismatch_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-</div>
-<p>Copy index as column, <code class="docutils literal notranslate"><span class="pre">unique_key</span></code></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_mismatch_gdf_prejoin</span><span class="p">[</span><span class="s1">&#39;unique_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">street_flooding_pluto_bbl_mismatch_gdf_prejoin</span><span class="o">.</span><span class="n">index</span>
-</pre></div>
-</div>
-</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>location_state</th>
+      <th>facility_type</th>
+      <th>intersection_street_2</th>
+      <th>city</th>
+      <th>location_zip</th>
+      <th>park_borough</th>
+      <th>latitude</th>
+      <th>road_ramp</th>
+      <th>created_date</th>
+      <th>agency</th>
+      <th>...</th>
+      <th>FIRM07_FLAG</th>
+      <th>PFIRM15_FLAG</th>
+      <th>Version</th>
+      <th>DCPEdited</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Notes</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>geometry_multipolygon_pluto_x</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td></td>
+      <td>N/A</td>
+      <td>RICHMOND TERRACE</td>
+      <td>STATEN ISLAND</td>
+      <td></td>
+      <td>STATEN ISLAND</td>
+      <td>40.63865739388004</td>
+      <td>NaN</td>
+      <td>2010-01-02 12:00:00</td>
+      <td>DEP</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td></td>
+      <td>N/A</td>
+      <td>WEST 20 STREET</td>
+      <td>NEW YORK</td>
+      <td></td>
+      <td>MANHATTAN</td>
+      <td>40.74222718212239</td>
+      <td>NaN</td>
+      <td>2010-01-07 17:56:00</td>
+      <td>DEP</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td></td>
+      <td>N/A</td>
+      <td>ADELPHI AVENUE</td>
+      <td>STATEN ISLAND</td>
+      <td></td>
+      <td>STATEN ISLAND</td>
+      <td>40.516255348580096</td>
+      <td>NaN</td>
+      <td>2010-01-09 19:48:00</td>
+      <td>DEP</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td></td>
+      <td>N/A</td>
+      <td>72 AVENUE</td>
+      <td>Fresh Meadows</td>
+      <td></td>
+      <td>QUEENS</td>
+      <td>40.72826788677406</td>
+      <td>NaN</td>
+      <td>2010-01-13 13:30:00</td>
+      <td>DEP</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td></td>
+      <td>N/A</td>
+      <td>AVENUE U</td>
+      <td>BROOKLYN</td>
+      <td></td>
+      <td>BROOKLYN</td>
+      <td>40.5971705119265</td>
+      <td>NaN</td>
+      <td>2010-01-13 16:57:00</td>
+      <td>DEP</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 141 columns</p>
+</div></div></div>
 </div>
 <p>BBL mismatch GeoDataFrame info</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_mismatch_gdf_prejoin</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_mismatch_gdf</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
-Index: 13516 entries, 15640572 to 56951729
-Columns: 140 entries, location_state to unique_key
-dtypes: datetime64[ns](4), float64(58), geometry(2), object(76)
-memory usage: 15.0+ MB
+Int64Index: 13544 entries, 1 to 35154
+Columns: 141 entries, location_state to geometry_multipolygon_pluto_x
+dtypes: datetime64[ns](4), float64(58), geometry(1), object(78)
+memory usage: 14.7+ MB
 </pre></div>
 </div>
 </div>
@@ -1871,8 +2098,8 @@ memory usage: 15.0+ MB
 <p>Verify mismatch count</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bbl_join_stats_dict</span><span class="p">[</span><span class="s1">&#39;missing_geometry_y_count&#39;</span><span class="p">]</span> <span class="o">==</span> \
-    <span class="nb">len</span><span class="p">(</span><span class="n">street_flooding_pluto_bbl_mismatch_gdf_prejoin</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bbl_join_stats_dict</span><span class="p">[</span><span class="s1">&#39;missing_Borough_count&#39;</span><span class="p">]</span> <span class="o">==</span> \
+    <span class="nb">len</span><span class="p">(</span><span class="n">street_flooding_pluto_bbl_mismatch_gdf</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1886,7 +2113,7 @@ memory usage: 15.0+ MB
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_bbl_no_match_gdf</span> <span class="o">=</span> \
-    <span class="n">street_flooding_pluto_bbl_mismatch_gdf_prejoin</span><span class="p">[</span><span class="n">street_flooding_columns</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">street_flooding_pluto_bbl_mismatch_gdf</span><span class="p">[</span><span class="n">street_flooding_columns</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -2008,21 +2235,118 @@ nan_count
 </ol>
 <p><span id="id12">[<a class="reference internal" href="references.html#id11" title="Melanie Frazier. Overview of coordinate reference systems (crs) in r. 2020. URL: https://www.nceas.ucsb.edu/sites/default/files/2020-04/OverviewCoordinateReferenceSystems.pdf (visited on 2023-03-06).">Frazier, 2020</a>]</span></p>
 <p>Set active geometry</p>
+<p>Implement <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.sjoin_nearest.html"><code class="docutils literal notranslate"><span class="pre">geopandas.sjoin_nearest</span></code></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_bbl_no_match_gdf</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="s1">&#39;geometry&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_bbl_no_match_gdf</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Geographic 2D CRS: EPSG:4326&gt;
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- undefined
+Datum: World Geodetic System 1984
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich
 </pre></div>
 </div>
 </div>
 </div>
-<p>Implement <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.sjoin_nearest.html"><code class="docutils literal notranslate"><span class="pre">geopandas.sjoin_nearest</span></code></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_gdf</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Derived Projected CRS: EPSG:2263&gt;
+Name: NAD83 / New York Long Island (ftUS)
+Axis Info [cartesian]:
+- [east]: Easting (US survey foot)
+- [north]: Northing (US survey foot)
+Area of Use:
+- undefined
+Coordinate Operation:
+- name: unnamed
+- method: Lambert Conic Conformal (2SP)
+Datum: North American Datum 1983
+- Ellipsoid: GRS 1980
+- Prime Meridian: Greenwich
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_list</span> <span class="o">=</span> <span class="n">pluto_4326_gdf</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>geometry
+geometry_multipolygon_pluto_x
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_gdf</span><span class="o">.</span><span class="n">geometry</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0         MULTIPOLYGON (((979834.644 191977.863, 980575....
+1         MULTIPOLYGON (((973839.736 193894.244, 972500....
+2         MULTIPOLYGON (((979286.676 198786.617, 977468....
+3         MULTIPOLYGON (((979340.404 199175.516, 977511....
+4         MULTIPOLYGON (((981288.593 194289.382, 981164....
+                                ...                        
+857209    MULTIPOLYGON (((914466.480 124580.058, 914512....
+857210    MULTIPOLYGON (((914321.022 124460.350, 914256....
+857211    MULTIPOLYGON (((914318.219 124604.403, 914338....
+857212    MULTIPOLYGON (((914740.567 124877.857, 914639....
+857213    MULTIPOLYGON (((914842.706 124746.005, 914775....
+Name: geometry, Length: 857214, dtype: geometry
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_sjoin_nearest_gdf</span> <span class="o">=</span> <span class="n">pluto_4326_gdf</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;geometry&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pluto_4326_sjoin_nearest_gdf</span> <span class="o">=</span> <span class="n">pluto_4326_gdf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_map_pluto_sjoin_nearest_gdf</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin_nearest</span><span class="p">(</span>
         <span class="c1"># Convert CRS to EPSG: 2263</span>
         <span class="n">street_flooding_bbl_no_match_gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;2263&#39;</span><span class="p">),</span>
-        <span class="n">pluto_4326_gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;2263&#39;</span><span class="p">),</span>
+        <span class="n">pluto_4326_sjoin_nearest_gdf</span><span class="p">,</span> <span class="c1"># .to_crs(&#39;2263&#39;),</span>
         <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span>
         <span class="c1"># max_distance = 100,</span>
         <span class="n">distance_col</span> <span class="o">=</span> <span class="s1">&#39;distance&#39;</span>
@@ -2035,23 +2359,6 @@ nan_count
 <section id="preview-sjoin-nearest-results">
 <h5>Preview <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> results<a class="headerlink" href="#preview-sjoin-nearest-results" title="Permalink to this heading">#</a></h5>
 <p>Check index</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_map_pluto_sjoin_nearest_gdf</span><span class="o">.</span><span class="n">index</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;15640572&#39;, &#39;15685423&#39;, &#39;15695294&#39;, &#39;15729654&#39;, &#39;15729867&#39;, &#39;15742536&#39;,
-       &#39;15742620&#39;, &#39;15751802&#39;, &#39;15763709&#39;, &#39;15772441&#39;,
-       ...
-       &#39;56878750&#39;, &#39;56889664&#39;, &#39;56920513&#39;, &#39;56925104&#39;, &#39;56927257&#39;, &#39;56939162&#39;,
-       &#39;56940422&#39;, &#39;56943896&#39;, &#39;56945114&#39;, &#39;56951729&#39;],
-      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=13527)
-</pre></div>
-</div>
-</div>
-</div>
 <p>Select columns to preview</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2103,72 +2410,61 @@ nan_count
       <th>geometry</th>
       <th>TaxMap</th>
     </tr>
-    <tr>
-      <th>unique_key</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>15640572</th>
+      <th>1</th>
       <td>STATEN ISLAND</td>
       <td>SI</td>
       <td>2010-01-02 12:00:00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>10303.0</td>
-      <td>POINT (944481.000 171989.014)</td>
+      <td>POINT (944481.011 171989.064)</td>
       <td>50503</td>
     </tr>
     <tr>
-      <th>15685423</th>
+      <th>11</th>
       <td>MANHATTAN</td>
       <td>MN</td>
       <td>2010-01-07 17:56:00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>10011.0</td>
-      <td>POINT (985079.000 209690.014)</td>
+      <td>POINT (985078.930 209690.212)</td>
       <td>10305</td>
     </tr>
     <tr>
-      <th>15695294</th>
+      <th>13</th>
       <td>STATEN ISLAND</td>
       <td>SI</td>
       <td>2010-01-09 19:48:00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>10309.0</td>
-      <td>POINT (920039.000 127447.014)</td>
+      <td>POINT (920039.197 127447.098)</td>
       <td>53101</td>
     </tr>
     <tr>
-      <th>15729654</th>
+      <th>14</th>
       <td>QUEENS</td>
       <td>QN</td>
       <td>2010-01-13 13:30:00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>11365.0</td>
-      <td>POINT (1037695.000 204663.014)</td>
+      <td>POINT (1037695.047 204663.289)</td>
       <td>43103</td>
     </tr>
     <tr>
-      <th>15729867</th>
+      <th>15</th>
       <td>BROOKLYN</td>
       <td>BK</td>
       <td>2010-01-13 16:57:00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>11223.0</td>
-      <td>POINT (992169.000 156843.014)</td>
+      <td>POINT (992169.033 156843.127)</td>
       <td>32105</td>
     </tr>
   </tbody>
@@ -2209,73 +2505,62 @@ nan_count
       <th>geometry</th>
       <th>TaxMap</th>
     </tr>
-    <tr>
-      <th>unique_key</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>56939162</th>
-      <td>QUEENS</td>
-      <td>QN</td>
-      <td>2023-03-02 13:35:00</td>
-      <td>BEACH  142 STREET</td>
-      <td>NaN</td>
-      <td>11694.0</td>
-      <td>POINT (1023534.000 147711.014)</td>
-      <td>46303</td>
-    </tr>
-    <tr>
-      <th>56940422</th>
-      <td>QUEENS</td>
-      <td>QN</td>
-      <td>2023-03-02 16:23:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>11414.0</td>
-      <td>POINT (1030621.000 180474.014)</td>
-      <td>45804</td>
-    </tr>
-    <tr>
-      <th>56943896</th>
-      <td>BROOKLYN</td>
-      <td>BK</td>
-      <td>2023-03-03 08:44:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>11234.0</td>
-      <td>POINT (1003129.000 168908.014)</td>
-      <td>32306</td>
-    </tr>
-    <tr>
-      <th>56945114</th>
-      <td>QUEENS</td>
-      <td>QN</td>
-      <td>2023-03-03 13:02:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>11374.0</td>
-      <td>POINT (1022149.000 204776.014)</td>
-      <td>41604</td>
-    </tr>
-    <tr>
-      <th>56951729</th>
+      <th>35142</th>
       <td>STATEN ISLAND</td>
       <td>SI</td>
-      <td>2023-03-03 09:26:00</td>
+      <td>2023-03-13 18:11:00</td>
+      <td>ARTHUR KILL</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>10304.0</td>
-      <td>POINT (959211.000 160846.014)</td>
-      <td>51401</td>
+      <td>POINT (919194.141 141918.073)</td>
+      <td>52901</td>
+    </tr>
+    <tr>
+      <th>35143</th>
+      <td>BROOKLYN</td>
+      <td>BK</td>
+      <td>2023-03-13 22:35:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>11230.0</td>
+      <td>POINT (996137.026 164552.152)</td>
+      <td>32007</td>
+    </tr>
+    <tr>
+      <th>35144</th>
+      <td>BROOKLYN</td>
+      <td>BK</td>
+      <td>2023-03-13 18:29:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>11249.0</td>
+      <td>POINT (994191.964 200891.211)</td>
+      <td>30804</td>
+    </tr>
+    <tr>
+      <th>35147</th>
+      <td>QUEENS</td>
+      <td>QN</td>
+      <td>2023-03-14 01:08:00</td>
+      <td>BEACH    7 STREET</td>
+      <td>NaN</td>
+      <td>11691.0</td>
+      <td>POINT (1055849.100 157337.302)</td>
+      <td>45903</td>
+    </tr>
+    <tr>
+      <th>35154</th>
+      <td>QUEENS</td>
+      <td>QN</td>
+      <td>2023-03-14 12:47:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>11368.0</td>
+      <td>POINT (1021682.011 207776.266)</td>
+      <td>41102</td>
     </tr>
   </tbody>
 </table>
@@ -2291,7 +2576,7 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1007
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1009
 </pre></div>
 </div>
 </div>
@@ -2305,9 +2590,9 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 13527,
- &#39;match_count&#39;: 12520,
- &#39;missing_Borough_count&#39;: 1007,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 13555,
+ &#39;match_count&#39;: 12546,
+ &#39;missing_Borough_count&#39;: 1009,
  &#39;pct_join&#39;: 92.56,
  &#39;pct_missing&#39;: 7.44}
 </pre></div>
@@ -2344,7 +2629,7 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Street Flooding MapPluto BBL column count: 139
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Street Flooding MapPluto BBL column count: 141
 </pre></div>
 </div>
 </div>
@@ -2373,7 +2658,7 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Street Flooding MapPluto sjoin_nearest column count: 141
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Street Flooding MapPluto sjoin_nearest column count: 142
 </pre></div>
 </div>
 </div>
@@ -2389,7 +2674,7 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;geometry_x&#39;, &#39;geometry_y&#39;}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;geometry_point_street_x&#39;}
 </pre></div>
 </div>
 </div>
@@ -2402,7 +2687,7 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;distance&#39;, &#39;geometry&#39;, &#39;index_right&#39;, &#39;unique_key&#39;}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;distance&#39;, &#39;index_right&#39;}
 </pre></div>
 </div>
 </div>
@@ -2417,12 +2702,12 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;15639934&#39;, &#39;15640664&#39;, &#39;15655327&#39;, &#39;15668560&#39;, &#39;15674300&#39;, &#39;15674896&#39;,
-       &#39;15674924&#39;, &#39;15675505&#39;, &#39;15683503&#39;, &#39;15683559&#39;,
-       ...
-       &#39;56925036&#39;, &#39;56926124&#39;, &#39;56929306&#39;, &#39;56932641&#39;, &#39;56933309&#39;, &#39;56938247&#39;,
-       &#39;56939933&#39;, &#39;56941710&#39;, &#39;56947312&#39;, &#39;56949537&#39;],
-      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=21560)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Int64Index([    0,     1,     2,     3,     4,     5,     6,     7,     8,
+                9,
+            ...
+            35146, 35147, 35148, 35149, 35150, 35151, 35152, 35153, 35154,
+            35155],
+           dtype=&#39;int64&#39;, length=35156)
 </pre></div>
 </div>
 </div>
@@ -2434,12 +2719,12 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;15640572&#39;, &#39;15685423&#39;, &#39;15695294&#39;, &#39;15729654&#39;, &#39;15729867&#39;, &#39;15742536&#39;,
-       &#39;15742620&#39;, &#39;15751802&#39;, &#39;15763709&#39;, &#39;15772441&#39;,
-       ...
-       &#39;56878750&#39;, &#39;56889664&#39;, &#39;56920513&#39;, &#39;56925104&#39;, &#39;56927257&#39;, &#39;56939162&#39;,
-       &#39;56940422&#39;, &#39;56943896&#39;, &#39;56945114&#39;, &#39;56951729&#39;],
-      dtype=&#39;object&#39;, name=&#39;unique_key&#39;, length=13527)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Int64Index([    1,    11,    13,    14,    15,    17,    18,    20,    24,
+               30,
+            ...
+            35131, 35134, 35136, 35137, 35141, 35142, 35143, 35144, 35147,
+            35154],
+           dtype=&#39;int64&#39;, length=13555)
 </pre></div>
 </div>
 </div>
@@ -2448,47 +2733,19 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 <section id="dataframe-column-transform">
 <h5>DataFrame column transform<a class="headerlink" href="#dataframe-column-transform" title="Permalink to this heading">#</a></h5>
 <p>BBL match DataFrame</p>
+<p>Column align</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_gdf_pretransform</span> <span class="o">=</span> \
-    <span class="n">street_flooding_pluto_bbl_match_gdf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_col_align_gdf</span> <span class="o">=</span> \
+    <span class="n">street_flooding_pluto_bbl_match_gdf</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;geometry_point_street_x&#39;</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_gdf_pretransform</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;geometry_x&#39;</span><span class="p">:</span> <span class="s1">&#39;geometry&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_gdf_pretransform</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;geometry_y&#39;</span><span class="p">],</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_gdf_pretransform</span><span class="p">[</span><span class="s1">&#39;unique_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">street_flooding_pluto_bbl_match_gdf_pretransform</span><span class="o">.</span><span class="n">index</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> match DataFrame</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_map_pluto_sjoin_nearest_gdf_pretransform</span> <span class="o">=</span> \
-    <span class="n">street_flooding_map_pluto_sjoin_nearest_gdf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_map_pluto_sjoin_nearest_gdf_pretransform</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">,</span> <span class="s1">&#39;index_right&#39;</span><span class="p">],</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_map_pluto_sjoin_nearest_col_align_gdf</span> <span class="o">=</span> \
+    <span class="n">street_flooding_map_pluto_sjoin_nearest_gdf</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">,</span> <span class="s1">&#39;index_right&#39;</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2498,22 +2755,22 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 <h5>Re-compare columns<a class="headerlink" href="#re-compare-columns" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_gdf_pretransform_columns_list</span> <span class="o">=</span> <span class="n">street_flooding_pluto_bbl_match_gdf_pretransform</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_col_align_columns_list</span> <span class="o">=</span> <span class="n">street_flooding_pluto_bbl_match_col_align_gdf</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_map_pluto_sjoin_nearest_gdf_pretransform_columns_list</span> <span class="o">=</span> <span class="n">street_flooding_map_pluto_sjoin_nearest_gdf_pretransform</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_map_pluto_sjoin_nearest_col_align_columns_list</span> <span class="o">=</span> <span class="n">street_flooding_map_pluto_sjoin_nearest_col_align_gdf</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>BBL match only</p>
+<p><code class="docutils literal notranslate"><span class="pre">BBL</span></code> match only</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bbl_recheck_only</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">street_flooding_pluto_bbl_match_gdf_pretransform_columns_list</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">street_flooding_map_pluto_sjoin_nearest_gdf_pretransform_columns_list</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bbl_recheck_only</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">street_flooding_pluto_bbl_match_col_align_columns_list</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">street_flooding_map_pluto_sjoin_nearest_col_align_columns_list</span><span class="p">)</span>
 <span class="n">bbl_recheck_only</span>
 </pre></div>
 </div>
@@ -2527,13 +2784,43 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 <p><code class="docutils literal notranslate"><span class="pre">sjoin_nearest</span></code> match only</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sjoin_nearest_only</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">street_flooding_map_pluto_sjoin_nearest_gdf_pretransform_columns_list</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">street_flooding_pluto_bbl_match_gdf_pretransform_columns_list</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sjoin_nearest_only</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">street_flooding_map_pluto_sjoin_nearest_col_align_columns_list</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">street_flooding_pluto_bbl_match_col_align_columns_list</span><span class="p">)</span>
 <span class="n">sjoin_nearest_only</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>set()
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">street_flooding_pluto_bbl_match_col_align_columns_list</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>geometry
+geometry_multipolygon_pluto_x
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">street_flooding_map_pluto_sjoin_nearest_col_align_columns_list</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>geometry
+geometry_multipolygon_pluto_x
 </pre></div>
 </div>
 </div>
@@ -2546,15 +2833,59 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 <h5>Set active geometry<a class="headerlink" href="#set-active-geometry" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_gdf_pretransform</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;geometry&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-<span class="n">street_flooding_map_pluto_sjoin_nearest_gdf_pretransform</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;geometry&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_pluto_bbl_match_col_align_gdf</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Geographic 2D CRS: EPSG:4326&gt;
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- undefined
+Datum: World Geodetic System 1984
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_merge_gdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">street_flooding_pluto_bbl_match_gdf_pretransform</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;2263&#39;</span><span class="p">),</span> <span class="n">street_flooding_map_pluto_sjoin_nearest_gdf_pretransform</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;2263&#39;</span><span class="p">)])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_map_pluto_sjoin_nearest_col_align_gdf</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Derived Projected CRS: EPSG:2263&gt;
+Name: NAD83 / New York Long Island (ftUS)
+Axis Info [cartesian]:
+- X[east]: Easting (US survey foot)
+- Y[north]: Northing (US survey foot)
+Area of Use:
+- name: United States (USA) - New York - counties of Bronx; Kings; Nassau; New York; Queens; Richmond; Suffolk.
+- bounds: (-74.26, 40.47, -71.8, 41.3)
+Coordinate Operation:
+- name: SPCS83 New York Long Island zone (US Survey feet)
+- method: Lambert Conic Conformal (2SP)
+Datum: North American Datum 1983
+- Ellipsoid: GRS 1980
+- Prime Meridian: Greenwich
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_merge_gdf</span> <span class="o">=</span> \
+    <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span> \
+        <span class="p">[</span>
+            <span class="n">street_flooding_pluto_bbl_match_col_align_gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;2263&#39;</span><span class="p">),</span> 
+            <span class="n">street_flooding_map_pluto_sjoin_nearest_col_align_gdf</span> <span class="c1"># .to_crs(&#39;2263&#39;)</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2564,16 +2895,16 @@ the <code class="docutils literal notranslate"><span class="pre">sjoin_nearest</
 <h5>Preview Results<a class="headerlink" href="#preview-results" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_merge_gdf</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_merge_gdf</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
-Index: 35087 entries, 15639934 to 56951729
-Columns: 139 entries, location_state to unique_key
-dtypes: datetime64[ns](4), float64(58), geometry(1), object(76)
-memory usage: 38.5+ MB
+Int64Index: 48711 entries, 0 to 35154
+Columns: 140 entries, location_state to geometry_multipolygon_pluto_x
+dtypes: datetime64[ns](4), float64(58), geometry(1), object(77)
+memory usage: 52.4+ MB
 </pre></div>
 </div>
 </div>
@@ -2581,6 +2912,8 @@ memory usage: 38.5+ MB
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preview_columns_merge_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># &#39;geometry_point_street&#39;,</span>
+    <span class="s1">&#39;geometry_multipolygon_pluto_x&#39;</span><span class="p">,</span>
     <span class="s1">&#39;borough&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Borough&#39;</span><span class="p">,</span>
     <span class="s1">&#39;created_date&#39;</span><span class="p">,</span> 
@@ -2597,7 +2930,7 @@ memory usage: 38.5+ MB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_merge_gdf</span><span class="p">[</span><span class="n">preview_columns_merge_list</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_merge_gdf</span><span class="p">[</span><span class="n">preview_columns_merge_list</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2620,6 +2953,7 @@ memory usage: 38.5+ MB
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>geometry_multipolygon_pluto_x</th>
       <th>borough</th>
       <th>Borough</th>
       <th>created_date</th>
@@ -2630,79 +2964,72 @@ memory usage: 38.5+ MB
       <th>Tract2010</th>
       <th>TaxMap</th>
     </tr>
-    <tr>
-      <th>unique_key</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>15639934</th>
+      <th>0</th>
+      <td>NaN</td>
       <td>BROOKLYN</td>
       <td>BK</td>
       <td>2010-01-02 08:26:00</td>
       <td>DARE COURT</td>
       <td>3089000064</td>
       <td>11229.0</td>
-      <td>POINT (1005975.000 153432.014)</td>
+      <td>POINT (1005975.054 153432.161)</td>
       <td>0628</td>
       <td>32605</td>
     </tr>
     <tr>
-      <th>15640664</th>
+      <th>1</th>
+      <td>NaN</td>
+      <td>STATEN ISLAND</td>
+      <td>NaN</td>
+      <td>2010-01-02 12:00:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (944481.011 171989.064)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
       <td>QUEENS</td>
       <td>QN</td>
       <td>2010-01-02 17:45:00</td>
       <td>146 STREET</td>
       <td>4120050012</td>
       <td>11436.0</td>
-      <td>POINT (1041026.000 187595.014)</td>
+      <td>POINT (1041026.066 187595.284)</td>
       <td>0186</td>
       <td>45202</td>
     </tr>
     <tr>
-      <th>15655327</th>
+      <th>3</th>
+      <td>NaN</td>
       <td>QUEENS</td>
       <td>QN</td>
       <td>2010-01-04 16:47:00</td>
       <td>218 STREET</td>
       <td>4106210008</td>
       <td>11428.0</td>
-      <td>POINT (1056756.000 201721.014)</td>
+      <td>POINT (1056756.075 201721.315)</td>
       <td>0566</td>
       <td>44701</td>
     </tr>
     <tr>
-      <th>15668560</th>
+      <th>4</th>
+      <td>NaN</td>
       <td>BROOKLYN</td>
       <td>BK</td>
       <td>2010-01-05 10:37:00</td>
       <td>EAST   63 STREET</td>
       <td>3086550021</td>
       <td>11234.0</td>
-      <td>POINT (1009324.000 162441.014)</td>
+      <td>POINT (1009324.045 162441.183)</td>
       <td>070201</td>
       <td>32505</td>
-    </tr>
-    <tr>
-      <th>15674300</th>
-      <td>BROOKLYN</td>
-      <td>BK</td>
-      <td>2010-01-06 19:26:00</td>
-      <td>REWE STREET</td>
-      <td>3029270015</td>
-      <td>11211.0</td>
-      <td>POINT (1002831.000 200082.014)</td>
-      <td>0449</td>
-      <td>31002</td>
     </tr>
   </tbody>
 </table>
@@ -2710,7 +3037,7 @@ memory usage: 38.5+ MB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_merge_gdf</span><span class="p">[</span><span class="n">preview_columns_merge_list</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_merge_gdf</span><span class="p">[</span><span class="n">preview_columns_merge_list</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2733,6 +3060,7 @@ memory usage: 38.5+ MB
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>geometry_multipolygon_pluto_x</th>
       <th>borough</th>
       <th>Borough</th>
       <th>created_date</th>
@@ -2743,79 +3071,72 @@ memory usage: 38.5+ MB
       <th>Tract2010</th>
       <th>TaxMap</th>
     </tr>
-    <tr>
-      <th>unique_key</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>56939162</th>
-      <td>QUEENS</td>
-      <td>QN</td>
-      <td>2023-03-02 13:35:00</td>
-      <td>BEACH  142 STREET</td>
+      <th>35142</th>
       <td>NaN</td>
-      <td>11694.0</td>
-      <td>POINT (1023534.000 147711.014)</td>
-      <td>0922</td>
-      <td>46303</td>
-    </tr>
-    <tr>
-      <th>56940422</th>
-      <td>QUEENS</td>
-      <td>QN</td>
-      <td>2023-03-02 16:23:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>11414.0</td>
-      <td>POINT (1030621.000 180474.014)</td>
-      <td>0884</td>
-      <td>45804</td>
-    </tr>
-    <tr>
-      <th>56943896</th>
-      <td>BROOKLYN</td>
-      <td>BK</td>
-      <td>2023-03-03 08:44:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>11234.0</td>
-      <td>POINT (1003129.000 168908.014)</td>
-      <td>0726</td>
-      <td>32306</td>
-    </tr>
-    <tr>
-      <th>56945114</th>
-      <td>QUEENS</td>
-      <td>QN</td>
-      <td>2023-03-03 13:02:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>11374.0</td>
-      <td>POINT (1022149.000 204776.014)</td>
-      <td>0693</td>
-      <td>41604</td>
-    </tr>
-    <tr>
-      <th>56951729</th>
       <td>STATEN ISLAND</td>
       <td>SI</td>
-      <td>2023-03-03 09:26:00</td>
+      <td>2023-03-13 18:11:00</td>
+      <td>ARTHUR KILL</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>10304.0</td>
-      <td>POINT (959211.000 160846.014)</td>
-      <td>0050</td>
-      <td>51401</td>
+      <td>POINT (919194.141 141918.073)</td>
+      <td>0226</td>
+      <td>52901</td>
+    </tr>
+    <tr>
+      <th>35143</th>
+      <td>NaN</td>
+      <td>BROOKLYN</td>
+      <td>BK</td>
+      <td>2023-03-13 22:35:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>11230.0</td>
+      <td>POINT (996137.026 164552.152)</td>
+      <td>0538</td>
+      <td>32007</td>
+    </tr>
+    <tr>
+      <th>35144</th>
+      <td>NaN</td>
+      <td>BROOKLYN</td>
+      <td>BK</td>
+      <td>2023-03-13 18:29:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>11249.0</td>
+      <td>POINT (994191.964 200891.211)</td>
+      <td>0555</td>
+      <td>30804</td>
+    </tr>
+    <tr>
+      <th>35147</th>
+      <td>NaN</td>
+      <td>QUEENS</td>
+      <td>QN</td>
+      <td>2023-03-14 01:08:00</td>
+      <td>BEACH    7 STREET</td>
+      <td>NaN</td>
+      <td>11691.0</td>
+      <td>POINT (1055849.100 157337.302)</td>
+      <td>101002</td>
+      <td>45903</td>
+    </tr>
+    <tr>
+      <th>35154</th>
+      <td>NaN</td>
+      <td>QUEENS</td>
+      <td>QN</td>
+      <td>2023-03-14 12:47:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>11368.0</td>
+      <td>POINT (1021682.011 207776.266)</td>
+      <td>0455</td>
+      <td>41102</td>
     </tr>
   </tbody>
 </table>
@@ -2826,13 +3147,13 @@ memory usage: 38.5+ MB
 <h5>Check total missing joins<a class="headerlink" href="#check-total-missing-joins" title="Permalink to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nan_count</span> <span class="o">=</span> <span class="n">street_flooding_mappluto_gdf_merge_gdf</span><span class="p">[</span><span class="s1">&#39;Borough&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nan_count</span> <span class="o">=</span> <span class="n">street_flooding_mappluto_merge_gdf</span><span class="p">[</span><span class="s1">&#39;Borough&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">nan_count</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1007
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14553
 </pre></div>
 </div>
 </div>
@@ -2840,51 +3161,34 @@ memory usage: 38.5+ MB
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_merge_stats_dict</span> <span class="o">=</span> \
-    <span class="n">pct_join</span><span class="p">(</span><span class="n">street_flooding_mappluto_gdf_merge_gdf</span><span class="p">,</span> <span class="s1">&#39;Borough&#39;</span><span class="p">)</span>
+    <span class="n">pct_join</span><span class="p">(</span><span class="n">street_flooding_mappluto_merge_gdf</span><span class="p">,</span> <span class="s1">&#39;Borough&#39;</span><span class="p">)</span>
 <span class="n">street_flooding_mappluto_gdf_merge_stats_dict</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 35087,
- &#39;match_count&#39;: 34080,
- &#39;missing_Borough_count&#39;: 1007,
- &#39;pct_join&#39;: 97.13,
- &#39;pct_missing&#39;: 2.87}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;df_size&#39;: 48711,
+ &#39;match_count&#39;: 34158,
+ &#39;missing_Borough_count&#39;: 14553,
+ &#39;pct_join&#39;: 70.12,
+ &#39;pct_missing&#39;: 29.88}
 </pre></div>
 </div>
 </div>
 </div>
-<p><strong>Note</strong> Revisit None vs NaN count.</p>
+<p><strong>Note</strong> Revisit None vs NaN count. May needd to sum nan separately.</p>
 <p>Reference:</p>
 <p><a class="reference external" href="https://stackoverflow.com/questions/18429491/pandas-groupby-columns-with-nan-missing-values">pandas GroupBy columns with NaN (missing) values</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_merge_gdf</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Borough&#39;</span><span class="p">],</span> <span class="n">dropna</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)[</span><span class="s1">&#39;Borough&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Borough
-BK      8941
-BX      2619
-MN      3060
-QN     13197
-SI      6263
-NaN        0
-Name: Borough, dtype: int64
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># len(street_flooding_mappluto_merge_gdf)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">street_flooding_mappluto_gdf_merge_gdf</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>35087
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># street_flooding_mappluto_merge_gdf.groupby([&#39;Borough&#39;], dropna = False)[&#39;Borough&#39;].count()</span>
 </pre></div>
 </div>
 </div>
@@ -2908,7 +3212,7 @@ Name: Borough, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;street_flood_orig&#39;: 35076, &#39;street_flood_clean&#39;: 34069, &#39;street_flood_mappluto_bbl&#39;: 21560, &#39;street_flood_mappluto_sjoin_nearest&#39;: 34080}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;street_flood_orig&#39;: 35156, &#39;street_flood_clean&#39;: 34147, &#39;street_flood_mappluto_bbl&#39;: 35156, &#39;street_flood_mappluto_sjoin_nearest&#39;: 34158}
 </pre></div>
 </div>
 </div>
@@ -2975,7 +3279,7 @@ Name: Borough, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;data/merge&#39;</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating new folder for merged streeet flooding and MapPluto dataset: &quot;data/merge&quot;&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating new folder for merged street flooding and MapPluto dataset: &quot;data/merge&quot;&#39;</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">&#39;data/merge&#39;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&quot;data/merge&quot; folder already exists&#39;</span><span class="p">)</span>
@@ -2991,26 +3295,17 @@ Name: Borough, dtype: int64
 </section>
 <section id="reindex-merged-geopandas-dataframe">
 <h4>Reindex Merged GeoPandas DataFrame<a class="headerlink" href="#reindex-merged-geopandas-dataframe" title="Permalink to this heading">#</a></h4>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_to_save</span> <span class="o">=</span> <span class="n">street_flooding_mappluto_gdf_merge_gdf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_to_save</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;orig_unique_key&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section id="save-as-gdb-using-openfilegdb-driver">
 <h4>Save as <code class="docutils literal notranslate"><span class="pre">.gdb</span></code> using <code class="docutils literal notranslate"><span class="pre">OpenFileGDB</span></code> driver<a class="headerlink" href="#save-as-gdb-using-openfilegdb-driver" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_to_save</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">merge_flood_mappluto_output_ofgdb</span><span class="p">,</span> <span class="n">driver</span> <span class="o">=</span> <span class="s1">&#39;OpenFileGDB&#39;</span><span class="p">,</span> <span class="n">crs</span> <span class="o">=</span> <span class="s1">&#39;EPSG:2263&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_merge_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span>
+    <span class="n">merge_flood_mappluto_output_ofgdb</span><span class="p">,</span> 
+    <span class="n">driver</span> <span class="o">=</span> <span class="s1">&#39;OpenFileGDB&#39;</span><span class="p">,</span> 
+    <span class="c1"># engine = &#39;fiona&#39;,</span>
+    <span class="c1"># crs = &#39;EPSG:4326&#39;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3020,11 +3315,36 @@ Name: Borough, dtype: int64
 <h4>Save as <code class="docutils literal notranslate"><span class="pre">.geojson</span></code> using <code class="docutils literal notranslate"><span class="pre">GeoJSON</span></code> driver<a class="headerlink" href="#save-as-geojson-using-geojson-driver" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_gdf_to_save</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">merge_flood_mappluto_output_geojson</span><span class="p">,</span> <span class="n">driver</span> <span class="o">=</span> <span class="s1">&#39;GeoJSON&#39;</span><span class="p">,</span> <span class="n">crs</span> <span class="o">=</span> <span class="s1">&#39;EPSG:2263&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">street_flooding_mappluto_merge_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span>
+    <span class="n">merge_flood_mappluto_output_geojson</span><span class="p">,</span> 
+    <span class="n">driver</span> <span class="o">=</span> <span class="s1">&#39;GeoJSON&#39;</span><span class="p">,</span> 
+    <span class="c1"># engine = &#39;fiona&#39;,</span>
+    <span class="c1"># crs = &#39;EPSG:4326&#39;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<section id="troubleshooting">
+<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this heading">#</a></h3>
+<section id="geospatial-libraries">
+<h4>geospatial libraries<a class="headerlink" href="#geospatial-libraries" title="Permalink to this heading">#</a></h4>
+<p><a class="reference external" href="https://stackoverflow.com/questions/69630630/on-fresh-conda-installation-of-pyproj-pyproj-unable-to-set-database-path-pypr">On fresh Conda installation of PyProj: pyproj unable to set database path. _pyproj_global_context_initialize()</a></p>
+<p><a class="reference external" href="https://github.com/geopandas/geopandas/issues/2562">CRSError: Invalid projection: EPSG:4326 : #2562</a></p>
+<p><a class="reference external" href="https://gis.stackexchange.com/questions/259902/gdal-importerror-dll-load-failed-the-specified-module-could-not-be-found">GDAL ImportError: DLL load failed: The specified module could not be found</a></p>
+<p><a class="reference external" href="https://stackoverflow.com/questions/34427788/how-to-successfully-install-pyproj-and-geopandas">how to successfully install pyproj and geopandas?</a></p>
+</section>
+<section id="geopandas-dataframes-and-categorical-data">
+<h4>GeoPandas DataFrames and categorical data<a class="headerlink" href="#geopandas-dataframes-and-categorical-data" title="Permalink to this heading">#</a></h4>
+<p><a class="reference external" href="https://github.com/geopandas/geopandas/issues/1883">BUG: to_file cannot write dataframes containing categorical data #1883</a></p>
+<p>Solution:</p>
+<p><code class="docutils literal notranslate"><span class="pre">gdf[&lt;new_column&gt;]</span> <span class="pre">=</span> <span class="pre">gdf.geometry.astype(str)</span></code></p>
+<p><a class="reference external" href="https://github.com/geopandas/geopandas/issues/824">.merge() keep returning pandas dataframe due to duplicate geometry columns #824</a></p>
 </section>
 </section>
 </section>
@@ -3039,16 +3359,16 @@ Name: Borough, dtype: int64
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "nyc-street-flooding-analysis-dev"
         },
         kernelOptions: {
-            name: "python3",
+            name: "nyc-street-flooding-analysis-dev",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'nyc-street-flooding-analysis-dev'</script>
 
                 </article>
               
@@ -3126,6 +3446,7 @@ Name: Borough, dtype: int64
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-street-flooding-geodataframe-s-bbl-column-from-object-to-float">Convert <code class="docutils literal notranslate"><span class="pre">Street</span> <span class="pre">Flooding</span></code> GeoDataFrame’s <code class="docutils literal notranslate"><span class="pre">bbl</span></code> column from <code class="docutils literal notranslate"><span class="pre">object</span></code> to <code class="docutils literal notranslate"><span class="pre">float</span></code>.</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#left-join-on-bbl">Left Join on <code class="docutils literal notranslate"><span class="pre">BBL</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#create-column-to-store-index-before-merge">Create column to store index before merge</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#preserve-multipolygon-geometry-for-the-bbl-merge">Preserve multipolygon geometry for the bbl merge</a></li>
 </ul>
 </li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-results-of-bbl-join">Preview Results of <code class="docutils literal notranslate"><span class="pre">BBL</span></code> Join</a><ul class="nav section-nav flex-column">
@@ -3181,6 +3502,14 @@ Name: Borough, dtype: int64
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reindex-merged-geopandas-dataframe">Reindex Merged GeoPandas DataFrame</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-as-gdb-using-openfilegdb-driver">Save as <code class="docutils literal notranslate"><span class="pre">.gdb</span></code> using <code class="docutils literal notranslate"><span class="pre">OpenFileGDB</span></code> driver</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-as-geojson-using-geojson-driver">Save as <code class="docutils literal notranslate"><span class="pre">.geojson</span></code> using <code class="docutils literal notranslate"><span class="pre">GeoJSON</span></code> driver</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting">Troubleshooting</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#geospatial-libraries">geospatial libraries</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#geopandas-dataframes-and-categorical-data">GeoPandas DataFrames and categorical data</a></li>
 </ul>
 </li>
 </ul>

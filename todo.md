@@ -1,5 +1,9 @@
 # Project Checklist
 
+## ETL
+
+- [ ] For the `merge-flood-pluto-census.ipynb`, check if `.gdb` and `.geojson exist for the latest NYC Street Flooding Dataset
+
 ## File Storage
 
 - [X] Activate Git Large File Storage and assess deploymnet impact

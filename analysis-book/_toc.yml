@@ -10,6 +10,7 @@ parts:
     chapters:
     - file: scrub-flood-data
     - file: merge-flood-pluto
+    # - file: merge-flood-pluto-census
     - file: scrub-process-diagram
     - file: join
   - caption: Explore 🗺
@@ -22,12 +23,12 @@ parts:
     chapters:
     - file: nyc-311-groundtruth
     - file: nyc-311-vs-stormwaterflood
-  - caption: Model 🏗
-    chapters:
-    - file: model-build
-  - caption: Interpret 💡
-    chapters:
-    - file: interpret-results
+  # - caption: Model 🏗
+  #   chapters:
+  #   - file: model-build
+  # - caption: Interpret 💡
+  #   chapters:
+  #   - file: interpret-results
   - caption: Resources 📑
     chapters:
     - file: references
