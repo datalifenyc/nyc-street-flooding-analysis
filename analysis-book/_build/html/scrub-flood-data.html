@@ -211,6 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Explore 🗺</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="explore-map.html">Explore Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pluto-311-dof-eda.html">EDA: PLUTO, 311, DOF</a></li>
+
 <li class="toctree-l1"><a class="reference external" href="https://nyc-street-flooding-analysis.datalife.nyc/data-profile.html">Data Profile</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Analysis 📈</span></p>
@@ -229,6 +231,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <li class="toctree-l1"><a class="reference internal" href="nyc-311-vs-stormwaterflood.html">NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="311-flood-housing.html">Analysis of 311 Street Flooding Complaints and NYC DOF Property Assessment &amp; Valuation Market Values</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources 📑</span></p>
 <ul class="nav bd-sidenav">
@@ -585,7 +588,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There were 35,169 street flooding complaints from 2010 to the present.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There were 35,225 street flooding complaints from 2010 to the present.
 </pre></div>
 </div>
 </div>
@@ -621,7 +624,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There were 34,160 street flooding complaints after rows with missing geometry have been removed.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There were 34,213 street flooding complaints after rows with missing geometry have been removed.
 </pre></div>
 </div>
 </div>
@@ -782,74 +785,74 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th>57048681</th>
-      <td>2023-03-15 09:50:00</td>
+      <th>57197757</th>
+      <td>2023-03-31 14:50:00</td>
       <td>QUEENS</td>
-      <td>4084500001</td>
-      <td>POINT (-73.71454 40.75155)</td>
+      <td>4035540010</td>
+      <td>POINT (-73.90314 40.69508)</td>
     </tr>
     <tr>
-      <th>57048703</th>
-      <td>2023-03-15 16:05:00</td>
-      <td>STATEN ISLAND</td>
-      <td>5005040147</td>
-      <td>POINT (-74.07790 40.63426)</td>
-    </tr>
-    <tr>
-      <th>57052236</th>
-      <td>2023-03-15 18:53:00</td>
-      <td>QUEENS</td>
-      <td>4013570031</td>
-      <td>POINT (-73.88483 40.76296)</td>
-    </tr>
-    <tr>
-      <th>57052413</th>
-      <td>2023-03-15 12:59:00</td>
-      <td>QUEENS</td>
-      <td>4056020010</td>
-      <td>POINT (-73.79092 40.75197)</td>
-    </tr>
-    <tr>
-      <th>57052415</th>
-      <td>2023-03-15 12:56:00</td>
-      <td>QUEENS</td>
-      <td>4155340045</td>
-      <td>POINT (-73.74951 40.60805)</td>
-    </tr>
-    <tr>
-      <th>57057945</th>
-      <td>2023-03-16 09:26:00</td>
+      <th>57198900</th>
+      <td>2023-03-31 15:56:00</td>
       <td>BROOKLYN</td>
-      <td>3074590059</td>
-      <td>POINT (-73.95365 40.58575)</td>
-    </tr>
-    <tr>
-      <th>57066330</th>
-      <td>2023-03-17 10:35:00</td>
-      <td>QUEENS</td>
       <td>NaN</td>
-      <td>POINT (-73.72693 40.75345)</td>
+      <td>POINT (-73.97547 40.67447)</td>
     </tr>
     <tr>
-      <th>57072975</th>
-      <td>2023-03-17 19:02:00</td>
+      <th>57200823</th>
+      <td>2023-04-01 17:05:00</td>
+      <td>BROOKLYN</td>
+      <td>3050530018</td>
+      <td>POINT (-73.96291 40.65447)</td>
+    </tr>
+    <tr>
+      <th>57200825</th>
+      <td>2023-04-01 19:56:00</td>
       <td>STATEN ISLAND</td>
-      <td>5060177501</td>
-      <td>POINT (-74.19191 40.55088)</td>
+      <td>5035730072</td>
+      <td>POINT (-74.09985 40.58014)</td>
     </tr>
     <tr>
-      <th>57074154</th>
-      <td>2023-03-17 09:02:00</td>
+      <th>57201654</th>
+      <td>2023-04-01 12:35:00</td>
       <td>QUEENS</td>
-      <td>4044960026</td>
-      <td>POINT (-73.81780 40.79592)</td>
+      <td>4062770002</td>
+      <td>POINT (-73.77331 40.76058)</td>
     </tr>
     <tr>
-      <th>57074234</th>
-      <td>2023-03-17 12:50:00</td>
+      <th>57202517</th>
+      <td>2023-04-01 21:32:00</td>
       <td>QUEENS</td>
-      <td>4126260022</td>
-      <td>POINT (-73.75067 40.69445)</td>
+      <td>4010500002</td>
+      <td>POINT (-73.89320 40.76207)</td>
+    </tr>
+    <tr>
+      <th>57204262</th>
+      <td>2023-04-01 23:17:00</td>
+      <td>BROOKLYN</td>
+      <td>3083070080</td>
+      <td>POINT (-73.88413 40.63804)</td>
+    </tr>
+    <tr>
+      <th>57204275</th>
+      <td>2023-04-01 16:14:00</td>
+      <td>BROOKLYN</td>
+      <td>3077180057</td>
+      <td>POINT (-73.93635 40.61422)</td>
+    </tr>
+    <tr>
+      <th>57204312</th>
+      <td>2023-04-01 14:32:00</td>
+      <td>BRONX</td>
+      <td>NaN</td>
+      <td>POINT (-73.90305 40.84063)</td>
+    </tr>
+    <tr>
+      <th>57204361</th>
+      <td>2023-04-01 14:17:00</td>
+      <td>BRONX</td>
+      <td>NaN</td>
+      <td>POINT (-73.88099 40.87091)</td>
     </tr>
   </tbody>
 </table>

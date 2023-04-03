@@ -15,6 +15,8 @@ execute:
     - 'explore-data-profiling.ipynb'
     - 'nyc-311-vs-stormwaterflood.ipynb'
     - 'merge-flood-pluto-census.ipynb'
+    - '311-flood-housing.ipynb'
+    - 'pluto-311-dof-eda.ipynb'
 
 # HTML-specific settings
 html:

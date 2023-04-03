@@ -1,0 +1,1446 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>EDA: PLUTO, 311, DOF &#8212; &lt;b&gt;Going Beyond EDA&lt;/b&gt;&lt;br&gt;A Deeper Analysis of NYC 311 Street Flooding Complaints</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datalifenyc/nyc-street-flooding-analysis");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pluto-311-dof-eda';</script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City" href="nyc-311-groundtruth.html" />
+    <link rel="prev" title="Explore Map" href="explore-map.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="about.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nyc-street-flooding-complaints-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/nyc-street-flooding-complaints-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="about.html">
+                    NYC Open Data Week 2023 📊
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Obtain 💾</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="obtain-flood-data.html">Street Flooding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="obtain-pluto-data.html">PLUTO &amp; MapPLUTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="obtain-census-data.html">U.S. Census Bureau Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scrub &amp; Merge 🧹</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="scrub-flood-data.html">Clean Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge-flood-pluto.html">Street Flooding &amp; MapPLUTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrub-process-diagram.html">ETL Diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="join.html">Join Tutorial</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Explore 🗺</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="explore-map.html">Explore Map</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">EDA: PLUTO, 311, DOF</a></li>
+
+<li class="toctree-l1"><a class="reference external" href="https://nyc-street-flooding-analysis.datalife.nyc/data-profile.html">Data Profile</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Analysis 📈</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="nyc-311-groundtruth.html">Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="nyc-311-vs-stormwaterflood.html">NYC 311 Complaints vs Storm Water Flooding by Neighborhood Tabulation Areas (NTAs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="311-flood-housing.html">Analysis of 311 Street Flooding Complaints and NYC DOF Property Assessment &amp; Valuation Market Values</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources 📑</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-libraries.html">Python Libraries</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?labpath=analysis-book%2F/v2/gh/datalifenyc/nyc-street-flooding-analysis/main?urlpath=tree/analysis-book/pluto-311-dof-eda.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/datalifenyc/nyc-street-flooding-analysis/blob/main/analysis-book/pluto-311-dof-eda.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/datalifenyc/nyc-street-flooding-analysis" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/datalifenyc/nyc-street-flooding-analysis/issues/new?title=Issue%20on%20page%20%2Fpluto-311-dof-eda.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/pluto-311-dof-eda.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>EDA: PLUTO, 311, DOF</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">EDA: PLUTO, 311, DOF</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#street-flooding-data">311 street flooding data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mappluto-data">MapPLUTO data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pluto-data">PLUTO data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dept-of-finance-property-assessment-valuation-data-sample-response">Dept of finance Property Assessment &amp; Valuation data sample response</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dept-of-finance-property-assessment-valuation-tax-class-1-2-3-4-data-from-api">Dept of finance Property Assessment &amp; Valuation tax class 1, 2, 3, 4 data from API</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-property-valuation-and-assessment-tax-class-1-2-3-4-from-the-nyc-dept-of-finance-eda">Import - Property Valuation and Assessment tax class 1, 2, 3, 4 from the NYC Dept of Finance EDA</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pluto-eda">PLUTO EDA</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#take-a-closer-look-at-columns-with-outliers">Take a closer look at columns with outliers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yearbuilt">yearbuilt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assesstot">assesstot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unitstotal">unitstotal</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-pluto-flood-bbls">Map PLUTO flood bbls</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eda">311 EDA</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="eda-pluto-311-dof">
+<h1>EDA: PLUTO, 311, DOF<a class="headerlink" href="#eda-pluto-311-dof" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">plotly</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">FuncFormatter</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">make_axes_locatable</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">max_rows</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">max_columns</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="kn">from</span> <span class="nn">nwConfig</span> <span class="kn">import</span> <span class="n">socrataAppToken</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="import-data">
+<h2>Import data<a class="headerlink" href="#import-data" title="Permalink to this heading">#</a></h2>
+<section id="street-flooding-data">
+<h3>311 street flooding data<a class="headerlink" href="#street-flooding-data" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># socrata app token</span>
+<span class="n">appToken</span> <span class="o">=</span> <span class="n">socrataAppToken</span>
+
+<span class="c1"># create API request variables</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;X-App-Token&#39;</span><span class="p">:</span> <span class="n">appToken</span><span class="p">}</span>
+<span class="n">search_api_url</span> <span class="o">=</span> <span class="s1">&#39;https://data.cityofnewyork.us/resource/erm2-nwe9.json&#39;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;descriptor&#39;</span><span class="p">:</span> <span class="s1">&#39;Street Flooding (SJ)&#39;</span><span class="p">,</span> <span class="s1">&#39;$limit&#39;</span><span class="p">:</span> <span class="mi">50000</span><span class="p">}</span>
+
+<span class="c1"># call API with pandas requests method</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">search_api_url</span><span class="p">,</span> 
+                        <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> 
+                        <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> 
+                        <span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># return a dictionary</span>
+<span class="n">data_dict</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+
+<span class="n">raw311</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+
+<span class="n">raw311</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mappluto-data">
+<h3>MapPLUTO data<a class="headerlink" href="#mappluto-data" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # import MapPLUTO dataset - limit to 10 rows because it&#39;s taking too long to process</span>
+<span class="c1"># mapPLUTO = gpd.read_file(r&#39;D:\Documents\Jupyter_Notebooks\311\data\mapPLUTO\MapPLUTO.shp&#39;, rows=10)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pluto-data">
+<h3>PLUTO data<a class="headerlink" href="#pluto-data" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># declare datatypes for columns</span>
+<span class="n">dtypes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;borough&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;block&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;lot&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;community board&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;census tract 2010&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+       <span class="s1">&#39;cb2010&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;schooldist&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;council district&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;postcode&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+       <span class="s1">&#39;zonedist1&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+       <span class="s1">&#39;bldgclass&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;landuse&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;ownertype&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;ownername&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+       <span class="s1">&#39;bbl&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+       <span class="s1">&#39;tract2010&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">}</span>
+
+<span class="c1"># read text file</span>
+<span class="n">rawPluto</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;D:\Documents\Jupyter_Notebooks\311\data\Primary_Land_Use_Tax_Lot_Output__PLUTO_.csv&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtypes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dept-of-finance-property-assessment-valuation-data-sample-response">
+<h3>Dept of finance Property Assessment &amp; Valuation data sample response<a class="headerlink" href="#dept-of-finance-property-assessment-valuation-data-sample-response" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://data.cityofnewyork.us/City-Government/Property-Valuation-and-Assessment-Data/yjxr-fw8i">https://data.cityofnewyork.us/City-Government/Property-Valuation-and-Assessment-Data/yjxr-fw8i</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create API request variables</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;X-App-Token&#39;</span><span class="p">:</span> <span class="n">appToken</span><span class="p">}</span>
+<span class="n">search_api_url</span> <span class="o">=</span> <span class="s1">&#39;https://data.cityofnewyork.us/resource/yjxr-fw8i.json&#39;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;$limit&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;$select&#39;</span><span class="p">:</span> <span class="s1">&#39;BBLE, BORO, BLOCK, LOT, EASEMENT, BLDGCL, TAXCLASS, FULLVAL, STADDR, ZIP, YEAR&#39;</span><span class="p">}</span>
+
+<span class="c1"># call API with pandas requests method</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">search_api_url</span><span class="p">,</span> 
+                                <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> 
+                                <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> 
+                                <span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># return a dictionary</span>
+<span class="n">data_dict</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="c1"># convert dictionary to dataframe</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data_dict</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dept-of-finance-property-assessment-valuation-tax-class-1-2-3-4-data-from-api">
+<h3>Dept of finance Property Assessment &amp; Valuation tax class 1, 2, 3, 4 data from API<a class="headerlink" href="#dept-of-finance-property-assessment-valuation-tax-class-1-2-3-4-data-from-api" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://data.cityofnewyork.us/City-Government/Property-Valuation-and-Assessment-Data-Tax-Classes/8y4t-faws">https://data.cityofnewyork.us/City-Government/Property-Valuation-and-Assessment-Data-Tax-Classes/8y4t-faws</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># socrata app token</span>
+<span class="n">appToken</span> <span class="o">=</span> <span class="n">socrataAppToken</span>
+
+<span class="c1"># empty list to collect API request data</span>
+<span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># offset to increment requests through full dataset</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">70</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># create API request variables</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;X-App-Token&#39;</span><span class="p">:</span> <span class="n">appToken</span><span class="p">}</span>
+        <span class="n">search_api_url</span> <span class="o">=</span> <span class="s1">&#39;https://data.cityofnewyork.us/resource/8y4t-faws.json&#39;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;$limit&#39;</span><span class="p">:</span> <span class="mi">100000</span><span class="p">,</span> <span class="s1">&#39;$select&#39;</span><span class="p">:</span> <span class="s1">&#39;parid, boro, block, lot, BLDG_CLASS, PYMKTTOT, TENTAXCLASS, YEAR, HOUSENUM_LO, HOUSENUM_HI, STREET_NAME, ZIP_CODE&#39;</span><span class="p">,</span> <span class="s1">&#39;$offset&#39;</span><span class="p">:</span> <span class="n">offset</span><span class="p">}</span>
+
+        <span class="c1"># call API with pandas requests method</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">search_api_url</span><span class="p">,</span> 
+                                <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> 
+                                <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> 
+                                <span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+        <span class="c1"># return a dictionary</span>
+        <span class="n">data_dict</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="c1"># convert dictionary to dataframe</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+        <span class="c1"># append dataframe to list</span>
+        <span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># add 1000 to offset</span>
+        <span class="n">offset</span> <span class="o">+=</span> <span class="mi">100000</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Current offset number: </span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Exception: </span><span class="si">{</span><span class="n">ex</span><span class="si">}</span><span class="se">\n</span><span class="s1">exit loop&#39;</span><span class="p">)</span>
+        <span class="k">break</span>
+
+<span class="n">fin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create bbl column</span>
+<span class="n">fin</span><span class="p">[</span><span class="s1">&#39;block&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fin</span><span class="p">[</span><span class="s1">&#39;block&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">fin</span><span class="p">[</span><span class="s1">&#39;lot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fin</span><span class="p">[</span><span class="s1">&#39;lot&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">fin</span><span class="p">[</span><span class="s1">&#39;bbl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fin</span><span class="p">[</span><span class="s1">&#39;boro&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">fin</span><span class="p">[</span><span class="s1">&#39;block&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">fin</span><span class="p">[</span><span class="s1">&#39;lot&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create csv file</span>
+<span class="n">fin</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;D:\Documents\Jupyter_Notebooks\311\data\finData.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fin</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fin</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fin</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;D:\Documents\Jupyter_Notebooks\311\data\finData.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="import-property-valuation-and-assessment-tax-class-1-2-3-4-from-the-nyc-dept-of-finance-eda">
+<h2>Import - Property Valuation and Assessment tax class 1, 2, 3, 4 from the NYC Dept of Finance EDA<a class="headerlink" href="#import-property-valuation-and-assessment-tax-class-1-2-3-4-from-the-nyc-dept-of-finance-eda" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># declare datatypes for columns</span>
+<span class="n">dtypes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;boro&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;block&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;lot&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;parid&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;ZIP_CODE&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;bbl&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">}</span>
+
+<span class="c1"># read text file</span>
+<span class="n">finRaw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;D:\Documents\Jupyter_Notebooks\311\data\finData.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtypes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">finRaw</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">finRaw</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">finRaw</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">finRaw</span><span class="p">[</span><span class="s1">&#39;YEAR&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">finRaw</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">finRaw</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">finRaw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">finRaw</span><span class="p">[</span><span class="s1">&#39;PYMKTTOT&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">,</span><span class="s1">&#39;PYMKTTOT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print number of unique parid and bbl in whole data set</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="n">finRaw</span><span class="p">[</span><span class="s1">&#39;parid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> unique parid&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="n">finRaw</span><span class="p">[</span><span class="s1">&#39;bbl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> unique bbl &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print number of unique parid and bbl in one year</span>
+<span class="n">year</span> <span class="o">=</span> <span class="mi">2021</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="n">finRaw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">finRaw</span><span class="p">[</span><span class="s1">&#39;YEAR&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="s1">&#39;parid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> unique parid in </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="n">finRaw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">finRaw</span><span class="p">[</span><span class="s1">&#39;YEAR&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bbl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> unique bbl in </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># list of bbls from df</span>
+<span class="n">bbl_list</span> <span class="o">=</span> <span class="n">finRaw</span><span class="p">[</span><span class="s1">&#39;bbl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bbl_list</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">finRaw</span><span class="p">[</span><span class="n">finRaw</span><span class="p">[</span><span class="s1">&#39;bbl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">bbl_list</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">])]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;bbl&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># take out all condominium building classes except R0 - Special Condominium Billing Lot</span>
+<span class="c1"># this filter approximately matches the PLUTO list of BBLS</span>
+<span class="n">fin_cond_filter</span> <span class="o">=</span> <span class="n">finRaw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">finRaw</span><span class="p">[</span><span class="s1">&#39;BLDG_CLASS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;RA&#39;</span><span class="p">,</span> <span class="s1">&#39;RB&#39;</span><span class="p">,</span> <span class="s1">&#39;RG&#39;</span><span class="p">,</span> <span class="s1">&#39;RH&#39;</span><span class="p">,</span> <span class="s1">&#39;RK&#39;</span><span class="p">,</span> <span class="s1">&#39;RP&#39;</span><span class="p">,</span> <span class="s1">&#39;RR&#39;</span><span class="p">,</span> <span class="s1">&#39;RS&#39;</span><span class="p">,</span> <span class="s1">&#39;RT&#39;</span><span class="p">,</span> <span class="s1">&#39;RW&#39;</span><span class="p">,</span>
+                                                         <span class="s1">&#39;R1&#39;</span><span class="p">,</span> <span class="s1">&#39;R2&#39;</span><span class="p">,</span> <span class="s1">&#39;R3&#39;</span><span class="p">,</span> <span class="s1">&#39;R4&#39;</span><span class="p">,</span> <span class="s1">&#39;R5&#39;</span><span class="p">,</span> <span class="s1">&#39;R6&#39;</span><span class="p">,</span> <span class="s1">&#39;R7&#39;</span><span class="p">,</span> <span class="s1">&#39;R8&#39;</span><span class="p">,</span> <span class="s1">&#39;R9&#39;</span><span class="p">,</span> <span class="s1">&#39;RR&#39;</span><span class="p">])]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print number of unique parid and bbl in whole data set</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="n">fin_cond_filter</span><span class="p">[</span><span class="s1">&#39;parid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> unique parid&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="n">fin_cond_filter</span><span class="p">[</span><span class="s1">&#39;bbl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> unique bbl &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print number of unique parid and bbl in one year</span>
+<span class="n">year</span> <span class="o">=</span> <span class="mi">2021</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="n">fin_cond_filter</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">finRaw</span><span class="p">[</span><span class="s1">&#39;YEAR&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="s1">&#39;parid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> unique parid in </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="n">fin_cond_filter</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">finRaw</span><span class="p">[</span><span class="s1">&#39;YEAR&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bbl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> unique bbl in </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df filtered for 2023 market values</span>
+<span class="n">market_2023</span> <span class="o">=</span> <span class="n">fin_cond_filter</span><span class="p">[</span><span class="n">fin_cond_filter</span><span class="p">[</span><span class="s1">&#39;YEAR&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2023</span><span class="p">]</span>
+<span class="c1"># create dataframe of market value grouped by bbl</span>
+<span class="n">market_bbl_2023</span> <span class="o">=</span> <span class="n">market_2023</span><span class="p">[[</span><span class="s1">&#39;bbl&#39;</span><span class="p">,</span> <span class="s1">&#39;PYMKTTOT&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;bbl&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">market_bbl_2023</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">market_bbl_2023</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">market_bbl_2023</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="pluto-eda">
+<h1>PLUTO EDA<a class="headerlink" href="#pluto-eda" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rawPluto</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># identify pluto columns to keep from data dictionary description</span>
+<span class="n">cols_to_keep</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;borough&#39;</span><span class="p">,</span> <span class="s1">&#39;block&#39;</span><span class="p">,</span> <span class="s1">&#39;lot&#39;</span><span class="p">,</span> <span class="s1">&#39;community board&#39;</span><span class="p">,</span> <span class="s1">&#39;census tract 2010&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;cb2010&#39;</span><span class="p">,</span> <span class="s1">&#39;schooldist&#39;</span><span class="p">,</span> <span class="s1">&#39;council district&#39;</span><span class="p">,</span> <span class="s1">&#39;postcode&#39;</span><span class="p">,</span> <span class="s1">&#39;address&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;zonedist1&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;bldgclass&#39;</span><span class="p">,</span> <span class="s1">&#39;landuse&#39;</span><span class="p">,</span> <span class="s1">&#39;ownertype&#39;</span><span class="p">,</span> <span class="s1">&#39;ownername&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;lotarea&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;unitsres&#39;</span><span class="p">,</span> <span class="s1">&#39;unitstotal&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;assessland&#39;</span><span class="p">,</span> <span class="s1">&#39;assesstot&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;yearbuilt&#39;</span><span class="p">,</span> <span class="s1">&#39;bbl&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;tract2010&#39;</span><span class="p">,</span> <span class="s1">&#39;xcoord&#39;</span><span class="p">,</span> <span class="s1">&#39;ycoord&#39;</span><span class="p">,</span> <span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;firm07_flag&#39;</span><span class="p">,</span> <span class="s1">&#39;pfirm15_flag&#39;</span><span class="p">]</span>
+
+<span class="n">PLUTO</span> <span class="o">=</span><span class="n">rawPluto</span><span class="p">[</span><span class="n">cols_to_keep</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PLUTO</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PLUTO</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># look at values in flood map column</span>
+<span class="n">PLUTO</span><span class="p">[</span><span class="s1">&#39;pfirm15_flag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PLUTO</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PLUTO</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="take-a-closer-look-at-columns-with-outliers">
+<h2>Take a closer look at columns with outliers<a class="headerlink" href="#take-a-closer-look-at-columns-with-outliers" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print out boxplot of outliers for each columns</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">PLUTO</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">PLUTO</span><span class="p">[</span><span class="n">column</span><span class="p">])):</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">PLUTO</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="n">PLUTO</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+        <span class="n">new_df</span> <span class="o">=</span> <span class="n">PLUTO</span><span class="p">[(</span><span class="n">PLUTO</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">mean</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">std</span><span class="p">))</span> <span class="o">|</span> <span class="p">(</span><span class="n">PLUTO</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">mean</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">std</span><span class="p">))]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================================&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column: </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean: </span><span class="si">{</span><span class="n">mean</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lower Bound: </span><span class="si">{</span><span class="n">mean</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">std</span><span class="si">}</span><span class="s2">, Upper bound: </span><span class="si">{</span><span class="n">mean</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">std</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Outlier count: </span><span class="si">{</span><span class="n">new_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">new_df</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================================&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="yearbuilt">
+<h3>yearbuilt<a class="headerlink" href="#yearbuilt" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PLUTO</span><span class="p">[</span><span class="s1">&#39;yearbuilt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove outliers from yearbuilt</span>
+<span class="n">PLUTO</span><span class="p">[</span><span class="s1">&#39;yearbuilt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">PLUTO</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">PLUTO</span><span class="p">[</span><span class="s1">&#39;yearbuilt&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1750</span><span class="p">,</span> <span class="s1">&#39;yearbuilt&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="assesstot">
+<h3>assesstot<a class="headerlink" href="#assesstot" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PLUTO</span><span class="p">[</span><span class="s1">&#39;assesstot&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PLUTO</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">PLUTO</span><span class="p">[</span><span class="s1">&#39;assesstot&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1000000000</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PLUTO</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">PLUTO</span><span class="p">[</span><span class="s1">&#39;assesstot&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1000000</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="unitstotal">
+<h3>unitstotal<a class="headerlink" href="#unitstotal" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PLUTO</span><span class="p">[</span><span class="s1">&#39;unitstotal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="map-pluto-flood-bbls">
+<h2>Map PLUTO flood bbls<a class="headerlink" href="#map-pluto-flood-bbls" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># filter PLUTO to get flood dataframe for pfirm 2015 flood map</span>
+<span class="n">flood_bbls</span> <span class="o">=</span> <span class="n">PLUTO</span><span class="p">[</span><span class="n">PLUTO</span><span class="p">[</span><span class="s1">&#39;pfirm15_flag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flood_bbls</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flood_bbls</span><span class="p">[[</span><span class="s1">&#39;xcoord&#39;</span><span class="p">,</span> <span class="s1">&#39;ycoord&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create geodataframe</span>
+<span class="n">PLUTO_flood_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">flood_bbls</span><span class="p">,</span> 
+                       <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">flood_bbls</span><span class="p">[</span><span class="s1">&#39;xcoord&#39;</span><span class="p">],</span> 
+                                                   <span class="n">flood_bbls</span><span class="p">[</span><span class="s1">&#39;ycoord&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set crs</span>
+<span class="n">PLUTO_flood_gdf</span> <span class="o">=</span> <span class="n">PLUTO_flood_gdf</span><span class="o">.</span><span class="n">set_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">2263</span><span class="p">)</span>
+
+<span class="n">PLUTO_flood_gdf</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PLUTO_flood_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PLUTO_flood_gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plotly express map</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter_mapbox</span><span class="p">(</span><span class="n">flood_bbls</span><span class="p">,</span>
+                    <span class="n">lat</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span>
+                    <span class="n">lon</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span>
+                    <span class="n">hover_name</span><span class="o">=</span><span class="s1">&#39;flood &#39;</span><span class="p">,</span>
+                    <span class="n">hover_data</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bbl&#39;</span><span class="p">],</span>
+                    <span class="n">zoom</span><span class="o">=</span><span class="mi">9</span>
+                    <span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">mapbox_style</span><span class="o">=</span><span class="s2">&quot;carto-positron&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;r&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="s2">&quot;l&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">})</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># geo_df = gpd.read_file(gpd.datasets.get_path(&#39;naturalearth_cities&#39;))</span>
+
+<span class="c1"># #px.set_mapbox_access_token(open(&quot;.mapbox_token&quot;).read())</span>
+<span class="c1"># fig = px.scatter_geo(geo_df,</span>
+<span class="c1">#                     lat=geo_df.geometry.y,</span>
+<span class="c1">#                     lon=geo_df.geometry.x,</span>
+<span class="c1">#                     hover_name=&quot;name&quot;)</span>
+<span class="c1"># fig.show()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="eda">
+<h2>311 EDA<a class="headerlink" href="#eda" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># previewing first five rows in data</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;shape of data: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">raw311</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="n">raw311</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># printing True/False if column is unique on our unique key (DOITT_ID)</span>
+<span class="n">raw311</span><span class="p">[</span><span class="s1">&#39;unique_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">is_unique</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw311</span><span class="p">[</span><span class="s1">&#39;descriptor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sum of nulls in column:&#39;</span><span class="p">)</span>
+<span class="n">raw311</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw311</span><span class="p">[[</span><span class="s1">&#39;x_coordinate_state_plane&#39;</span><span class="p">,</span> <span class="s1">&#39;y_coordinate_state_plane&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dropping nulls in the x, y coordinate columns and creating a geodataframe.&#39;</span><span class="p">)</span>
+
+<span class="n">to_points</span> <span class="o">=</span> <span class="n">raw311</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">raw311</span><span class="p">[</span><span class="s1">&#39;x_coordinate_state_plane&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()]</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">to_points</span><span class="p">,</span> 
+                       <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">to_points</span><span class="p">[</span><span class="s1">&#39;x_coordinate_state_plane&#39;</span><span class="p">],</span> 
+                                                   <span class="n">to_points</span><span class="p">[</span><span class="s1">&#39;y_coordinate_state_plane&#39;</span><span class="p">]))</span>
+
+<span class="n">gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Our new dataframe contains </span><span class="si">{:,}</span><span class="s1"> rows.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">)))</span>
+<span class="n">total</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">raw311</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">))</span>
+<span class="n">percent</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">raw311</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;We&#39;ve dropped </span><span class="si">{}</span><span class="s2"> rows or </span><span class="si">{}% o</span><span class="s2">f our data for mapping purposes.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">percent</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span><span class="p">[[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nulls in our x, y coordinate columns:&#39;</span><span class="p">)</span>
+<span class="n">gdf</span><span class="p">[[</span><span class="s1">&#39;x_coordinate_state_plane&#39;</span><span class="p">,</span> <span class="s1">&#39;y_coordinate_state_plane&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;created_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;created_date&#39;</span><span class="p">])</span>
+<span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;created_date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+
+<span class="n">gdf</span><span class="p">[[</span><span class="s1">&#39;created_date&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Summary statistics on our date column.&#39;</span><span class="p">)</span>
+<span class="n">gdf</span><span class="p">[[</span><span class="s1">&#39;created_date&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">datetime_is_numeric</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">gdf</span><span class="p">))</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">set_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">2263</span><span class="p">)</span>
+
+<span class="n">gdf</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read in nta shapefile</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://data.cityofnewyork.us/api/geospatial/cpf4-rkhq?method=export&amp;format=GeoJSON&#39;</span>
+<span class="n">nta_shape</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;shape of data: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nta_shape</span><span class="p">)))</span>
+<span class="n">nta_shape</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nta_shape</span> <span class="o">=</span> <span class="n">nta_shape</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">2263</span><span class="p">)</span>
+<span class="n">nta_shape</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="c1">#latest, earliest = gdf[&#39;created_date&#39;].max().strftime(&quot;%m/%d/%Y&quot;), raw311[&#39;created_date&#39;].min().strftime(&quot;%m/%d/%Y&quot;)</span>
+<span class="n">latest</span><span class="p">,</span> <span class="n">earlier</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;created_date&#39;</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;created_date&#39;</span><span class="p">])</span>
+<span class="n">hb</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">hexbin</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;x_coordinate_state_plane&#39;</span><span class="p">],</span> 
+               <span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;y_coordinate_state_plane&#39;</span><span class="p">],</span> 
+               <span class="n">gridsize</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> 
+               <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
+
+<span class="n">divider</span> <span class="o">=</span> <span class="n">make_axes_locatable</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">cax</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">append_axes</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;5%&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">hb</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax</span><span class="p">)</span>
+
+<span class="n">nta_shape</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> 
+               <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> 
+               <span class="n">linewidth</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span>
+               <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Count of NYC 311 Street Flooding Complaints from 2010 to 2023&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;earliest:</span><span class="si">{</span><span class="n">earlier</span><span class="si">}</span><span class="s1">, latest:</span><span class="si">{</span><span class="n">latest</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "datalifenyc/nyc-street-flooding-analysis",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="explore-map.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Explore Map</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="nyc-311-groundtruth.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Investigating the correlation between high precipitation events and 311 street flooding complaints in New York City</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">EDA: PLUTO, 311, DOF</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#street-flooding-data">311 street flooding data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mappluto-data">MapPLUTO data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pluto-data">PLUTO data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dept-of-finance-property-assessment-valuation-data-sample-response">Dept of finance Property Assessment &amp; Valuation data sample response</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dept-of-finance-property-assessment-valuation-tax-class-1-2-3-4-data-from-api">Dept of finance Property Assessment &amp; Valuation tax class 1, 2, 3, 4 data from API</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-property-valuation-and-assessment-tax-class-1-2-3-4-from-the-nyc-dept-of-finance-eda">Import - Property Valuation and Assessment tax class 1, 2, 3, 4 from the NYC Dept of Finance EDA</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pluto-eda">PLUTO EDA</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#take-a-closer-look-at-columns-with-outliers">Take a closer look at columns with outliers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yearbuilt">yearbuilt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assesstot">assesstot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unitstotal">unitstotal</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-pluto-flood-bbls">Map PLUTO flood bbls</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eda">311 EDA</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ho Hsieh, Nathan Williamson, Mark Bauer, Chidi Ezeolu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
